@@ -8,3 +8,5 @@
 
 /* Tagged display equations: keep MathJax min-width inside the scroll box (added for this course). */
 mjx-container[display=true]{min-width:0!important;max-width:100%}
+
+:root{--lead-version:1}.lead{font-size:1.18em;line-height:1.6;color:var(--ink);border-left:3px solid var(--accent);padding:.2rem 0 .2rem 1rem;margin:1.2rem 0}.source-note{font:.85rem/1.55 system-ui,sans-serif;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:.35rem;padding:.8rem 1rem;margin:1.2rem 0}@media print{.source-note{background:#fff}}

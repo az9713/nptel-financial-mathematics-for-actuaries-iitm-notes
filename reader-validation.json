@@ -1,19 +1,113 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-07T03:07:05.861721+00:00",
+  "checked_at_utc": "2026-10-08T04:02:16.070848+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
-    "html_files": 4,
-    "local_links_checked": 36,
-    "timestamps_checked": 0,
+    "html_files": 5,
+    "local_links_checked": 47,
+    "timestamps_checked": 10,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
     "warnings": []
   },
   "browser": {
-    "status": "not performed",
-    "reason": "--browser not requested"
+    "status": "passed",
+    "findings": [
+      {
+        "mathErrors": 0,
+        "mathNodes": 597,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-07-annuities-immediate-due-accumulated-and-monthly.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 597,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-07-annuities-immediate-due-accumulated-and-monthly.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "index.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "index.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "numerical-lab.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "numerical-lab.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "references.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "references.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "source-map.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 0,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "source-map.html",
+        "viewport": 390
+      }
+    ],
+    "failures": [],
+    "clipboard": "Fallback branch checked with captured text; manual OS clipboard verification not performed",
+    "network": "HTTP and HTTPS requests blocked during browser checks"
   },
   "pedagogy": {
     "status": "not performed",

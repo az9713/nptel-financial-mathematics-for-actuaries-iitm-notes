@@ -1,0 +1,410 @@
+{
+  "chapter": 7,
+  "title": "Annuities-immediate and annuities-due: present value, accumulated value and monthly payments",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 3 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "sHveWKhBGoQ",
+      "lecture": "Lecture 16",
+      "media_sha256": "7290a480547af27725c15a20ceb9f7ca98d095f35dcfb940efe2e3d01b9cc89d",
+      "duration_seconds": 1909,
+      "transcript_first_start_seconds": 11.84,
+      "transcript_last_end_seconds": 1905.52
+    },
+    {
+      "video_id": "2MMTU96FSJU",
+      "lecture": "Lecture 17",
+      "media_sha256": "1bbfd7ca940653ef4e803f3b6eabb1324cdeb1e853c73d90a183b393d38167f2",
+      "duration_seconds": 1412,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1407.28
+    },
+    {
+      "video_id": "nPqoMfOri4Q",
+      "lecture": "Lecture 18",
+      "media_sha256": "aaf78171c5777e0355c7fe632cac22232bc3d4ecf88f7c7552e15ae68520b50f",
+      "duration_seconds": 1184,
+      "transcript_first_start_seconds": 12.08,
+      "transcript_last_end_seconds": 1178.64
+    },
+    {
+      "video_id": "Nmh_3tTCv38",
+      "lecture": "Lecture 19",
+      "media_sha256": "93f3a6796fa7cd35031ce855097073087864851280ffe861470a473764463726",
+      "duration_seconds": 1379,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1376.16
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "Ojlvcq0ZYuo",
+      "lecture": "Lecture 20",
+      "kind": "lab",
+      "media_sha256": "8e2de818e7a5c83678bcde93827eb8845234b57a9bf0c11699870e0b82946933",
+      "duration_seconds": 1270,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1266.56,
+      "used_for": "Section 'Two phases on one timeline: the retirement-planning lab' (the two-phase plan, the unified equation of value at the retirement date, the lab's calculator results 950,419.96, 272.25, 1,613.56 and the early-retirement surplus, the two readings of its interest entry); the structure of the running case (saving phase and income phase joined at one focal date); the idea behind Exercise 3 (a quoted rate without a compounding frequency), restated with original numbers."
+    }
+  ],
+  "frames_viewed": {
+    "sHveWKhBGoQ": [
+      "f0001",
+      "f0008",
+      "f0016",
+      "f0019",
+      "f0020",
+      "f0023",
+      "f0029",
+      "f0036",
+      "f0040",
+      "f0043",
+      "f0053",
+      "f0055",
+      "f0058",
+      "f0059",
+      "f0062"
+    ],
+    "2MMTU96FSJU": [
+      "f0001",
+      "f0008",
+      "f0009",
+      "f0014",
+      "f0019",
+      "f0025",
+      "f0035",
+      "f0038",
+      "f0041",
+      "f0044",
+      "f0046"
+    ],
+    "nPqoMfOri4Q": [
+      "f0010",
+      "f0013",
+      "f0015",
+      "f0021",
+      "f0032",
+      "f0035",
+      "f0037"
+    ],
+    "Nmh_3tTCv38": [
+      "f0001",
+      "f0006",
+      "f0014",
+      "f0018",
+      "f0030",
+      "f0034",
+      "f0038",
+      "f0039",
+      "f0044"
+    ],
+    "Ojlvcq0ZYuo": [
+      "f0010",
+      "f0014",
+      "f0019",
+      "f0022",
+      "f0026",
+      "f0028",
+      "f0035",
+      "f0037"
+    ]
+  },
+  "source_uncertainties": [
+    "Durations: transcript.json media_duration gives 1909, 1412, 1184, 1379 and 1270 s for Lectures 16-20; source-manifest.json gives 1910, 1413, 1185, 1380 and 1270 s. This file uses the transcript.json values; every timestamp in the chapter (largest: L17 17:40 = 1060 s; L19 3:03; L20 3:03) lies inside both.",
+    "Instructor: the title slides of Lectures 16, 17 and 19 (f0001, viewed at full size) name Prof. Neelesh S. Upadhye, IIT Madras, Week 4; the slide footers repeat the name. The title frames of Lectures 18 and 20 were seen only on contact sheet s01 and show the same layout and name at small size. No other presenter is named in the frames viewed.",
+    "Reference-mapping boxes on the roadmap slides (slide facts, not cited, books not open): Lecture 16 (f0008) Broverman section 2.1, Chan and Tse section 2.1; Lecture 17 (roadmap, contact sheet s01) Broverman 2.1, Chan and Tse 2.2; Lecture 18 (roadmap, contact sheet s01) Broverman 2.1, Chan and Tse 2.1-2.2; Lecture 19 (f0006) Broverman 2.2, Chan and Tse 2.5 and 2.7.",
+    "Calculator: the slides name the BA II Plus (L16 f0029, L17 f0019). The keys shown in Lecture 16 are on a software calculator window; Lecture 17 f0041 shows a different calculator image. The chapter names only the BA II Plus, as the slides do, and cites the Texas Instruments guidebook for the settings.",
+    "Lecture 20 lab, rate convention: the recording describes the retirement-phase 4% and the saving-phase 8% as effective annual rates, and the liability slide (f0010) writes PV65 = 12 x 5000 x a-double-dot(12) angle 25 at 4% (the 4% has no frequency on the slide). The calculator setup slides (f0014, f0019) use P/Y = 12 and C/Y = 12 with I/Y = 4 and I/Y = 8; by the TI guidebook formula (p. 69) this is a monthly rate of I/Y/1200, i.e. nominal rates convertible monthly (effective 4.0742% and 8.2999%). The slide results 950,419.96 and 272.25 (and 1,613.56) reproduce only under the nominal reading; under effective 4% and 8% they are 957,511.81 and 295.06 (and 1,670.34). The chapter states both readings and does not choose for the lab.",
+    "Lecture 19 calculator slide (f0034): its alternative, entering the annual rate when P/Y matches C/Y, gives 5,172.56 (= 100 a angle 60 at 0.5%) instead of 5,192.38 for the slide's own example with effective 6%. The chapter reports the difference and states the setting (C/Y = 1, P/Y = 12) that enters an effective rate directly, from TI guidebook p. 69.",
+    "Rounding on slides: Lecture 18 f0032 prints 21,852.17 and 20,233.50; exact values are 21,852.21 and 20,233.53, and the slide's rounded factors 45.762 and 49.423 give 21,852.19 and 20,233.49. Lecture 17 f0035 prints 52,124 and a difference of 2,124 (exact 52,123.64 and 2,123.64, from the rounded factor 5.2124). Lecture 20 f0022 states a six-fold burden (ratio 1,613.56/272.25 = 5.93) and f0035 a surplus of 296,000 (exact 296,726.85). The chapter states its rule (no intermediate rounding, final amounts to cents) and the exact values.",
+    "Lecture 20 f0035 writes the income factor as a(12) with the subscript 360; in the notation of this chapter (and of the Lecture 19 definition slide f0014) the subscript of a(12) counts years. The chapter notes the equivalent 48,000 a(12) angle 30 at the effective rate (1 + 0.05/12)^12 - 1.",
+    "Lecture 19 f0039 describes 0.68 as the fraction of a full payment needed at the end, plus interest; the exact drop payment at month 58 is 272.27 (0.68 x 400 = 272.00). Lecture 16 f0053 interprets n = 14.2 as 14 full withdrawals and one smaller withdrawal without a timing convention; the chapter gives the drop payment at t = 15 (210.72) and the balloon at t = 14 (1,200.68).",
+    "Lecture 16 f0058 states that i cannot be isolated algebraically and that the calculator must be used. The chapter attributes the statement, does not restate it as a theorem, proves that the root is unique for this sign pattern, and solves by bisection.",
+    "Lecture 19: the m-thly annuity-due denominator d(m) is given in speech (about 580-617 s) and in the Lecture 20 review; no full-size frame with a d(m) formula was viewed (the slide sequence on Lecture 19 contact sheet s01 shows the denominators i, d and i(m)). The chapter derives d(m) and the m-thly annuity-due formula itself. The lecture's denominator device is reported as a mnemonic after the derivation.",
+    "Speaker's judgments, attributed in the text and not used as findings: the forgotten END/BGN switch as the most common student error in Exam FM (L17 slide 14, f0044); compound interest doing more work than the saver (L18 f0021, quantified as 2.15 to 1); riskier portfolios while working and safer ones in retirement (L20); the real-world examples of annuities (mortgages, car loans, pensions, rent, insurance) as illustrations only.",
+    "Caption errors corrected from the slides (paraphrased): in Lecture 16 the argument of the logarithm in the unknown-term example is given as 1.5 where the slide (f0053) has 0.5, and the term n = 4 is read as a percentage; in Lecture 17 a BGN-mode calculator result is described as the END mode result, while the slide setup is BGN (f0025 region, sheet s02); in Lecture 18 the exponent of 1.07 is spoken as 30 minus 1 where the slide (f0021) has (1.07)^30 - 1, the factor s angle 20 at 8% is spoken as a run-together number, and the factor (1+i)^5 is transcribed with a Greek letter name; in Lecture 20 the early-retirement deposit is transcribed as 200 and the need as 400 where the scenario slide (f0028) has 2,000 and 4,000, and the assets are spoken as about 1.4 million where the verdict slide (f0035) has 1.04 million.",
+    "Lecture 20 inflation slide (f0037) previews a real rate i' = (1+i)/(1+r) - 1 with r for inflation for week 6; the chapter mentions only that level annuities ignore inflation and uses no formula from that slide.",
+    "Shared CSS: assets/book.css has no rule for the classes lead and source-note, which the brief and the Kanpur calibration chapter use; the chapter uses them as the brief requires. Not edited (shared file)."
+  ],
+  "sections": [
+    {
+      "section": "The running case and the tools from earlier in the course",
+      "video_id": "sHveWKhBGoQ",
+      "start": 25.28,
+      "end": 213.76,
+      "lecture_material": "Recap of weeks 1-3: moving a single cash flow from 0 to n (future value) and from n to 0 (present value), focal date and equation of value; week 4 turns to streams of regular payments; geometric series as the tool.",
+      "research_extension": "None.",
+      "teaching_construction": "Restatement, taken as given from earlier in the course, of the effective rate i, accumulation and discounting (7.1), v, d = iv = 1 - v and v(1+i) = 1 (7.2), the equation of value and the independence of the focal date under one constant rate, and the geometric series sum (7.3) with its subtraction step; the rounding convention (intermediate values unrounded, displayed factors rounded, with the largest resulting difference); the running case (saver from 30 to 65, income of 4,000 a month from 65 to 90, invented effective rates 6% and 4%); the formal model (timeline, level payments, rate, valuation date).",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "What an annuity is, and the timing of an annuity-immediate",
+      "video_id": "sHveWKhBGoQ",
+      "start": 213.76,
+      "end": 436.8,
+      "lecture_material": "Annuity = series of payments at equal intervals (examples: monthly mortgage payments, monthly pension cheques, semi-annual bond coupons); annuity-immediate pays at the end of each period, annuity-due at the start; the immediate trap: immediate does not mean now, first payment at t = 1, last at t = n (salary analogy); timeline with payments of 1 at 1, 2, ..., n.",
+      "research_extension": "None.",
+      "teaching_construction": "Level and certain payments stated as part of the definition; Figure 7.1 (both timelines with the valuation dates of PV and AV); the rule that a value is incomplete without its valuation date.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Present value of an annuity-immediate",
+      "video_id": "sHveWKhBGoQ",
+      "start": 436.8,
+      "end": 693.2,
+      "lecture_material": "PV at t = 0 of payments of 1: v + v^2 + ... + v^n; geometric series with a = v, r = v, n terms; a angle n = v(1 - v^n)/(1 - v); multiply numerator and denominator by (1 + i); v(1+i) = 1 gives numerator 1 - v^n, (1 - v)(1 + i) = i gives denominator i; a angle n = (1 - v^n)/i.",
+      "research_extension": "None.",
+      "teaching_construction": "Direct reading 1 - v = iv; loan interpretation 1 = i a + v^n; PMT a angle n for level payment PMT; small-rate expansion a = n - i n(n+1)/2 + O(i^2) with the check 9.999945 at n = 10, i = 1e-6; bounds a < n and a < 1/i; exact direct-sum check at 4%; running case first version 48,000 a angle 25 at 4% = 749,859.84; boundary of the formula.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Worked examples and the calculator worksheet",
+      "video_id": "sHveWKhBGoQ",
+      "start": 694.0,
+      "end": 1314.32,
+      "lecture_material": "BA II Plus setup (P/Y = 1 for annual problems, clear TVM), the five keys N, I/Y, PV, PMT, FV and the sign convention (PV inflow, PMT outflow); demonstration PV 500, 5 years, 5% gives PMT 115.49; car loan 5,000 a year for 4 years at 6% = 17,325.53; investment of 1,000 a year for 10 years at 5% = 7,721.73, first payment worth 952 and last 614 today.",
+      "research_extension": "TI BA II PLUS guidebook p. 21: sign convention, END = ordinary annuity.",
+      "teaching_construction": "Keystrokes labelled a method of evaluating (7.4), not a derivation, dependent on P/Y, C/Y and END/BGN; check of 115.49 by (7.4); exact values 952.38 and 613.91 and their reading as the cost today of each payment.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Solving for an unknown term or an unknown rate",
+      "video_id": "sHveWKhBGoQ",
+      "start": 1314.32,
+      "end": 1733.6,
+      "lecture_material": "10,000 at 5% with withdrawals of 1,000 a year: 1.05^-n = 0.5, n about 14.2, 14 full withdrawals and one smaller one, calculator 14.21; loan 5,000 repaid by 1,000 a year for 6 years: a angle 6 = 5, no algebraic isolation of i, calculator 5.47%.",
+      "research_extension": "SOA Exam FM syllabus p. 3: drop and balloon payments named as final-payment conventions for loans.",
+      "teaching_construction": "n = ln 2/ln 1.05 = 14.2067; drop payment B = 210.72 at t = 15 and balloon 1,200.68 at t = 14, against 206.70 from the fractional part; uniqueness proof of the rate root (continuous strictly decreasing f with a sign change) and the case n PMT <= PV with no positive root; bisection with tolerance 1e-12 and 40 halvings from [1e-9, 1]; root 5.4718% and its check; condition of one sign change.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The annuity-due: the same payments one period earlier",
+      "video_id": "2MMTU96FSJU",
+      "start": 160.96,
+      "end": 1060.08,
+      "lecture_material": "Annuity-due: payments at the start of each period, first at t = 0, last at t = n - 1 (rent, insurance); shift left; each payment earns one extra period, value due = value immediate x (1 + i); notation a double-dot angle n; = (1 - v^n)/d with i/(1+i) = d; tip to multiply by (1 + i) instead of memorizing; BGN keystrokes (2nd BGN, 2nd SET, 2nd QUIT); apartment lease 1,000 a month in advance for a year at 1% a month: 11,255.08 x 1.01 = 11,367.63; lottery 50,000 today against 10,000 a year for 6 years from today at 6%: 5.2124, 52,124, better by 2,124; trap slide: forgetting to switch back to END.",
+      "research_extension": "TI BA II PLUS guidebook p. 21: END for ordinary annuities (most loans), BGN for annuities due (most leases).",
+      "teaching_construction": "Term-by-term derivation of (7.5); timeline derivation (7.6) a-due = 1 + a angle n-1 and its agreement with (7.5); exact check at 4%, n = 25 (16.246963); running case second version 48,000 a-due angle 25 = 779,854.23 and the 29,994.39 (3.8%) under-funding from the wrong timing; exact lottery values 52,123.64 and 2,123.64; the Exam FM remark graded as the speaker's judgment.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Accumulated value of an annuity-immediate and its valuation date",
+      "video_id": "nPqoMfOri4Q",
+      "start": 164.0,
+      "end": 1178.64,
+      "lecture_material": "Saver's perspective; s angle n = accumulated value at the time of the last payment; first payment grows n - 1 years, last earns nothing; FV = 1 + (1+i) + ... + (1+i)^(n-1); geometric series with a = 1, r = 1 + i; s angle n = ((1+i)^n - 1)/i; golden link s = a (1+i)^n with the loan-versus-saving reading; retirement goal 5,000 a year for 30 years at 7%: 5000 x 94.4608 = 472,304, deposits 150,000, interest 322,304, calculator 472,303.93; millionaire goal 1,000,000 in 20 years at 8%: s = 45.762, PMT 21,852.17, due 49.423 and 20,233.50; valuation-date trap: save 10 years, wait 5, value s angle 10 (1+i)^5, not s angle 15. Lecture 16 (1733-1816 s) previews s angle n and the link.",
+      "research_extension": "None.",
+      "teaching_construction": "Algebraic check of (7.9); limits s -> n as i -> 0 and s > n; interest ratio 2.15 to 1; exact deposit 21,852.21 and the rounding rule; running case third version: annual deposit 6,998.30 to the goal 779,854.23 (the second version's fund); trap quantified at 7% (19.378283 against 25.129022, 30% too large).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Accumulated value of an annuity-due",
+      "video_id": "2MMTU96FSJU",
+      "start": 1060.08,
+      "end": 1407.28,
+      "lecture_material": "s double-dot = s x (1 + i) = ((1+i)^n - 1)/d; logic check: last deposit at t = n - 1 has one full year before valuation at t = n; unknown term in BGN mode: wrong way s = 20, right way s-due = 20, P/Y = C/Y = 1, I/Y = 6, PMT = -5000, FV = 100,000, PV = 0 gives 12.9931; reset to END.",
+      "research_extension": "None.",
+      "teaching_construction": "Placement note (section after the L18 section because it uses s angle n); s-due = (1+i)^n a-due; the valuation-date trap for the due type; n = 12.9931 from 1.06^n = 2.132075; 12 deposits worth 89,410.69 at t = 12, 13 worth 100,075.33 at t = 13, a reduced 13th deposit of 4,928.93; running case fourth version: annual deposit 6,602.17 to the goal 779,854.23.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Annuities payable m-thly",
+      "video_id": "Nmh_3tTCv38",
+      "start": 183.28,
+      "end": 1376.16,
+      "lecture_material": "Payments m times a year (12 monthly, 4 quarterly) with annual rates; bread-slicer picture; a(m) angle n = PV of a total of 1 per year paid in instalments of 1/m at the end of each m-th of a year, nm payments; warning: 100 a month means 1,200 x a(12); denominator slot machine: numerator 1 - v^n, denominator i, d, i(m), and d(m) for the m-thly due (speech); bridge equation (1 + i(m)/m)^m = 1 + i; monthly payout 100 a month for 5 years at effective 6%: i(12) = 0.05841, PV 5,192.38; P/Y hazard slide (P/Y = 12, C/Y = 12, N = 60, I/Y = 5.841, or the annual rate if P/Y matches C/Y), reset P/Y; car loan 20,000 at 400 a month, 6% nominal monthly: 57.68 months, 57 full payments and a drop payment at month 58; s(m) = a(m)(1+i)^n = ((1+i)^n - 1)/i(m), accumulation factor stays annual.",
+      "research_extension": "TI BA II PLUS guidebook p. 21 (P/Y sets C/Y unless changed) and p. 69 (rate per payment period (1 + I/Y/(100 C/Y))^(C/Y/P/Y) - 1).",
+      "teaching_construction": "Definition of j and of i(m) (7.11) and d(m) (7.14); derivations of a(m) (7.12)-(7.13), a-due(m) (7.15) and s(m) (7.16) from geometric series; the device placed after the derivation as a mnemonic with its limits; limits i -> 0, m -> infinity and n -> infinity of the m-thly values (7.13), (7.15), (7.16); the ordering a < a(m) < a-due(m) < a-due with values at 4%; the slide's calculator alternative gives 5,172.56, and C/Y = 1 with P/Y = 12 enters an effective rate; exact drop payment 272.27 against 0.68 x 400; running case monthly version: d(12) = 0.039157, fund 766,009.45, s(12) angle 35 at 6% = 114.466998, deposit 557.66 (unrounded 557.664; the rounded deposit builds 766,003.99, 5.46 short), totals 234,218.87 (420 times the unrounded deposit; 420 x 557.66 = 234,217.20) and 1,200,000.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Two phases on one timeline: the retirement-planning lab",
+      "video_id": "Ojlvcq0ZYuo",
+      "start": 183.68,
+      "end": 1266.56,
+      "lecture_material": "Lab: retire at 65, live to 90, need 5,000 a month at the start of each month at 4%; PV65 = 12 x 5000 x a-due(12) angle 25 at 4%; calculator BGN, P/Y = C/Y = 12, N = 300, I/Y = 4: 950,419.96; saving from 25 for 40 years at 8%, end of month, END mode: 272.25; waiting until 45: 1,613.56 and a six-fold burden; unified equation of value at the retirement date with different phase rates; early-retirement exercise: 2,000 a month for 20 years at 7%, 4,000 a month for 30 years at 5%, both at the end of the month: assets 1.04 million, liabilities 745,126.47, surplus 296,000; inflation as the missing factor.",
+      "research_extension": "TI BA II PLUS guidebook p. 69 (I/Y with C/Y = 12 is a monthly rate I/Y/1200) and p. 21 (P/Y sets C/Y).",
+      "teaching_construction": "Equation (7.17) with the timing reason for s(12) and a-due(12) at the same date; Figure 7.2; the two readings of I/Y = 4: nominal 4% convertible monthly (effective 4.0742%) reproduces 950,419.96, effective 4% gives 957,511.81 (+7,091.86, 0.75%); effective 8% deposit 295.06 (+8.4%); ratio 5.93; exact surplus 296,726.85; the subscript remark on the f0035 formula.",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "The running case resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 7.1 with the four fund values and three deposits, each deposit row stating its goal (779,854.23 for the two annual deposits, 766,009.45 for the monthly plan); sizes of each timing and rate error (16,149.61 or 2.1%; 13,844.78 or 1.8%; 5,673.49 or 0.74%; deposit 537.66 against 557.66 under the 6%/12 misreading); what generalizes (the procedure) and what is case-specific (the rates).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable check of the formulas and the running case",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library program: exact Fraction checks at i = 1/25 (direct sums equal (7.4) and (7.5), (7.6), (7.9)), exact small-rate value at i = 1e-6, floating-point monthly direct sums against (7.13) and (7.15) within 1e-9, running-case values, bisection root, drop payments, the slide's calculator alternative and the two lab readings; ValueError for a non-whole number of payments, negative n, i <= -1, payments that do not exceed the loan, or no sign change; two failure tests described.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What these formulas establish and what they do not",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Lecture 17 slide 14 names Exam FM.",
+      "research_extension": "SOA Exam FM syllabus pp. 2-3: annuity-immediate, annuity-due, payable m-thly, nominal rates convertible m-thly, weight 20-30%.",
+      "teaching_construction": "Classification of the assumptions (definitions, a constant-rate model, a rate convention); where the formulas stop applying (non-integer terms, changing rates, multiple sign changes, uncertain payments, inflation, calculator settings).",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercise 3 restates the lab's open rate convention with original numbers; Exercises 5 and 6 extend the unknown-term and unknown-rate examples of Lectures 16 and 19.",
+      "research_extension": "Exercise 3(b) uses the TI guidebook p. 69 reading of I/Y.",
+      "teaching_construction": "Six original exercises with full solutions: derive (a-due = 1 + a angle n-1, s-due = s angle n+1 - 1), exam-style closest-of-five (monthly loan payment at an effective rate, each distractor tied to an error), check an assumption (a quoted 9% read as effective or nominal), counterexample and proof (ordering of the four m-thly and annual values, Bernoulli's inequality), unknown term with drop and balloon conventions, unknown rate by bisection with a judgment on a quoted nominal rate.",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "The closing h2 'Primary sources' is a reference list with no lecture material, research claim or construction of its own; as in the Kanpur calibration chapter, it has no entry in 'sections'. Every other h2 has exactly one entry, with the same title text. The section 'Accumulated value of an annuity-due' (L17 17:40) is placed after the Lecture 18 section, out of recording order, because its formula uses s angle n; the page says so in its first sentence.",
+  "references": [
+    {
+      "title": "Lecture 16 recording, Annuity-Immediate",
+      "url": "https://www.youtube.com/watch?v=sHveWKhBGoQ",
+      "supports": "Definition and timing of annuities, the immediate trap, derivation of a angle n, calculator keys and sign convention, car-loan, ten-payment, unknown-term and unknown-rate examples, preview of s angle n.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 17 recording, Annuity-Due",
+      "url": "https://www.youtube.com/watch?v=2MMTU96FSJU",
+      "supports": "Annuity-due timeline, a-due = (1+i) a = (1 - v^n)/d, BGN keystrokes, apartment-lease and lottery examples, s-due and its unknown-term example, the END/BGN trap slide naming Exam FM.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 18 recording, Future Value of Annuities",
+      "url": "https://www.youtube.com/watch?v=nPqoMfOri4Q",
+      "supports": "Definition and derivation of s angle n, s = a (1+i)^n, retirement-goal and millionaire examples, valuation-date trap.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 19 recording, Annuities Payable m-thly",
+      "url": "https://www.youtube.com/watch?v=Nmh_3tTCv38",
+      "supports": "Definition of a(m) angle n with a total of 1 per year, the denominator device, the bridge equation, the monthly-payout and car-loan examples, the P/Y setting, s(m).",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 20 recording, Problem Solving Lab - Retirement Planning",
+      "url": "https://www.youtube.com/watch?v=Ojlvcq0ZYuo",
+      "supports": "Two-phase retirement plan, calculator results, unified equation of value, early-retirement exercise, inflation caution.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Texas Instruments, BA II PLUS Calculator guidebook (English)",
+      "url": "https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf",
+      "supports": "p. 21: enter I/Y as the nominal interest rate, converted to a per-period rate from P/Y and C/Y; entering P/Y enters the same value for C/Y; END for ordinary annuities (most loans), BGN for annuities due (most leases); negative values for outflows, positive for inflows. p. 61: NOM is the rate per compounding period times the compounding periods per year; EFF is the annual effective rate. p. 69: i = e^(y ln(x+1)) - 1 with y = C/Y / P/Y and x = 0.01 I/Y / C/Y.",
+      "page_checked": "p. 21 (PDF p. 26); p. 61 (PDF p. 66); p. 69 (PDF p. 74, read on a rendered page image)"
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam -- October 2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "p. 2: topic 1 (5-15%) includes nominal rate convertible m-thly, effective rate, and conversion among i, i(m), d, d(m) and the force of interest. p. 3: topic 2, annuities/cash flows with non-contingent payments (20-30%), terms annuity-immediate, annuity due, payable m-thly; topic 3, loans, final payment (drop payment, balloon payment).",
+      "page_checked": "pp. 2, 3 (same as PDF pages)"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "t, i, X",
+      "first_section": "model",
+      "definition": "Time in years (or stated periods); effective rate of interest per period, i > 0 unless stated; an amount moved by (7.1)."
+    },
+    {
+      "symbol": "v, d",
+      "first_section": "model",
+      "definition": "Discount factor 1/(1+i); effective rate of discount i/(1+i) = iv = 1 - v (7.2)."
+    },
+    {
+      "symbol": "a, r, n, S_n (geometric series)",
+      "first_section": "model",
+      "definition": "First term, ratio, number of terms and sum of a geometric series (7.3); a without an angle subscript appears only here, and r only here and in (7.3)."
+    },
+    {
+      "symbol": "PV, AV",
+      "first_section": "immediate",
+      "definition": "Present value (at t = 0) and accumulated value (at t = n), as labelled in Figure 7.1."
+    },
+    {
+      "symbol": "PV_65",
+      "first_section": "pv-immediate",
+      "definition": "The fund needed at age 65, a present value at t = 35 (slide notation of Lecture 20, f0010)."
+    },
+    {
+      "symbol": "n",
+      "first_section": "immediate",
+      "definition": "Number of payments (annual sections) or term in years with nm payments (m-thly section); months where the text says so."
+    },
+    {
+      "symbol": "a angle n, a angle n at i",
+      "first_section": "pv-immediate",
+      "definition": "Present value at t = 0 of 1 at the end of each period for n periods (7.4)."
+    },
+    {
+      "symbol": "PMT",
+      "first_section": "pv-immediate",
+      "definition": "Level payment (calculator key label used on the slides)."
+    },
+    {
+      "symbol": "N, I/Y, PV, PMT, FV, P/Y, C/Y, END, BGN",
+      "first_section": "examples-immediate",
+      "definition": "BA II Plus worksheet entries (FV = the calculator's future value key): number of payments, interest rate in percent per year, values, payments per year, compounding periods per year, timing modes."
+    },
+    {
+      "symbol": "f(i), i_lo, i_hi, B",
+      "first_section": "unknowns",
+      "definition": "f(i) = PMT a angle n at i - PV, and the bisection interval; B is the smaller final payment at t = 15 under the drop convention."
+    },
+    {
+      "symbol": "a-double-dot angle n",
+      "first_section": "due",
+      "definition": "Present value at t = 0 of 1 at the start of each period for n periods (7.5), (7.6)."
+    },
+    {
+      "symbol": "s angle n",
+      "first_section": "accumulated",
+      "definition": "Accumulated value at t = n, the last payment, of 1 at the end of each period (7.7)-(7.9)."
+    },
+    {
+      "symbol": "s-double-dot angle n",
+      "first_section": "accumulated-due",
+      "definition": "Accumulated value at t = n, one period after the last payment, of 1 at the start of each period (7.10)."
+    },
+    {
+      "symbol": "m, j, i(m), d(m)",
+      "first_section": "mthly",
+      "definition": "Payments per year; effective rate per m-th of a year (1+i)^(1/m) - 1; nominal rate of interest convertible m-thly m j (7.11); nominal rate of discount convertible m-thly m(1 - v^(1/m)) (7.14)."
+    },
+    {
+      "symbol": "a(m) angle n, a-double-dot(m) angle n, s(m) angle n",
+      "first_section": "mthly",
+      "definition": "Present values of a total of 1 per year paid in m instalments of 1/m at the end (7.13) and at the start (7.15) of each m-th of a year for n years; accumulated value at t = n of the end-of-period stream (7.16)."
+    },
+    {
+      "symbol": "PMT_save, PMT_need, n1, i1, n2, i2",
+      "first_section": "lab",
+      "definition": "Monthly deposit and monthly need in (7.17); terms and effective annual rates of the saving and income phases."
+    },
+    {
+      "symbol": "x, y, g (Exercise 4)",
+      "first_section": "exercises",
+      "definition": "x = (1+i)^(1/m); y and g(y) = (1+y)^m - 1 - my in Bernoulli's inequality; used only in the solution of Exercise 4."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch07_verify_code.py (extracts the chapter listing, runs it with python -I in a fresh process, Python 3.13, standard library only; exit 0, no stderr; 18 stdout lines, 926 bytes, compared byte for byte with the printed block after converting CRLF to LF)",
+    "stdout_matches_printed": true
+  }
+}

@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="5d44d25ff3bbc0059a1823fdaa7b48f0d49c257ac40f22fe5dbb2398c59c4d53"><title>Annuities-immediate and annuities-due: present value, accumulated value and monthly payments · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Annuities-immediate and annuities-due: present value, accumulated value and monthly payments</h1>
+<p class="lead">A saver aged 30 plans to stop work at 65 and wants an income of 4,000 dollars at the start of every month for 25 years. Suppose the retirement fund earns 4% a year and the savings earn 6% a year, both effective annual rates invented for this example. The results of this chapter say that the fund must hold 766,009.45 dollars on the 65th birthday, and that a deposit of 557.66 dollars at the end of every month for 35 years builds that amount (the unrounded deposit is 557.664 dollars; the rounded 557.66 builds 766,003.99 dollars, 5.46 short). Two errors of timing or rate move these numbers. If the income were paid once a year in arrears, the same calculation would give 749,859.84 dollars; if the 4% is read as 4%/12 a month, the fund comes out 5,673.49 dollars too small. This chapter derives the present value and the accumulated value of a level stream of payments, at the end of each period and at its start, paid once a year and paid monthly, and it shows how one timeline with one valuation date keeps these numbers apart.</p>
+<p class="source-note">Grounded in five recordings of the NPTEL course <em>Financial Mathematics for Actuaries</em> (Prof. Neelesh S. Upadhye, IIT Madras, week 4): <a href="https://www.youtube.com/watch?v=sHveWKhBGoQ">Lecture 16</a> (annuity-immediate), <a href="https://www.youtube.com/watch?v=2MMTU96FSJU">Lecture 17</a> (annuity-due), <a href="https://www.youtube.com/watch?v=nPqoMfOri4Q">Lecture 18</a> (future value of annuities), <a href="https://www.youtube.com/watch?v=Nmh_3tTCv38">Lecture 19</a> (annuities payable m-thly) and the problem-solving lab <a href="https://www.youtube.com/watch?v=Ojlvcq0ZYuo">Lecture 20</a> (retirement planning). <strong>Lecture material:</strong> the definition of an annuity and its two timing types; the timeline of the annuity-immediate and the warning that "immediate" does not mean "now"; the derivation of \(a_{\overline{n}|}=(1-v^n)/i\) from a geometric series with the step "multiply by \(1+i\)"; the car-loan, ten-payment, unknown-term and unknown-rate examples; the BA II Plus time-value keys and sign convention; the annuity-due as the same payments shifted one period earlier, \(\ddot a_{\overline{n}|}=(1+i)a_{\overline{n}|}=(1-v^n)/d\), the BGN mode, the apartment-lease and lottery examples; the accumulated value \(s_{\overline{n}|}\) at the time of the last payment, the relation \(s_{\overline{n}|}=(1+i)^na_{\overline{n}|}\), the retirement-goal and millionaire examples and the valuation-date trap; \(\ddot s_{\overline{n}|}=(1+i)s_{\overline{n}|}\) and its unknown-term example; the m-thly annuity \(a^{(m)}_{\overline{n}|}\) paying a total of 1 a year, its formula with the nominal rate \(i^{(m)}\) in the denominator, the monthly-payout and car-loan examples and the P/Y setting; and the lab's two-phase retirement plan with one equation of value at the retirement date. <strong>Research extensions:</strong> the Texas Instruments BA II PLUS guidebook on how the calculator turns its interest entry into a rate per payment; the Society of Actuaries Exam FM syllabus on the place of these topics in that examination. <strong>Original teaching constructions:</strong> the running case (a saver from age 30 to 65 and an income from 65 to 90, with invented rates); the restatement of the earlier tools; the derivations of \(\ddot a_{\overline{n}|}=1+a_{\overline{n-1}|}\), of \(a^{(m)}_{\overline{n}|}\), \(\ddot a^{(m)}_{\overline{n}|}\) and \(s^{(m)}_{\overline{n}|}\) from geometric series, and of the ordering \(a_{\overline{n}|}\lt a^{(m)}_{\overline{n}|}\lt\ddot a^{(m)}_{\overline{n}|}\lt\ddot a_{\overline{n}|}\); the small-rate check; the proof that the rate equation has one root and the bisection method; the drop and balloon payments for non-integer terms; the two readings of the lab's interest entry; Figures 7.1 and 7.2; the code and the six exercises.</p>
+
+<h2 id="model">The running case and the tools from earlier in the course <a class="timestamp" href="https://www.youtube.com/watch?v=sHveWKhBGoQ&amp;t=25s">L16 0:25</a></h2>
+<p>Earlier weeks of the course built three tools: moving a single sum of money forward in time (accumulation) and backward (discounting), and comparing several sums by moving all of them to one date. This chapter applies them to streams of regular payments. This section restates the tools that the chapter uses. Each is taken as given from earlier in the course; none is derived again here.</p>
+<p><strong>Effective rate of interest.</strong> Time \(t\) is measured in years, or in periods of another stated length. The effective rate of interest \(i\) for a period is the interest that one unit invested at the start of the period earns by its end, so one unit grows to \(1+i\) in one period. Under compound interest at a constant rate \(i\), an amount \(X\) at time \(s\) has the value</p>
+\[
+X(1+i)^{t-s}\quad\text{at time } t, \tag{7.1}
+\]
+<p>for any \(t\), later or earlier than \(s\). For \(t\gt s\) this is accumulation; for \(t\lt s\) it is discounting. All rates in this chapter are positive, \(i\gt0\), unless a statement says otherwise.</p>
+<p><strong>Discount factor and rate of discount.</strong> The discount factor is \(v=1/(1+i)\): the value at the start of a period of one unit due at its end. The effective rate of discount is \(d=i/(1+i)=iv\): interest paid in advance, as a fraction of the amount at the end of the period. Three identities follow by algebra and are used repeatedly:</p>
+\[
+v=\frac1{1+i},\qquad d=\frac{i}{1+i}=iv=1-v,\qquad v(1+i)=1. \tag{7.2}
+\]
+<p>For \(i\gt0\), \(0\lt v\lt1\) and \(d\lt i\). At 4%, \(v=0.961538\) and \(d=0.038462\).</p>
+<p><strong>Rounding.</strong> Every computation in this chapter carries its intermediate values unrounded. Amounts are rounded to cents, and rates and annuity factors are printed to six decimals (a few displays print seven, such as 3.4651056 in the car-loan example), only where they are displayed. A displayed equation such as \(48{,}000\times15.958530=766{,}009.45\) therefore shows a rounded factor beside an unrounded result: the product of the two printed numbers is 766,009.44, and recomputing from printed factors can differ in the last digits. The largest such difference in this chapter is in the plan's monthly fund (the section on m-thly annuities): the denominator of the plan's fund, printed there as 0.039157, gives 766,003.36 dollars, and its unrounded value 0.0391566886 gives 766,009.45. The program at the end of the chapter reproduces every amount from unrounded values.</p>
+<p><strong>Equation of value and focal date.</strong> To compare payments made at different times, move every payment with (7.1) to one chosen date, the <em>focal date</em> or valuation date, and add. With one constant rate, the comparison does not depend on which focal date is chosen: moving every term from one focal date to another multiplies both sides of the equation by the same factor \((1+i)^{t'-t}\).</p>
+<p><strong>Geometric series.</strong> For a first term \(a\), a ratio \(r\neq1\) and \(n\) terms,</p>
+\[
+S_n=a+ar+\dots+ar^{n-1}=\frac{a(1-r^n)}{1-r}=\frac{a(r^n-1)}{r-1}. \tag{7.3}
+\]
+<p>The hinge is one subtraction: \(S_n-rS_n=a-ar^n\), because every other term appears in both sums. The two forms of (7.3) are the same fraction with numerator and denominator multiplied by \(-1\); the second is convenient when \(r\gt1\).</p>
+<p><strong>The running case.</strong> A person aged 30 will save until 65 and then draw an income until 90. Ages are converted to times by \(t=\text{age}-30\), so retirement is at \(t=35\) and the last month of income starts at age \(89\tfrac{11}{12}\). The income is 4,000 dollars a month, 48,000 dollars a year. The fund earns 4% a year during retirement and the savings earn 6% a year during work; both are effective annual rates and both are invented for this example. Two questions run through the chapter: how large must the fund be at 65, and what regular deposit builds it? Each section answers a simpler version first (yearly payments, then payments at the start of the year, then monthly payments), and the resolved case at the end puts the versions side by side. The objects of the chapter are a timeline, a stream of equal payments placed on it, a rate, and one valuation date. Every formula below fixes one choice of these four.</p>
+
+<h2 id="immediate">What an annuity is, and the timing of an annuity-immediate <a class="timestamp" href="https://www.youtube.com/watch?v=sHveWKhBGoQ&amp;t=214s">L16 3:34</a></h2>
+<p>An <em>annuity</em> is a series of payments made at equal intervals. The lecture's examples are monthly mortgage payments, monthly pension cheques and semi-annual bond coupons; these illustrate the definition and are not claims about any market. In this chapter the payments are also equal in amount (a <em>level</em> annuity) and certain: each payment is made, whatever happens. The interval between payments is the <em>payment period</em>, and the number of payments is \(n\). Until the section on m-thly payments, the payment period equals the period of the effective rate \(i\), usually a year.</p>
+<p>The two types differ only in timing. In an <em>annuity-immediate</em> each payment is made at the end of its period. In an <em>annuity-due</em> each payment is made at the start of its period. The lecture calls the first type a trap, because the word "immediate" suggests "now". It means "immediately after the period is complete", as a salary is credited once the month of work is over. Period 1 runs from \(t=0\) to \(t=1\), so the first payment of an annuity-immediate is at \(t=1\), the second at \(t=2\), and the last at \(t=n\). No payment is made at \(t=0\).</p>
+<figure>
+<svg viewBox="0 0 640 260" role="img" aria-labelledby="fig-timeline-title fig-timeline-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-timeline-title">Timelines of an annuity-immediate and an annuity-due</title>
+<desc id="fig-timeline-desc">Upper timeline: payments of 1 at times 1, 2, n minus 1 and n; the present value is taken at time 0, one period before the first payment, and the accumulated value at time n, the time of the last payment. Lower timeline: payments of 1 at times 0, 1, 2 and n minus 1; the present value is taken at time 0, the time of the first payment, and the accumulated value at time n, one period after the last payment.</desc>
+<text x="40" y="28">Annuity-immediate: payments at t = 1, 2, …, n</text>
+<line x1="40" y1="80" x2="600" y2="80" stroke="currentColor" stroke-width="1.5"/>
+<polygon points="600,76 610,80 600,84" fill="currentColor"/>
+<g stroke="currentColor"><line x1="80" y1="75" x2="80" y2="85"/><line x1="170" y1="75" x2="170" y2="85"/><line x1="260" y1="75" x2="260" y2="85"/><line x1="440" y1="75" x2="440" y2="85"/><line x1="530" y1="75" x2="530" y2="85"/></g>
+<g fill="none" stroke="currentColor"><rect x="159" y="46" width="22" height="20"/><rect x="249" y="46" width="22" height="20"/><rect x="429" y="46" width="22" height="20"/><rect x="519" y="46" width="22" height="20"/></g>
+<g text-anchor="middle"><text x="170" y="61">1</text><text x="260" y="61">1</text><text x="440" y="61">1</text><text x="530" y="61">1</text>
+<text x="80" y="100">0</text><text x="170" y="100">1</text><text x="260" y="100">2</text><text x="350" y="100">…</text><text x="440" y="100">n − 1</text><text x="530" y="100">n</text></g>
+<text x="40" y="124">PV taken here (t = 0)</text>
+<text x="610" y="124" text-anchor="end">AV taken here (t = n, the last payment)</text>
+<text x="40" y="158">Annuity-due: payments at t = 0, 1, …, n − 1</text>
+<line x1="40" y1="210" x2="600" y2="210" stroke="currentColor" stroke-width="1.5"/>
+<polygon points="600,206 610,210 600,214" fill="currentColor"/>
+<g stroke="currentColor"><line x1="80" y1="205" x2="80" y2="215"/><line x1="170" y1="205" x2="170" y2="215"/><line x1="260" y1="205" x2="260" y2="215"/><line x1="440" y1="205" x2="440" y2="215"/><line x1="530" y1="205" x2="530" y2="215"/></g>
+<g fill="none" stroke="currentColor"><rect x="69" y="176" width="22" height="20"/><rect x="159" y="176" width="22" height="20"/><rect x="249" y="176" width="22" height="20"/><rect x="429" y="176" width="22" height="20"/></g>
+<g text-anchor="middle"><text x="80" y="191">1</text><text x="170" y="191">1</text><text x="260" y="191">1</text><text x="440" y="191">1</text>
+<text x="80" y="230">0</text><text x="170" y="230">1</text><text x="260" y="230">2</text><text x="350" y="230">…</text><text x="440" y="230">n − 1</text><text x="530" y="230">n</text></g>
+<text x="40" y="254">PV taken here (t = 0, the first payment)</text>
+<text x="610" y="254" text-anchor="end">AV taken here (t = n, one period later)</text>
+</svg>
+<figcaption>Figure 7.1. The same \(n\) payments of 1, placed at the end of each period (annuity-immediate, upper line) and at the start of each period (annuity-due, lower line). PV is the present value, defined at \(t=0\) for both types: one period before the first payment for the immediate type, at the first payment for the due type. AV is the accumulated value, defined at \(t=n\) for both: at the last payment for the immediate type, one period after it for the due type. The symbols are \(a_{\overline{n}|}\) and \(s_{\overline{n}|}\) for the upper line and \(\ddot a_{\overline{n}|}\) and \(\ddot s_{\overline{n}|}\) for the lower line, defined in the sections that follow.</figcaption>
+</figure>
+<p>Figure 7.1 is the reference for every formula of the chapter. A formula for the value of a stream is incomplete until it says where on this line the value is taken. Two dates have names. The present value is taken at \(t=0\), the start of the first period. The accumulated value is taken at \(t=n\), the end of the last period. For an annuity-immediate, \(t=0\) is one period before the first payment; for an annuity-due it is the date of the first payment.</p>
+
+<h2 id="pv-immediate">Present value of an annuity-immediate <a class="timestamp" href="https://www.youtube.com/watch?v=sHveWKhBGoQ&amp;t=437s">L16 7:17</a></h2>
+<p><strong>Question.</strong> What single amount at \(t=0\) has the same value as payments of 1 at \(t=1,2,\dots,n\)? The answer is written \(a_{\overline{n}|}\) and read "a angle n"; when the rate must be shown, \(a_{\overline{n}|i}\) or "\(a_{\overline{n}|}\) at \(i\)". The letter \(a\) with its angle subscript always denotes this annuity value in this chapter.</p>
+<p><strong>Derivation.</strong> By (7.1), the payment at \(t=k\) is worth \(v^k\) at \(t=0\). The equation of value at focal date 0 is</p>
+\[
+a_{\overline{n}|}=v+v^2+\dots+v^n .
+\]
+<p>This is a geometric series (7.3) with first term \(a=v\), ratio \(r=v\) and \(n\) terms, so \(a_{\overline{n}|}=v(1-v^n)/(1-v)\). The lecture removes \(v\) from the fraction by multiplying the numerator and the denominator by \(1+i\). In the numerator, \(v(1+i)=1\) by (7.2), which leaves \(1-v^n\). In the denominator, \((1-v)(1+i)=(1+i)-v(1+i)=1+i-1=i\). Hence</p>
+\[
+a_{\overline{n}|}=v+v^2+\dots+v^n=\frac{1-v^n}{i}. \tag{7.4}
+\]
+<p>The same step can be read off (7.2) directly: \(1-v=d=iv\), so \(v/(1-v)=1/i\).</p>
+<p><strong>Interpretation.</strong> The numerator \(1-v^n\) is the difference between 1 now and 1 at time \(n\). The formula has a reading as a loan: if 1 is lent at \(t=0\) at rate \(i\), interest of \(i\) at the end of each period and the return of 1 at \(t=n\) repay it exactly, so \(1=i\,a_{\overline{n}|}+v^n\). Solving for \(a_{\overline{n}|}\) gives (7.4) again, without a geometric series. A stream of \(\mathrm{PMT}\) at the end of each period, where \(\mathrm{PMT}\) is the level payment (the label of the calculator key that the lecture uses), has present value \(\mathrm{PMT}\cdot a_{\overline{n}|}\), because every term of the sum is multiplied by the same amount.</p>
+<p><strong>Checks.</strong> Three checks test (7.4) without reusing it.</p>
+<ul>
+<li><em>Small rate.</em> As \(i\to0\), each \(v^k=(1+i)^{-k}\to1\) and the sum tends to \(n\): with no interest, the value of \(n\) payments of 1 is \(n\). For small \(i\), \((1+i)^{-k}=1-ki+O(i^2)\), so \(a_{\overline{n}|}=n-i\,n(n+1)/2+O(i^2)\). For \(n=10\) and \(i=10^{-6}\) this gives \(10-55\times10^{-6}=9.999945\); the program below evaluates (7.4) exactly at that rate and prints 9.999945. The closed form cannot be evaluated at \(i=0\) itself (it is \(0/0\)), so the program returns \(n\) there.</li>
+<li><em>Bounds.</em> For \(i\gt0\) every term \(v^k\) is less than 1, so \(a_{\overline{n}|}\lt n\); and \(1-v^n\lt1\), so \(a_{\overline{n}|}\lt1/i\) for every \(n\).</li>
+<li><em>Direct sum.</em> The program below adds the 25 discounted payments at \(i=4\%\) in exact rational arithmetic and finds the same number as (7.4), \(a_{\overline{25}|}=15.622080\).</li>
+</ul>
+<p><strong>The running case, first version.</strong> Suppose the retiree took the income as 48,000 dollars at the end of each year for 25 years, the first payment on the 66th birthday. The fund needed on the 65th birthday is the present value at 4%:</p>
+\[
+\mathrm{PV}_{65}=48{,}000\,a_{\overline{25}|0.04}=48{,}000\times15.622080=749{,}859.84 .
+\]
+<p>The 25 payments add up to 1,200,000 dollars; the fund needs 62.5% of that, because the later payments are discounted for longer.</p>
+<p><strong>Boundary.</strong> Formula (7.4) assumes one constant rate for all \(n\) periods, payments of equal size, exactly one payment per rate period, and a whole number \(n\) of payments. Each assumption is relaxed later in this chapter or must be stated when it is not met: a non-integer \(n\) in the section on unknowns, payments more often than the rate period in the section on m-thly annuities, and two different rates in the lab section.</p>
+
+<h2 id="examples-immediate">Worked examples and the calculator worksheet <a class="timestamp" href="https://www.youtube.com/watch?v=sHveWKhBGoQ&amp;t=694s">L16 11:34</a></h2>
+<p><strong>The calculator.</strong> The lecture solves every example twice, with (7.4) and with the time-value-of-money (TVM) worksheet of a BA II Plus financial calculator, the device the slide names. The slide's setup is: set the payments per year P/Y to 1 for annual problems, and clear the worksheet before each problem. The five keys are N (the number of payments), I/Y (the interest rate in percent, so 5 is entered for 5%), PV (the present value), PMT (the level payment) and FV (the future value, 0 for a loan that is fully repaid). The sign convention is that money received is positive and money paid is negative; the slide marks PV as an inflow and PMT as an outflow for a borrower. The calculator's guidebook states the same convention and calls the end-of-period setting an ordinary annuity (<a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf">Texas Instruments, BA II PLUS guidebook</a>, p. 21). A keystroke sequence is a way of evaluating (7.4); it is not a derivation, and it is only as correct as the setting of P/Y, C/Y and END/BGN that it assumes. Those settings return in the sections on the annuity-due and on m-thly annuities. In the lecture's first demonstration, a present value of 500 at 5% over 5 years gives a payment of 115.49; by (7.4), \(500/a_{\overline{5}|0.05}=500/4.329477=115.49\).</p>
+<p><strong>A car loan.</strong> A borrower can pay 5,000 dollars at the end of each year for 4 years, and the bank charges 6% a year. The largest loan the payments repay is their present value at 6%:</p>
+\[
+\mathrm{PV}=5000\,a_{\overline{4}|0.06}=5000\cdot\frac{1-1.06^{-4}}{0.06}=5000\times3.4651056=17{,}325.53 .
+\]
+<p>The lecture's slide and its calculator demonstration give the same 17,325.53.</p>
+<p><strong>Why ten payments of 1,000 are worth less than 10,000.</strong> An investment pays 1,000 dollars at the end of each year for 10 years, and the required return is 5% a year. Its present value is \(1000\,a_{\overline{10}|0.05}=7{,}721.73\), against a total of 10,000 paid. The slide shows why term by term: the first payment is worth \(1000v=952.38\) today and the last only \(1000v^{10}=613.91\). Each payment's present value is the amount that, invested today at 5%, grows to 1,000 on that payment's date. The present value is the cost today of producing the whole stream.</p>
+
+<h2 id="unknowns">Solving for an unknown term or an unknown rate <a class="timestamp" href="https://www.youtube.com/watch?v=sHveWKhBGoQ&amp;t=1314s">L16 21:54</a></h2>
+<p>An equation of the form \(\mathrm{PV}=\mathrm{PMT}\cdot a_{\overline{n}|i}\) links four quantities. Given any three, it fixes the fourth. Solving for \(\mathrm{PV}\) or \(\mathrm{PMT}\) needs only (7.4). Solving for \(n\) or \(i\) needs more care.</p>
+<p><strong>An unknown term.</strong> A person holds 10,000 dollars at 5% a year and withdraws 1,000 at the end of each year. How long does the money last? The equation \(10{,}000=1000\,a_{\overline{n}|0.05}\) gives \(10=(1-1.05^{-n})/0.05\), so \(1.05^{-n}=0.5\). Taking logarithms, \(-n\ln1.05=\ln0.5\), and</p>
+\[
+n=\frac{\ln2}{\ln1.05}=14.2067 .
+\]
+<p>The calculator gives 14.21. The number 14.2067 is not a number of payments: a payment is either made or not. The slide interprets it as 14 full withdrawals and one smaller final withdrawal. That interpretation needs a convention for when the final withdrawal is made, and the two usual conventions give different amounts.</p>
+<ul>
+<li><em>Drop payment.</em> Fourteen full payments are made at \(t=1,\dots,14\), and a smaller payment \(B\) at \(t=15\) clears the account. The equation of value at 0 is \(10{,}000=1000\,a_{\overline{14}|}+Bv^{15}\), so \(B=(10{,}000-1000\,a_{\overline{14}|})(1.05)^{15}=(10{,}000-9{,}898.64)\times2.078928=210.72\).</li>
+<li><em>Balloon payment.</em> The balance left after the 14th payment is added to that payment, so the 14th payment is \(1000+101.36\times1.05^{14}=1{,}200.68\) and there is no 15th.</li>
+</ul>
+<p>Neither number is \(0.2067\times1000=206.70\). The fractional part of \(n\) measures the size of the final payment only roughly, because the final payment also carries the interest earned during the extra period. The Society of Actuaries syllabus for Exam FM names drop and balloon payments as final-payment conventions for loans (<a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA Exam FM syllabus, October 2026</a>, p. 3). A problem that asks for a final payment must say which convention it uses.</p>
+<p><strong>An unknown rate.</strong> A loan of 5,000 dollars is repaid by 1,000 at the end of each year for 6 years. What rate does the lender earn? The equation is \(a_{\overline{6}|i}=5\), that is \(5=(1-(1+i)^{-6})/i\). In terms of \(v\) it reads \(v+v^2+\dots+v^6=5\), a polynomial equation of degree 6. The slide states that \(i\) cannot be isolated algebraically and that the calculator must be used; the calculator gives 5.47%. The book's approach is to show that the equation has exactly one positive root and then to find it by a method with a stopping rule.</p>
+<p><em>Exactly one root.</em> Write \(f(i)=\mathrm{PMT}\cdot a_{\overline{n}|i}-\mathrm{PV}\). Each term \((1+i)^{-k}\) of \(a_{\overline{n}|i}\) is continuous and strictly decreasing in \(i\) for \(i\gt0\), so \(f\) is continuous and strictly decreasing. As \(i\to0\), \(f\to n\,\mathrm{PMT}-\mathrm{PV}\), which is positive when the payments add up to more than the loan (here \(6000-5000=1000\)). As \(i\to\infty\), \(f\to-\mathrm{PV}\lt0\). A continuous, strictly decreasing function that changes sign has exactly one zero. If the payments add up to no more than the loan, \(n\,\mathrm{PMT}\le\mathrm{PV}\), then \(f(i)\lt0\) for every \(i\gt0\) and there is no positive root: the payments return no more than the amount lent, so no positive rate balances the equation. The program tests \(n\,\mathrm{PMT}\gt\mathrm{PV}\) before it starts the bisection and raises <code>ValueError</code> otherwise.</p>
+<p><em>Bisection.</em> Start with an interval \([i_{\text{lo}},i_{\text{hi}}]\) on which \(f(i_{\text{lo}})\gt0\gt f(i_{\text{hi}})\). Evaluate \(f\) at the midpoint and keep the half on which the sign still changes. Each step halves the interval, and the root always stays inside it. Stop when the interval is shorter than a tolerance, here \(10^{-12}\). Starting from \([10^{-9},1]\), 40 halvings reach that width, since \(2^{-40}\approx9.1\times10^{-13}\). The program below finds \(i=5.4718\%\). The check of a root is to substitute it: \(1000\,a_{\overline{6}|0.054718}=5{,}000.00\). Bisection is slow compared with other methods, but its error bound after \(k\) steps is known in advance, which is why it is used here.</p>
+<p>Uniqueness depends on the sign pattern of the cash flows: one inflow (the loan) followed only by outflows (the payments). A stream whose cash flows change sign more than once can have several rates; this chapter has none.</p>
+
+<h2 id="due">The annuity-due: the same payments one period earlier <a class="timestamp" href="https://www.youtube.com/watch?v=2MMTU96FSJU&amp;t=161s">L17 2:41</a></h2>
+<p>Rent and insurance premiums are paid in advance, at the start of each period; these are the lecture's examples of an annuity-due. On the timeline, every payment of the annuity-immediate moves one period to the left: the first payment is at \(t=0\) and the last at \(t=n-1\) (Figure 7.1, lower line). The present value of an annuity-due of 1 per period for \(n\) periods is written \(\ddot a_{\overline{n}|}\), which the slide pronounces "a double-dot angle n".</p>
+<p><strong>Two derivations.</strong> The lecture's argument is that each payment arrives one period earlier and therefore has one more period to earn interest; every term of the immediate value is multiplied by \(1+i\). In symbols,</p>
+\[
+\ddot a_{\overline{n}|}=1+v+\dots+v^{n-1}=(1+i)\bigl(v+v^2+\dots+v^n\bigr)=(1+i)\,a_{\overline{n}|}=\frac{1-v^n}{d}. \tag{7.5}
+\]
+<p>The middle step uses \((1+i)v^k=v^{k-1}\) term by term. The last form uses (7.4) and \(d=i/(1+i)\) from (7.2): \((1+i)(1-v^n)/i=(1-v^n)/d\). The slide adds that the \(d\) form need not be memorized: compute the immediate value and multiply by \(1+i\).</p>
+<p>A second route reads the timeline directly. The payment at \(t=0\) is worth 1. The remaining \(n-1\) payments, at \(t=1,\dots,n-1\), form an annuity-immediate of \(n-1\) payments, worth \(a_{\overline{n-1}|}\). Hence</p>
+\[
+\ddot a_{\overline{n}|}=1+a_{\overline{n-1}|}. \tag{7.6}
+\]
+<p>Formulas (7.5) and (7.6) must agree, and they do: the sum \(1+v+\dots+v^{n-1}\) in (7.5) is 1 plus \(v+\dots+v^{n-1}=a_{\overline{n-1}|}\). The program checks both at 4% with \(n=25\) in exact arithmetic: \(\ddot a_{\overline{25}|}=1+a_{\overline{24}|}=16.246963\).</p>
+<p><strong>Checks.</strong> As \(i\to0\), \(\ddot a_{\overline{n}|}\to n\), as for the immediate type. For \(i\gt0\), \(\ddot a_{\overline{n}|}\gt a_{\overline{n}|}\) by the factor \(1+i\), which is the value of receiving each payment one period sooner.</p>
+<p><strong>The running case, second version.</strong> The plan pays the income at the start of each period, so the first payment is on the 65th birthday. With yearly payments of 48,000 dollars,</p>
+\[
+\mathrm{PV}_{65}=48{,}000\,\ddot a_{\overline{25}|0.04}=48{,}000\times16.246963=779{,}854.23,
+\]
+<p>which is 1.04 times the first version. A planner who uses the immediate formula for a stream paid in advance under-funds the plan by 29,994.39 dollars, 3.8% of the correct amount.</p>
+<p><strong>The calculator in BGN mode.</strong> By default the BA II Plus assumes payments at the end of each period (END). The slide's keystrokes switch it to payments at the start (BGN): press 2nd BGN, which shows END, then 2nd SET to change it to BGN, then 2nd QUIT. The guidebook describes the same switch: END for ordinary annuities, which include most loans, BGN for annuities due, which include most leases (TI guidebook, p. 21). The setting stays in force for later problems. A trap slide near the end of Lecture 17 (slide 14 of 15) calls a forgotten switch back to END the most common student error in Exam FM; that is the speaker's judgment, given without data in the lecture, and the book repeats only the practical point that the mode must be checked before every problem.</p>
+<p><strong>An apartment lease.</strong> Rent of 1,000 dollars is paid at the start of each month for a year, and the interest rate is 12% compounded monthly, which the slide translates as 1% per month. The month is the period, and \(i=0.01\) per period. The slide computes the immediate value first, \(1000\,a_{\overline{12}|0.01}=11{,}255.08\), and multiplies by \(1.01\): \(1000\,\ddot a_{\overline{12}|0.01}=11{,}367.63\). The calculator in BGN mode with P/Y = C/Y = 1, N = 12, I/Y = 1, PMT = −1000 and FV = 0 gives the same value, because with P/Y = 1 the entry I/Y = 1 is the rate per period. (The phrase "compounded monthly" names a nominal rate, defined in the section on m-thly annuities; here it only fixes the monthly rate at 1%.)</p>
+<p><strong>A lottery decision.</strong> A winner can take 50,000 dollars today or 10,000 dollars a year for 6 years starting today, at 6% a year. The stream starts today, so it is an annuity-due: \(10{,}000\,\ddot a_{\overline{6}|0.06}=10{,}000\times4.917324\times1.06=52{,}123.64\). The stream is worth more, by 2,123.64. The slide rounds \(a_{\overline{6}|}\) to 4.9173, prints \(4.9173\times1.06\) as 5.2124 (the product of the two printed numbers is 5.2123; the unrounded product is 5.2124), and reports 52,124 and a difference of 2,124; the rounding changes the last figures, not the decision.</p>
+
+<h2 id="accumulated">Accumulated value of an annuity-immediate and its valuation date <a class="timestamp" href="https://www.youtube.com/watch?v=nPqoMfOri4Q&amp;t=164s">L18 2:44</a></h2>
+<p>The question now changes from the borrower's to the saver's: if regular payments are deposited, how much will the account hold later? The <em>accumulated value</em> of an annuity-immediate of 1 per period for \(n\) periods is written \(s_{\overline{n}|}\). The slide defines it as the value of the payments at the time of the last payment, \(t=n\) (Figure 7.1, upper line).</p>
+<p><strong>Derivation.</strong> The payment at \(t=k\) is worth \((1+i)^{n-k}\) at \(t=n\) by (7.1). The first payment grows for \(n-1\) periods; the last earns no interest. Summing from the last payment backward,</p>
+\[
+s_{\overline{n}|}=1+(1+i)+(1+i)^2+\dots+(1+i)^{n-1}, \tag{7.7}
+\]
+<p>a geometric series with first term 1, ratio \(1+i\gt1\) and \(n\) terms. The second form of (7.3) gives</p>
+\[
+s_{\overline{n}|}=\frac{(1+i)^n-1}{(1+i)-1}=\frac{(1+i)^n-1}{i}. \tag{7.8}
+\]
+<p><strong>The link to the present value.</strong> The values \(a_{\overline{n}|}\) at \(t=0\) and \(s_{\overline{n}|}\) at \(t=n\) belong to the same payments, so by the equation of value they differ only by the factor that moves an amount from 0 to \(n\):</p>
+\[
+s_{\overline{n}|}=(1+i)^n\,a_{\overline{n}|}. \tag{7.9}
+\]
+<p>The lecture calls this the golden link and gives it a reading: repaying a loan with a stream of payments and saving the same stream are the same block of value, seen at two dates. The algebra confirms it: \((1+i)^n(1-v^n)/i=((1+i)^n-1)/i\). The program checks (7.9) exactly at 4% for \(n=25\).</p>
+<p><strong>Checks.</strong> As \(i\to0\), \(s_{\overline{n}|}\to n\). For \(i\gt0\) and \(n\ge2\), \(s_{\overline{n}|}\gt n\), because every payment except the last earns interest; for \(n=1\), \(s_{\overline{1}|}=1\). The total interest earned is \(s_{\overline{n}|}-n\) per unit deposited.</p>
+<p><strong>The lecture's retirement goal.</strong> A saver deposits 5,000 dollars at the end of each year for 30 years at 7%. The accumulated value at the 30th deposit is \(5000\,s_{\overline{30}|0.07}=5000\times94.460786=472{,}303.93\); the slide rounds it to 472,304 and the calculator gives 472,303.93. The deposits total 150,000, so the interest is 322,303.93, more than twice the deposits. The slide's comment that compound interest did more work than the saver is this ratio, 2.15 to 1.</p>
+<p><strong>Solving for the deposit.</strong> To reach 1,000,000 dollars in 20 years at 8% with deposits at the end of each year, divide the goal by \(s_{\overline{20}|0.08}=45.761964\): the deposit is 21,852.21. The slide prints 21,852.17. That figure is not reproduced by the exact factor, nor by the slide's own rounded factor 45.762, which gives 21,852.19. This book's rule is to keep every intermediate value unrounded and to round only the final amount to cents; with that rule the answer is 21,852.21. The difference is 4 cents, but it shows why an answer must state its rounding rule.</p>
+<p><strong>The running case, third version.</strong> Take as the goal the fund of the second version, 779,854.23 dollars (yearly income in advance); the section on m-thly annuities replaces it with the plan's fund. If the saver deposits once a year, at the end of each year from age 31 to 65, the 35th deposit falls on the 65th birthday, the date at which \(s_{\overline{35}|}\) is valued. At 6%, \(s_{\overline{35}|0.06}=111.434780\), and the yearly deposit is \(779{,}854.23/111.434780=6{,}998.30\) dollars.</p>
+<p><strong>The valuation-date trap.</strong> The slide's scenario: a saver deposits for 10 years, then leaves the money untouched for 5 more years, and the value is wanted at \(t=15\). The common error is to compute \(s_{\overline{15}|}\), which assumes deposits continued to \(t=15\). The deposits stop at \(t=10\), where their value is \(s_{\overline{10}|}\); the next 5 years add only interest, and the value at \(t=15\) is \(s_{\overline{10}|}(1+i)^5\). At an illustrative 7%, per unit deposited, the correct value is \(13.816448\times1.402552=19.378283\) and the erroneous \(s_{\overline{15}|}\) is 25.129022, 30% too large. The rule is the slide's summary: \(s_{\overline{n}|}\) is valued at the moment of the last payment, and any other date needs a further factor from (7.1).</p>
+
+<h2 id="accumulated-due">Accumulated value of an annuity-due <a class="timestamp" href="https://www.youtube.com/watch?v=2MMTU96FSJU&amp;t=1060s">L17 17:40</a></h2>
+<p>This section comes after the accumulated value of the annuity-immediate, although its lecture source is late in Lecture 17, because its formula is built from \(s_{\overline{n}|}\). The accumulated value of an annuity-due of 1 per period for \(n\) periods, \(\ddot s_{\overline{n}|}\), is the value at \(t=n\) of payments at \(t=0,\dots,n-1\). The slide's check of the timing: the last deposit, at \(t=n-1\), has one full period to earn interest before the valuation at \(t=n\). Every payment is one period earlier than in the immediate stream and is valued at the same date, so every term gains one factor \(1+i\):</p>
+\[
+\ddot s_{\overline{n}|}=(1+i)\,s_{\overline{n}|}=\frac{(1+i)^n-1}{d}. \tag{7.10}
+\]
+<p>The last form uses (7.8) and \(d=i/(1+i)\). Like (7.9), \(\ddot s_{\overline{n}|}=(1+i)^n\ddot a_{\overline{n}|}\). Exercise 1 derives a second form, \(\ddot s_{\overline{n}|}=s_{\overline{n+1}|}-1\), from the timeline.</p>
+<p>The trap here is the valuation date again. For the immediate type, the accumulated value is taken at the last payment. For the due type, it is taken one period after the last payment. If a problem asks for the value of a due stream at the date of its last payment, the answer is \(s_{\overline{n}|}\) at that date, not \(\ddot s_{\overline{n}|}\).</p>
+<p><strong>An unknown term in BGN mode.</strong> How long must a saver deposit 5,000 dollars at the start of each year at 6% to reach 100,000? The slide's wrong way solves \(s_{\overline{n}|}=20\) (end-of-year deposits); the right way solves \(\ddot s_{\overline{n}|}=20\). With \(d=0.06/1.06\), (7.10) gives \(1.06^n=1+20d=2.132075\) and \(n=12.9931\); the calculator in BGN mode, with P/Y = C/Y = 1, I/Y = 6, PMT = −5000, FV = 100,000 and PV = 0, gives 12.9931. As in the section on unknowns, 12.9931 is not a number of deposits. Twelve full deposits, at \(t=0,\dots,11\), are worth \(5000\,\ddot s_{\overline{12}|}=89{,}410.69\) at \(t=12\); thirteen are worth \(5000\,\ddot s_{\overline{13}|}=100{,}075.33\) at \(t=13\), 75.33 above the goal. A 13th deposit of 4,928.93 at \(t=12\) instead of 5,000 reaches exactly 100,000 at \(t=13\), since \((89{,}410.69+4{,}928.93)\times1.06=100{,}000.00\).</p>
+<p><strong>The running case, fourth version.</strong> If the saver deposits at the start of each year, from age 30 to 64, the deposits are valued one year after the last one, on the 65th birthday. At 6%, \(\ddot s_{\overline{35}|0.06}=118.120867\), and the yearly deposit that builds the same 779,854.23 dollars is \(779{,}854.23/118.120867=6{,}602.17\) dollars, \(1/1.06\) times the end-of-year deposit of the previous section (6,998.30).</p>
+
+<h2 id="mthly">Annuities payable m-thly <a class="timestamp" href="https://www.youtube.com/watch?v=Nmh_3tTCv38&amp;t=183s">L19 3:03</a></h2>
+<p>Mortgages and car loans are usually paid monthly and dividends quarterly, while rates are often quoted per year. This section adapts the formulas to payments made \(m\) times a year with a rate defined per year; \(m=12\) for monthly payments and \(m=4\) for quarterly payments. Throughout this section, \(i\) is the effective annual rate, \(v=1/(1+i)\), and \(n\) is the term in years, so there are \(nm\) payments, and \(nm\) must be a whole number.</p>
+<p><strong>The notation.</strong> The slide defines \(a^{(m)}_{\overline{n}|}\) as the present value of an annuity paying a <em>total of 1 per year</em>, in instalments of \(1/m\) at the end of each \(m\)th of a year, for \(n\) years. Its warning is the practical consequence: a stream of 100 a month has a total of 1,200 a year, and its present value is \(1200\,a^{(12)}_{\overline{n}|}\), not \(100\,a^{(12)}_{\overline{n}|}\). The slide's picture is a single payment of 1 at the end of the year cut into twelve slices of \(1/12\).</p>
+<p><strong>Rates per \(m\)th of a year.</strong> The effective rate for one \(m\)th of a year, \(j\), is the rate that compounds \(m\) times to the annual rate: \((1+j)^m=1+i\), so \(j=(1+i)^{1/m}-1\). The <em>nominal annual rate of interest convertible m-thly</em>, \(i^{(m)}\), is defined as \(m\) times that rate:</p>
+\[
+i^{(m)}=mj=m\bigl[(1+i)^{1/m}-1\bigr],\qquad\Bigl(1+\frac{i^{(m)}}{m}\Bigr)^m=1+i. \tag{7.11}
+\]
+<p>The second equation is the lecture's "bridge equation". The nominal rate \(i^{(m)}\) is not an effective rate: \(i^{(m)}/m\) is the effective rate for \(1/m\) year, and \(1+i\) is the growth over the year. The superscript \((m)\) in \(i^{(m)}\) is a label, not a power. For \(i=6\%\), \(i^{(12)}=12(1.06^{1/12}-1)=0.058411\): a rate quoted as "5.8411% compounded monthly" and the effective rate 6% describe the same growth.</p>
+<p><strong>Derivation of \(a^{(m)}_{\overline{n}|}\).</strong> The lecture states the result and gives a device for remembering it; the derivation is a geometric series, the same as for (7.4). The payment of \(1/m\) at time \(k/m\) years is worth \(v^{k/m}/m\) at \(t=0\), for \(k=1,\dots,nm\):</p>
+\[
+a^{(m)}_{\overline{n}|}=\frac1m\sum_{k=1}^{nm}v^{k/m}=\frac1m\cdot\frac{v^{1/m}\bigl(1-v^{n}\bigr)}{1-v^{1/m}}. \tag{7.12}
+\]
+<p>The series has first term \(v^{1/m}\), ratio \(v^{1/m}\) and \(nm\) terms, and \((v^{1/m})^{nm}=v^n\). Multiply the numerator and the denominator of \(v^{1/m}/(1-v^{1/m})\) by \((1+i)^{1/m}\): since \(v^{1/m}(1+i)^{1/m}=1\), the fraction becomes \(1/[(1+i)^{1/m}-1]=m/i^{(m)}\) by (7.11). Hence</p>
+\[
+a^{(m)}_{\overline{n}|}=\frac{1-v^n}{i^{(m)}}. \tag{7.13}
+\]
+<p>The numerator is the same as in (7.4), and the effective annual rate in the denominator is replaced by the nominal rate convertible m-thly. With \(m=1\), \(i^{(1)}=i\) and (7.13) is (7.4).</p>
+<p><strong>The m-thly annuity-due.</strong> If each instalment of \(1/m\) is paid at the start of its \(m\)th of a year, at \(k/m\) for \(k=0,\dots,nm-1\), the same series starts at \(v^0=1\): \(\ddot a^{(m)}_{\overline{n}|}=(1/m)(1-v^n)/(1-v^{1/m})\). The <em>nominal annual rate of discount convertible m-thly</em> is defined by</p>
+\[
+d^{(m)}=m\bigl[1-v^{1/m}\bigr],\qquad\Bigl(1-\frac{d^{(m)}}{m}\Bigr)^{-m}=1+i, \tag{7.14}
+\]
+<p>so \(d^{(m)}/m=1-v^{1/m}\) is the effective rate of discount for \(1/m\) year, and</p>
+\[
+\ddot a^{(m)}_{\overline{n}|}=\frac{1-v^n}{d^{(m)}}=\Bigl(1+\frac{i^{(m)}}{m}\Bigr)a^{(m)}_{\overline{n}|}. \tag{7.15}
+\]
+<p>The second form is the shift argument of (7.5) with the period now \(1/m\) year: each instalment arrives \(1/m\) year earlier and gains the factor \((1+i)^{1/m}=1+i^{(m)}/m\).</p>
+<p><strong>The lecture's device.</strong> The lecture remembers all four present-value formulas through a "denominator slot machine": the numerator is always \(1-v^n\), and the denominator is \(i\) for an annual annuity-immediate, \(d\) for an annual annuity-due, \(i^{(m)}\) for an m-thly annuity-immediate and \(d^{(m)}\) for an m-thly annuity-due. The derivations above are the reason the device works: the numerator is the value of 1 now minus 1 at time \(n\), and the denominator is the interest (or discount) per year on 1 that the payments replace. The device does not cover a stream whose payment frequency differs from \(m\) or whose rate changes.</p>
+<p><strong>Accumulated value.</strong> The accumulated value at \(t=n\) of the m-thly annuity-immediate is, as in (7.9), the present value moved forward by \(n\) years:</p>
+\[
+s^{(m)}_{\overline{n}|}=(1+i)^n\,a^{(m)}_{\overline{n}|}=\frac{(1+i)^n-1}{i^{(m)}}. \tag{7.16}
+\]
+<p>The slide's note is that the accumulation factor \((1+i)^n\) stays annual even though the payments are monthly, because \(n\) counts years and \(i\) is the annual rate.</p>
+<p><strong>Checks.</strong> Three limits locate (7.13), (7.15) and (7.16) among the other formulas. <em>Small rate.</em> As \(i\to0\), \(j=(1+i)^{1/m}-1\to0\), so \(i^{(m)}=mj\to0\) and \(d^{(m)}\to0\); each discounted instalment \(v^{k/m}/m\) tends to \(1/m\), and the \(nm\) instalments add to \(n\). So \(a^{(m)}_{\overline{n}|}\), \(\ddot a^{(m)}_{\overline{n}|}\) and \(s^{(m)}_{\overline{n}|}\) all tend to \(n\), the undiscounted total, as \(a_{\overline{n}|}\) does; at \(i=10^{-6}\), \(a^{(12)}_{\overline{25}|}=24.999686\). <em>Many instalments.</em> As \(m\to\infty\), write \((1+i)^{1/m}=e^{\ln(1+i)/m}\). Since \((e^{u}-1)/u\to1\) as \(u\to0\) (the derivative of \(e^{u}\) at 0 is 1), \(i^{(m)}=m\bigl(e^{\ln(1+i)/m}-1\bigr)\to\ln(1+i)\), and \(d^{(m)}=i^{(m)}/(1+i)^{1/m}\to\ln(1+i)\) as well. The two nominal rates meet at a common limit, which actuarial texts call the force of interest (it is among the topics of the Exam FM syllabus, p. 2); this chapter uses only the limit. Both \(a^{(m)}_{\overline{n}|}\) and \(\ddot a^{(m)}_{\overline{n}|}\) tend to \((1-v^n)/\ln(1+i)=\int_0^n v^t\,dt\), the integral of the discount factor over the term. At 4%, \(\ln1.04=0.039221\) lies between \(d^{(12)}=0.039157\) and \(i^{(12)}=0.039285\), and at \(m=365\) the two are 0.039219 and 0.039223. <em>Long term.</em> As \(n\to\infty\) with \(i\gt0\), \(v^n\to0\), so \(a^{(m)}_{\overline{n}|}\to1/i^{(m)}\), as \(a_{\overline{n}|}\to1/i\), the bound of the section on the present value. \(s^{(m)}_{\overline{n}|}\) grows without bound.</p>
+<p><strong>Ordering.</strong> For \(i\gt0\) and \(m\gt1\), the four present values of a total of 1 a year satisfy</p>
+\[
+a_{\overline{n}|}\lt a^{(m)}_{\overline{n}|}\lt\ddot a^{(m)}_{\overline{n}|}\lt\ddot a_{\overline{n}|}.
+\]
+<p>The reason is the timing of each year's total of 1 within the year. The annual immediate stream pays all of it at the end of the year. The m-thly immediate stream pays it in \(m\) parts, the last at the end of the year. The m-thly due stream pays it in \(m\) parts, the first at the start of the year. The annual due stream pays all of it at the start. Exercise 4 proves the ordering from the denominators. At 4% and \(n=25\) the four values are 15.622080, 15.906457, 15.958530 and 16.246963.</p>
+<p><strong>The lecture's monthly payout.</strong> Find the present value of 100 dollars at the end of each month for 5 years at an effective annual rate of 6%. The yearly total is 1,200, and</p>
+\[
+\mathrm{PV}=1200\,a^{(12)}_{\overline{5}|}=1200\cdot\frac{1-1.06^{-5}}{i^{(12)}}=5{,}192.38\qquad(i^{(12)}=0.058411,\ \text{unrounded in the division}).
+\]
+<p>On the calculator, the slide sets P/Y = 12 and C/Y = 12 (compounding periods per year), N = 60, PMT = 100 and I/Y = 5.841, the nominal rate. The calculator's own formula explains why this works: with P/Y and C/Y set, the rate per payment period is \((1+\mathrm{I/Y}/(100\,\mathrm{C/Y}))^{\mathrm{C/Y}/\mathrm{P/Y}}-1\) (TI guidebook, p. 69), which for C/Y = P/Y = 12 is \(\mathrm{I/Y}/1200\), the nominal rate divided by 12. Entering P/Y also sets C/Y to the same value unless C/Y is changed separately (TI guidebook, p. 21). The slide offers an alternative, "or just enter the annual rate if P/Y matches C/Y". That alternative gives a different number: with P/Y = C/Y = 12 and I/Y = 6, the calculator uses 0.5% a month and returns 5,172.56, which is \(100\,a_{\overline{60}|0.005}\), the value at 6% nominal convertible monthly (effective 6.168%). To enter the effective rate 6 directly, C/Y must be 1 with P/Y = 12; then the formula above gives \(1.06^{1/12}-1\) per month, and the value is 5,192.38.</p>
+<p><strong>An unknown term with monthly payments.</strong> A loan of 20,000 dollars is repaid by 400 dollars at the end of each month at a nominal rate of 6% convertible monthly, so \(j=0.5\%\) a month. The equation \(20{,}000=400\,a_{\overline{n}|0.005}\) (with \(n\) now counting months) gives \(1.005^{-n}=0.75\) and \(n=57.68\) months. The slide interprets this as 57 full payments and a smaller drop payment in month 58, and describes 0.68 as the fraction of a full payment needed at the end, plus interest. The exact drop payment is \((20{,}000-400\,a_{\overline{57}|0.005})(1.005)^{58}=272.27\), against \(0.68\times400=272.00\). The two are close here because the extra interest on a small final balance for less than a month is small; the section on unknowns showed a case where they differ by 4.02.</p>
+<p><strong>The running case, monthly version.</strong> The plan pays 4,000 dollars at the start of each month for 25 years, a total of 48,000 a year, at 4% effective. By (7.14), \(d^{(12)}=12(1-1.04^{-1/12})=0.039157\), and</p>
+\[
+\mathrm{PV}_{65}=48{,}000\,\ddot a^{(12)}_{\overline{25}|0.04}=48{,}000\cdot\frac{1-1.04^{-25}}{d^{(12)}}=48{,}000\times15.958530=766{,}009.45 .
+\]
+<p>The program confirms this value against the direct sum of 300 discounted monthly payments. The saver deposits \(\mathrm{PMT}\) at the end of each month from age \(30\tfrac1{12}\) to 65, a total of \(12\,\mathrm{PMT}\) a year for 35 years, at 6% effective. With \(i^{(12)}=0.058411\), \(s^{(12)}_{\overline{35}|0.06}=(1.06^{35}-1)/i^{(12)}=114.466998\), and</p>
+\[
+12\,\mathrm{PMT}\cdot s^{(12)}_{\overline{35}|0.06}=766{,}009.45\quad\Longrightarrow\quad\mathrm{PMT}=557.66 .
+\]
+<p>The 420 deposits total 234,218.87 dollars (420 times the unrounded deposit; \(420\times557.66=234{,}217.20\)); the 300 withdrawals total 1,200,000.</p>
+
+<h2 id="lab">Two phases on one timeline: the retirement-planning lab <a class="timestamp" href="https://www.youtube.com/watch?v=Ojlvcq0ZYuo&amp;t=183s">L20 3:03</a></h2>
+<p>The problem-solving lab of Lecture 20 applies the chapter to a retirement plan with two phases: saving from age 25 to 65 and drawing an income from 65 to 90. Its method is the method of the running case. The calculation runs backward: first the present value of the income at the retirement date, then the deposits whose accumulated value at the same date equals it. The lab names the result a unified equation of value, with the retirement date as the focal date:</p>
+\[
+12\,\mathrm{PMT}_{\text{save}}\cdot s^{(12)}_{\overline{n_1}|i_1}=12\,\mathrm{PMT}_{\text{need}}\cdot\ddot a^{(12)}_{\overline{n_2}|i_2}. \tag{7.17}
+\]
+<p>Here \(n_1\) and \(i_1\) are the term and rate of the saving phase, \(n_2\) and \(i_2\) those of the income phase. The slide's trap alert is that the two phases have different rates; the lab's reason, a riskier portfolio while working and a safer one in retirement, is the speaker's illustration, not an empirical claim. Two timing facts make (7.17) correct. The left side is valued at the last deposit, because \(s^{(12)}\) is valued at the time of the last payment of an immediate stream, and the last end-of-month deposit falls on the retirement date. The right side is valued at the first withdrawal, because \(\ddot a^{(12)}\) is valued at the first payment of a due stream, and the first start-of-month withdrawal falls on the same date (Figure 7.2). If the income were paid at the end of each month, the right side would need \(a^{(12)}\), and the fund would be smaller by the factor \(1/(1+j)\).</p>
+<figure>
+<svg viewBox="0 0 640 170" role="img" aria-labelledby="fig-plan-title fig-plan-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-plan-title">The two phases of the running case on one timeline</title>
+<desc id="fig-plan-desc">A timeline from age 30 to age 90. From age 30 to 65, monthly deposits are made at the end of each month at 6 percent effective. From age 65 to 90, withdrawals of 4,000 are made at the start of each month at 4 percent effective. A dashed vertical line at age 65 marks the focal date, where the last deposit and the first withdrawal both fall.</desc>
+<text x="375" y="18" text-anchor="middle">focal date: age 65 (t = 35)</text>
+<line x1="375" y1="26" x2="375" y2="122" stroke="currentColor" stroke-dasharray="5 4"/>
+<text x="217" y="46" text-anchor="middle">deposits PMT at the end of each month,</text>
+<text x="217" y="62" text-anchor="middle">420 months, 6% effective</text>
+<text x="490" y="46" text-anchor="middle">withdrawals 4,000 at the start</text>
+<text x="490" y="62" text-anchor="middle">of each month, 300 months, 4%</text>
+<rect x="60" y="74" width="312" height="24" fill="currentColor" fill-opacity="0.18" stroke="currentColor"/>
+<rect x="378" y="74" width="222" height="24" fill="currentColor" fill-opacity="0.42" stroke="currentColor"/>
+<line x1="40" y1="106" x2="612" y2="106" stroke="currentColor" stroke-width="1.5"/>
+<polygon points="612,102 622,106 612,110" fill="currentColor"/>
+<g stroke="currentColor"><line x1="60" y1="101" x2="60" y2="111"/><line x1="375" y1="101" x2="375" y2="111"/><line x1="600" y1="101" x2="600" y2="111"/></g>
+<g text-anchor="middle"><text x="60" y="128">age 30</text><text x="375" y="140">age 65</text><text x="600" y="128">age 90</text>
+<text x="60" y="146">t = 0</text><text x="375" y="158">t = 35</text><text x="600" y="146">t = 60</text></g>
+</svg>
+<figcaption>Figure 7.2. The running case. The last deposit (end of the month that ends at 65) and the first withdrawal (start of the month that starts at 65) fall on the same date, so the accumulated value \(s^{(12)}\) of the deposits and the present value \(\ddot a^{(12)}\) of the withdrawals are both values at \(t=35\). Equation (7.17) equates them there.</figcaption>
+</figure>
+<p><strong>The lab's numbers.</strong> The income is 5,000 dollars at the start of each month for 25 years. The liability slide writes \(\mathrm{PV}_{65}=12\times5000\times\ddot a^{(12)}_{\overline{25}|}\) at 4%, and the recording calls the 4% an effective annual rate. The calculator setup on the next slide is BGN mode, P/Y = 12, C/Y = 12, N = 300, I/Y = 4, PMT = 5000 and FV = 0, and it gives a present value of 950,419.96 dollars. The saving phase is 40 years at 8%, again called effective in the recording, with deposits at the end of each month; with P/Y = C/Y = 12, N = 480, I/Y = 8, PV = 0 and FV = 950,420, the calculator gives a deposit of 272.25 dollars a month. Waiting until 45 to start saving (N = 240) gives 1,613.56 dollars a month. The slide reads this as a burden six times larger; the ratio is \(1613.56/272.25=5.93\).</p>
+<p><strong>Two readings of the interest entry.</strong> With C/Y = 12, the calculator turns I/Y = 4 into a monthly rate of \(4/1200\), that is \(0.3333\%\) (TI guidebook, p. 69). That is a nominal rate of 4% convertible monthly, \(i^{(12)}=4\%\), whose effective annual rate is \((1+0.04/12)^{12}-1=4.0742\%\). The program reproduces the slide's 950,419.96 with this reading. If the 4% is an effective annual rate, as the recording says and as the formula with \(\ddot a^{(12)}_{\overline{25}|}\) at 4% means in this chapter's notation, the monthly rate is \(1.04^{1/12}-1=0.32737\%\), and the fund is 957,511.81 dollars, 7,091.86 dollars (0.75%) more. The deposit changes more, because the saving phase is longer: at an effective 8% the monthly deposit that builds 950,420 dollars over 40 years is 295.06 dollars, 8.4% more than 272.25. Both sets of numbers are correct answers to different questions. The lab's numbers answer the question with nominal rates of 4% and 8% convertible monthly; the formula on the liability slide, read with an effective rate, answers the other. A problem statement or a quoted rate that does not name its compounding frequency leaves this choice open; the reader must decide it before computing.</p>
+<p><strong>The lab's early-retirement exercise.</strong> The lab's second scenario saves 2,000 dollars at the end of each month for 20 years at 7%, and needs 4,000 at the end of each month for 30 years at 5%. Both are entered with P/Y = 12, which sets C/Y = 12 unless C/Y is changed (TI guidebook, p. 21), so both are read as nominal rates convertible monthly. At year 20 the savings are worth \(2000\,s_{\overline{240}|0.07/12}=1{,}041{,}853.32\) and the income needs \(4000\,a_{\overline{360}|0.05/12}=745{,}126.47\), with the month as the period in both. (The solution slide writes the income factor as \(a^{(12)}\) with the subscript 360. In this chapter's notation the subscript of \(a^{(12)}_{\overline{n}|}\) counts years, so the same value is \(48{,}000\,a^{(12)}_{\overline{30}|}\) at the effective rate \((1+0.05/12)^{12}-1\).) The surplus is 296,726.85 dollars; the slide rounds it to 296,000. Both phases pay at the end of the month, so the first withdrawal is one month after the focal date, and the immediate formula is the right one there.</p>
+<p>The lab ends with a caution that the book repeats as a limitation: level payments of 5,000 dollars buy less in 40 years than today, because of inflation, and a level annuity does not model that. The lab previews payments that grow and a rate adjusted for inflation for later weeks of the course; this chapter does not use them.</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The running case asked how large the fund must be at 65 to pay 4,000 dollars a month for 25 years, and what regular deposit builds it, with 4% effective in retirement and 6% effective while saving. Table 7.1 collects the versions computed in the sections above.</p>
+<div class="table-wrap"><table>
+<caption>Table 7.1. The running case under each timing and rate assumption. Values in dollars, rounded to cents at the end; intermediate values unrounded.</caption>
+<thead><tr><th scope="col">Quantity</th><th scope="col">Timing or reading</th><th scope="col">Formula</th><th scope="col">Value</th></tr></thead>
+<tbody>
+<tr><td>Fund at 65</td><td>48,000 at the end of each year</td><td>\(48{,}000\,a_{\overline{25}|}\)</td><td>749,859.84</td></tr>
+<tr><td>Fund at 65</td><td>48,000 at the start of each year</td><td>\(48{,}000\,\ddot a_{\overline{25}|}\)</td><td>779,854.23</td></tr>
+<tr><td>Fund at 65</td><td>4,000 at the start of each month (the plan)</td><td>\(48{,}000\,\ddot a^{(12)}_{\overline{25}|}\)</td><td>766,009.45</td></tr>
+<tr><td>Fund at 65</td><td>the plan, with 4% read as 4%/12 a month</td><td>\(4000\,\ddot a_{\overline{300}|0.04/12}\)</td><td>760,335.97</td></tr>
+<tr><td>Deposit</td><td>end of each year, to 779,854.23</td><td>\(\div\,s_{\overline{35}|}\)</td><td>6,998.30</td></tr>
+<tr><td>Deposit</td><td>start of each year, to 779,854.23</td><td>\(\div\,\ddot s_{\overline{35}|}\)</td><td>6,602.17</td></tr>
+<tr><td>Deposit</td><td>end of each month (the plan), to 766,009.45</td><td>\(\div\,12s^{(12)}_{\overline{35}|}\)</td><td>557.66</td></tr>
+</tbody></table></div>
+<p>The plan's answer is a fund of 766,009.45 dollars and a deposit of 557.66 dollars at the end of each month. The table measures each error. Treating the income as annual in arrears under-funds the plan by 16,149.61 dollars (2.1%); treating it as annual in advance over-funds it by 13,844.78 (1.8%). The monthly plan lies between the two annual versions, as the ordering of the m-thly section requires. Reading the effective 4% as 4%/12 a month under-funds it by 5,673.49 (0.74%), because \(0.04/12=0.3333\%\) is larger than the true monthly rate \(0.32737\%\). For the saver, the same misreading of 6% would give a deposit of 537.66 instead of 557.66, and after 35 years the account would fall short of the goal.</p>
+<p>What generalizes is the procedure, not the numbers: draw one timeline, place every payment on it, name the valuation date of each formula (Figure 7.1), choose one focal date, and convert every quoted rate to the rate per payment period before using it. What is specific to the case is the pair of invented rates and the choice of monthly payments; with other rates the ranking of the versions in Table 7.1 stays the same, because it follows from the ordering of the m-thly section and from the factor \(1+i\) between due and immediate.</p>
+
+<h2 id="implementation">Executable check of the formulas and the running case</h2>
+<p>The program below implements (7.4), (7.5), (7.8), (7.11), (7.12)-(7.13), (7.14) and (7.15) and checks them against direct sums of discounted payments, which do not use the closed forms. Its inputs are set in the code: the rates, terms and amounts of the running case and of the lecture examples. It makes three groups of checks. (1) With the rate \(i=1/25\) held as an exact fraction, the direct sums of 25 discounted payments equal \(a_{\overline{25}|}\) and \(\ddot a_{\overline{25}|}\) exactly, \(\ddot a_{\overline{25}|}=1+a_{\overline{24}|}\) exactly, and \(s_{\overline{25}|}=(1+i)^{25}a_{\overline{25}|}\) exactly; it also evaluates \(a_{\overline{10}|}\) exactly at \(i=10^{-6}\) for the small-rate check. (2) In floating point, the direct sums of 300 monthly payments of \(1/12\) equal (7.13) and (7.15) to within \(10^{-9}\). (3) It prints the running case, the rate root found by bisection with the stopping rule of the section on unknowns, the two drop payments, the slide's calculator alternative and the two readings of the lab's interest entry.</p>
+<p>The functions raise <code>ValueError</code> if the number of payments \(nm\) is not a whole number, if \(n\) is negative, or if \(i\le-1\); the rate solver raises it if the payments do not exceed the loan, \(n\,\mathrm{PMT}\le\mathrm{PV}\), or if the function does not change sign on its starting interval. The program reads no files and writes only to standard output. It uses the standard library only. Exact checks use <code>fractions.Fraction</code>; everything with a fractional power, such as \((1+i)^{1/12}\), and the root finding use floating point. Printed amounts are rounded to cents only at the end. The checks test algebra and arithmetic; they do not test whether a quoted rate in a problem is effective or nominal, which is a question about the problem statement.</p>
+<pre><code class="language-python">from fractions import Fraction as Fr
+
+
+def check(n, i, m=1):
+    """Reject a term that is not a whole number of payment periods."""
+    if n &lt; 0 or i &lt;= -1 or n*m != int(n*m):
+        raise ValueError(f"need n*m a whole number &gt;= 0, i &gt; -1: {n}, {i}")
+
+
+def pv_direct(times, amounts, i):
+    """Value at time 0 of amounts[k] paid at times[k] (equation of value)."""
+    return sum(c*(1 + i)**(-t) for t, c in zip(times, amounts))
+
+
+def a_imm(n, i):
+    """Annuity-immediate (7.4); returns n in the limit i = 0."""
+    check(n, i)
+    return n if i == 0 else (1 - (1 + i)**(-n))/i
+
+
+def a_due(n, i):
+    """Annuity-due (7.5)."""
+    return (1 + i)*a_imm(n, i)
+
+
+def s_imm(n, i):
+    """Accumulated value at the last payment (7.8)."""
+    check(n, i)
+    return n if i == 0 else ((1 + i)**n - 1)/i
+
+
+def i_nom(i, m):
+    """Nominal rate convertible m-thly equivalent to effective i (7.11)."""
+    return m*((1 + i)**(1/m) - 1)
+
+
+def d_nom(i, m):
+    """Nominal discount rate convertible m-thly (7.14)."""
+    return m*(1 - (1 + i)**(-1/m))
+
+
+def a_m(n, i, m, due=False):
+    """PV of 1 per year paid in m instalments of 1/m (7.13), (7.15)."""
+    check(n, i, m)
+    return (1 - (1 + i)**(-n))/(d_nom(i, m) if due else i_nom(i, m))
+
+
+def rate(pv, pmt, n, lo=1e-9, hi=1.0, tol=1e-12):
+    """Effective rate per period with pmt*a_imm(n, i) = pv, by bisection.
+    a_imm decreases in i, so one root lies in [lo, hi] if signs differ."""
+    if pmt*n &lt;= pv:
+        raise ValueError("payments do not exceed the loan")
+    f = (lambda x: pmt*a_imm(n, x) - pv)
+    if f(lo) &lt; 0 or f(hi) &gt; 0:
+        raise ValueError("no root in [lo, hi]")
+    while hi - lo &gt; tol:
+        mid = (lo + hi)/2
+        lo, hi = (mid, hi) if f(mid) &gt; 0 else (lo, mid)
+    return (lo + hi)/2
+
+
+# 1. Exact checks with rational i (4 %): closed forms against direct sums.
+i, n = Fr(1, 25), 25
+assert pv_direct(range(1, n + 1), [1]*n, i) == a_imm(n, i)
+assert pv_direct(range(0, n), [1]*n, i) == a_due(n, i)
+assert a_due(n, i) == 1 + a_imm(n - 1, i)
+assert s_imm(n, i) == (1 + i)**n*a_imm(n, i)
+print("exact identities at 4%: a, a-due, 1+a(n-1), s = (1+i)^n a: pass")
+print(f"a_25 = {float(a_imm(n, i)):.6f}  a-due_25 = {float(a_due(n, i)):.6f}")
+print(f"i -&gt; 0: a_10 at i = 1e-6 is {float(a_imm(10, Fr(1, 10**6))):.6f}")
+# 2. Monthly (floating point): 300 payments of 1/12 against (7.13), (7.15).
+i, m, n = 0.04, 12, 25
+times = [k/m for k in range(1, n*m + 1)]
+imm = pv_direct(times, [1/m]*(n*m), i)
+due = pv_direct([t - 1/m for t in times], [1/m]*(n*m), i)
+print(f"a(12)_25: sum {imm:.10f}  closed {a_m(n, i, m):.10f}")
+print(f"a-due(12)_25: sum {due:.10f}  closed {a_m(n, i, m, True):.10f}")
+assert abs(imm - a_m(n, i, m)) &lt; 1e-9 and abs(due - a_m(n, i, m, 1)) &lt; 1e-9
+# 3. Running case: 4,000 at the start of each month for 25 years from
+# age 65 (4 % effective); deposits for 35 years before it (6 % effective).
+W, ir, iw = 4000, 0.04, 0.06
+F = {"annual, end of year": 12*W*a_imm(25, ir),
+     "annual, start of year": 12*W*a_due(25, ir),
+     "monthly, start of month": 12*W*a_m(25, ir, 12, True)}
+for k, x in F.items():
+    print(f"fund at 65, {k:24s} {x:12,.2f}")
+F65 = F["monthly, start of month"]
+FA = F["annual, start of year"]
+print(f"deposit to {FA:,.2f}, end of each year:   {FA/s_imm(35, iw):9,.2f}")
+print(f"deposit to {FA:,.2f}, start of each year: {FA/((1 + iw)*s_imm(35, iw)):9,.2f}")
+s12 = ((1 + iw)**35 - 1)/i_nom(iw, 12)
+print(f"deposit to {F65:,.2f}, end of each month:  {F65/(12*s12):9,.2f}")
+wrong = W*a_due(300, ir/12)
+print(f"fund if 4% is read as 4%/12 a month: {wrong:,.2f}"
+      f"  (short by {F65 - wrong:,.2f})")
+alt = 100*a_imm(60, 0.06/12)
+print(f"100 a month for 5 years at 6% effective: {100*12*a_m(5, .06, 12):.2f}"
+      f"; with 6%/12 a month: {alt:.2f}")
+# 4. Unknown rate and unknown term.
+print(f"rate with 1000*a_6 = 5000: {100*rate(5000, 1000, 6):.4f}%")
+drop = (10000 - 1000*a_imm(14, 0.05))*1.05**15
+print(f"10000 at 5%, 1000 a year: 14 payments, drop at 15 = {drop:.2f}")
+j = 0.005
+drop = (20000 - 400*a_imm(57, j))*(1 + j)**58
+print(f"20000 at 0.5% a month, 400 a month: drop at 58 = {drop:.2f}")
+# 5. Lecture 20 lab: the two readings of 'I/Y = 4' with P/Y = C/Y = 12.
+for name, jm in (("4%/12 a month", 0.04/12), ("4% effective", None)):
+    jm = jm if jm else 1.04**(1/12) - 1
+    print(f"lab fund, {name:14s} {5000*(1 + jm)*a_imm(300, jm):12,.2f}")
+</code></pre>
+<p>Run in a fresh interpreter (<code>python -I</code>, Python 3.13), the program prints:</p>
+<pre><code>exact identities at 4%: a, a-due, 1+a(n-1), s = (1+i)^n a: pass
+a_25 = 15.622080  a-due_25 = 16.246963
+i -&gt; 0: a_10 at i = 1e-6 is 9.999945
+a(12)_25: sum 15.9064566143  closed 15.9064566143
+a-due(12)_25: sum 15.9585302141  closed 15.9585302141
+fund at 65, annual, end of year        749,859.84
+fund at 65, annual, start of year      779,854.23
+fund at 65, monthly, start of month    766,009.45
+deposit to 779,854.23, end of each year:    6,998.30
+deposit to 779,854.23, start of each year:  6,602.17
+deposit to 766,009.45, end of each month:     557.66
+fund if 4% is read as 4%/12 a month: 760,335.97  (short by 5,673.49)
+100 a month for 5 years at 6% effective: 5192.38; with 6%/12 a month: 5172.56
+rate with 1000*a_6 = 5000: 5.4718%
+10000 at 5%, 1000 a year: 14 payments, drop at 15 = 210.72
+20000 at 0.5% a month, 400 a month: drop at 58 = 272.27
+lab fund, 4%/12 a month    950,419.96
+lab fund, 4% effective     957,511.81
+</code></pre>
+<p>The first five lines are the independent checks: the exact identities, the values \(a_{\overline{25}|}\) and \(\ddot a_{\overline{25}|}\) at 4%, the small-rate value 9.999945 against the expansion \(10-55\times10^{-6}\), and the agreement of the monthly direct sums with (7.13) and (7.15) to ten decimals. The remaining lines are the numbers used in the text. Two failure tests show what the checks detect. If the due formula is written as \(a_{\overline{n}|}/(1+i)\) instead of \((1+i)a_{\overline{n}|}\), the second assertion fails, because the direct sum over \(t=0,\dots,n-1\) no longer matches. If \(i^{(m)}\) is replaced by \(i\) in (7.13), the monthly assertion fails, because \(1/i\) and \(1/i^{(12)}\) differ by 1.8% at 4%. A wrong rate convention in the input, such as 0.04/12 for an effective 4%, passes every assertion, since the formulas are evaluated correctly at a wrong rate; only the comparison of the last two printed lines exposes it.</p>
+
+<h2 id="limits">What these formulas establish and what they do not</h2>
+<p>Within their assumptions, (7.4), (7.5), (7.8), (7.10), (7.13), (7.15) and (7.16) are exact: each is the sum of a finite geometric series, or a multiple of one. The program confirms (7.4), (7.5), (7.13) and (7.15) against direct sums of the discounted payments, and (7.8) through the identity (7.9). Formulas (7.10) and (7.16) follow from (7.8) and (7.13) by the factors \(1+i\) and \((1+i)^n\); the program does not test them. Exercise 1(c) evaluates (7.10) at 4% in two ways, and the value of (7.16) used in the running case, 114.466998, is not tested against a direct sum. The assumptions are of three kinds. Definitions: the payments are certain, level and equally spaced, and the present and accumulated values are taken at the dates of Figure 7.1. A model: one constant compound rate for the whole term, the same for borrowing and lending, so that every payment can be moved with (7.1). A convention: the rate in each formula is the effective rate per period, or for (7.13)–(7.16) the effective annual rate together with the nominal rates defined from it; a quoted rate that does not state whether it is effective or nominal, and at what frequency, must be converted before use.</p>
+<p>The formulas stop applying in identifiable places. A term that is not a whole number of payment periods has no meaning as a stream of equal payments until a final-payment convention is chosen (drop or balloon), and the two conventions give different amounts. A rate that changes during the term, or different rates in two phases, needs one formula per constant-rate segment joined at the segment boundaries, as in (7.17). The rate equation for an unknown \(i\) has a unique root because the stream has one sign change; it is solved numerically, not in closed form. Payments that are uncertain, such as an income that stops at death, are outside this chapter: the formulas value certain payments only. Level payments ignore inflation, which the lab names as their main practical limitation. Calculator results inherit their settings: END or BGN, and P/Y and C/Y, which decide whether the interest entry is read as an effective or a nominal rate.</p>
+<p>The topics of this chapter, annuity-immediate, annuity-due and annuities payable m-thly, together with the conversion between effective and nominal rates, are named learning outcomes of the Society of Actuaries Exam FM, whose syllabus weights the annuity topic at 20–30% of the examination (SOA Exam FM syllabus, October 2026, pp. 2–3). Slide 14 of Lecture 17 names Exam FM directly; the recordings do not state which examination the course prepares for.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive).</strong> (a) Show from the timeline that \(\ddot a_{\overline{n}|}=1+a_{\overline{n-1}|}\), and show algebraically that it equals \((1+i)a_{\overline{n}|}\). (b) Show that \(\ddot s_{\overline{n}|}=s_{\overline{n+1}|}-1\), and explain the identity with a timeline. (c) Check both identities at \(i=4\%\) and \(n=25\). Round to six decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) The annuity-due pays 1 at \(t=0,1,\dots,n-1\). The payment at 0 is worth 1 at 0. The payments at \(1,\dots,n-1\) are an annuity-immediate of \(n-1\) payments, worth \(a_{\overline{n-1}|}\) at 0. Adding gives (7.6). Algebraically, \((1+i)a_{\overline{n}|}=(1+i)(v+v^2+\dots+v^n)=1+v+\dots+v^{n-1}=1+a_{\overline{n-1}|}\), since \((1+i)v^k=v^{k-1}\).</p>
+<p>(b) By (7.10) and (7.7), \(\ddot s_{\overline{n}|}=(1+i)\sum_{k=0}^{n-1}(1+i)^k=\sum_{k=1}^{n}(1+i)^k\), while \(s_{\overline{n+1}|}=\sum_{k=0}^{n}(1+i)^k\). The two sums differ by the \(k=0\) term, 1. Timeline: add a payment of 1 at \(t=n\) to the due stream. The extended stream has \(n+1\) payments at \(0,\dots,n\), and its value at the time of its last payment, \(t=n\), is \(s_{\overline{n+1}|}\). Removing the added payment, which is worth exactly 1 at \(t=n\), leaves \(\ddot s_{\overline{n}|}\).</p>
+<p>(c) At 4%: \(\ddot a_{\overline{25}|}=1.04\times15.622080=16.246963\) and \(1+a_{\overline{24}|}=16.246963\). \(\ddot s_{\overline{25}|}=1.04\times(1.04^{25}-1)/0.04=43.311745\) and \(s_{\overline{26}|}-1=43.311745\).</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> A loan of 15,000 dollars is repaid by equal payments at the end of each month for 4 years. The effective annual rate of interest is 7%. Calculate the monthly payment, rounded to the nearest cent, with no intermediate rounding. Choose the closest answer: (A) 312.50 (B) 355.69 (C) 357.70 (D) 359.19 (E) 369.04.</p>
+<details><summary>Solution</summary>
+<p>The yearly total of the payments is \(12\,\mathrm{PMT}\), so \(15{,}000=12\,\mathrm{PMT}\cdot a^{(12)}_{\overline{4}|0.07}\). By (7.11), \(i^{(12)}=12(1.07^{1/12}-1)=0.0678497\). By (7.13), \(a^{(12)}_{\overline{4}|}=(1-1.07^{-4})/0.0678497=3.4945568\). Hence \(\mathrm{PMT}=15{,}000/(12\times3.4945568)=357.70\): answer (C).</p>
+<p>Each wrong choice comes from a specific error. (A) ignores interest, \(15{,}000/48\). (B) is the payment at the start of each month, \(357.70/1.07^{1/12}\). (D) uses \(0.07/12\) as the monthly rate, which treats 7% as nominal convertible monthly. (E) divides the annual payment \(15{,}000/a_{\overline{4}|0.07}=4{,}428.42\) by 12, which pays the interest as if the money were repaid only at each year end.</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> A bank advertises a savings plan at "9% a year". A customer deposits 300 dollars at the end of each month for 10 years. (a) Compute the accumulated value at the last deposit if 9% is the effective annual rate. (b) Compute it if 9% is a nominal rate convertible monthly, which is how a BA II Plus reads I/Y = 9 with P/Y = C/Y = 12. (c) What effective annual rate does reading (b) correspond to, and how large is the difference between (a) and (b)? Round amounts to cents and rates to four decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) The yearly total is 3,600. With \(i=9\%\), \(i^{(12)}=12(1.09^{1/12}-1)=0.0864879\) and \(s^{(12)}_{\overline{10}|}=(1.09^{10}-1)/0.0864879=15.809888\), so the value is \(3600\times15.809888=56{,}915.60\).</p>
+<p>(b) The monthly rate is \(0.09/12=0.75\%\), and the value is \(300\,s_{\overline{120}|0.0075}=300\times(1.0075^{120}-1)/0.0075=58{,}054.28\).</p>
+<p>(c) Reading (b) is the effective annual rate \((1.0075)^{12}-1=9.3807\%\). The accumulated values differ by 1,138.69 dollars, 2.0% of (a). The advertisement is incomplete until it states the compounding frequency; a saver who compares two plans must convert both to effective annual rates first, by (7.11).</p>
+</details>
+<p><strong>Exercise 4 (counterexample and proof).</strong> A student argues: "Monthly instalments arrive sooner than one annual payment with the same yearly total, so a monthly stream always has the larger present value." (a) Using the values at 4% and \(n=25\) in the section on m-thly annuities, find the case in which the claim holds and the case in which it fails, with values to six decimals. (b) Prove, for \(i\gt0\) and \(m\gt1\), that \(i^{(m)}\lt i\), that \(d^{(m)}\gt d\), and that \(i^{(m)}\gt d^{(m)}\). (c) Deduce the ordering \(a_{\overline{n}|}\lt a^{(m)}_{\overline{n}|}\lt\ddot a^{(m)}_{\overline{n}|}\lt\ddot a_{\overline{n}|}\).</p>
+<details><summary>Solution</summary>
+<p>(a) For payments at the end of the period, \(a^{(12)}_{\overline{25}|}=15.906457\gt a_{\overline{25}|}=15.622080\): the claim holds. For payments at the start of the period, \(\ddot a^{(12)}_{\overline{25}|}=15.958530\lt\ddot a_{\overline{25}|}=16.246963\): the claim fails. An annual annuity-due pays the whole year's amount at the start of the year, before any of the monthly instalments of the same year except the first, so the monthly stream does not arrive sooner.</p>
+<p>(b) First, Bernoulli's inequality: for an integer \(m\ge2\) and \(y\gt-1\), \(y\neq0\), \((1+y)^m\gt1+my\). Proof: \(g(y)=(1+y)^m-1-my\) has \(g(0)=0\) and \(g'(y)=m[(1+y)^{m-1}-1]\), which is negative for \(-1\lt y\lt0\) and positive for \(y\gt0\); so \(g\) has its minimum 0 at \(y=0\) only. Let \(x=(1+i)^{1/m}\gt1\). With \(y=x-1=i^{(m)}/m\gt0\): \(1+i=x^m\gt1+i^{(m)}\), so \(i^{(m)}\lt i\). With \(y=-d^{(m)}/m\), where \(d^{(m)}/m=1-1/x\) lies between 0 and 1: \(v=(1-d^{(m)}/m)^m\gt1-d^{(m)}\), so \(d^{(m)}\gt1-v=d\). Finally, \(i^{(m)}/m=x-1\) and \(d^{(m)}/m=(x-1)/x\), so \(i^{(m)}/m-d^{(m)}/m=(x-1)^2/x\gt0\).</p>
+<p>(c) All four present values have the numerator \(1-v^n\gt0\) and the denominators \(i\), \(i^{(m)}\), \(d^{(m)}\) and \(d\). By (b), \(d\lt d^{(m)}\lt i^{(m)}\lt i\). A larger denominator gives a smaller value, so \(a_{\overline{n}|}\lt a^{(m)}_{\overline{n}|}\lt\ddot a^{(m)}_{\overline{n}|}\lt\ddot a_{\overline{n}|}\). At 4%: \(d=0.038462\), \(d^{(12)}=0.039157\), \(i^{(12)}=0.039285\), \(i=0.04\).</p>
+</details>
+<p><strong>Exercise 5 (unknown term, trap).</strong> A fund of 200,000 dollars earns 5% effective a year and pays 1,500 dollars at the end of each month. (a) Find the term \(n\) in months for which the equation of value holds. (b) How many full payments can be made? Find the final payment under the drop convention and under the balloon convention. (c) A student multiplies the fractional part of \(n\) by 1,500 to get the final payment. Compare. Round amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) The monthly rate is \(j=1.05^{1/12}-1=0.40741\%\), not \(0.05/12\). The equation \(200{,}000=1500\,a_{\overline{n}|j}\) gives \((1+j)^{-n}=1-200{,}000j/1500=0.4567835\) and \(n=-\ln(0.4567835)/\ln(1+j)=192.714\) months, about 16.06 years.</p>
+<p>(b) 192 full payments. The balance just after the 192nd payment is \(200{,}000(1+j)^{192}-1500\,s_{\overline{192}|j}=1{,}067.31\). Drop: one month later the final payment is \(1{,}067.31(1+j)=1{,}071.66\) at month 193. Balloon: the 192nd payment is \(1500+1{,}067.31=2{,}567.31\), and there is no 193rd.</p>
+<p>(c) \(0.71403\times1500=1{,}071.04\), which is 0.62 below the drop payment of 1,071.66. The fractional part ignores the interest on the final balance; here the error is small because the final balance is small and is held for one month, but the method has no guarantee. The balloon payment is a different amount at a different date, and the student's method cannot produce it.</p>
+</details>
+<p><strong>Exercise 6 (unknown rate, method and judgment).</strong> A car costing 25,000 dollars is financed by 60 payments of 500 dollars at the end of each month. (a) Show that the equation \(500\,a_{\overline{60}|j}=25{,}000\) has exactly one positive root \(j\), the effective monthly rate, and find an interval of width 0.001 that contains it. (b) Find \(j\) by bisection to within \(10^{-12}\), and check the root. (c) The dealer says the loan costs "7.42% a year". Is the statement correct? What should a buyer compare it with? Round rates to four decimals in percent and amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) Let \(f(j)=500\,a_{\overline{60}|j}-25{,}000\). By the argument of the section on unknowns, \(f\) is continuous and strictly decreasing for \(j\gt0\), with \(f\to500\times60-25{,}000=5{,}000\gt0\) as \(j\to0\) and \(f\to-25{,}000\) as \(j\to\infty\), so it has exactly one root. Evaluating, \(f(0.006)=131.07\gt0\) and \(f(0.007)=-572.06\lt0\), so the root lies in \([0.006,0.007]\).</p>
+<p>(b) Bisection from \([10^{-9},1]\) with the stopping rule \(j_{\text{hi}}-j_{\text{lo}}\lt10^{-12}\) takes 40 halvings and gives \(j=0.618341\%\) per month. Check: \(500\,a_{\overline{60}|0.00618341}=25{,}000.00\).</p>
+<p>(c) The dealer's figure is \(12j=7.4201\%\), the nominal rate convertible monthly, \(i^{(12)}\). The effective annual rate is \((1+j)^{12}-1=7.6777\%\). The statement is correct as a nominal rate and incomplete as stated, because it does not name the compounding frequency. A buyer comparing this loan with a loan quoted as an effective annual rate, or with a different payment frequency, should compare effective annual rates: 7.68% here.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Recordings: <a href="https://www.youtube.com/watch?v=sHveWKhBGoQ">Lecture 16, Annuity-Immediate</a>; <a href="https://www.youtube.com/watch?v=2MMTU96FSJU">Lecture 17, Annuity-Due</a>; <a href="https://www.youtube.com/watch?v=nPqoMfOri4Q">Lecture 18, Future Value of Annuities</a>; <a href="https://www.youtube.com/watch?v=Nmh_3tTCv38">Lecture 19, Annuities Payable m-thly</a>; <a href="https://www.youtube.com/watch?v=Ojlvcq0ZYuo">Lecture 20, Problem Solving Lab: Retirement Planning</a>; NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras.</li>
+<li>Texas Instruments, <a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf"><em>BA II PLUS Calculator</em> guidebook</a> (English). Sign convention, I/Y entered as a nominal rate, P/Y sets C/Y, END for ordinary annuities and BGN for annuities due (p. 21); nominal and effective rates (p. 61); the formula for the rate per payment period from I/Y, C/Y and P/Y (p. 69).</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam, October 2026</em> syllabus</a>. Nominal rates convertible m-thly and their conversion (p. 2); annuity-immediate, annuity-due and annuities payable m-thly, weight 20–30%; drop and balloon payments (p. 3).</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><span>First available chapter</span><a href="index.html">Lecture index</a><span>Further chapters pending</span></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>
