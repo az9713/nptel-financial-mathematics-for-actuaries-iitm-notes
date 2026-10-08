@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="f9968e0023535573cd4d9f4c770bab469b13161b85eb962519186c7231d56f2c"><title>Measuring interest: accumulation, simple and compound interest, and the discount rate · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Measuring interest: accumulation, simple and compound interest, and the discount rate</h1>
+<p class="lead">A family must pay a fee of 600,000 rupees exactly four years from today, and a bank quotes "8% a year" on deposits; the rate is invented for this example. The deposit needed today depends on what the 8% means. If it is simple interest, the family must deposit 454,545.45 rupees; if it is compound interest, 441,017.91 rupees; if it is an effective rate of discount, 429,835.78 rupees. One quoted number, read as an effective rate in three ways, gives three deposits, the largest 24,709.68 rupees (5.7%) above the smallest. A shorter horizon reverses part of the order: for a payment of 100,000 rupees due in 9 months, simple interest at 8% needs a deposit of 94,339.62 rupees and compound interest needs 94,391.35, so simple interest is the cheaper reading. This chapter defines the objects that make these statements precise: the amount function and the accumulation function, the interest earned in a period, the effective rate of interest, the simple and compound models of growth, the discount factor and the effective rate of discount. It derives the identities that link them and states the conditions under which each one holds.</p>
+<p class="source-note">Grounded in five recordings of the NPTEL course <em>Financial Mathematics for Actuaries</em> (Prof. Neelesh S. Upadhye, IIT Madras): <a href="https://www.youtube.com/watch?v=gf6eD1YzUNY">Lecture 1</a> (the measurement of interest), <a href="https://www.youtube.com/watch?v=fZziBpLbjuM">Lecture 2</a> (simple and compound interest), <a href="https://www.youtube.com/watch?v=pPqQhytNnNs">Lecture 3</a> (present value and the discount rate), <a href="https://www.youtube.com/watch?v=WN6gPabPCeY">Lecture 4</a> (relationships between \(i\) and \(d\)) and the problem-solving lab <a href="https://www.youtube.com/watch?v=wEFgFboRFNQ">Lecture 5</a> (basic time value of money); one question of the Module 1 review, <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30</a>, is used as a check. <strong>Lecture material:</strong> the rule that cash flows must be moved to one date before they are compared; the amount function \(A(t)\), the principal \(k\), the accumulation function \(a(t)\), the scaling equation \(A(t)=k\,a(t)\) with its linearity assumption, and \(a(0)=1\); the interest earned \(I_n=A(n)-A(n-1)\) and the warning that it is an amount, not a rate; the effective rate \(i=I_1/A(0)\); the simple model \(a(t)=1+it\) and the compound model \(a(t)=(1+i)^t\) built from a deposit of 100 at 5%; the falling effective rate of simple interest \(i_n=i/(1+i(n-1))\) with the example 10%, 9.09%, 5.26%; the crossover for \(0\lt t\lt1\) with the chord picture and the 6-month and 9-month examples; the discount factor \(v=1/(1+i)\), present value \(\mathrm{PV}=\mathrm{FV}\cdot v^t\) and the calculator tip for \(v\); the rate of discount \(d=I_1/A(1)\) with the "haircut" loan, \(d=i/(1+i)=iv=1-v\) and the triangle of rates; the argument that \(d\lt i\), the formula \(i=d/(1-d)\), the identity \(i-d=id\), the present value with \(v=1-d\) and its example; the doubling time by logarithms and the rule of 72; the lab's doubling, equivalent-rate and multiple-cash-flow problems with the focal date. <strong>Research extensions:</strong> the Society of Actuaries Exam FM syllabus on the place of these definitions in that examination and on approximation methods when calculators are allowed. <strong>Original teaching constructions:</strong> the running case (a fee of 600,000 rupees in four years, with an invented 8%); the definition of the effective rate for any period \(n\) and its derivation for both models; the converse that a constant effective rate forces compound growth at whole periods; the product rule \(a(s+t)=a(s)\,a(t)\) and the gain from renewing a simple-interest deposit; the convexity proof of the crossover for every rate \(i\gt-1\), \(i\neq0\); the extension of \(d\lt i\) to negative rates; the series derivation and error table of the rule of 72; the recomputation of four slide figures; Figure 1.1, Table 1.1, the code and the six exercises.</p>
+
+<h2 id="time-dimension">Money has a time dimension <a class="timestamp" href="https://www.youtube.com/watch?v=gf6eD1YzUNY&amp;t=291s">L1 4:51</a></h2>
+<p>The first question of the course is a choice: 100 rupees today or 100 rupees one year from today. The rational answer is "today", and the reason is the <em>earning power</em> of money: 100 rupees received today can be deposited and, at 5% a year, become 105 rupees one year later. The same fact read backward says that a promise of 100 rupees in one year is worth less than 100 today, because a smaller deposit today grows to 100 by then. Money therefore has a time dimension. The lecture's summary rule is that two amounts at different dates cannot be compared or added as they stand; they must first be moved to the same point in time. The slide compares the error with adding 5 inches to 5 centimetres: the numbers are added, but the units differ.</p>
+<p>In finance an amount of money paid or received at a stated date is called a <em>cash flow</em>. This chapter measures time \(t\) in years from today, \(t=0\), unless a statement names another unit; a "period" is a stated length of time, one year unless said otherwise. To move a cash flow from one date to another the reader needs a rule for how money grows, and the chapter builds two such rules, simple and compound interest. Until a rule is chosen, the comparison rule above is a requirement, not yet a method.</p>
+<p><strong>The running case.</strong> A family must pay a fee of 600,000 rupees at \(t=4\). A bank quotes 8% a year on deposits; the rate is invented for this example. The questions are: how much must the family deposit today, under each possible reading of "8%"; how much interest does the deposit earn in each year, and at what rate; what happens if part of the fee is due after only 9 months; and how long the deposit takes to double. The objects of the chapter are one deposit, one date at which money is needed, and a function that says how a deposit grows between the two. Each section changes or reads one of these three objects.</p>
+<p><strong>Rounding.</strong> Every computation in this chapter carries its intermediate values unrounded. Amounts are rounded to the hundredth of a rupee (a paisa; "cents" below means the same for any currency), and rates and growth factors are printed to the number of decimals shown, only where they are displayed. A display such as \(600{,}000\times0.735030=441{,}017.91\) therefore shows a rounded factor beside an unrounded result: the product of the two printed numbers is 441,018.00. The program at the end of the chapter reproduces every amount from unrounded values.</p>
+
+<h2 id="amount-accumulation">The amount function and the accumulation function <a class="timestamp" href="https://www.youtube.com/watch?v=gf6eD1YzUNY&amp;t=677s">L1 11:17</a></h2>
+<p><strong>Definitions.</strong> An amount \(k\gt0\), the <em>principal</em>, is invested at \(t=0\). The <em>amount function</em> \(A(t)\) is the accumulated value of the principal at time \(t\ge0\), in units of currency (rupees or dollars, as the slide's warning box says), so \(A(0)=k\). The <em>accumulation function</em> \(a(t)\) is the accumulated value at time \(t\) of 1 unit invested at \(t=0\). It has no units: it is a multiplier. The slides write the principal as a lower-case \(k\). In this book the letter \(a\) followed by a parenthesis always means this accumulation function; it is unrelated to the annuity symbols, written with an angle subscript, that appear later in the course.</p>
+<p><strong>The scaling equation.</strong> If 1 unit grows to \(a(t)\), the slide's argument is that \(k\) units grow to \(k\) times as much:</p>
+\[
+A(t)=k\,a(t). \tag{1.1}
+\]
+<p>This is an assumption, and the slide names it: linearity in the principal, so that investing 200 gives exactly twice what investing 100 gives. It fails for a product whose rate depends on the size of the deposit, such as a rate tier that starts above a threshold; the lecture notes that such products exist and are not treated here. Under (1.1) the accumulation function carries all the information about the rate of growth, and the principal only scales it. Dividing (1.1) by \(k\) gives \(a(t)=A(t)/A(0)\), which is how \(a\) is computed from observed balances.</p>
+<p><strong>The initial condition.</strong> At \(t=0\) no time has passed and no interest has been earned, so the unit invested is still worth exactly 1:</p>
+\[
+a(0)=1 .
+\]
+<p>The lecture calls this the boundary condition. Every accumulation function in this chapter satisfies it, and every one is increasing in \(t\) when the rate is positive. Those two properties, with linearity, are all that the general definitions below use; the particular shape of \(a\) is the choice of a growth model.</p>
+<p><strong>The running case.</strong> The family's question is now an equation in \(k\). Whatever the model, the deposit \(k\) must satisfy \(A(4)=k\,a(4)=600{,}000\), so \(k=600{,}000/a(4)\). The three answers in the lead are three values of \(a(4)\), and the next sections derive them.</p>
+
+<h2 id="interest-earned">Interest earned in a period <a class="timestamp" href="https://www.youtube.com/watch?v=gf6eD1YzUNY&amp;t=1064s">L1 17:44</a></h2>
+<p>The interest earned is the change in the accumulated value over a period. For a whole number \(n\ge1\), period \(n\) runs from \(t=n-1\) to \(t=n\), and the interest earned during it is</p>
+\[
+I_n=A(n)-A(n-1). \tag{1.2}
+\]
+<p>The slide's warning is that \(I_n\) is an amount of money, measured in rupees, and not a rate. A deposit that earns \(I_n=10\) rupees has earned the same amount whether the balance was 100 or 1,000; the rate it earned differs by a factor of ten. The next section turns the amount into a rate by dividing by a balance, and the choice of which balance (the one at the start of the period or the one at its end) is what separates the rate of interest from the rate of discount later in the chapter.</p>
+<p>Adding (1.2) over the first \(n\) periods telescopes: \(I_1+I_2+\dots+I_n=A(n)-A(0)\). The total interest earned by time \(n\) is the growth of the balance, provided nothing is deposited or withdrawn in between. That proviso is part of the definition: with a withdrawal during the period, the change in the balance is no longer the interest.</p>
+
+<h2 id="effective-rate">The effective rate of interest <a class="timestamp" href="https://www.youtube.com/watch?v=fZziBpLbjuM&amp;t=268s">L2 4:28</a></h2>
+<p><strong>Definition.</strong> The <em>effective rate of interest</em> for period \(n\) is the interest earned in the period divided by the balance at the start of the period:</p>
+\[
+i_n=\frac{I_n}{A(n-1)}=\frac{A(n)-A(n-1)}{A(n-1)}=\frac{a(n)-a(n-1)}{a(n-1)}. \tag{1.3}
+\]
+<p>The last form follows from (1.1): the factor \(k\) cancels from the numerator and the denominator, so the effective rate does not depend on the size of the deposit. The lecture defines the rate for the first period, \(i=i_1=I_1/A(0)\), and with \(a(0)=1\) this gives \(i=a(1)-1\), that is</p>
+\[
+a(1)=1+i .
+\]
+<p>Throughout this chapter, \(i\) without a subscript means the effective rate for the first period, and the period is a year unless a statement says otherwise. The definition is the same for any period length: an effective rate for a month is the interest earned in a month divided by the balance at the start of that month. A rate quoted without its period is therefore incomplete.</p>
+<p>The slide's warning is that \(i\) is a decimal, not a percentage: 5% enters every formula as 0.05. The lecture's example: a deposit of \(A(0)=100\) grows to \(A(1)=110\), so \(I_1=10\) and \(i=10/100=0.10\), a rate of 10%. The interest amount \(I_1\) and the rate \(i\) carry the same letter in different cases, which is the source of the warning in the previous section.</p>
+<p><strong>What the definition does not say.</strong> Formula (1.3) defines a rate for each period separately. Nothing in it says that \(i_2\) equals \(i_1\). The relation between the rates of different periods is a property of the growth model, and the two models of the next sections differ exactly there: for one of them every \(i_n\) equals \(i\), for the other the rates fall with \(n\).</p>
+
+<h2 id="simple">Simple interest: linear growth <a class="timestamp" href="https://www.youtube.com/watch?v=gf6eD1YzUNY&amp;t=1192s">L1 19:52</a></h2>
+<p><strong>The model.</strong> Under <em>simple interest</em>, interest is calculated only on the original principal. The lecture's example deposits 100 rupees at 5%. After one year the interest is \(100\times0.05=5\) and the balance 105. After two years the interest is still calculated on 100: \(100\times0.05\times2=10\), and the balance is 110. After \(n\) years the interest is \(100\times0.05\times n\), and the balance is \(100(1+0.05n)\). (The slide writes the rate as \(r\) in its handwritten working and then names it \(i\); this book writes \(i\) throughout.) With a principal of 1 and a rate \(i\), and with the same formula used at every time \(t\ge0\), not only at whole years,</p>
+\[
+a(t)=1+it . \tag{1.4}
+\]
+<p>The graph of (1.4) is a straight line through \((0,1)\) with slope \(i\): the growth per period is the constant amount \(i\) per unit of principal. It satisfies \(a(0)=1\) and \(a(1)=1+i\), so \(i\) is the effective rate of the first period, as (1.3) requires.</p>
+<p><strong>The running case, simple reading.</strong> At 8% simple interest, \(a(4)=1+0.08\times4=1.32\), and the deposit is \(k=600{,}000/1.32=454{,}545.45\) rupees. The interest earned each year is the same amount, \(I_n=454{,}545.45\times0.08=36{,}363.64\) rupees, for \(n=1,2,3,4\), and the four amounts add to the growth \(600{,}000-454{,}545.45=145{,}454.55\) (the four rounded figures add to 145,454.56; the rounding rule of the first section applies).</p>
+<p><strong>A boundary of the model.</strong> Formula (1.4) assumes that the interest already earned is left idle: it is paid out or held without earning. A depositor who could withdraw the balance at the end of each year and deposit it again at the same simple rate would earn interest on interest. For two holding periods \(s,t\gt0\) and \(i\gt0\), withdrawing at \(s\) and redepositing for \(t\) gives</p>
+\[
+(1+is)(1+it)=1+i(s+t)+i^2st\gt1+i(s+t),
+\]
+<p>more than one deposit held for \(s+t\). In the running case, renewing the simple deposit of 454,545.45 rupees every year for four years gives \(454{,}545.45\times1.08^4=618{,}404.07\) rupees, 18,404.07 more than the fee. A simple-interest product therefore has to fix its term, or its renewal terms, in its contract; the formula alone does not prevent this gain. The next model removes the gain.</p>
+
+<h2 id="compound">Compound interest: exponential growth <a class="timestamp" href="https://www.youtube.com/watch?v=gf6eD1YzUNY&amp;t=1493s">L1 24:53</a></h2>
+<p><strong>The model.</strong> Under <em>compound interest</em>, interest is calculated on the accumulated balance at the start of each period, so the interest earned is added to the principal and earns interest itself. The lecture's example again deposits 100 rupees at 5%. After one year the balance is 105, the same as under simple interest. In the second year the interest is \(105\times0.05=5.25\), and the balance is 110.25 instead of 110. Each year multiplies the balance by \(1.05\): \(100(1.05)\), \(100(1.05)^2\), and after \(n\) years \(100(1.05)^{n-1}(1.05)=100(1.05)^n\). With a principal of 1 and a rate \(i\),</p>
+\[
+a(t)=(1+i)^t . \tag{1.5}
+\]
+<p>For whole numbers \(t\) this is the derivation just given. For a time \(t\) that is not a whole number of periods, (1.5) is the definition of the compound model, not a consequence of the whole-period derivation. The lecture introduces it as the model, and this chapter does the same; the crossover section shows that the choice matters for terms shorter than one period.</p>
+<p><strong>The product rule.</strong> For any \(s,t\ge0\),</p>
+\[
+a(s+t)=(1+i)^{s+t}=(1+i)^s(1+i)^t=a(s)\,a(t).
+\]
+<p>Withdrawing the balance at \(s\) and redepositing it for \(t\) gives exactly what one deposit held for \(s+t\) gives. Under compound interest a deposit cannot gain by being split, which is the gain the simple model allowed.</p>
+<p><strong>The running case, compound reading.</strong> At 8% compound interest, \(a(4)=1.08^4=1.360489\), and the deposit is \(k=600{,}000/1.360489=441{,}017.91\) rupees, 13,527.54 less than under simple interest. The balance grows to 476,299.34, 514,403.29, 555,555.56 and 600,000.00 at the ends of years 1 to 4, and the interest earned rises each year, from 35,281.43 rupees in year 1 to 44,444.44 in year 4, because each year's interest is 8% of a larger balance.</p>
+
+<h2 id="rate-over-time">The effective rate over time: constant for compound, falling for simple <a class="timestamp" href="https://www.youtube.com/watch?v=fZziBpLbjuM&amp;t=702s">L2 11:42</a></h2>
+<p><strong>Question.</strong> Both models start at the rate \(i\) in the first period. What effective rate does each earn in period \(n\)?</p>
+<p><strong>Simple interest.</strong> Substitute (1.4) into (1.3). The numerator is \(a(n)-a(n-1)=(1+in)-(1+i(n-1))=i\), the same amount every period. The denominator is the balance at the start of the period, \(1+i(n-1)\), which grows. Hence</p>
+\[
+i_n=\frac{i}{1+i(n-1)},\qquad n=1,2,\dots \tag{1.6}
+\]
+<p>For \(i\gt0\), the denominator increases with \(n\), so \(i_n\) decreases, and \(i_n\to0\) as \(n\to\infty\). The lecture's example is 10% simple interest on 100: year 1 earns 10 on 100 (10%), year 2 earns 10 on 110 (9.09%), year 10 earns 10 on 190 (5.26%). Formula (1.6) gives \(0.1/1.9=0.0526\) for \(n=10\), the same value. The formula needs \(1+i(n-1)\gt0\), which holds for every \(n\) when \(i\ge0\); for a negative simple rate the balance reaches zero at \(n-1=-1/i\), and the formula stops there.</p>
+<p><strong>Compound interest.</strong> Substitute (1.5) into (1.3):</p>
+\[
+i_n=\frac{(1+i)^n-(1+i)^{n-1}}{(1+i)^{n-1}}=(1+i)-1=i .
+\]
+<p>The effective rate is the same in every period. The converse also holds, at whole periods: if \(i_n=i\) for \(n=1,\dots,N\), then (1.3) gives \(a(n)=a(n-1)(1+i)\) for each \(n\), and with \(a(0)=1\), induction gives \(a(n)=(1+i)^n\) for \(n=0,\dots,N\). A constant effective rate and compound growth are the same statement at whole periods. This is why, when a problem says "an effective rate of 8% a year" with no model named, the compound model is the reading that keeps the quoted rate true in every year.</p>
+<p><strong>The running case.</strong> Under the simple reading the family's deposit earns 8.0000% in year 1, 7.4074% in year 2, 6.8966% in year 3 and 6.4516% in year 4. Under the compound reading it earns 8% in each year. That difference in the rates of years 2 to 4 is the reason the compound deposit is 13,527.54 rupees smaller: it needs less principal because its later years earn more.</p>
+<p><strong>The two graphs.</strong> The lecture draws both accumulation functions at 10% from \(t=0\) to \(t=10\): the straight line ends at 2 and the compound curve at \(1.1^{10}=2.594\), and the gap between them widens. For \(t\gt1\) and \(i\gt0\), \((1+i)^t\gt1+it\); the next section proves this together with the reversed inequality for \(0\lt t\lt1\). The gap has no bound. For a whole number \(t\ge2\) and \(i\gt0\), the binomial theorem gives \((1+i)^t\ge1+it+\tfrac12t(t-1)i^2\), so the gap is at least \(\tfrac12t(t-1)i^2\), which grows without bound as \(t\to\infty\); for \(m\le t\lt m+1\) with \(m\) a whole number, the gap exceeds \(\tfrac12m(m-1)i^2-i\), which also grows without bound.</p>
+
+<h2 id="crossover">Periods shorter than one: the crossover <a class="timestamp" href="https://www.youtube.com/watch?v=fZziBpLbjuM&amp;t=1180s">L2 19:40</a></h2>
+<p><strong>Question.</strong> A deposit is held for less than one period. At the same quoted rate, does simple or compound interest pay more?</p>
+<p>The lecture's example: 6 months (\(t=0.5\)) at 10%. Simple interest gives \(1+0.10\times0.5=1.050\); compound interest gives \(1.10^{0.5}=\sqrt{1.10}=1.0488\). Simple interest pays more. The lecture's table summarizes the comparison: for \(0\lt t\lt1\) simple pays more, at \(t=1\) the two are equal, and for \(t\gt1\) compound pays more. Its reason is geometric: the compound curve is convex, and the straight line of simple interest is the chord through the two points \((0,1)\) and \((1,1+i)\) that the curves share, so on \((0,1)\) the curve lies below the chord.</p>
+<p><strong>Proposition.</strong> Let \(i\gt-1\) and \(i\neq0\). Then</p>
+\[
+(1+i)^t\lt1+it\ \text{ for }0\lt t\lt1,\qquad (1+i)^t=1+it\ \text{ for }t\in\{0,1\},\qquad (1+i)^t\gt1+it\ \text{ for }t\gt1. \tag{1.7}
+\]
+<p><strong>Proof.</strong> Let \(\psi(t)=(1+i)^t-1-it\). Then \(\psi(0)=0\) and \(\psi(1)=0\). Writing \((1+i)^t=e^{t\ln(1+i)}\), the second derivative is \(\psi''(t)=(\ln(1+i))^2(1+i)^t\), which is positive for every \(t\) because \(\ln(1+i)\neq0\) when \(i\neq0\). A function whose second derivative is positive on an interval is strictly convex there, so \(\psi\) is strictly convex: for \(0\lt\lambda\lt1\) and \(t_1\neq t_2\), \(\psi(\lambda t_1+(1-\lambda)t_2)\lt\lambda \psi(t_1)+(1-\lambda)\psi(t_2)\). For \(0\lt t\lt1\), write \(t=(1-t)\cdot0+t\cdot1\); strict convexity gives \(\psi(t)\lt(1-t)\psi(0)+t\,\psi(1)=0\). For \(t\gt1\), write \(1=(1-1/t)\cdot0+(1/t)\cdot t\); strict convexity gives \(0=\psi(1)\lt(1-1/t)\psi(0)+(1/t)\psi(t)\), and the right side equals \(\psi(t)/t\), so \(\psi(t)\gt0\). This completes the proof.</p>
+<p>The proof uses only \(i\gt-1\), \(i\neq0\), and the convexity of the exponential. It covers negative rates as well, a case the lecture does not consider: at \(i=-5\%\) and \(t=0.5\), simple "interest" gives \(0.975\) and compound \(0.9747\). With \(i=0\) the two functions are both identically 1.</p>
+<figure>
+<svg viewBox="0 0 640 300" role="img" aria-labelledby="fig-cross-title fig-cross-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-cross-title">Simple and compound accumulation at 100 percent a year</title>
+<desc id="fig-cross-desc">Two panels drawn at the exaggerated rate i equal to 1. Left panel, t from 0 to 1 and a of t from 1 to 2: the straight line of simple interest from (0, 1) to (1, 2) lies above the compound curve 2 to the power t, which meets it at both ends; at t equal to 0.5 the line is at 1.5 and the curve at 1.414. Right panel, t from 0 to 3 and a of t from 0 to 8: the line reaches 4 at t equal to 3 and the curve reaches 8; after t equal to 1 the curve lies above the line.</desc>
+<g stroke="currentColor" fill="none">
+<line x1="70" y1="250" x2="305" y2="250"/><line x1="70" y1="250" x2="70" y2="45"/>
+<line x1="380" y1="250" x2="615" y2="250"/><line x1="380" y1="250" x2="380" y2="45"/>
+<line x1="70" y1="250" x2="300" y2="50" stroke-width="2"/>
+<polyline stroke-dasharray="6 4" stroke-width="2" points="70.0,250.0 75.8,246.5 81.5,242.9 87.2,239.3 93.0,235.6 98.8,231.9 104.5,228.1 110.2,224.2 116.0,220.3 121.8,216.2 127.5,212.2 133.2,208.0 139.0,203.8 144.8,199.5 150.5,195.1 156.2,190.6 162.0,186.1 167.8,181.5 173.5,176.8 179.2,172.0 185.0,167.2 190.8,162.2 196.5,157.2 202.2,152.1 208.0,146.9 213.8,141.6 219.5,136.2 225.2,130.7 231.0,125.1 236.8,119.4 242.5,113.6 248.2,107.8 254.0,101.8 259.8,95.7 265.5,89.5 271.2,83.2 277.0,76.8 282.8,70.3 288.5,63.6 294.2,56.9 300.0,50.0"/>
+<line x1="380" y1="225" x2="610" y2="150" stroke-width="2"/>
+<polyline stroke-dasharray="6 4" stroke-width="2" points="380.0,225.0 385.8,223.7 391.5,222.3 397.2,220.8 403.0,219.2 408.8,217.6 414.5,215.8 420.2,214.0 426.0,212.1 431.8,210.1 437.5,208.0 443.2,205.7 449.0,203.3 454.8,200.9 460.5,198.2 466.2,195.5 472.0,192.6 477.8,189.5 483.5,186.3 489.2,182.9 495.0,179.3 500.8,175.5 506.5,171.5 512.2,167.4 518.0,162.9 523.8,158.3 529.5,153.4 535.2,148.3 541.0,142.8 546.8,137.1 552.5,131.1 558.2,124.7 564.0,118.0 569.8,111.0 575.5,103.6 581.2,95.8 587.0,87.5 592.8,78.9 598.5,69.7 604.2,60.1 610.0,50.0"/>
+<line x1="185" y1="150" x2="185" y2="167" stroke-width="1"/>
+<line x1="456.7" y1="250" x2="456.7" y2="200" stroke-dasharray="2 3"/>
+</g>
+<g stroke="currentColor">
+<line x1="70" y1="250" x2="70" y2="255"/><line x1="185" y1="250" x2="185" y2="255"/><line x1="300" y1="250" x2="300" y2="255"/>
+<line x1="65" y1="150" x2="70" y2="150"/><line x1="65" y1="50" x2="70" y2="50"/>
+<line x1="456.7" y1="250" x2="456.7" y2="255"/><line x1="533.3" y1="250" x2="533.3" y2="255"/><line x1="610" y1="250" x2="610" y2="255"/>
+<line x1="375" y1="200" x2="380" y2="200"/><line x1="375" y1="150" x2="380" y2="150"/><line x1="375" y1="100" x2="380" y2="100"/><line x1="375" y1="50" x2="380" y2="50"/>
+</g>
+<g text-anchor="middle">
+<text x="70" y="270">0</text><text x="185" y="270">0.5</text><text x="300" y="270">1</text><text x="187" y="292">t (years)</text>
+<text x="380" y="270">0</text><text x="456.7" y="270">1</text><text x="533.3" y="270">2</text><text x="610" y="270">3</text><text x="495" y="292">t (years)</text>
+</g>
+<g text-anchor="end">
+<text x="60" y="254">1</text><text x="60" y="154">1.5</text><text x="60" y="54">2</text>
+<text x="370" y="254">0</text><text x="370" y="204">2</text><text x="370" y="154">4</text><text x="370" y="104">6</text><text x="370" y="54">8</text>
+</g>
+<text x="80" y="30">left: 0 ≤ t ≤ 1, a(t) from 1 to 2</text>
+<text x="390" y="30">right: 0 ≤ t ≤ 3, a(t) from 0 to 8</text>
+<text x="178" y="140" text-anchor="end">1 + it = 1.5</text>
+<text x="196" y="184">(1 + i)ᵗ = 1.414</text>
+<text x="540" y="205">simple: 1 + t</text>
+<text x="560" y="98" text-anchor="end">compound: 2ᵗ</text>
+</svg>
+<figcaption>Figure 1.1. The simple accumulation function \(1+it\) (solid line) and the compound accumulation function \((1+i)^t\) (dashed curve), drawn at the exaggerated rate \(i=100\%\) so that the gap on \(0\lt t\lt1\) is visible; at 8% it is at most 0.00077 per unit. Left: on \(0\lt t\lt1\) the line is the chord of the convex curve through \((0,1)\) and \((1,2)\) and lies above it, as (1.7) states; at \(t=0.5\) the values are 1.5 and 1.414. Right: the two meet again at \(t=1\) (dotted mark), and for \(t\gt1\) the curve lies above the line, reaching 8 at \(t=3\) against 4. The curve is \(2^t\) evaluated at 41 equally spaced values of \(t\) in each panel.</figcaption>
+</figure>
+<p><strong>The lecture's 9-month example.</strong> A deposit of 1,000 is withdrawn after 9 months (\(t=0.75\)), and the bank offers 8% simple or 8% compound. Simple interest gives \(1000(1+0.08\times0.75)=1{,}060.00\). Compound interest gives \(1000\times1.08^{0.75}=1000\times1.059419=1{,}059.42\). The slide prints \(1.08^{0.75}\approx1.0592\) and 1,059.22; the factor to four decimals is 1.0594, and the slide's figure is 0.20 too small. The decision, simple interest, is unchanged: by (1.7) it holds for every rate at every \(t\) in \((0,1)\).</p>
+<p><strong>The running case.</strong> Suppose a first instalment of 100,000 rupees is due at \(t=0.75\). The deposit that grows to it is \(100{,}000/(1+0.08\times0.75)=94{,}339.62\) rupees under simple interest and \(100{,}000/1.08^{0.75}=94{,}391.35\) rupees under compound interest; the simple reading needs 51.72 rupees less. For the full fee at \(t=4\), the order is the other way and the difference is 13,527.54 rupees.</p>
+<p><strong>The scope of the verdict.</strong> The lecture's advice is to choose simple interest for terms shorter than one period and compound interest for longer terms. The proposition supports it under its hypotheses: the two products quote the same rate, the deposit is held for exactly \(t\) and then withdrawn, and the comparison is of the amount at \(t\). The size of the advantage is small at ordinary rates. At 7% the largest value of \(1+it-(1+i)^t\) on \((0,1)\) is 0.000592 per unit, at \(t\approx0.503\) (Exercise 5(c) derives both numbers); on a deposit of 100,000 that is 59.20 rupees. A choice between real products also depends on terms that (1.7) does not see: fees, the day count used to measure \(t\), and whether the simple-interest deposit can be renewed.</p>
+
+<h2 id="present-value">Moving money backward: the discount factor and present value <a class="timestamp" href="https://www.youtube.com/watch?v=pPqQhytNnNs&amp;t=222s">L3 3:42</a></h2>
+<p>The previous sections asked what a deposit grows to. The reverse question is how much must be deposited now to have a given amount later. The lecture calls this travelling backward in time, and the running case asks exactly this question.</p>
+<p><strong>The discount factor.</strong> Under compound interest at the effective rate \(i\), a deposit of \(v\) at \(t=0\) grows to \(v(1+i)\) at \(t=1\). The deposit that grows to exactly 1 solves \(v(1+i)=1\):</p>
+\[
+v=\frac1{1+i}. \tag{1.8}
+\]
+<p>The number \(v\) is the <em>discount factor</em>: the value at the start of a period of 1 due at its end. The lecture's example at \(i=5\%\): to have 100 rupees in one year, deposit \(100/1.05=95.24\) rupees. (The handwritten working prints 95.23; the quotient is 95.238, which rounds to 95.24.) The slide's calculator tip computes \(v\) by entering 1.05 and pressing the reciprocal key, which gives 0.95238, and suggests storing it in memory when it is used repeatedly.</p>
+<p>The slide's "inverse logic" box says that a higher rate means a lower price today. Precisely: \(v=1/(1+i)\) is a decreasing function of \(i\) on \(i\gt-1\), since \(dv/di=-1/(1+i)^2\lt0\). It is not inversely proportional to \(i\): doubling \(i\) from 5% to 10% moves \(v\) from 0.952381 to 0.909091, not to half its value.</p>
+<p><strong>Present value.</strong> Under compound interest, an amount moves forward \(t\) years by the factor \((1+i)^t\), and backward by dividing by it, that is by multiplying by \(v^t\). An amount \(\mathrm{FV}\) (the future value) due at time \(t\) has the <em>present value</em> at \(t=0\)</p>
+\[
+\mathrm{PV}=\mathrm{FV}\cdot v^t=\frac{\mathrm{FV}}{(1+i)^t},
+\]
+<p>the slide's formula. It is the deposit that grows to \(\mathrm{FV}\) at \(t\), so it is the amount with which \(\mathrm{FV}\) can be compared, as the rule of the first section requires. Under simple interest the deposit that grows to \(\mathrm{FV}\) at \(t\) is \(\mathrm{FV}/(1+it)\) instead; the two are different numbers for every \(t\) except 0 and 1 when \(i\neq0\), by (1.7). A present value is therefore defined only together with its growth model.</p>
+<p><strong>The running case.</strong> At 8%, \(v=0.925926\) and \(v^4=0.735030\), so the present value of the fee is \(600{,}000\times0.735030=441{,}017.91\) rupees, the compound deposit found above by solving \(k\,a(4)=600{,}000\). The simple-interest deposit 454,545.45 is the fee divided by \(1+0.08\times4\), the simple model solved backward.</p>
+
+<h2 id="discount-rate">The effective rate of discount <a class="timestamp" href="https://www.youtube.com/watch?v=pPqQhytNnNs&amp;t=708s">L3 11:48</a></h2>
+<p><strong>The slide's example.</strong> A customer asks a bank for a loan of 100 rupees for one year. The bank deducts its interest of 5 at the start, pays out 95, and receives 100 at the end. The lecture calls this the "haircut": interest is taken in advance. Measured against the amount repaid, the charge is \(5/100=5\%\). Measured against the amount actually received, it is \(5/95=5.26\%\). The first number is a rate of discount and the second a rate of interest, both describing the same loan.</p>
+<p><strong>Definition.</strong> The <em>effective rate of discount</em> for the first period is the interest earned in that period divided by the balance at its end:</p>
+\[
+d=\frac{I_1}{A(1)}=\frac{A(1)-A(0)}{A(1)}. \tag{1.9}
+\]
+<p>The slide sets the two rates side by side: \(i\) is interest divided by the start balance, \(d\) is interest divided by the end balance. It frames the question \(d\) answers as the fraction of the future amount that is lost when the amount is moved back one period. In the haircut loan \(A(0)=95\) and \(A(1)=100\), so \(d=5\%\) and \(i=5.26\%\).</p>
+<p><strong>Derivation of \(d\) in terms of \(i\).</strong> By the definition of \(i\), \(I_1=i\,A(0)\) and \(A(1)=(1+i)A(0)\). Substituting both into (1.9), \(A(0)\) cancels:</p>
+\[
+d=\frac{i\,A(0)}{(1+i)A(0)}=\frac{i}{1+i}. \tag{1.10}
+\]
+<p>Only the first period enters, so (1.10) holds under any accumulation function with \(a(1)=1+i\), simple or compound. For a later period \(n\), the same definition \(d_n=I_n/A(n)\) gives \(d_n=i_n/(1+i_n)\); under compound interest every \(d_n\) equals \(d\).</p>
+<p><strong>Two identities.</strong> With \(v=1/(1+i)\) from (1.8), (1.10) can be read in two ways, which the slide labels Identity 1 and Identity 2:</p>
+\[
+d=i\cdot\frac1{1+i}=iv,\qquad d=1-\frac1{1+i}=1-v. \tag{1.11}
+\]
+<p>The second step uses \(i/(1+i)=((1+i)-1)/(1+i)\). Both are consequences of the definition (1.9), not definitions themselves. Each has a reading. \(d=iv\): the interest \(i\) is due at the end of the period, and its value at the start is \(iv\); a rate of discount is the present value of the interest. \(d=1-v\): an amount of 1 due at the end of the period is worth \(v\) at its start, so the "haircut" on 1 is \(1-v\). The slide's triangle collects the three links \(v=1/(1+i)\), \(d=i/(1+i)\) and \(v=1-d\): any one of \(i\), \(d\) and \(v\) determines the other two.</p>
+<p>The lecture's quick quiz: at \(i=10\%\), \(d=0.10/1.10=0.090909\), that is 9.09%, below \(i\).</p>
+<p><strong>The running case, discount reading.</strong> If the bank's 8% is an effective rate of discount, then \(v=1-d=0.92\) per year, and the deposit for the fee is \(600{,}000\times0.92^4=600{,}000\times0.716393=429{,}835.78\) rupees. For the payment of 100,000 rupees at \(t=0.75\), the same reading needs \(100{,}000\times0.92^{0.75}=93{,}937.91\) rupees. This reading does not change the model: it is compound growth with a different rate of interest, \(i=0.08/0.92=8.6957\%\), found by solving (1.10) for \(i\); the next section derives the general formula (1.13). The three readings of the lead therefore differ in two ways. Simple against compound is a difference of model at the same \(i=8\%\); compound at \(i=8\%\) against \(d=8\%\) is a difference of rate within one model.</p>
+
+<h2 id="identities">Why d is less than i, and the identities that link i, d and v <a class="timestamp" href="https://www.youtube.com/watch?v=WN6gPabPCeY&amp;t=172s">L4 2:52</a></h2>
+<p>The lecture's recap slide states the duality in one line: \(i\) is interest on the start balance, \(d\) is interest on the end balance, and both describe the same transaction, in which the start balance times \(1+i\) equals the end balance.</p>
+<p><strong>The inequality.</strong> The lecture's example is a loan of 100 that grows to 110: the interest is 10, \(i=10/100=10\%\), and \(d=10/110=9.09\%\). Its argument: when money grows, \(A(1)\gt A(0)\), so \(d\) divides the same interest by a larger number, and \(d\lt i\). This argument assumes \(I_1\gt0\), that is \(i\gt0\). A one-line computation gives the inequality without that assumption. From (1.11),</p>
+\[
+i-d=i-iv=i(1-v)=i\,d . \tag{1.12}
+\]
+<p>The last step uses \(1-v=d\). The slide derives (1.12) the same way and notes that examinations often ask, as a true-or-false item, whether the difference of the two rates equals their product. Since \(d=i/(1+i)\), the product is \(id=i^2/(1+i)\), which is positive for every \(i\gt-1\), \(i\neq0\). Hence</p>
+\[
+d\lt i\quad\text{for every } i\gt-1,\ i\neq0,
+\]
+<p>and \(d=i\) only at \(i=0\). For a negative rate the inequality still holds, but the lecture's reason does not: at \(i=-1\%\), the balance falls, \(d=-0.01/0.99=-1.0101\%\), and \(i-d=0.000101=id\). Identity (1.12) also has a reading: \(d\) paid at the start of the period grows to \(d(1+i)=d+id\) at its end, and this equals \(i\) because \(d(1+i)=i\) by (1.10). The difference \(i-d\) is the interest earned on \(d\) itself during the period.</p>
+<p><strong>The inverse relation.</strong> To express \(i\) in terms of \(d\), the slide multiplies \(d=i/(1+i)\) by \(1+i\): \(d+di=i\), so \(d=i-di=i(1-d)\), and</p>
+\[
+i=\frac{d}{1-d}. \tag{1.13}
+\]
+<p>The division needs \(d\neq1\); for an increasing balance, \(0\lt d\lt1\). A second route, also on the slide: \(1-d=1/(1+i)\) gives \(1+i=1/(1-d)\) and \(i=1/(1-d)-1=d/(1-d)\). The map \(i\mapsto d=i/(1+i)=1-1/(1+i)\) is increasing, since its derivative \(1/(1+i)^2\) is positive, and takes \(i\in(-1,\infty)\) onto \(d\in(-\infty,1)\): \(d\to-\infty\) as \(i\to-1^+\) and \(d\to1\) as \(i\to\infty\). Formula (1.13) is its inverse. A rate of discount at or above 100% has no meaning as a growth rate: \(d=1\) would mean that the whole end amount is interest and nothing was lent.</p>
+<p><strong>Present value with a rate of discount.</strong> The slide calls \(v=1-d\) the most useful identity, because it gives the present value directly from \(d\):</p>
+\[
+\mathrm{PV}=\mathrm{FV}\cdot v^t=\mathrm{FV}\cdot(1-d)^t. \tag{1.14}
+\]
+<p>The lecture's example asks for the present value of 5,000 due in 10 years at an effective rate of discount of 6%. Method A converts first: \(i=0.06/0.94=6.3830\%\) and \(\mathrm{PV}=5000/1.063830^{10}\). Method B uses (1.14): \(\mathrm{PV}=5000\times0.94^{10}=5000\times0.538615=2{,}693.08\). Both methods give 2,693.08 when \(i\) is kept unrounded. The slide prints 2,692.83, which neither method reproduces: Method A with the rounded rate 6.38% gives 2,693.83. The difference is 0.25 from the exact value, and it shows why this chapter states its rounding rule: intermediate values unrounded, amounts rounded to cents at the end.</p>
+<p><strong>The running case.</strong> The bank's 8% read as \(d\) is the rate of interest \(i=0.08/0.92=0.086957\), so the deposit 429,835.78 rupees is also \(600{,}000/1.086957^4\). Read the other way, the bank's 8% as \(i\) is the rate of discount \(d=0.08/1.08=0.074074\). If the family instead borrowed 600,000 rupees for one year from a lender who deducts 8% in advance, it would receive 552,000 and repay 600,000, at an effective rate of interest of 8.6957%.</p>
+
+<h2 id="unknown-time">Solving for an unknown time: logarithms and the rule of 72 <a class="timestamp" href="https://www.youtube.com/watch?v=WN6gPabPCeY&amp;t=978s">L4 16:18</a></h2>
+<p><strong>Question.</strong> How long does a deposit take to grow by a factor \(g\), for example to double, at a compound rate \(i\)?</p>
+<p><strong>Derivation.</strong> The time \(n\) solves \((1+i)^n=g\). The unknown is in the exponent; the natural logarithm brings it down, by the rule \(\ln(x^a)=a\ln x\) for \(x\gt0\): \(n\ln(1+i)=\ln g\), and</p>
+\[
+n=\frac{\ln g}{\ln(1+i)}. \tag{1.15}
+\]
+<p>The formula needs \(g\gt0\) and \(i\neq0\), so that the logarithm exists and the denominator is not zero; with \(g\gt1\) and \(i\gt0\), \(n\) is positive. As \(i\to0^+\), \(\ln(1+i)\to0\) and \(n\to\infty\): at a vanishing rate no finite time reaches \(g\gt1\). The solution \(n\) is a real number. It has a meaning as a time only under the compound model at fractional times, (1.5); a product that credits interest once a year would reach the target at the first whole year after \(n\). The lecture's example doubles a deposit at 8%: the calculator gives \(\ln2=0.6931\) and \(\ln1.08=0.07696\), and \(n=0.6931/0.07696=9.006\) years. Under simple interest the same question has the linear answer \(1+in=g\), \(n=(g-1)/i\): doubling at 8% simple takes 12.5 years.</p>
+<p><strong>The rule of 72.</strong> The lecture gives a mental check: the doubling time is about \(72/(100i)\) years, so at 8% about \(72/8=9\) years, against the exact 9.006. The slide says that the rule is accurate for rates between 4% and 12%. Where does 72 come from, and how accurate is it? Write \(p=100i\) for the rate in percent. The series \(\ln(1+i)=i-i^2/2+i^3/3-\dots\), valid for \(|i|\lt1\), gives \(1/\ln(1+i)=1/i+1/2-i/12+O(i^2)\), where \(O(i^2)\) denotes a remainder bounded by a constant times \(i^2\) for small \(i\). The check is a product:</p>
+\[
+\Bigl(i-\frac{i^2}{2}+\frac{i^3}{3}\Bigr)\Bigl(\frac1i+\frac12-\frac{i}{12}\Bigr)=1+\Bigl(\frac12-\frac12\Bigr)i+\Bigl(-\frac1{12}-\frac14+\frac13\Bigr)i^2+O(i^3)=1+O(i^3),
+\]
+<p>since both coefficients are 0. Multiplying by \(\ln2=0.693147\),</p>
+\[
+n=\frac{\ln2}{\ln(1+i)}=\frac{69.31}{p}+0.347-0.000578\,p+O(i^2)\ \text{ years}. \tag{1.16}
+\]
+<p>The leading term is the "rule of 69.3"; the constant 0.347 is what the rule of 72 absorbs by raising the numerator. Setting \(72/p=69.31/p+0.347\) gives \(p=2.69/0.347\approx7.8\): the rule of 72 is closest to exact near 8%. Table 1.2, computed by the program at the end of the chapter, measures the error at five rates. Three sampled rates inside the band do not by themselves bound the error between them; what makes them sufficient is that the relative error \(e(i)=\dfrac{72/(100i)}{\ln2/\ln(1+i)}-1=\dfrac{72}{100\ln2}\cdot\dfrac{\ln(1+i)}{i}-1\) is a strictly decreasing function of \(i\gt0\). It is, because \(\ln(1+i)/i\) is: its derivative is \(\bigl(i/(1+i)-\ln(1+i)\bigr)/i^2\), and \(\ln(1+i)=\int_0^i\frac{du}{1+u}\gt\frac{i}{1+i}\) for \(i\gt0\), since the integrand exceeds its value at the right end everywhere on \((0,i)\). On the band \(4\%\le i\le12\%\) the error therefore falls from \(+1.85\%\) at 4% through zero near 7.85% to \(-1.90\%\) at 12%, so it is at most 1.90% of the doubling time in size, about 0.33 years at 4% and 0.12 years at 12%; at 25% it is \(-7.28\%\). The slide's claim is therefore correct as a statement about that band, with errors of the size shown.</p>
+<div class="table-wrap"><table>
+<caption>Table 1.2. Doubling time at compound rate \(i\): the exact value (1.15) against the rule of 72. Years to three decimals; error relative to the exact value.</caption>
+<thead><tr><th scope="col">Rate</th><th scope="col">Exact \(\ln2/\ln(1+i)\)</th><th scope="col">Rule \(72/(100i)\)</th><th scope="col">Error</th></tr></thead>
+<tbody>
+<tr><td>1%</td><td>69.661</td><td>72.000</td><td>+3.36%</td></tr>
+<tr><td>4%</td><td>17.673</td><td>18.000</td><td>+1.85%</td></tr>
+<tr><td>8%</td><td>9.006</td><td>9.000</td><td>−0.07%</td></tr>
+<tr><td>12%</td><td>6.116</td><td>6.000</td><td>−1.90%</td></tr>
+<tr><td>25%</td><td>3.106</td><td>2.880</td><td>−7.28%</td></tr>
+</tbody></table></div>
+<p>The rule is a check on a computed answer, not a replacement for (1.15). The Society of Actuaries states in its Exam FM syllabus that candidates may use specified calculators and that those calculators remove the need to learn and be examined on certain approximation methods (<a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA Exam FM syllabus, October 2026</a>, p. 1).</p>
+<p><strong>The running case.</strong> At 8% compound interest the family's deposit of 441,017.91 rupees doubles in 9.006 years; at 8% simple interest the deposit of 454,545.45 doubles in 12.5 years.</p>
+
+<h2 id="lab">Practice: the basic time-value lab <a class="timestamp" href="https://www.youtube.com/watch?v=wEFgFboRFNQ&amp;t=93s">L5 1:33</a></h2>
+<p>The problem-solving lab of Lecture 5 applies the week's tools to three problems. Its protocol is to read each problem, stop, solve it, and then compare with the worked solution.</p>
+<p><strong>Problem 1: doubling time.</strong> A deposit of 100 at 8% compound interest: \(100(1+i)^n=200\), so \((1.08)^n=2\) and \(n=\ln2/\ln1.08=9.006\) years, with the rule-of-72 check \(72/8=9\). The lab repeats it at 10%: \(n=\ln2/\ln1.1=7.27\) years against \(72/10=7.2\), a closer match at 8% than at 10%, and repeats that the rule is meant for rates between 4% and 12%. Table 1.2 shows how the error changes with the rate.</p>
+<p><strong>Problem 2: the equivalence trap.</strong> A fund earns 5% simple interest. What compound rate gives the same accumulated value over 5 years? With a principal of 1, simple interest gives \(1+0.05\times5=1.25\). The equivalent compound rate, written \(j\) in this section (the slide reuses \(i\) for it; elsewhere in this book \(j\) is an effective rate per period shorter than a year, and here it is an effective annual rate), solves \((1+j)^5=1.25\), so \(1+j=1.25^{1/5}=1.045640\) and \(j=4.5640\%\). The lab's concept check explains why \(j\lt5\%\): compound interest earns interest on interest, so a lower rate reaches the same value. Proposition (1.7) makes the statement exact and shows its limit. For a horizon \(T\), the equivalent compound rate \(j_T\) solves \((1+j_T)^T=1+iT\). For \(T\gt1\), \((1+i)^T\gt1+iT\) by (1.7), so \(j_T\lt i\); for \(0\lt T\lt1\), \(j_T\gt i\). The equivalence holds at the one horizon \(T\) only: at \(T=1\), the simple fund holds 1.05 and the compound fund at 4.5640% holds 1.04564, less; at \(T=10\) the order reverses, 1.50 against \(1.04564^{10}=1.5625\).</p>
+<p><strong>Problem 3: several cash flows.</strong> A fund receives 1,000 at \(t=0\), 500 at \(t=1\) and 500 at \(t=2\), and earns 6% compound interest. What is its value at \(t=3\)? Following the first section's rule, each cash flow is moved to \(t=3\) separately and the results are added:</p>
+\[
+1000(1.06)^3+500(1.06)^2+500(1.06)=1{,}191.02+561.80+530.00=2{,}282.82. \tag{1.17}
+\]
+<p>The date to which every cash flow is moved, here \(t=3\), is called the <em>focal date</em>, and an equation such as (1.17) that values every cash flow at that date is an equation of value. The lab adds a calculator shortcut: the BA II Plus cash-flow worksheet, with CF0 = 1000, C01 = 500 and its frequency F01 = 2, and the net present value (the sum of the present values of the cash flows) at I = 6, values everything at \(t=0\), \(1000+500v+500v^2=1{,}916.70\) at \(v=1/1.06\); multiplying that value by \(1.06^3\) moves it to \(t=3\) and gives 2,282.82 again. (The calculator picture on the slide shows 2,282.8160 on its NPV display, which is the value at \(t=3\), not the net present value that the listed keystrokes produce.) Under compound interest the choice of focal date does not change a comparison: moving every term from a focal date \(t\) to another focal date \(t'\) multiplies all of them by the same factor \((1+i)^{t'-t}\). Under simple interest it can change it; Exercise 4 gives an example.</p>
+<p><strong>A review question.</strong> Question 1 of the Module 1 review (Lecture 30) asks which of four statements is false for \(i\gt0\). Three of its statements concern topics outside this chapter; the fourth, \(d=i/(1+i)\), is true by (1.10).</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The running case asked how much the family must deposit today for a fee of 600,000 rupees at \(t=4\) when the bank quotes "8% a year", and what changes when a payment falls due before one year. Table 1.1 collects the answers computed in the sections above.</p>
+<div class="table-wrap"><table>
+<caption>Table 1.1. The running case under each reading of "8% a year". Rupees, rounded to the hundredth at the end; intermediate values unrounded.</caption>
+<thead><tr><th scope="col">Reading of 8%</th><th scope="col">Model and rate</th><th scope="col">Deposit for 600,000 at \(t=4\)</th><th scope="col">Deposit for 100,000 at \(t=0.75\)</th></tr></thead>
+<tbody>
+<tr><td>simple interest</td><td>\(a(t)=1+0.08t\)</td><td>454,545.45</td><td>94,339.62</td></tr>
+<tr><td>compound interest</td><td>\(a(t)=1.08^t\), \(d=7.4074\%\)</td><td>441,017.91</td><td>94,391.35</td></tr>
+<tr><td>effective rate of discount</td><td>\(a(t)=(1-0.08)^{-t}\), \(i=8.6957\%\)</td><td>429,835.78</td><td>93,937.91</td></tr>
+</tbody></table></div>
+<p>The answer depends on two separate choices. The first is the model: at the same rate \(i=8\%\), simple interest needs 13,527.54 rupees more than compound interest for the fee at \(t=4\), because its effective rate falls to 6.4516% in year 4 (1.6); and it needs 51.72 rupees less for the payment at \(t=0.75\), because of the crossover (1.7). The second is the rate: an effective rate of discount of 8% is a rate of interest of 8.6957% (1.13), and it needs 11,182.14 rupees less than \(i=8\%\) for the fee. A quotation that names neither the model nor whether the rate is \(i\) or \(d\) leaves a spread of 24,709.68 rupees on this fee.</p>
+<p>What generalizes is the procedure: fix the growth model and the meaning of the quoted rate, write the accumulation function, and move every amount to one date before comparing. What is specific to the case is the invented rate of 8% and the four-year term. The direction of each comparison does not depend on them: simple against compound reverses at one period for every rate by (1.7), and \(d\lt i\) for every nonzero rate by (1.12).</p>
+
+<h2 id="implementation">Executable check of the definitions and the running case</h2>
+<p>The program below implements (1.3), (1.4), (1.5), (1.10), (1.13) and (1.15) and checks the chapter's results. Its inputs are set in the code: the rate 8%, the fee and its dates, and the lecture examples. It makes three kinds of checks. (1) With \(i=8/100\) held as an exact fraction, it computes \(i_n\) for \(n=1,\dots,10\) directly from (1.3) under both models and checks it against (1.6) and against the constant \(i\); it checks \(d=iv=1-v\), \(i-d=id\) and \(i=d/(1-d)\) exactly. (2) In floating point, it checks the crossover (1.7) on 99 points of \((0,1)\) and four points above 1, at six rates from \(-50\%\) to \(100\%\). (3) It prints the running case, the lecture examples recomputed, and the rule-of-72 errors of Table 1.2.</p>
+<p>The functions raise <code>ValueError</code> if \(i\le-1\) or \(t\lt0\), if a rate of discount is \(d\ge1\), or if the growth factor of (1.15) is not positive or the rate is zero. The program reads no files and writes only to standard output. It uses the standard library only. Exact checks use <code>fractions.Fraction</code>; fractional powers and logarithms use floating point. Printed amounts are rounded to cents and rates to the decimals shown, only when printed. The grid check of (1.7) tests finitely many points; the proof is the argument in the crossover section.</p>
+<pre><code class="language-python">from fractions import Fraction as Fr
+from math import log
+
+
+def check(i, t):
+    """Reject a rate at or below -100% and a negative time."""
+    if i &lt;= -1 or t &lt; 0:
+        raise ValueError(f"need i &gt; -1 and t &gt;= 0: i = {i}, t = {t}")
+
+
+def a_simple(i, t):
+    """Accumulation function of simple interest (1.4)."""
+    check(i, t)
+    return 1 + i*t
+
+
+def a_comp(i, t):
+    """Accumulation function of compound interest (1.5)."""
+    check(i, t)
+    return (1 + i)**t
+
+
+def eff_rate(a, i, n):
+    """Effective rate in period n, (a(n) - a(n-1))/a(n-1), as in (1.3)."""
+    return (a(i, n) - a(i, n - 1))/a(i, n - 1)
+
+
+def d_from_i(i):
+    """Effective rate of discount equivalent to i (1.10)."""
+    check(i, 0)
+    return i/(1 + i)
+
+
+def i_from_d(d):
+    """Effective rate of interest equivalent to d (1.13); needs d &lt; 1."""
+    if d &gt;= 1:
+        raise ValueError(f"need d &lt; 1: d = {d}")
+    return d/(1 - d)
+
+
+def years_to_grow(g, i):
+    """Time n with (1 + i)**n = g, by logarithms (1.15)."""
+    check(i, 0)
+    if i == 0 or g &lt;= 0:
+        raise ValueError(f"need i != 0 and g &gt; 0: g = {g}, i = {i}")
+    return log(g)/log(1 + i)
+
+
+# 1. Exact checks at i = 8/100 (fractions, no rounding).
+i = Fr(8, 100)
+for n in range(1, 11):
+    assert eff_rate(a_simple, i, n) == i/(1 + i*(n - 1))
+    assert eff_rate(a_comp, i, n) == i
+d = d_from_i(i)
+v = 1/(1 + i)
+assert d == i*v == 1 - v and i - d == i*d and i_from_d(d) == i
+print("exact at 8%: i_n formulas (n = 1..10), d = iv = 1 - v, i - d = id,"
+      " i = d/(1 - d): pass")
+print("simple-interest i_n, n = 1..4:",
+      ", ".join(f"{float(eff_rate(a_simple, i, n)):.4%}" for n in range(1, 5)))
+print(f"d at 8% = {float(d):.6f}; i at d = 8% = {float(i_from_d(i)):.6f}")
+# 2. Crossover on a grid of t, at rates of both signs (floating point).
+for j in (-0.5, -0.05, 0.01, 0.08, 0.5, 1.0):
+    assert all(a_simple(j, m/100) &gt; a_comp(j, m/100) for m in range(1, 100))
+    assert all(a_simple(j, t) &lt; a_comp(j, t) for t in (1.01, 1.5, 2, 5))
+print("simple &gt; compound for t in (0, 1), &lt; for t &gt; 1, at six rates: pass")
+print(f"9 months at 8%: simple {1000*a_simple(0.08, 0.75):.2f},"
+      f" compound {1000*a_comp(0.08, 0.75):.2f}")
+# 3. Running case: 600,000 rupees due at t = 4, a bank quoting '8%'.
+F, t = 600000, 4
+dep = {"simple interest 8%": F/a_simple(0.08, t),
+       "compound interest 8%": F/a_comp(0.08, t),
+       "rate of discount 8%": F*(1 - 0.08)**t}
+for name, x in dep.items():
+    print(f"deposit today, {name:21s} {x:12,.2f}")
+print(f"100,000 due in 9 months: simple {100000/a_simple(0.08, 0.75):,.2f},"
+      f" compound {100000/a_comp(0.08, 0.75):,.2f},"
+      f" discount {100000*(1 - 0.08)**0.75:,.2f}")
+s0 = dep["simple interest 8%"]
+print(f"simple deposit renewed each year for 4 years: {s0*1.08**4:,.2f}")
+print(f"doubling at 8%: compound {years_to_grow(2, 0.08):.3f} years,"
+      f" simple {1/0.08:.3f} years")
+# 4. Lecture examples.
+print(f"100/1.05 = {100/1.05:.2f}; 5000(1 - 0.06)^10 = {5000*0.94**10:.2f};"
+      f" d at 10% = {d_from_i(0.1):.6f}")
+print(f"lab: rate matching 5% simple over 5 years = {1.25**0.2 - 1:.4%};"
+      f" value at t = 3 = {1000*1.06**3 + 500*1.06**2 + 500*1.06:.2f}")
+# 5. Rule of 72 against the exact doubling time.
+for p in (1, 4, 8, 12, 25):
+    n = years_to_grow(2, p/100)
+    print(f"rule of 72 at {p:2d}%: exact {n:7.3f}, 72/p {72/p:6.3f},"
+          f" error {(72/p - n)/n:+.2%}")
+</code></pre>
+<p>Run in a fresh interpreter (<code>python -I</code>, Python 3.13), the program prints:</p>
+<pre><code>exact at 8%: i_n formulas (n = 1..10), d = iv = 1 - v, i - d = id, i = d/(1 - d): pass
+simple-interest i_n, n = 1..4: 8.0000%, 7.4074%, 6.8966%, 6.4516%
+d at 8% = 0.074074; i at d = 8% = 0.086957
+simple &gt; compound for t in (0, 1), &lt; for t &gt; 1, at six rates: pass
+9 months at 8%: simple 1060.00, compound 1059.42
+deposit today, simple interest 8%      454,545.45
+deposit today, compound interest 8%    441,017.91
+deposit today, rate of discount 8%     429,835.78
+100,000 due in 9 months: simple 94,339.62, compound 94,391.35, discount 93,937.91
+simple deposit renewed each year for 4 years: 618,404.07
+doubling at 8%: compound 9.006 years, simple 12.500 years
+100/1.05 = 95.24; 5000(1 - 0.06)^10 = 2693.08; d at 10% = 0.090909
+lab: rate matching 5% simple over 5 years = 4.5640%; value at t = 3 = 2282.82
+rule of 72 at  1%: exact  69.661, 72/p 72.000, error +3.36%
+rule of 72 at  4%: exact  17.673, 72/p 18.000, error +1.85%
+rule of 72 at  8%: exact   9.006, 72/p  9.000, error -0.07%
+rule of 72 at 12%: exact   6.116, 72/p  6.000, error -1.90%
+rule of 72 at 25%: exact   3.106, 72/p  2.880, error -7.28%
+</code></pre>
+<p>The first four lines are the independent checks: the exact identities, the falling rates (1.6) at 8%, the pair \(d=0.074074\) and \(i=0.086957\), and the crossover grid. The remaining lines are the numbers used in the text. Two failure tests show what the checks detect. If (1.6) is written with \(n\) in place of \(n-1\), the first assertion fails at \(n=1\), because the direct ratio (1.3) gives \(i\) in the first period. If <code>a_comp</code> is replaced by <code>a_simple</code> in the second assertion, it fails at \(n=2\), because simple interest earns \(0.08/1.08\) in year 2. A wrong reading of a quoted rate, such as treating a rate of discount as a rate of interest, passes every assertion, since each formula is then evaluated correctly at the wrong rate; only the three running-case lines, which put the readings side by side, expose it.</p>
+
+<h2 id="limits">What these models establish and what they do not</h2>
+<p>The results of this chapter are of three kinds. <em>Definitions:</em> \(A(t)\), \(a(t)\), \(I_n\), the effective rate \(i_n\) (1.3), the discount factor \(v\) (1.8) and the effective rate of discount \(d\) (1.9). <em>Models:</em> simple interest (1.4) and compound interest (1.5), each a choice of accumulation function; the scaling equation (1.1), which assumes that growth is proportional to the principal. <em>Derivations</em> from these: the rates (1.6) and \(i_n=i\); the crossover (1.7); the identities \(d=i/(1+i)=iv=1-v\), \(i-d=id\), \(i=d/(1-d)\); the inequality \(d\lt i\) for every \(i\gt-1\), \(i\neq0\); the present value (1.14); the time (1.15); and the expansion (1.16) behind the rule of 72. The program checks the identities exactly at one rate and the crossover on a grid; the proofs are in the text.</p>
+<p>The results stop applying in identifiable places. A rate that changes from period to period is outside both models; formula (1.3) still defines each period's rate, but neither (1.4) nor (1.5) describes the balance. A deposit with withdrawals or additions during a period breaks the identity of interest with the change in balance (1.2). Simple interest at fractional times uses \(1+it\), and the measured \(t\) depends on a day-count convention, which this chapter does not fix. Simple interest solved backward, \(\mathrm{FV}/(1+it)\), is not the only backward convention: <em>simple discount</em>, \(\mathrm{FV}(1-dt)\), applies a rate of discount linearly and gives a different number (Exercise 2 shows one), and neither is the compound present value. Under simple interest a comparison of cash flows can depend on the focal date (Exercise 4). The scaling equation fails for products whose rate depends on the deposit size. All cash flows here are certain: the bank pays and the fee is due on its date.</p>
+<p>The definitions of this chapter are named learning outcomes of the Society of Actuaries Exam FM: rate of interest, simple and compound interest, accumulation function, present value, discount factor, rate of discount and effective rate are listed under the topic "Time Value of Money" (weight 5–15%), together with the outcome of computing any one of interest rate, time, present value and future value from the other three under simple or compound interest (SOA Exam FM syllabus, October 2026, p. 2). The recordings name Exam FM in passing: Lecture 4 calls the identity \(i-d=id\) a common true-or-false statement in that examination, and the review of Lecture 30 asks the viewer to answer its quiz under Exam FM conditions. The course does not state a syllabus mapping beyond these remarks.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive).</strong> (a) Derive \(i-d=id\) in two ways: from \(d=iv\) and \(d=1-v\), and from \(d(1+i)=i\). (b) Show that \(d\lt i\) for every \(i\gt-1\), \(i\neq0\), and check the identity and the inequality at \(i=-1\%\), with \(d\) to six significant figures. (c) A loan of 1 at the effective rate of discount \(d\) pays out \(1-d\) at the start of the year. Explain, with the timeline, why the borrower's effective rate of interest is larger than \(d\) by exactly \(id\).</p>
+<details><summary>Solution</summary>
+<p>(a) From (1.11): \(i-d=i-iv=i(1-v)=id\), using \(1-v=d\). From (1.10): \(d=i/(1+i)\) gives \(d+di=i\), so \(i-d=di\).</p>
+<p>(b) With \(d=i/(1+i)\), \(i-d=id=i^2/(1+i)\). For \(i\gt-1\) the denominator is positive, and \(i^2\gt0\) for \(i\neq0\), so \(i-d\gt0\). At \(i=-0.01\): \(d=-0.01/0.99=-0.0101010\); \(i-d=-0.01+0.0101010=0.000101010\); \(id=(-0.01)(-0.0101010)=0.000101010\). The two agree and \(d\lt i\). Here the balance falls, so the lecture's argument (a larger denominator for \(d\)) does not apply, but the identity does.</p>
+<p>(c) The borrower receives \(1-d\) at \(t=0\) and repays 1 at \(t=1\). The interest is \(d\), paid on the amount received, so \(i=d/(1-d)\) by (1.13). Equivalently, the interest \(d\) was taken at \(t=0\); had the lender instead waited to collect it at \(t=1\), it would have grown to \(d(1+i)=d+id\). The extra \(id\) is the interest on the interest taken in advance, and \(d+id=i\) by (1.10).</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> An investor will receive 20,000 in 6 years. The effective annual rate of discount is 5%. Calculate the present value, rounded to cents with no intermediate rounding, and choose the closest answer: (A) 14,000.00 (B) 14,701.84 (C) 14,924.31 (D) 15,384.62 (E) 15,475.62.</p>
+<details><summary>Solution</summary>
+<p>By (1.14), \(\mathrm{PV}=20{,}000(1-0.05)^6=20{,}000\times0.735092=14{,}701.84\): answer (B). The same value follows from \(i=0.05/0.95=5.2632\%\) and \(20{,}000/1.052632^6\).</p>
+<p>Each wrong choice comes from a specific error. (A) applies the rate of discount linearly, \(20{,}000(1-6\times0.05)\): simple discount, a different convention. (C) treats 5% as a rate of interest, \(20{,}000/1.05^6\). (D) treats 5% as simple interest solved backward, \(20{,}000/(1+6\times0.05)\). (E) uses one period too few, \(20{,}000\times0.95^5\).</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> Lender P offers a one-year loan at "12%, interest deducted in advance". Lender Q offers a one-year loan at 12.5% effective interest paid at the end. (a) For each lender, find the effective rates of interest and of discount. (b) A borrower needs 100,000 in hand today. How much does each lender require at the end of the year? (c) A colleague says P is cheaper because 12% is below 12.5%. Which assumption is wrong? Round rates to four decimals in percent and amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) P quotes a rate of discount, \(d=12\%\), so by (1.13) \(i=0.12/0.88=13.6364\%\). Q quotes \(i=12.5\%\), so by (1.10) \(d=0.125/1.125=11.1111\%\).</p>
+<p>(b) P pays out \(1-d=0.88\) per unit repaid, so to receive 100,000 the borrower must repay \(100{,}000/0.88=113{,}636.36\). Q requires \(100{,}000\times1.125=112{,}500.00\). Q costs 1,136.36 less.</p>
+<p>(c) The colleague compares a rate of discount with a rate of interest as if they measured the same thing. They divide the same interest by different balances (1.9), and \(d\lt i\) for the same loan (1.12). Converted to one measure, P charges \(i=13.6364\%\) against Q's 12.5%, or \(d=12\%\) against Q's 11.1111%; either way P is the more expensive loan.</p>
+</details>
+<p><strong>Exercise 4 (counterexample).</strong> Under simple interest at 10% a year, compare 100 at \(t=0\) with 120 at \(t=2\) by moving both to a focal date. (a) Use the focal date \(t=2\) and then \(t=0\), with the simple model forward (\(1+it\)) and backward (divide by \(1+it\)). (b) Use the focal date \(t=1\). (c) Show that under compound interest at any rate \(i\gt-1\) the result of the comparison cannot depend on the focal date. (d) Show that a 2-year simple-interest deposit split into two 1-year deposits at the same rate pays more, and by how much per unit. Round to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) At \(t=2\): 100 grows to \(100(1+0.1\times2)=120.00\), equal to 120. At \(t=0\): 120 is worth \(120/1.2=100.00\), equal to 100. Both focal dates say the two amounts are equivalent.</p>
+<p>(b) At \(t=1\): 100 grows to \(100\times1.1=110.00\); 120 is one year before its date, worth \(120/1.1=109.09\). Now 100 at \(t=0\) is worth 0.91 more than 120 at \(t=2\). The conclusion depends on the focal date, so the simple model does not give a consistent comparison rule.</p>
+<p>(c) Under compound interest, an amount \(X\) at time \(s\) is worth \(X(1+i)^{t-s}\) at a focal date \(t\). Changing the focal date from \(t\) to \(t'\) multiplies every term by \((1+i)^{t'-t}\gt0\), the same factor for every cash flow. Equal values stay equal and an inequality keeps its direction.</p>
+<p>(d) One 2-year deposit gives \(1+0.1\times2=1.20\). Two 1-year deposits give \(1.1\times1.1=1.21\), which is 0.01 more per unit (1.00 on a deposit of 100). This is the product inequality of the simple-interest section with \(s=t=1\): \((1+is)(1+it)-(1+i(s+t))=i^2st=0.01\).</p>
+</details>
+<p><strong>Exercise 5 (design and judge).</strong> A treasurer must place 100,000 for a term of \(M\) months (so \(t=M/12\) years) and can choose 7% a year simple interest or 7% a year compound interest, at the bank's quotation, with no fees. (a) Compute the value at the end of the term for \(M=6,12,30,36\), and state the decision rule. (b) For \(M=30\), the simple-interest product may be renewed at each anniversary at the same simple rate. What does renewing twice and then holding for 6 months give, and how does it compare with compound interest? (c) Find the term \(t\) in \((0,1)\) at which the advantage of simple interest is largest at 7%. Round amounts to cents and \(t\) to three decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) With \(t=M/12\): \(M=6\): simple \(100{,}000(1.035)=103{,}500.00\), compound \(100{,}000\times1.07^{0.5}=103{,}440.80\). \(M=12\): both 107,000.00. \(M=30\): simple 117,500.00, compound \(100{,}000\times1.07^{2.5}=118{,}429.38\). \(M=36\): simple 121,000.00, compound 122,504.30. The rule follows from (1.7): simple for \(M\lt12\), either for \(M=12\), compound for \(M\gt12\).</p>
+<p>(b) Renewal at each anniversary turns the first two years into compound growth, \(1.07^2\), and the last 6 months are simple: \(100{,}000\times1.07^2\times1.035=118{,}497.15\). This exceeds the compound 118,429.38 by 67.77, because the final fraction of a year is again a term below one period. The decision rule of (a) assumes no renewal; with renewal allowed, the simple product wins at every term that is not a whole number of years.</p>
+<p>(c) Let \(h(t)=1+0.07t-1.07^t\), which is \(-\psi(t)\) of the crossover proof at \(i=7\%\). Then \(h'(t)=0.07-\ln(1.07)\,1.07^t=0\) at \(1.07^t=0.07/\ln1.07\), that is \(t=\ln(0.07/\ln1.07)/\ln1.07=0.503\). Since \(h''(t)=-(\ln1.07)^2\,1.07^t\lt0\), this is the maximum; its value is \(h(0.503)=0.000592\), or 59.20 on 100,000. The largest advantage is close to half a year and small at this rate.</p>
+</details>
+<p><strong>Exercise 6 (unknown time and the rule of 72).</strong> (a) How long does 250,000 take to grow to 1,000,000 at 6% compound interest? Compare with applying the rule of 72 twice. (b) Repeat at 18%, and say which estimate (1.16) gives for the doubling time at 18%. (c) How long does the same growth take at 6% simple interest? (d) At an effective rate of discount of 6%, find the doubling time from (1.14), and the rule-of-72 estimate after converting \(d\) to \(i\). Round times to three decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) The factor is \(g=4\), so by (1.15) \(n=\ln4/\ln1.06=23.791\) years. Two doublings by the rule give \(2\times72/6=24\) years, 0.209 years (0.9%) more. A check: with the unrounded \(n\), \(250{,}000\times1.06^{n}=1{,}000{,}000.00\).</p>
+<p>(b) At 18%, \(n=\ln4/\ln1.18=8.376\) years; the rule gives \(2\times72/18=8.000\), 4.5% too short. For one doubling, the exact time is \(\ln2/\ln1.18=4.188\), the rule gives 4.000, and the first two terms of (1.16) give \(69.31/18+0.347=4.198\), within 0.010 of the exact value, and all three terms give \(69.31/18+0.347-0.000578\times18=4.187\), within 0.001. The rule of 72 replaces the two terms \(69.31/p+0.347\) by the single term \(72/p\), which matches them only near \(p=7.8\); at \(p=18\) it is \(0.198\) below them, and (1.16), which keeps the constant term separately, stays close.</p>
+<p>(c) Under simple interest \(1+0.06n=4\), so \(n=3/0.06=50.000\) years, more than twice the compound time, because the effective rate (1.6) falls from 6% to \(0.06/(1+0.06\times49)=1.5228\%\) in year 50.</p>
+<p>(d) From (1.14), the value of 1 grows by the factor \((1-d)^{-1}=1/0.94\) each year, so \(0.94^{-n}=2\) and \(n=\ln2/(-\ln0.94)=11.202\) years. Converting first, \(i=0.06/0.94=6.3830\%\) and the rule gives \(72/6.3830=11.280\) years. Applying the rule to 6% directly would give 12.000, an error that comes from reading \(d\) as \(i\), not from the rule.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Recordings: <a href="https://www.youtube.com/watch?v=gf6eD1YzUNY">Lecture 1, The Measurement of Interest</a>; <a href="https://www.youtube.com/watch?v=fZziBpLbjuM">Lecture 2, Simple vs. Compound Interest</a>; <a href="https://www.youtube.com/watch?v=pPqQhytNnNs">Lecture 3, Present Value (v) and Discount Rate (d)</a>; <a href="https://www.youtube.com/watch?v=WN6gPabPCeY">Lecture 4, Relationships Between Rates (i vs. d)</a>; <a href="https://www.youtube.com/watch?v=wEFgFboRFNQ">Lecture 5, Problem Solving Lab (Basic TVM)</a>; <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30, Module 1 Review (Theory Quiz)</a>; NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras.</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam, October 2026</em> syllabus</a>. Specified calculators allowed and approximation methods not examined (p. 1); topic 1, Time Value of Money (5–15%), its list of terms and the outcome of computing any one of interest rate, time, present value and future value under simple or compound interest (p. 2).</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><span>First available chapter</span><a href="index.html">Lecture index</a><a rel="next" href="chapter-02-nominal-rates-of-interest-and-discount.html">Next available chapter</a></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>

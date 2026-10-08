@@ -1,12 +1,12 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-08T07:06:20.741102+00:00",
+  "checked_at_utc": "2026-10-08T07:35:17.359333+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
-    "html_files": 8,
-    "local_links_checked": 73,
-    "timestamps_checked": 49,
+    "html_files": 9,
+    "local_links_checked": 91,
+    "timestamps_checked": 60,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
     "warnings": []
@@ -14,6 +14,24 @@
   "browser": {
     "status": "passed",
     "findings": [
+      {
+        "mathErrors": 0,
+        "mathNodes": 680,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-01-measuring-interest-simple-compound-and-discount.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 680,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-01-measuring-interest-simple-compound-and-discount.html",
+        "viewport": 390
+      },
       {
         "mathErrors": 0,
         "mathNodes": 650,

@@ -1,0 +1,458 @@
+{
+  "chapter": 1,
+  "title": "Measuring interest: accumulation, simple and compound interest, and the discount rate",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 2 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "gf6eD1YzUNY",
+      "lecture": "Lecture 1",
+      "media_sha256": "306284fc5664dadc9130d5e5d60c3dd8a7e084b16c4e96d215bf5d682affd2eb",
+      "duration_seconds": 1897,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1893.52
+    },
+    {
+      "video_id": "fZziBpLbjuM",
+      "lecture": "Lecture 2",
+      "media_sha256": "882ed860179d548823a585c1c5d3746cb8c7400c8d6769719657cdbd5d05ff51",
+      "duration_seconds": 1597,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1592.72
+    },
+    {
+      "video_id": "pPqQhytNnNs",
+      "lecture": "Lecture 3",
+      "media_sha256": "f8967c89356b9a16c57a65d311c81215f0e3b3297a547bf956824235a3fd1e89",
+      "duration_seconds": 1522,
+      "transcript_first_start_seconds": 12.0,
+      "transcript_last_end_seconds": 1518.56
+    },
+    {
+      "video_id": "WN6gPabPCeY",
+      "lecture": "Lecture 4",
+      "media_sha256": "6721c669c2b2d41ed6e328a6feadc681bdc02a326c8ca3feed49cbd0a3682d7b",
+      "duration_seconds": 1393,
+      "transcript_first_start_seconds": 8.63,
+      "transcript_last_end_seconds": 1389.52
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "wEFgFboRFNQ",
+      "lecture": "Lecture 5",
+      "kind": "lab",
+      "media_sha256": "64b7d2d3403b9ee9e6c763fd3d75b475f91064891c4dc70103404239b41e07d0",
+      "duration_seconds": 1898,
+      "transcript_first_start_seconds": 12.08,
+      "transcript_last_end_seconds": 1893.84,
+      "used_for": "Section 'Practice: the basic time-value lab' (doubling time 9.006 and 7.27 years with the rule-of-72 checks 9 and 7.2; the equivalent compound rate 4.5640% for 5% simple over 5 years and the lab's concept check; the three cash flows valued at t = 3 at 6%, 2,282.82, the focal date and the BA II Plus CF worksheet); the idea behind Exercise 4 (focal date) and Exercise 6 (unknown time), restated with original numbers."
+    },
+    {
+      "video_id": "HSrxblFzIsE",
+      "lecture": "Lecture 30",
+      "kind": "review",
+      "media_sha256": "2e5ea1674490e9912da2b7ec1a4d0027180b5683995cb7dddd66d690c7ec524c",
+      "duration_seconds": 1878,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1872.0,
+      "used_for": "Only Question 1 (f0021, 'which statement is false for i > 0'), whose option D, d = i/(1+i), is in this chapter's scope; cited in the lab section as a check of (1.10), and for the remark in the closing section that the review asks for Exam FM conditions. Its other options (force of interest, continuous annuity) and its other questions (varying annuities, perpetuities) belong to later topics and are not used."
+    }
+  ],
+  "frames_viewed": {
+    "gf6eD1YzUNY": [
+      "f0001",
+      "f0010",
+      "f0023",
+      "f0026",
+      "f0029",
+      "f0033",
+      "f0035",
+      "f0040",
+      "f0048",
+      "f0050",
+      "f0058",
+      "f0060"
+    ],
+    "fZziBpLbjuM": [
+      "f0016",
+      "f0018",
+      "f0020",
+      "f0036",
+      "f0039",
+      "f0042",
+      "f0047",
+      "f0049",
+      "f0050"
+    ],
+    "pPqQhytNnNs": [
+      "f0017",
+      "f0018",
+      "f0021",
+      "f0023",
+      "f0028",
+      "f0031",
+      "f0035",
+      "f0040",
+      "f0043",
+      "f0045",
+      "f0049"
+    ],
+    "WN6gPabPCeY": [
+      "f0005",
+      "f0012",
+      "f0021",
+      "f0023",
+      "f0029",
+      "f0033",
+      "f0041",
+      "f0043",
+      "f0046"
+    ],
+    "wEFgFboRFNQ": [
+      "f0024",
+      "f0039",
+      "f0041",
+      "f0057",
+      "f0059"
+    ],
+    "HSrxblFzIsE": [
+      "f0021"
+    ]
+  },
+  "source_uncertainties": [
+    "Instructor: the title slide of Lecture 1 (f0001, full size) names Prof. Neelesh S. Upadhye, IIT Madras; the title slides of Lectures 2-5 were seen on contact sheets s01 and show the same name and layout; slide footers repeat it. Lecture 30 is also presented by him and announces that Prof. Pramod Kumar Naik takes over from the next lecture; this chapter does not use that remark.",
+    "Reference-mapping boxes on the roadmap slides (slide facts, not cited, books not open): Lecture 1 (f0010) Broverman section 1.1, Chan and Tse sections 1.1, 1.2; Lecture 2 (roadmap, sheet s01) Broverman 1.1, Chan and Tse 1.2-1.4; Lecture 3 (roadmap, sheet s01) Broverman 1.2, 1.5, Chan and Tse 1.5, 1.7; Lecture 4 (roadmap, sheet s01) Broverman 1.5, Chan and Tse 1.5, 1.7.",
+    "Lecture 2, 9-month example (frame not in the 30 s series, so not listed in frames_viewed: extracted with ffmpeg at 1497 s and 1503 s into _editorial/tmp/ch01_L2_optB.png and ch01_L2_optB2.png, because option B is on screen for less than 30 s between f0050 and f0051): the slide prints 1000(1.08)^0.75 = 1000(1.0592) = 1059.22. Exact: 1.08^0.75 = 1.059419, value 1,059.42; 1000 x 1.0592 would be 1,059.20. The chapter gives the exact value and notes that the decision (simple, 1,060.00) is unchanged.",
+    "Lecture 3, handwritten working on f0017: v = 100/1.05 = 95.23 (the symbol v is written for the deposit 100v). The quotient is 95.238, which rounds to 95.24; the chapter prints 95.24 and notes the slide's figure.",
+    "Lecture 4, f0029: PV of 5,000 due in 10 years at d = 6% printed as 2,692.83. Exact 5000 x 0.94^10 = 2,693.08 (both methods, with i unrounded); Method A with the slide's rounded i = 6.38% gives 2,693.83. Neither reproduces 2,692.83; the chapter states this.",
+    "Lecture 5, f0059: the BA II Plus picture shows 'NPV 2282.8160', but the keystrokes listed on the same slide compute the value at t = 0 (1,916.70) and then multiply by 1.06^3. The chapter states both numbers.",
+    "Lecture 3 speech says the present value is inversely proportional to i; the slide box (f0018) says only 'High Interest => Low Price'. The chapter states that v = 1/(1+i) is decreasing in i and not inversely proportional to it, with the numbers at 5% and 10%.",
+    "Lecture 1 slide f0048 writes the simple-interest rate as r (handwritten) before the typed slide f0050 writes a(t) = 1 + it; the chapter uses i throughout and says so. The slides write the principal as lower-case k (f0026); the captions transcribe it as upper-case K.",
+    "Lecture 4: the speech calls d = 9.09% a 'discount factor'; the slide (f0012) shows the quantity d, the rate of discount. The chapter uses 'rate of discount' for d and 'discount factor' for v only.",
+    "Caption errors corrected from the slides (paraphrased): Lecture 1 transcribes A(t) and a(t) as the number 80, and the second-year compound balance 110.25 as 1.25 (f0058 has 110.25); Lecture 5 transcribes the simple-interest target 1.25 as 1.5 in two places (f0039 has 1.25) and the factor 1.1236 as 1.26 (f0057 has 1.1236).",
+    "Rule of 72: the slide (L4 f0043) states that the rule is accurate for rates between 4% and 12%; the lab (L5 f0024, handwritten) repeats '4% to 12%'. The chapter measures the error (at most 1.90% of the doubling time in that band, 7.28% at 25%) and derives the rule from the series of ln(1+i); the measurement and the derivation are teaching constructions.",
+    "Speaker's judgments, attributed in the text and not used as findings: the advice to choose simple interest for terms below one period and compound interest above (L2, slide 12 decision and speech), stated with its hypotheses and the size of the advantage; the remark that tiered rates exist (L1); Exam FM named in speech (L4 on i - d = id; L30 'simulate Exam FM conditions').",
+    "Lecture 2 slide f0039 and Lecture 1 slide f0060 draw both accumulation functions; from the plotted end points (simple 2 at t = 10, 1.5 at t = 5) the rate is 10%, as the legend of f0039 (1 + 0.1t, 1.1^t) states. Figure 1.1 of the chapter is an original drawing at i = 100%, computed in _editorial/tmp/ch01_fig.py.",
+    "Shared CSS: assets/book.css has no rule for the classes lead and source-note (as noted by the pilot); the chapter uses them as the brief requires. Not edited."
+  ],
+  "sections": [
+    {
+      "section": "Money has a time dimension",
+      "video_id": "gf6eD1YzUNY",
+      "start": 291.52,
+      "end": 677.68,
+      "lecture_material": "100 rupees today or in one year; rational answer today because of earning power (5% gives 105); money has a time dimension; the rule that cash flows must be moved to the same point in time before comparing or adding (slide f0023, 5 inches and 5 centimetres); cash flows; time value of money.",
+      "research_extension": "None.",
+      "teaching_construction": "Time measured in years from t = 0 and the stated period; the running case (fee of 600,000 rupees at t = 4, an invented 8%, four questions); the three objects (deposit, date, growth function); the rounding rule with the example 600,000 x 0.735030.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The amount function and the accumulation function",
+      "video_id": "gf6eD1YzUNY",
+      "start": 677.68,
+      "end": 1064.96,
+      "lecture_material": "Principal k at t = 0; amount function A(t) with units of currency (trap alert); accumulation function a(t) for 1 unit, no units, a multiplier (trap alert); scaling equation A(t) = k a(t) assuming linearity of principal (investing 200 gives 2x investing 100); larger rates for larger deposits exist and are not treated; boundary condition a(0) = 1.",
+      "research_extension": "None.",
+      "teaching_construction": "a(t) = A(t)/A(0); the notation collision of a(t) with later annuity symbols stated; the running case as k = 600,000/a(4).",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Interest earned in a period",
+      "video_id": "gf6eD1YzUNY",
+      "start": 1064.96,
+      "end": 1192.16,
+      "lecture_material": "Interest is the change in accumulated value over a period; I_n = A(n) - A(n-1) for period n from n-1 to n; trap alert: I_n is an amount, not the rate i.",
+      "research_extension": "None.",
+      "teaching_construction": "The telescoping sum I_1 + ... + I_n = A(n) - A(0) and its no-withdrawal condition; the choice of balance as what separates i from d.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The effective rate of interest",
+      "video_id": "fZziBpLbjuM",
+      "start": 268.08,
+      "end": 702.08,
+      "lecture_material": "Effective rate i = (A(1) - A(0))/A(0) = I_1/A(0) (f0016); trap alert: i is a decimal (5% = 0.05); example 100 to 110, i = 0.10; normalised principal a(0) = 1, i = a(1) - 1, a(1) = 1 + i, the same for simple and compound at t = 1 (f0020).",
+      "research_extension": "None.",
+      "teaching_construction": "Definition of i_n for every period n (1.3) and its independence of k under (1.1); i as the first-period rate for a stated period length; the remark that the definition says nothing about i_2 versus i_1.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Simple interest: linear growth",
+      "video_id": "gf6eD1YzUNY",
+      "start": 1192.16,
+      "end": 1493.04,
+      "lecture_material": "Interest only on the original principal; 100 at 5%: 105, 110, 100(1 + rn) (handwritten f0048 with r); a(t) = 1 + it, constant growth per period, straight line from (0, 1) (f0050).",
+      "research_extension": "None.",
+      "teaching_construction": "Running case simple reading 454,545.45 and yearly interest 36,363.64; the product inequality (1 + is)(1 + it) > 1 + i(s+t) and the renewal gain 618,404.07 (18,404.07 above the fee).",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Compound interest: exponential growth",
+      "video_id": "gf6eD1YzUNY",
+      "start": 1493.04,
+      "end": 1893.52,
+      "lecture_material": "Interest on the accumulated balance; 100 at 5%: 105, 110.25 (interest 5.25), 100(1+i)^(n-1)(1+i) = 100(1+i)^n; a(t) = (1+i)^t (f0058); visual comparison with a widening gap (f0060); preview of the trap for 0 < t < 1.",
+      "research_extension": "None.",
+      "teaching_construction": "Fractional-time compound growth stated as the model's definition; the product rule a(s+t) = a(s)a(t); running case compound reading 441,017.91, balances and yearly interest.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "The effective rate over time: constant for compound, falling for simple",
+      "video_id": "fZziBpLbjuM",
+      "start": 702.08,
+      "end": 1128.88,
+      "lecture_material": "Hidden flaw of simple interest: 10% on 100 gives 10%, 9.09%, 5.26% in years 1, 2, 10; derivation of i_n = i/(1 + i(n-1)) (f0036); compound model earns the same rate each year; graph line against curve at 10% (f0039); the gap diverges.",
+      "research_extension": "None.",
+      "teaching_construction": "Derivation of (1.6) from (1.3) and its domain 1 + i(n-1) > 0; compound i_n = i; the converse by induction (constant effective rate implies compound growth at whole periods); running case rates 8.0000%, 7.4074%, 6.8966%, 6.4516%.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Periods shorter than one: the crossover",
+      "video_id": "fZziBpLbjuM",
+      "start": 1180.88,
+      "end": 1592.72,
+      "lecture_material": "Crossover trap 0 < t < 1: 6 months at 10%, simple 1.050 against compound 1.0488 (f0042); chord property of the convex compound curve (f0047); summary table (f0049); 9-month example 1,060.00 against 1,059.22 and the decision for simple interest (frame at 1497 s); advice: simple for short terms, compound for long terms.",
+      "research_extension": "None.",
+      "teaching_construction": "Proposition (1.7) with a strict-convexity proof for every i > -1, i != 0 (including negative rates); Figure 1.1 at i = 100%; exact 9-month value 1,059.42; running case 100,000 at t = 0.75 (94,339.62 against 94,391.35); the hypotheses of the advice and the size of the advantage (0.000592 per unit at 7%, at t = 0.503).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Moving money backward: the discount factor and present value",
+      "video_id": "pPqQhytNnNs",
+      "start": 222.0,
+      "end": 707.12,
+      "lecture_material": "Travelling backward in time; start x (1+i) = end with end = 1 gives v = 1/(1+i) (f0017); 100/1.05 = 95.23 handwritten; inverse logic box (f0018); move t years: multiply or divide by (1+i)^t, PV = FV v^t (f0021); BA II Plus tip 1.05, 1/x, 0.95238 (f0023).",
+      "research_extension": "None.",
+      "teaching_construction": "Exact 95.24; v decreasing in i with dv/di < 0 and not inversely proportional; PV under simple interest FV/(1+it) and its difference from FV v^t by (1.7); running case v^4 = 0.735030 and 441,017.91.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The effective rate of discount",
+      "video_id": "pPqQhytNnNs",
+      "start": 708.56,
+      "end": 1518.56,
+      "lecture_material": "Haircut analogy: borrow 100, bank keeps 5, receive 95, repay 100 (f0028); d = interest/end = I_1/A(1) against i = interest/start (f0031); example i = 5/95 = 5.26%, d = 5% (f0035); derivation d = i/(1+i) = 1 - 1/(1+i) (f0040); d = iv (Identity 1, discount is PV of interest) and d = 1 - v (Identity 2) (f0043); triangle of rates (f0045); quiz i = 10%, d = 9.09% (f0049).",
+      "research_extension": "None.",
+      "teaching_construction": "(1.10) valid under any accumulation function with a(1) = 1 + i; d_n = i_n/(1 + i_n); the readings of the two identities; running case discount reading 429,835.78 and 93,937.91; the distinction between a difference of model and a difference of rate.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Why d is less than i, and the identities that link i, d and v",
+      "video_id": "WN6gPabPCeY",
+      "start": 171.84,
+      "end": 978.16,
+      "lecture_material": "Dual view: i on the start balance, d on the end balance (f0005); loan 100 to 110: i = 10%, d = 9.09%, proof d < i because FV > PV (f0012); i = d/(1-d) by two routes (f0021); v = 1 - d, PV = FV v^n = FV (1-d)^n (f0023); example 5,000 in 10 years at d = 6%, methods A and B, 2,692.83 (f0029); i - d = i - iv = i(1 - v) = id, a common true-or-false exam statement (f0033).",
+      "research_extension": "None.",
+      "teaching_construction": "d < i for every i > -1, i != 0 from i - d = i^2/(1+i), including negative rates (i = -1% check); reading of i - d = id as interest on d; domain of (1.13) and the map from (-1, inf) onto (-inf, 1); exact 2,693.08 and Method A with 6.38% (2,693.83); running case i = 8.6957% under d = 8%, d = 7.4074% under i = 8%, and a loan with interest in advance (552,000).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Solving for an unknown time: logarithms and the rule of 72",
+      "video_id": "WN6gPabPCeY",
+      "start": 978.16,
+      "end": 1389.52,
+      "lecture_material": "(1+i)^n = 2; natural logs and ln(a^x) = x ln a; n ln(1+i) = ln 2; calculator 0.6931, 0.07696, 9.006 years (f0041); rule of 72: n = 72/(100 i), 9 years at 8%, accurate for 4% to 12% (f0043); summary of identities (f0046).",
+      "research_extension": "SOA Exam FM syllabus p. 1: specified calculators allowed; they remove the need to learn and be examined on certain approximation methods.",
+      "teaching_construction": "Domain of (1.15) and its meaning only under the fractional-time compound model; simple-interest doubling n = (g-1)/i (12.5 years at 8%); series derivation (1.16) n = 69.31/p + 0.347 - 0.000578 p + O(i^2) and the best-fit rate p = 7.8; proof that the relative error of the rule is strictly decreasing in i (derivative of ln(1+i)/i), so the three sampled rates bound the band 4% to 12% (at most 1.90%, 0.33 years at 4%, 0.12 years at 12%); Table 1.2 of errors (+3.36%, +1.85%, -0.07%, -1.90%, -7.28%); running case doubling 9.006 against 12.5 years.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Practice: the basic time-value lab",
+      "video_id": "wEFgFboRFNQ",
+      "start": 92.72,
+      "end": 1893.84,
+      "lecture_material": "Lab protocol; doubling at 8% (9.006, rule 9) and at 10% (7.27, rule 7.2, band 4% to 12%) (f0024); equivalence trap 5% simple over 5 years, AV 1.25, compound 4.56% (f0039) and concept check (f0041); three cash flows at 6%, value at t = 3 = 2,282.82 (f0057), focal date, BA II Plus CF worksheet then multiply by 1.06^3 (f0059). Lecture 30 Question 1 option D, d = i/(1+i) (f0021).",
+      "research_extension": "None.",
+      "teaching_construction": "Equivalent rate for any horizon T and the sign of j_T - i from (1.7); the equivalence holds at one horizon only (1.05 against 1.04564 at T = 1, and 1.50 against 1.5625 at T = 10); equation of value (1.17); independence of the focal date under compound interest; NPV 1,916.70 and the slide's calculator picture.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "The running case resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 1.1 (three readings of 8%, deposits for 600,000 at t = 4 and 100,000 at t = 0.75); the two separate choices (model: 13,527.54 and 51.72; rate: 11,182.14) and the spread 24,709.68; what generalizes and what is case-specific.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable check of the definitions and the running case",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library program: exact Fraction checks at i = 8/100 of (1.3) against (1.6) and against the constant i for n = 1..10, of d = iv = 1 - v, i - d = id and i = d/(1-d); floating-point grid check of (1.7) at six rates from -50% to 100%; running case, lecture examples and the rule-of-72 table; ValueError for i <= -1, t < 0, d >= 1, g <= 0 or i = 0 in (1.15); two failure tests described.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What these models establish and what they do not",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Lecture 4 names Exam FM for i - d = id; Lecture 30 asks for Exam FM conditions.",
+      "research_extension": "SOA Exam FM syllabus p. 2: topic 1, Time Value of Money (5-15%), terms (simple and compound interest, accumulation function, present value, discount factor, rate of discount, effective rate) and outcome (b).",
+      "teaching_construction": "Classification into definitions, models and derivations; where the results stop applying (changing rates, mid-period cash flows, day count, simple discount against simple interest solved backward, focal-date dependence under simple interest, tiered rates, certainty).",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercise 3 extends the haircut loan of Lecture 3; Exercise 4 extends the lab's focal date; Exercise 6 extends the doubling-time problems of Lectures 4 and 5.",
+      "research_extension": "None.",
+      "teaching_construction": "Six original exercises with full solutions: derive (i - d = id two ways, d < i for negative rates, interest on d), exam-style closest-of-five (present value at a rate of discount, each distractor tied to an error), check an assumption (discount-quoted against interest-quoted loan), counterexample (focal-date dependence and splitting under simple interest), design and judge (simple or compound by term, renewal, largest advantage), unknown time and the rule of 72 (factor 4, 18%, simple interest, rate of discount).",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "The closing h2 'Primary sources' is a reference list with no lecture material, research claim or construction of its own; as in the pilot, it has no entry in 'sections'. Every other h2 has exactly one entry, with the same title text. Sections follow the recording order except that the Lecture 1 sections on simple and compound interest come after the Lecture 2 definition of the effective rate, because the models are checked against that definition; Lecture 2's own treatment of the two models follows in 'The effective rate over time'.",
+  "references": [
+    {
+      "title": "Lecture 1 recording, The Measurement of Interest",
+      "url": "https://www.youtube.com/watch?v=gf6eD1YzUNY",
+      "supports": "Time preference and the comparison rule, A(t), a(t), k, scaling equation, a(0) = 1, I_n, simple and compound models and their graph.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 2 recording, Simple vs. Compound Interest",
+      "url": "https://www.youtube.com/watch?v=fZziBpLbjuM",
+      "supports": "Effective rate, falling effective rate of simple interest, crossover for 0 < t < 1, chord property, 6-month and 9-month examples.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 3 recording, Present Value (v) and Discount Rate (d)",
+      "url": "https://www.youtube.com/watch?v=pPqQhytNnNs",
+      "supports": "v = 1/(1+i), PV = FV v^t, calculator tip, haircut loan, d = I_1/A(1), d = i/(1+i) = iv = 1 - v, triangle of rates, quiz.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 4 recording, Relationships Between Rates (i vs. d)",
+      "url": "https://www.youtube.com/watch?v=WN6gPabPCeY",
+      "supports": "d < i, i = d/(1-d), v = 1 - d, PV = FV (1-d)^n and its example, i - d = id, doubling time by logarithms, rule of 72.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 5 recording, Problem Solving Lab (Basic TVM)",
+      "url": "https://www.youtube.com/watch?v=wEFgFboRFNQ",
+      "supports": "Doubling-time problems, equivalent compound rate, three cash flows at a focal date, BA II Plus CF worksheet.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 30 recording, Module 1 Review (Theory Quiz)",
+      "url": "https://www.youtube.com/watch?v=HSrxblFzIsE",
+      "supports": "Question 1, option D: d = i/(1+i).",
+      "page_checked": "slide frame f0021"
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam -- October 2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "p. 1: candidates may use specified calculators, and such calculators eliminate the need to learn and be examined on certain mathematical methods of approximation. p. 2: topic 1, Time Value of Money (5-15%); outcome (a) lists interest rate, simple interest, compound interest, accumulation function, future value, present value, discount factor, discount rate (rate of discount), effective rate, equation of value; outcome (b): given any three of interest rate, period of time, present value and future value, calculate the remaining item using simple or compound interest.",
+      "page_checked": "pp. 1, 2 (same as PDF pages; text extracted with _editorial/tmp/ch01_pdfcheck.py)"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "t",
+      "first_section": "time-dimension",
+      "definition": "Time in years from today (t = 0), or in another stated period."
+    },
+    {
+      "symbol": "k",
+      "first_section": "amount-accumulation",
+      "definition": "Principal invested at t = 0 (slide notation, lower case)."
+    },
+    {
+      "symbol": "A(t)",
+      "first_section": "amount-accumulation",
+      "definition": "Amount function: accumulated value of the principal at time t, in currency; A(0) = k."
+    },
+    {
+      "symbol": "a(t)",
+      "first_section": "amount-accumulation",
+      "definition": "Accumulation function: accumulated value at t of 1 invested at 0; no units; a(0) = 1; distinct from annuity symbols with an angle subscript."
+    },
+    {
+      "symbol": "I_n",
+      "first_section": "interest-earned",
+      "definition": "Interest earned in period n, A(n) - A(n-1), an amount (1.2)."
+    },
+    {
+      "symbol": "n",
+      "first_section": "interest-earned",
+      "definition": "Index of a period (whole number); in the unknown-time section, the unknown time in years (1.15)."
+    },
+    {
+      "symbol": "i_n, i",
+      "first_section": "effective-rate",
+      "definition": "Effective rate of interest for period n (1.3); i = i_1, the first-period rate, a(1) = 1 + i; per year unless stated."
+    },
+    {
+      "symbol": "s",
+      "first_section": "simple",
+      "definition": "A second holding period in the product inequality and the product rule; the time of a cash flow in Exercise 4."
+    },
+    {
+      "symbol": "psi(t), lambda, t_1, t_2",
+      "first_section": "crossover",
+      "definition": "psi(t) = (1+i)^t - 1 - it and the convexity weights and points, used only in the proof of (1.7); psi avoids a clash with the growth factor g."
+    },
+    {
+      "symbol": "v",
+      "first_section": "present-value",
+      "definition": "Discount factor 1/(1+i) (1.8)."
+    },
+    {
+      "symbol": "PV, FV",
+      "first_section": "present-value",
+      "definition": "Present value at t = 0 and future value at t (slide notation, roman)."
+    },
+    {
+      "symbol": "d, d_n",
+      "first_section": "discount-rate",
+      "definition": "Effective rate of discount for the first period, I_1/A(1) (1.9); d_n = I_n/A(n) for period n."
+    },
+    {
+      "symbol": "g",
+      "first_section": "unknown-time",
+      "definition": "Growth factor in (1+i)^n = g (1.15)."
+    },
+    {
+      "symbol": "p",
+      "first_section": "unknown-time",
+      "definition": "The rate in percent, p = 100 i, in the rule of 72 (1.16)."
+    },
+    {
+      "symbol": "j, j_T, T",
+      "first_section": "lab",
+      "definition": "Equivalent effective annual compound rate for a horizon T years matching simple interest at i; j = j_5 in the lab problem. Departs from the book's use of j as the rate per 1/m year; stated in the text and in the chapter's notation proposals."
+    },
+    {
+      "symbol": "t'",
+      "first_section": "lab",
+      "definition": "A second focal date (lab and Exercise 4)."
+    },
+    {
+      "symbol": "M",
+      "first_section": "exercises",
+      "definition": "Term in months in Exercise 5 (t = M/12 years); distinct from T, the horizon in years in the lab."
+    },
+    {
+      "symbol": "X",
+      "first_section": "exercises",
+      "definition": "An amount moved to a focal date (Exercise 4(c))."
+    },
+    {
+      "symbol": "h(t)",
+      "first_section": "exercises",
+      "definition": "1 + 0.07t - 1.07^t, used only in Exercise 5(c)."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch01_verify_code.py (extracts the chapter listing, runs it with python -I in a fresh process from a temporary directory, Python 3.13, standard library only; exit 0, no stderr; 18 stdout lines, 1104 bytes, compared byte for byte with the printed block after converting CRLF to LF; pycodestyle exit 0, longest line 79)",
+    "stdout_matches_printed": true
+  }
+}
