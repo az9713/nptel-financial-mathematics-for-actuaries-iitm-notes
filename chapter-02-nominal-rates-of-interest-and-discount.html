@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="725b410d7063589e88c730c0f7c501ea267befe55c8139e552f9b446bbdb8e2a"><title>Nominal rates of interest and of discount · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Nominal rates of interest and of discount</h1>
+<p class="lead">A small business needs 500,000 dollars now and will repay the loan in one sum after 5 years. Four lenders quote four rates, invented for this example: lender A quotes 10% a year, effective; lender B quotes 9.6% a year compounded monthly; lender C quotes 9.8% a year compounded half-yearly; lender D quotes a rate of discount of 9.5% a year, convertible quarterly. Ranked by the quoted number, D looks cheapest and A dearest. The results of this chapter rank them in exactly the opposite order. The amounts owed after 5 years are 805,255.00 dollars to A, 806,495.47 to B, 806,723.83 to C and 808,628.54 to D. The lowest quote costs 3,373.54 dollars more than the highest, and its interest, 308,628.54 dollars, is 1.1% more than A's 305,255.00. The quoted numbers are not comparable as they stand: only A is an effective rate, and the other three are <em>nominal</em> rates, each with its own frequency and its own timing of interest. This chapter defines the nominal rate of interest \(i^{(m)}\) and the nominal rate of discount \(d^{(m)}\), derives the equations that convert each of them to the effective annual rate, proves the order in which all of these rates lie for one effective rate, and uses the conversions to compare quotes that are made in different conventions.</p>
+<p class="source-note">Grounded in two recordings of the NPTEL course <em>Financial Mathematics for Actuaries</em> (Prof. Neelesh S. Upadhye, IIT Madras): <a href="https://www.youtube.com/watch?v=bExiStbDv68">Lecture 6</a> (nominal interest rates) and <a href="https://www.youtube.com/watch?v=Y2eHxCkNrgg">Lecture 7</a> (nominal discount rates). <strong>Lecture material:</strong> the bank advertisement of 12% compounded monthly and its effective rate 12.68%; the effective rate \(i\), the nominal rate \(i^{(m)}\) and the frequency \(m\), with the warning that the superscript is a label and not an exponent; the periodic rate \(i^{(m)}/m\); the bridge equation \(1+i=(1+i^{(m)}/m)^m\) from two paths of growth over one year; the table of effective rates at a fixed nominal 12%; the nominal rate quarterly equivalent to an effective 10%; the BA II Plus interest-conversion worksheet; growth over \(t\) years and the 1,000-dollar example; the synonyms compounded, convertible and payable; the ordering of the nominal rates of interest; the nominal rate of discount \(d^{(m)}\) as interest taken in advance \(m\) times a year; the periodic discount rate \(d^{(m)}/m\); the discount bridge equation \(1-d=(1-d^{(m)}/m)^m\); the master equation linking a discount frequency \(p\) and an interest frequency \(m\); the hierarchy of rates at 10%; the nominal discount rate quarterly equivalent to an effective 6%; the absence of a discount conversion on the calculator; the same-frequency identity; Treasury bills quoted by a discount rate. <strong>Research extensions:</strong> the Texas Instruments BA II PLUS guidebook on its interest-conversion worksheet; the TreasuryDirect formula for the price of a Treasury bill from its discount rate; the Society of Actuaries Exam FM syllabus on the place of these conversions in that examination. <strong>Original teaching constructions:</strong> the running case (four loan quotes with invented rates); the restatement of the earlier tools; the inverse formulas and the limit of compounding at a fixed nominal rate; the proof of the hierarchy for every frequency and every rate \(i\gt-1\), with the common limit \(\ln(1+i)\); the reciprocal identity \(1/d^{(m)}-1/i^{(m)}=1/m\); the direct conversion between two frequencies; the price and effective rate of the lecture's one-year bill; the code and the six exercises.</p>
+
+<h2 id="model">The running case and the tools from earlier in the course <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=12s">L6 0:12</a></h2>
+<p>Earlier lectures of the course built the effective rate of interest, the effective rate of discount and the compound model of growth. This chapter uses them to compare rates that are quoted in different ways. This section restates them. Each is taken as given from earlier in the course; none is derived again here.</p>
+<p><strong>Accumulation function and effective rate.</strong> Time \(t\) is measured in years. The accumulation function \(a(t)\) is the value at time \(t\) of one unit invested at time 0, so \(a(0)=1\). An investment of \(k\) dollars at time 0 has the value \(A(t)=k\,a(t)\) at time \(t\); \(A\) is the amount function, and \(k\) is the principal (the letter on the slides of Lecture 6). The effective annual rate of interest is \(i=a(1)-1\): the interest that one unit earns in one year, paid at the end of the year. Under compound interest at a constant rate,</p>
+\[
+a(t)=(1+i)^t\qquad\text{for every } t\ge0, \tag{2.1}
+\]
+<p>including fractional \(t\). Compound interest means that interest, once credited, earns interest in later periods. All rates in this chapter satisfy \(i\gt-1\), so that \(1+i\gt0\); the sections say where \(i\gt0\) is needed.</p>
+<p><strong>Discount factor and effective rate of discount.</strong> The discount factor \(v=1/(1+i)\) is the value at time 0 of one unit due at time 1. The effective annual rate of discount \(d\) is interest paid in advance: a lender who will be repaid 1 at the end of the year hands over \(1-d\) at the start, so \(d\) is the interest as a fraction of the end amount. Since \(1-d\) at time 0 and 1 at time 1 have the same value, \(1-d=v\), and</p>
+\[
+v=\frac1{1+i}=1-d,\qquad d=\frac{i}{1+i}=iv,\qquad 1+i=(1-d)^{-1}. \tag{2.2}
+\]
+<p>For \(i\gt0\), \(0\lt d\lt i\). At 10%, \(d=0.1/1.1=9.0909\%\).</p>
+<p><strong>Rounding.</strong> Every computation in this chapter carries its intermediate values unrounded. Rates are displayed in percent to four decimals (six decimal places as a fraction) and amounts to cents, only where they are displayed. A displayed equation that shows a rounded rate beside a result therefore shows a rounding: for example, \(4\times0.024114=0.096456\), while the unrounded value is 0.0964548, displayed as 9.6455%. The program at the end of the chapter reproduces, from unrounded values, the running case, Table 2.2 and the lecture and open-source examples. The other displayed values and the values in the exercises follow from the same formulas with unrounded intermediates; the program does not print them.</p>
+<p><strong>The running case.</strong> A business borrows 500,000 dollars at \(t=0\) and repays everything in one sum at \(t=5\). Four lenders quote the rates of the lead: A, 10% effective (the lender labels A to D are names, not the function \(A(t)\)); B, 9.6% compounded monthly; C, 9.8% compounded half-yearly; D, 9.5% rate of discount convertible quarterly. The question is which offer is cheapest, and by how much. For a single repayment the answer depends only on the growth factor of one year, \(1+i\), because by (2.1) the amount owed at \(t=5\) is \(500{,}000(1+i)^5\). Offer A gives \(1+i=1.1\) and an amount owed of \(500{,}000\times1.1^5=805{,}255.00\) dollars. The other three quotes do not state \(1+i\). The formal model of the chapter is a year cut into \(m\) equal periods, a rate charged in each period (at its end or at its start), and the growth factor of the whole year that results. Each section fixes one of these choices and finds the factor \(1+i\).</p>
+
+<h2 id="advertisement">A quoted rate and an earned rate: the bank advertisement <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=159s">L6 2:39</a></h2>
+<p>A bank advertises that it pays 12% interest, compounded monthly. The question is whether a depositor earns 12% a year. The answer is no. The bank divides the 12% by the 12 months and credits 1% at the end of each month. The interest of each month is added to the balance and earns 1% in every later month. After 12 months one unit has grown to</p>
+\[
+1.01^{12}=1.126825,
+\]
+<p>so the depositor earns 12.6825% in the year, which the slide displays as 12.68%. The difference, 0.6825 percentage points, is interest on interest credited within the year. A deposit of 10,000 dollars for one year earns 1,268.25 dollars at this bank, against the 1,200 dollars that the number 12 suggests.</p>
+<p>Two numbers describe this account. The number 12% is the one in the advertisement. The number 12.6825% is the growth of money over one year, the effective annual rate \(i\) of the previous section. The rest of the chapter needs notation that keeps the two apart, and an equation that turns the first into the second for any frequency. The calculation uses only (2.1) applied per month: one unit at 1% a month for 12 months grows by \(1.01^{12}\). It assumes that the 1% is credited every month and left in the account; if the depositor withdrew the interest each month, the balance would not compound and the year's interest would be 12%.</p>
+
+<h2 id="nominal-interest">Nominal rate of interest, frequency and periodic rate <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=446s">L6 7:26</a></h2>
+<p>The slide separates three objects. The <em>effective rate</em> \(i\) is the actual growth of money over one year (12.68% in the advertisement). The <em>frequency</em> \(m\) is the number of compounding periods in a year, a positive whole number: \(m=12\) for monthly, \(m=4\) for quarterly, \(m=2\) for half-yearly, \(m=1\) for yearly. The <em>nominal rate of interest convertible m-thly</em>, written \(i^{(m)}\), is the annual rate that is quoted, a rate in name only in the slide's description (12% in the advertisement, so \(i^{(12)}=12\%\)). A nominal rate is incomplete without its frequency.</p>
+<p>The slide's trap alert is notational: the superscript \((m)\) is a label and not an exponent. \(i^{(12)}\) is a rate with the label 12. It is not \(i\) raised to the power 12; at \(i=10\%\), \(i^{12}=10^{-12}\), while \(i^{(12)}=9.5690\%\), as the next sections show.</p>
+<p>The definition that connects the quote to the money is what the slide calls the golden rule of nominal rates:</p>
+\[
+\text{effective rate per period of } \tfrac1m \text{ year} = \frac{i^{(m)}}{m}. \tag{2.3}
+\]
+<p>One unit at the start of a period of length \(1/m\) year grows to \(1+i^{(m)}/m\) at its end (the slide's timeline from 0 to \(1/m\)). In the advertisement, \(i^{(12)}/12=12\%/12=1\%\) a month. The slide's summary calls this periodic rate the engine of every calculation: every calculation runs on \(i^{(m)}/m\), never on \(i^{(m)}\) itself. Equation (2.3) is the definition of \(i^{(m)}\); it is the convention by which a lender states a rate, not a result. This book writes \(j\) for the effective rate per period when a symbol is needed, so \(j=i^{(m)}/m\) and \(i^{(m)}=mj\).</p>
+<p>The words for the frequency vary. A slide later in Lecture 6 lists 12% compounded monthly, 12% convertible monthly and 12% payable monthly as three phrasings of the same rate, \(i^{(12)}=0.12\). This chapter uses the words compounded and convertible interchangeably, as the lecture does. For \(m=1\), (2.3) says the rate per year is \(i^{(1)}\), so \(i^{(1)}=i\): a rate convertible once a year is the effective annual rate.</p>
+
+<h2 id="bridge-interest">The bridge equation for nominal interest <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=773s">L6 12:53</a></h2>
+<p><strong>Question.</strong> Given \(i^{(m)}\) and \(m\), what is the effective annual rate \(i\)? And given \(i\) and \(m\), what nominal rate must be quoted?</p>
+<p><strong>Derivation.</strong> The slide follows one unit for one year along two paths. <em>Path A (effective):</em> by the definition of \(i\), \(a(1)=1+i\). <em>Path B (nominal):</em> the year is cut into \(m\) periods. At the end of the first period the unit has grown to \(1+i^{(m)}/m\) by (2.3). In the second period this whole balance earns \(i^{(m)}/m\), so it becomes \((1+i^{(m)}/m)+(1+i^{(m)}/m)\,i^{(m)}/m=(1+i^{(m)}/m)^2\); the slide takes the common factor \(1+i^{(m)}/m\) out of the two terms. Each period multiplies the balance by the same factor, and after the \(m\)th period, at the end of the year, \(a(1)=(1+i^{(m)}/m)^m\). The two paths describe the same money over the same year, so their values at \(t=1\) are equal. The slide calls the result the fundamental link, and the lecture calls it the bridge equation:</p>
+\[
+1+i=\Bigl(1+\frac{i^{(m)}}{m}\Bigr)^m,\qquad i=\Bigl(1+\frac{i^{(m)}}{m}\Bigr)^m-1. \tag{2.4}
+\]
+<p>The hinge is the second period: the interest of the first period is in the balance on which the second period's interest is computed. That is the compound assumption of (2.1), applied to periods of \(1/m\) year.</p>
+<p><strong>The inverse.</strong> Solving (2.4) for \(i^{(m)}\) takes two steps, and the order matters. Take the \(m\)th root of both sides, which is allowed because both are positive: \((1+i)^{1/m}=1+i^{(m)}/m\). Subtract 1 and multiply by \(m\):</p>
+\[
+i^{(m)}=m\bigl[(1+i)^{1/m}-1\bigr]. \tag{2.5}
+\]
+<p>The bracket is the effective rate for \(1/m\) year under (2.1), since one unit grows to \((1+i)^{1/m}\) in \(1/m\) year. So (2.5) says again that \(i^{(m)}\) is \(m\) times the effective rate per period: (2.3), read in reverse.</p>
+<p><strong>Checks.</strong> <em>One period a year:</em> with \(m=1\), (2.4) gives \(1+i=1+i^{(1)}\), so \(i^{(1)}=i\), as the previous section found from (2.3). <em>The advertisement:</em> \(i^{(12)}=0.12\) gives \(i=1.01^{12}-1=12.6825\%\). <em>Round trip:</em> substituting (2.5) into (2.4) gives \((1+(1+i)^{1/m}-1)^m-1=i\); the program checks the round trip numerically for eight frequencies. <em>Zero rate:</em> \(i=0\) gives \(i^{(m)}=0\) for every \(m\).</p>
+<p><strong>The running case, offers B and C.</strong> Offer B quotes \(i^{(12)}=9.6\%\), so the monthly rate is \(0.096/12=0.8\%\) and</p>
+\[
+1+i_B=1.008^{12}=1.100339,\qquad i_B=10.0339\%.
+\]
+<p>Offer C quotes \(i^{(2)}=9.8\%\), so the half-yearly rate is 4.9% and \(1+i_C=1.049^2=1.100401\), \(i_C=10.0401\%\). Both quoted numbers are below 10%, and both effective rates are above it. The amounts owed after five years are \(500{,}000\times1.008^{60}=806{,}495.47\) and \(500{,}000\times1.049^{10}=806{,}723.83\) dollars, against 805,255.00 for offer A. Both exponents count periods: 60 months and 10 half-years.</p>
+<p><strong>Boundary.</strong> Equation (2.4) assumes that interest is credited at the end of each of the \(m\) periods and is reinvested at the same rate for the rest of the year. It needs \(1+i^{(m)}/m\gt0\). It does not say how interest is paid between the period ends; for a deposit withdrawn in the middle of a month, a bank's own rule decides.</p>
+
+<h2 id="frequency">The frequency of compounding at a fixed nominal rate <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=1007s">L6 16:47</a></h2>
+<p>The slide holds the nominal rate fixed at 12% and asks what happens to the effective rate as \(m\) grows. Equation (2.4) gives each row:</p>
+<div class="table-wrap"><table>
+<caption>Table 2.1. Effective annual rate for a nominal 12% at five frequencies (the slide's table, recomputed). Rates in percent, rounded to four decimals at the end.</caption>
+<thead><tr><th scope="col">Frequency</th><th scope="col">\(m\)</th><th scope="col">Growth in one year</th><th scope="col">Effective \(i\)</th></tr></thead>
+<tbody>
+<tr><td>Yearly</td><td>1</td><td>\(1.12\)</td><td>12.0000</td></tr>
+<tr><td>Half-yearly</td><td>2</td><td>\(1.06^2\)</td><td>12.3600</td></tr>
+<tr><td>Quarterly</td><td>4</td><td>\(1.03^4\)</td><td>12.5509</td></tr>
+<tr><td>Monthly</td><td>12</td><td>\(1.01^{12}\)</td><td>12.6825</td></tr>
+<tr><td>Daily</td><td>365</td><td>\((1+0.12/365)^{365}\)</td><td>12.7475</td></tr>
+</tbody></table></div>
+<p>The slide prints the same values to two decimals (12.747% for the daily row) and concludes that the effective rate rises with \(m\). Two questions follow: does it rise for every nominal rate, and does it rise without bound?</p>
+<p><strong>A chord lemma.</strong> Let \(g\) be twice differentiable on an interval \([0,Y)\) with \(g(0)=0\). If \(g''\gt0\) on \((0,Y)\), then the chord slope \(g(y)/y\) strictly increases on \((0,Y)\); if \(g''\lt0\), it strictly decreases. Proof: the derivative of \(g(y)/y\) is \(Q(y)/y^2\) with \(Q(y)=y\,g'(y)-g(y)\). Then \(Q(0)=0\) and \(Q'(y)=g'(y)+y\,g''(y)-g'(y)=y\,g''(y)\), which has the sign of \(g''\) for \(y\gt0\). So \(Q\), and with it the derivative of \(g(y)/y\), has the sign of \(g''\) on \((0,Y)\). ∎ The limit of the chord slope as \(y\to0\) is \(g'(0)\), by the definition of the derivative. Every function to which this chapter applies the lemma is defined for all \(y\ge0\), so \(Y\) may be taken as large as needed; in Exercise 4 one function is defined only for \(y\lt1/x\), and there \(Y=1/x\).</p>
+<p><strong>Monotone in \(m\).</strong> Fix a nominal rate \(x\gt0\). The effective rate at frequency \(m\) is \((1+x/m)^m-1\). Its logarithm, \(m\ln(1+x/m)\), can be written as \(\ln(1+xy)/y\) with \(y=1/m\). The function \(\ln(1+xy)\) is zero at \(y=0\) and strictly concave in \(y\), and for such a function the slope \(\ln(1+xy)/y\) of the chord from the origin decreases as \(y\) grows. (This is the chord lemma above with \(g(y)=\ln(1+xy)\), \(g''(y)=-x^2/(1+xy)^2\lt0\).) A larger \(m\) is a smaller \(y\), so the logarithm, and with it the effective rate, increases with \(m\). The comparison runs over all whole numbers \(m\), not only over the frequencies in the table.</p>
+<p><strong>The limit.</strong> As \(m\to\infty\), put \(u=x/m\to0\). Then \(m\ln(1+x/m)=x\cdot\ln(1+u)/u\), and \(\ln(1+u)/u\to1\), because the derivative of \(\ln\) at 1 is 1. Hence</p>
+\[
+\lim_{m\to\infty}\Bigl(1+\frac{x}{m}\Bigr)^m=e^x. \tag{2.6}
+\]
+<p>By (2.6) and the monotonicity above, at a nominal 12% the effective rate increases with \(m\) toward \(e^{0.12}-1=12.7497\%\) and never reaches it. Daily compounding, at 12.7475%, is 0.0022 percentage points below the limit. Compared with compounding once a year, where the effective rate is \(x\) itself, more frequent compounding at a fixed quote \(x\) raises the effective rate by less than \(e^{x}-1-x\), which is 0.7497 percentage points at 12%.</p>
+<p><strong>Interpretation.</strong> A lender who keeps the quoted number and compounds more often charges more. A borrower who compares two quotes with the same number and different frequencies should expect the more frequent one to cost more; this comparison holds for nominal rates of interest only. A quote of a rate of discount behaves in the opposite way: at a fixed quoted number, more frequent conversion lowers its effective rate (Exercise 4 proves both directions with the chord lemma of this section).</p>
+
+<h2 id="reversing">A nominal rate for a given effective rate, and the calculator worksheet <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=1165s">L6 19:25</a></h2>
+<p><strong>The lecture's problem.</strong> Find the nominal rate compounded quarterly that is equivalent to an effective rate of 10%. Here \(i=0.10\), \(m=4\), and \(i^{(4)}\) is unknown. Equation (2.4) gives \(1.1=(1+i^{(4)}/4)^4\). The slide's steps follow (2.5): take the fourth root, \(1+i^{(4)}/4=1.1^{1/4}=1.0241137\); isolate the periodic rate, \(i^{(4)}/4=0.0241137\); multiply by 4:</p>
+\[
+i^{(4)}=4\bigl(1.1^{1/4}-1\bigr)=9.6455\%.
+\]
+<p>The lecture stresses the last step: \(1.1^{1/4}-1\) is \(i^{(4)}/4\), not \(i^{(4)}\). Omitting the factor 4 gives 2.41%, a quarterly rate presented as an annual one.</p>
+<p><strong>A rounding difference on the slide.</strong> The printed solution rounds the periodic rate to 0.02411 and reports \(4\times0.02411=9.64\%\). The calculator in the same slide displays 9.65. The unrounded value is 9.6455%, which rounds to 9.65% at two decimals; the slide's 9.64% comes from rounding the periodic rate to five decimals before multiplying by 4. The example shows the rule of this chapter at work: round only the final rate.</p>
+<p><strong>Interpretation.</strong> A bank that wants to pay an effective 10% while compounding quarterly quotes 9.6455%, a number below 10%. The more often the bank compounds, the lower the number it must quote for the same growth; the section on the ordering of the rates makes this precise.</p>
+<p><strong>The calculator worksheet.</strong> The BA II Plus has an interest-conversion worksheet (ICONV, reached with 2nd and the key 2), which the lecture uses as a shortcut. Its guidebook lists three variables: the nominal rate NOM, the annual effective rate EFF and the number of compounding periods per year C/Y. It defines NOM as the interest rate per compounding period multiplied by the number of compounding periods per year, which is (2.3) multiplied by \(m\), and it states that comparing the nominal rates of investments is misleading when they have the same nominal rate but different numbers of compounding periods per year, and that each should be converted to its annual effective rate (<a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf">Texas Instruments, BA II PLUS guidebook</a>, p. 61). For the lecture's problem the keystrokes are EFF = 10, C/Y = 4, then compute NOM, which displays 9.65. The guidebook's own example converts 15% compounded quarterly to an effective 15.87% (p. 62); by (2.4), \(1.0375^4-1=15.8650\%\), which the display rounds to two decimals. The worksheet evaluates (2.4) or (2.5); it is not a derivation, and its two-decimal display is a rounding of the unrounded result.</p>
+
+<h2 id="growth">Growth over t years, and the words for compounding <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=1598s">L6 26:38</a></h2>
+<p>Over \(t\) years there are \(N=mt\) periods, each multiplying the balance by \(1+i^{(m)}/m\). The slide's amount function is</p>
+\[
+A(t)=k\Bigl(1+\frac{i^{(m)}}{m}\Bigr)^{mt}. \tag{2.7}
+\]
+<p>By (2.4), \((1+i^{(m)}/m)^{mt}=((1+i^{(m)}/m)^m)^t=(1+i)^t\), so (2.7) is (2.1) with the principal \(k\): converting the quote to an effective rate first and compounding in years gives the same amount as compounding in periods. When \(mt\) is a whole number, (2.7) counts whole periods. When it is not, (2.7) still equals \(k(1+i)^t\) under the compound model (2.1), but a bank that credits interest only at the end of each period may pay a different amount for the fraction of a period; the formula then states the model, not the bank's rule.</p>
+<p><strong>The lecture's example.</strong> Invest 1,000 dollars for 5 years at 8% compounded quarterly. Then \(m=4\), \(t=5\), there are 20 periods, and the rate per period is \(8\%/4=2\%\):</p>
+\[
+A(5)=1000\times1.02^{20}=1{,}485.95 .
+\]
+<p>The effective annual rate is \(1.02^4-1=8.2432\%\), and \(1000\times1.082432^{5}\) gives the same 1,485.95.</p>
+<p><strong>The running case, offer D in waiting.</strong> Offers A, B and C now have effective rates: 10%, 10.0339% and 10.0401%. Their amounts owed after five years follow from (2.7) with \(k=500{,}000\): \(500{,}000\times1.1^5\), \(500{,}000\times1.008^{60}\) and \(500{,}000\times1.049^{10}\). Offer D quotes a rate of discount, which (2.7) does not cover; the following sections define it.</p>
+<p><strong>The words.</strong> A rate quoted with no frequency at all is ambiguous: it may be an effective annual rate, or a nominal rate whose frequency the writer took for granted. Exercise 3 measures how much the reading changes the answer.</p>
+
+<h2 id="ordering-interest">The ordering of the nominal rates of interest <a class="timestamp" href="https://www.youtube.com/watch?v=bExiStbDv68&amp;t=1798s">L6 29:58</a></h2>
+<p>The previous sections held the nominal rate fixed. This one holds the effective rate fixed and asks how the equivalent nominal rates compare. The slide states, for a fixed effective rate \(i\gt0\),</p>
+\[
+i^{(1)}\gt i^{(2)}\gt i^{(4)}\gt i^{(12)}\gt\cdots,
+\]
+<p>with the reason that a rate compounded more often does not need to start as high to reach the same final result: the stronger the compounding, the lower the nominal rate it requires. At \(i=10\%\), (2.5) gives \(i^{(1)}=10\%\), \(i^{(2)}=9.7618\%\), \(i^{(4)}=9.6455\%\) and \(i^{(12)}=9.5690\%\).</p>
+<p>This is the same fact as the previous section's monotonicity, seen from the other side: if \((1+x/m)^m\) increases with \(m\) for every fixed \(x\), then a larger \(m\) needs a smaller \(x\) to give the same \(1+i\). The full statement, with the nominal rates of discount on the same line and the conditions on \(i\) and \(m\), is proved once in the section on the hierarchy of rates, after \(d^{(m)}\) is defined.</p>
+<p>The lecture adds that credit-card lenders quote a low nominal rate and charge a higher effective one. That is the speaker's judgment about practice, given without data or a source, and this book does not use it as a finding. What the mathematics establishes is narrower: for \(i\gt0\) and \(m\gt1\), \(i^{(m)}\lt i\), so any nominal rate of interest with \(m\gt1\) is a smaller number than the effective rate it produces.</p>
+
+<h2 id="nominal-discount">Nominal rate of discount: interest taken in advance m times a year <a class="timestamp" href="https://www.youtube.com/watch?v=Y2eHxCkNrgg&amp;t=236s">L7 3:56</a></h2>
+<p>A nominal rate of interest charges interest at the end of each period. The lecture recalls the alternative from the effective rate of discount: a bank asked for a loan of 100 dollars takes 5 dollars of interest at once and hands over 95. Interest taken in advance at the start of each period, \(m\) times a year, defines the <em>nominal rate of discount convertible m-thly</em>, written \(d^{(m)}\). The slide's example is \(d^{(12)}=12\%\): the bank cuts 1% from the amount at the start of every month, which the slide calls a haircut.</p>
+<p>The definition, which the slide calls Golden Rule 2, is the counterpart of (2.3):</p>
+\[
+\text{effective rate of discount per period of } \tfrac1m \text{ year} = \frac{d^{(m)}}{m}. \tag{2.8}
+\]
+<p>One unit due at the end of a period of \(1/m\) year is worth \(1-d^{(m)}/m\) at its start (the slide's timeline from \(1/m\) back to 0). The 1% haircut is 1% of the amount due at the end of the month, not 1% of the amount handed over: a borrower who will owe 100 at the end of the month receives 99 at its start, and the interest of 1 is \(1/99=1.0101\%\) of the amount received. The slide adds that this factor moves money backward by \(1/m\) year. As with \(i^{(m)}\), the superscript is a label; \(d^{(1)}=d\), because a discount taken once a year in advance is the effective annual rate of discount.</p>
+<p>The rate \(d^{(m)}/m\) must be less than 1 for the definition to make sense: a discount of the whole amount due would hand over nothing. For \(d^{(m)}\gt0\) the lender earns interest; the sign conventions mirror those of \(i^{(m)}\).</p>
+
+<h2 id="bridge-discount">The bridge equation for discount <a class="timestamp" href="https://www.youtube.com/watch?v=Y2eHxCkNrgg&amp;t=497s">L7 8:17</a></h2>
+<p><strong>Question.</strong> Given \(d^{(m)}\) and \(m\), what is the effective annual rate of discount \(d\), and what is the effective annual rate of interest \(i\)?</p>
+<p><strong>Derivation.</strong> The slide follows the present value of one unit due at \(t=1\) along two paths. <em>Path A (effective):</em> by (2.2), the value at \(t=0\) is \(v=1-d\). <em>Path B (nominal):</em> move the unit back one period at a time. By (2.8), one unit at \(t=1\) is worth \(1-d^{(m)}/m\) at \(t=1-1/m\). That amount is in turn worth \((1-d^{(m)}/m)\) times itself one period earlier, because (2.8) applies to any amount due at the end of a period (an amount due at the end is worth that amount times the value of 1). After \(m\) steps back, at \(t=0\), the value is \((1-d^{(m)}/m)^m\). Both paths give the value at \(t=0\) of the same payment, so</p>
+\[
+1-d=\Bigl(1-\frac{d^{(m)}}{m}\Bigr)^m,\qquad 1+i=\Bigl(1-\frac{d^{(m)}}{m}\Bigr)^{-m}. \tag{2.9}
+\]
+<p>The second form follows from the first and \(1+i=(1-d)^{-1}\) in (2.2). The lecture's memory aid is that (2.9) is (2.4) with \(+i\) replaced by \(-d\), in the effective rate and in the nominal rate alike. The inverse, by the same two steps as (2.5) (take the \(m\)th root, then isolate the rate), is</p>
+\[
+d^{(m)}=m\bigl[1-(1-d)^{1/m}\bigr]=m\bigl[1-(1+i)^{-1/m}\bigr]=m\bigl(1-v^{1/m}\bigr). \tag{2.10}
+\]
+<p>The bracket \(1-v^{1/m}\) is the effective rate of discount for \(1/m\) year under (2.1): one unit due in \(1/m\) year is worth \(v^{1/m}\) now.</p>
+<p><strong>Checks.</strong> With \(m=1\), (2.9) gives \(1-d=1-d^{(1)}\), so \(d^{(1)}=d\). With \(i=0\), \(v=1\) and \(d^{(m)}=0\). The slide's example \(d^{(12)}=12\%\) gives \(1+i=0.99^{-12}=1.128178\), an effective rate of interest of 12.8178%, larger than the 12.6825% of \(i^{(12)}=12\%\): the same quoted number costs more as a discount rate than as an interest rate.</p>
+<p><strong>The running case, offer D.</strong> Offer D quotes \(d^{(4)}=9.5\%\), so the lender takes \(9.5\%/4=2.375\%\) of the amount due at the end of each quarter in advance. By (2.9),</p>
+\[
+1+i_D=(1-0.02375)^{-4}=1.100920,\qquad i_D=10.0920\%.
+\]
+<p>The lowest quote of the four has the highest effective rate. The amount owed after five years, 20 quarters, is \(500{,}000\times0.97625^{-20}=808{,}628.54\) dollars.</p>
+<p><strong>Boundary.</strong> Equation (2.9) assumes that the discount of each period is computed on the amount due at the end of that period, \(m\) times a year at equal intervals, with the same rate throughout. It needs \(d^{(m)}/m\lt1\). It does not describe a discount computed in proportion to the number of days, which is the market convention described in the section on Treasury bills.</p>
+
+<h2 id="master-equation">Converting between frequencies: the master equation <a class="timestamp" href="https://www.youtube.com/watch?v=Y2eHxCkNrgg&amp;t=763s">L7 12:43</a></h2>
+<p>Equations (2.4) and (2.9) both equal \(1+i\). The frequency of the discount rate need not be the frequency of the interest rate, so the slide writes the discount frequency as \(p\) and the interest frequency as \(m\):</p>
+\[
+\Bigl(1-\frac{d^{(p)}}{p}\Bigr)^{-p}=1+i=\Bigl(1+\frac{i^{(m)}}{m}\Bigr)^m. \tag{2.11}
+\]
+<p>The slide names this the master equation and states its use: it converts a discount rate convertible monthly into an interest rate convertible quarterly without computing \(i\) first. The middle term can be dropped and the outer terms set equal. Every rate in (2.11) is a description of the same growth factor of one year; two quotes are equivalent exactly when they give the same \(1+i\).</p>
+<p><strong>A direct conversion.</strong> A discount rate of 6% convertible monthly is equivalent to which interest rate convertible quarterly? Set the outer terms of (2.11) equal with \(p=12\), \(m=4\): \((1+i^{(4)}/4)^4=(1-0.005)^{-12}\). Take the fourth root of both sides: \(1+i^{(4)}/4=0.995^{-3}\), so</p>
+\[
+i^{(4)}=4\bigl(0.995^{-3}-1\bigr)=6.0605\%.
+\]
+<p>The exponent \(-12/4=-3\) is the number of discount periods in one interest period, with the sign that turns discounting into accumulation. The route through \(i\) gives the same number: \(1+i=0.995^{-12}\), \(i=6.1996\%\), and (2.5) with \(m=4\) returns 6.0605%. The direct route avoids rounding an intermediate \(i\).</p>
+<p><strong>The running case on one scale.</strong> By (2.11), every quote of the running case can be restated at any frequency. Restated as nominal rates of interest convertible monthly, \(i^{(12)}=12[(1+i)^{1/12}-1]\), the four offers become 9.5690% (A), 9.6000% (B), 9.6057% (C) and 9.6533% (D). On a common frequency and a common timing, the order of the numbers is the order of the costs.</p>
+
+<h2 id="hierarchy">The hierarchy of rates <a class="timestamp" href="https://www.youtube.com/watch?v=Y2eHxCkNrgg&amp;t=905s">L7 15:05</a></h2>
+<p><strong>Question.</strong> For one effective rate \(i\), how do \(d\), the nominal rates of discount \(d^{(m)}\), the nominal rates of interest \(i^{(m)}\) and \(i\) compare? The slide draws them on a line, with \(d\) at the left end and \(i\) at the right, states that as \(m\) increases the rates move inward, and writes the inequality chain</p>
+\[
+d\lt d^{(2)}\lt d^{(4)}\lt\cdots\lt i^{(4)}\lt i^{(2)}\lt i. \tag{2.12}
+\]
+<p>The slide's annotations at \(i=10\%\) are \(d=9.09\), \(d^{(2)}=9.31\), \(d^{(4)}=9.42\), \(d^{(12)}=9.49\), \(i^{(12)}=9.57\), \(i^{(4)}=9.65\) and \(i^{(2)}=9.76\) (percent). Table 2.2 recomputes them to four decimals and adds other frequencies. The handwritten line on the slide also marks a point \(d^{(1)}\) beside \(d\); by (2.10), \(d^{(1)}=d\), and likewise \(i^{(1)}=i\), so these are the end points themselves, not further points.</p>
+<div class="table-wrap"><table>
+<caption>Table 2.2. Nominal rates of discount and of interest equivalent to an effective 10%, by (2.10) and (2.5). Rates in percent, rounded to four decimals at the end; \(\ln1.1=9.5310\%\).</caption>
+<thead><tr><th scope="col">\(m\)</th><th scope="col">1</th><th scope="col">2</th><th scope="col">4</th><th scope="col">12</th><th scope="col">52</th><th scope="col">365</th></tr></thead>
+<tbody>
+<tr><th scope="row">\(d^{(m)}\)</th><td>9.0909</td><td>9.3075</td><td>9.4184</td><td>9.4933</td><td>9.5223</td><td>9.5298</td></tr>
+<tr><th scope="row">\(i^{(m)}\)</th><td>10.0000</td><td>9.7618</td><td>9.6455</td><td>9.5690</td><td>9.5398</td><td>9.5323</td></tr>
+</tbody></table></div>
+<p>The chain (2.12) contains three claims: \(i^{(m)}\) decreases as \(m\) increases; \(d^{(m)}\) increases as \(m\) increases; and every rate of discount is below every rate of interest. The proof below establishes all three, for every whole number \(m\ge1\) (not only the frequencies on the slide), and states where \(i\gt0\) is used.</p>
+<p><strong>The tool.</strong> The chord lemma of the section on the frequency of compounding applies: a twice-differentiable \(g\) with \(g(0)=0\) has a chord slope \(g(y)/y\) that strictly increases on \((0,Y)\) when \(g''\gt0\) there and strictly decreases when \(g''\lt0\), and the slope tends to \(g'(0)\) as \(y\to0\).</p>
+<p><strong>Proof of (2.12).</strong> Let \(c=\ln(1+i)\), so that \(1+i=e^{c}\), and let \(y=1/m\). By (2.5) and (2.10),</p>
+\[
+i^{(m)}=\frac{e^{cy}-1}{y},\qquad d^{(m)}=\frac{1-e^{-cy}}{y}.
+\]
+<p>Both are chord slopes from the origin. For \(g_1(y)=e^{cy}-1\), \(g_1''(y)=c^2e^{cy}\), which is positive when \(c\neq0\), that is when \(i\neq0\). By the lemma, \(i^{(m)}\) strictly increases in \(y\), so it strictly decreases as \(m\) increases. For \(g_2(y)=1-e^{-cy}\), \(g_2''(y)=-c^2e^{-cy}\lt0\) when \(i\neq0\), so \(d^{(m)}\) strictly decreases in \(y\) and strictly increases as \(m\) increases. Both chord slopes tend to the same limit as \(y\to0\), \(g_1'(0)=g_2'(0)=c\). A strictly decreasing sequence lies strictly above its limit, and a strictly increasing one strictly below it, so for every \(m\) and \(p\),</p>
+\[
+d=d^{(1)}\lt d^{(p)}\lt\ln(1+i)\lt i^{(m)}\lt i^{(1)}=i\qquad(p,m\gt1,\ i\gt-1,\ i\neq0), \tag{2.13}
+\]
+<p>and the inequalities \(d\le d^{(p)}\) and \(i^{(m)}\le i\) hold with equality only at \(p=1\) or \(m=1\). ∎</p>
+<p><strong>Conditions.</strong> The slide states the chain for \(i\gt0\). The proof uses only \(i\neq0\) and \(i\gt-1\): for a negative rate, \(c\lt0\), \(g_1''\) and \(g_2''\) keep their signs because \(c^2\gt0\), and the chain (2.13) holds with all the rates negative. The program checks it at \(i=-10\%\). At \(i=0\), every rate in (2.13) is 0 and the chain collapses to equalities. Strictness between two frequencies needs them to differ; between a nominal rate and its effective rate it needs \(m\gt1\).</p>
+<p><strong>The limit.</strong> As \(m\to\infty\), both nominal rates tend to \(\ln(1+i)\), the point in the middle of the slide's line; the lecture states that the course treats this point later, under the name force of interest. This chapter uses only the value of the limit: at 10%, \(\ln1.1=9.5310\%\), and at \(m=365\) the two nominal rates are 9.5298% and 9.5323%, 0.0025 percentage points apart.</p>
+<p><strong>Interpretation.</strong> All the rates in (2.13) describe one growth factor \(1+i\). They differ in where in the year the interest is charged. A rate of interest charges at the end of each period, so it must be largest when there is a single period at the end of the year; a rate of discount charges at the start, so it must be smallest when there is a single charge at the start. As the periods shrink, the time between a charge and the period it belongs to shrinks, and the two kinds of rate approach each other. For a borrower, the practical content is the comparison of the previous section: two quotes can be compared by their numbers only after both are restated at the same frequency and the same timing.</p>
+
+<h2 id="discount-example">A nominal rate of discount from an effective rate of interest <a class="timestamp" href="https://www.youtube.com/watch?v=Y2eHxCkNrgg&amp;t=1400s">L7 23:20</a></h2>
+<p><strong>The lecture's problem.</strong> Find the nominal rate of discount compounded quarterly that is equivalent to an effective rate of interest of 6%. The lecture names two routes.</p>
+<p><em>Through \(d\).</em> By (2.2), \(d=0.06/1.06=5.6604\%\). Then (2.9) with \(m=4\) gives \(1-d^{(4)}/4=(1-d)^{1/4}\).</p>
+<p><em>Directly.</em> The lecture prefers the left equality of (2.11) with \(p=4\): \((1-d^{(4)}/4)^{-4}=1.06\). Raise both sides to the power \(-1/4\): \(1-d^{(4)}/4=1.06^{-1/4}=0.9855384\). Then \(d^{(4)}/4=0.0144616\), and</p>
+\[
+d^{(4)}=4\bigl(1-1.06^{-1/4}\bigr)=5.7847\%.
+\]
+<p>The two routes agree, because \((1-d)^{1/4}=(1.06^{-1})^{1/4}\). The slide prints \(1-d^{(4)}/4=0.9855\), then \(d^{(4)}/4=0.01446\) (computed from the unrounded root, not from the printed 0.9855, which would give 0.0145), and \(d^{(4)}=5.78\%\), which agrees with the unrounded 5.7847% at two decimals.</p>
+<p><strong>Check against (2.13).</strong> At 6%: \(d=5.6604\%\lt d^{(4)}=5.7847\%\lt\ln1.06=5.8269\%\lt i^{(4)}=5.8695\%\lt i=6\%\).</p>
+<p><strong>The calculator.</strong> The slide's trap alert is that the BA II Plus interest-conversion worksheet handles only \(i^{(m)}\) and not \(d^{(m)}\). The guidebook's list of the worksheet's variables, NOM, EFF and C/Y, has no rate of discount (TI guidebook, p. 61). A rate of discount must be converted by (2.9) or (2.10), with the power key of any calculator, as the lecture does.</p>
+
+<h2 id="same-frequency">The same frequency: an identity linking the two nominal rates <a class="timestamp" href="https://www.youtube.com/watch?v=Y2eHxCkNrgg&amp;t=1877s">L7 31:17</a></h2>
+<p>For effective rates, (2.2) gives \(i-d=i\cdot\frac{i}{1+i}=id\). The slide states the counterpart for two nominal rates at the same frequency, \(m=p\):</p>
+\[
+\frac{i^{(m)}}{m}-\frac{d^{(m)}}{m}=\frac{i^{(m)}}{m}\cdot\frac{d^{(m)}}{m},\qquad 1+\frac{i^{(m)}}{m}=\Bigl(1-\frac{d^{(m)}}{m}\Bigr)^{-1}. \tag{2.14}
+\]
+<p><strong>Derivation.</strong> Set the outer terms of (2.11) equal with \(p=m\) and take the \(m\)th root of both (positive) sides; this gives the second form, which the slide calls the periodic version of \(1+i=(1-d)^{-1}\). It is (2.2) applied to one period of \(1/m\) year, with effective rates \(i^{(m)}/m\) and \(d^{(m)}/m\) in place of \(i\) and \(d\). Write \(j=i^{(m)}/m\) and \(z=d^{(m)}/m\); the second form says \((1+j)(1-z)=1\), that is \(1+j-z-jz=1\), so \(j-z=jz\), the first form.</p>
+<p><strong>A reciprocal form.</strong> Divide \(j-z=jz\) by \(jz\) (both are nonzero when \(i\neq0\)): \(1/z-1/j=1\). With \(j=i^{(m)}/m\) and \(z=d^{(m)}/m\), and dividing by \(m\),</p>
+\[
+\frac1{d^{(m)}}-\frac1{i^{(m)}}=\frac1m. \tag{2.15}
+\]
+<p>The difference of the reciprocals does not depend on the rate at all. At 10% and \(m=12\), with the unrounded rates \(d^{(12)}=0.0949327\) and \(i^{(12)}=0.0956897\), \(1/d^{(12)}-1/i^{(12)}=10.533781-10.450447=0.083333=1/12\).</p>
+<p><strong>Interpretation.</strong> The second form of (2.14) can be solved for either rate: \(d^{(m)}=i^{(m)}/(1+i^{(m)}/m)\). A rate of discount is a rate of interest discounted for one period: interest of \(i^{(m)}/m\) paid at the end of a period has the value \((i^{(m)}/m)/(1+i^{(m)}/m)\) at its start. The identity also proves \(d^{(m)}\lt i^{(m)}\) a second way, for \(i\gt0\): the right side \(jz\) of (2.14) is positive, so \(j\gt z\). The slide's summary of Lecture 7 states this inequality, \(d^{(m)}\lt i^{(m)}\).</p>
+<p><strong>Checks.</strong> At \(m=1\), (2.14) is \(i-d=id\). The program checks (2.14) and (2.15) in exact rational arithmetic at \(i^{(12)}=12\%\), where \(d^{(12)}=0.12/1.01=11.8812\%\).</p>
+<p><strong>Summary of the four rates.</strong> The slide's summary table writes each rate through the growth of one unit over one year: \(a(1)=1+i\) for the effective rate of interest, \((1-d)^{-1}\) for the effective rate of discount, \((1+i^{(m)}/m)^m\) for the nominal rate of interest and \((1-d^{(m)}/m)^{-m}\) for the nominal rate of discount. Each row is one of (2.2), (2.4) and (2.9).</p>
+
+<h2 id="treasury-bills">A discount rate in a market quotation: Treasury bills <a class="timestamp" href="https://www.youtube.com/watch?v=Y2eHxCkNrgg&amp;t=1967s">L7 32:47</a></h2>
+<p>The lecture's real-world case is the United States Treasury bill, which the slide says is quoted by a discount rate, as is commercial paper (a company's short-term promissory note). Its example is a one-year bill quoted at 5.125%, which means, in the slide's words, an annualized discount rate of 5.125% using a 360-day year. The slide defers the pricing of bills to a later module of the course. The example raises one question that this chapter can answer: is such a quoted discount rate a \(d\) or a \(d^{(m)}\) in the sense of (2.9)?</p>
+<p>It is neither. TreasuryDirect, the Treasury's own site, gives the price of a bill from its discount rate as face value times \(1-(\text{discount rate}\times\text{time})/360\), with the time to maturity in days; its example is a 1,000-dollar 26-week bill at a discount rate of 0.145%, priced at \(1000\,(1-0.00145\times182/360)=999.27\) dollars (<a href="https://www.treasurydirect.gov/marketable-securities/understanding-pricing/">TreasuryDirect, Understanding Pricing and Interest Rates</a>, section Bills). With \(r\) the quoted discount rate and \(\tau\) the number of days to maturity (both symbols are used only in this section and in Exercise 6; \(t\) counts years elsewhere),</p>
+\[
+\text{price}=\text{face}\times\Bigl(1-\frac{r\,\tau}{360}\Bigr). \tag{2.16}
+\]
+<p>The discount in (2.16) is proportional to the number of days: it is <em>simple</em> discount, linear in time, with a year of 360 days. A nominal rate of discount \(d^{(m)}\) compounds: (2.9) multiplies the factor \(1-d^{(m)}/m\) once per period. The two agree only by accident. For a 26-week bill, a reader who takes the quote as \(d^{(2)}\) would use the factor \(1-r/2\), while (2.16) uses \(1-r\times182/360=1-0.50556\,r\).</p>
+<p><strong>The lecture's bill.</strong> The slide states a one-year bill without a number of days. This chapter takes its term as 52 weeks, \(52\times7=364\) days; the price and rate below depend on that assumption. By (2.16), a quote of 5.125% gives a price per 100 of face value of \(100(1-0.05125\times364/360)=94.8181\). The investor pays 94.8181 and receives 100 after 364 days. To state this as an effective annual rate of interest, a day count and a compounding rule must be chosen; with a year of 365 days and compound interest (2.1), \(1+i=(100/94.8181)^{365/364}\), and \(i=5.4806\%\). That choice is a teaching construction of this book, not a market convention stated in the lecture or on the TreasuryDirect page. The quoted 5.125% and the effective 5.4806% differ by 0.36 percentage points; the difference has three sources: interest in advance against interest in arrears, a 360-day year against 364 days to maturity, and the conversion to a 365-day year.</p>
+<p>The conversions of this chapter apply to a market quotation only after its convention is known: its frequency, whether interest is in advance or in arrears, and, for a discount computed by days, its day count. Exercise 6 applies (2.16) to a 26-week bill.</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The running case asked which of four loan quotes is cheapest for 500,000 dollars borrowed now and repaid in one sum after five years. Table 2.3 restates each quote as an effective annual rate, by (2.4) for the nominal rates of interest and (2.9) for the rate of discount, and as a nominal rate of interest convertible monthly, by (2.11).</p>
+<div class="table-wrap"><table>
+<caption>Table 2.3. The running case. Rates in percent to four decimals; amounts in dollars, rounded to cents at the end; intermediate values unrounded.</caption>
+<thead><tr><th scope="col">Offer</th><th scope="col">Quote</th><th scope="col">Growth in one year</th><th scope="col">Effective \(i\)</th><th scope="col">Restated as \(i^{(12)}\)</th><th scope="col">Owed at \(t=5\)</th></tr></thead>
+<tbody>
+<tr><td>A</td><td>10% effective</td><td>\(1.1\)</td><td>10.0000</td><td>9.5690</td><td>805,255.00</td></tr>
+<tr><td>B</td><td>\(i^{(12)}=9.6\%\)</td><td>\(1.008^{12}\)</td><td>10.0339</td><td>9.6000</td><td>806,495.47</td></tr>
+<tr><td>C</td><td>\(i^{(2)}=9.8\%\)</td><td>\(1.049^{2}\)</td><td>10.0401</td><td>9.6057</td><td>806,723.83</td></tr>
+<tr><td>D</td><td>\(d^{(4)}=9.5\%\)</td><td>\(0.97625^{-4}\)</td><td>10.0920</td><td>9.6533</td><td>808,628.54</td></tr>
+</tbody></table></div>
+<p>Offer A is the cheapest and offer D the dearest: D costs 3,373.54 dollars more than A after five years, 0.42% of A's amount owed and 1.1% of A's interest of 305,255.00 dollars. The quoted numbers rank the offers in exactly the reverse order. Each step of the reversal has a reason in this chapter. A nominal rate of interest with \(m\gt1\) is below its effective rate, by (2.13), so B and C quote numbers below their effective rates. A rate of discount lies further below its own effective rate than any nominal rate of interest does, since \(d^{(4)}\lt\ln(1+i)\lt i^{(m)}\) by (2.13); so D's quote is the furthest below its effective rate, and the lowest number. The effective rates, or the rates restated at one common frequency and timing, rank the offers by cost.</p>
+<p>What generalizes is the procedure, not the numbers: identify each quote's frequency and whether its interest is charged at the end or the start of each period, convert each to the growth factor of one year \(1+i\) by (2.4) or (2.9), and compare those factors, or compare all quotes restated at one frequency by (2.11). What is specific to the case is the size of the gaps, which depends on the invented rates; the reversal itself needs only quotes close enough together that the conversion moves them past one another. For a stream of payments instead of a single repayment, the same conversion gives the rate per payment period, which the formulas for annuities in a later part of the course require.</p>
+
+<h2 id="implementation">Executable check of the conversions and the running case</h2>
+<p>The program below implements (2.4), (2.5), (2.9) and (2.10) as four functions and checks them. Its inputs are set in the code: the rates of the lecture examples, of the open-source examples and of the running case. It makes four groups of checks. (1) In exact rational arithmetic, with \(i^{(12)}=12/100\) and \(d^{(12)}=i^{(12)}/(1+i^{(12)}/12)\) from (2.14), it asserts that (2.9) and (2.4) give the same effective rate, and it asserts (2.14) and (2.15) exactly; it also evaluates the advertisement's effective rate and the 1,000-dollar example exactly. (2) In floating point, at \(i=10\%\) and at \(i=-10\%\), it computes \(d^{(m)}\) and \(i^{(m)}\) for eight frequencies, asserts the strict chain (2.13) with \(\ln(1+i)\) in the middle, and asserts that converting each nominal rate back by (2.4) or (2.9) returns \(i\) to within \(10^{-12}\); it prints Table 2.2 and the values at \(m=10^6\). (3) It prints the lecture examples, the direct conversion of the master-equation section by both routes, the guidebook's 15% example, the TreasuryDirect example and the lecture's bill. (4) It prints the running case.</p>
+<p>The functions raise <code>ValueError</code> if the frequency is not a positive whole number, or if the growth factor of one period, \(1+i^{(m)}/m\), \(1-d^{(p)}/p\) or \(1+i\), is not positive. The program reads no files and writes only to standard output. It uses the standard library only. Integer powers of fractions are exact with <code>fractions.Fraction</code>; every fractional power, such as \((1+i)^{1/m}\), and the logarithm use floating point. Rates are printed in percent to four decimals and amounts to cents, only at the end. The assertions test algebra and arithmetic; they do not test which convention a quoted rate follows, which is a question about the quotation.</p>
+<pre><code class="language-python">from fractions import Fraction as Fr
+from math import exp, log
+
+
+def check(m, growth):
+    """Reject a frequency that is not a positive whole number, and a
+    one-period growth factor that is not positive."""
+    if m != int(m) or m &lt; 1:
+        raise ValueError(f"m must be a positive whole number: {m}")
+    if growth &lt;= 0:
+        raise ValueError(f"growth factor must be positive: {growth}")
+
+
+def eff_from_nom(i_m, m):
+    """Effective annual rate from i^(m), by (2.4)."""
+    check(m, 1 + i_m/m)
+    return (1 + i_m/m)**m - 1
+
+
+def nom_from_eff(i, m):
+    """i^(m) from the effective annual rate i, by (2.5)."""
+    check(m, 1 + i)
+    return m*((1 + i)**(1/m) - 1)
+
+
+def eff_from_disc(d_p, p):
+    """Effective annual rate from d^(p), by (2.9)."""
+    check(p, 1 - d_p/p)
+    return (1 - d_p/p)**(-p) - 1
+
+
+def disc_from_eff(i, p):
+    """d^(p) from the effective annual rate i, by (2.10)."""
+    check(p, 1 + i)
+    return p*(1 - (1 + i)**(-1/p))
+
+
+pct = (lambda x: f"{100*float(x):.4f}%")
+# 1. Exact rational checks: integer powers of fractions are exact.
+i12 = Fr(12, 100)
+print("12% convertible monthly is effective", pct(eff_from_nom(i12, 12)))
+d12 = i12/(1 + i12/12)
+assert eff_from_disc(d12, 12) == eff_from_nom(i12, 12)
+assert i12/12 - d12/12 == (i12/12)*(d12/12)
+assert 1/d12 - 1/i12 == Fr(1, 12)
+print("same-frequency identities (2.14), (2.15) exact: pass;",
+      "d^(12) =", pct(d12))
+print("1000 for 20 quarters at 2%:", f"{float(1000*Fr(102, 100)**20):.2f}")
+# 2. The hierarchy at i = 10% (and at -10%), floating point.
+for i in (0.10, -0.10):
+    ms = (1, 2, 3, 4, 6, 12, 52, 365)
+    ds = [disc_from_eff(i, m) for m in ms]
+    js = [nom_from_eff(i, m) for m in ms]
+    chain = ds + [log(1 + i)] + js[::-1]
+    assert all(a &lt; b for a, b in zip(chain, chain[1:]))
+    for m, d, j in zip(ms, ds, js):
+        assert abs(eff_from_disc(d, m) - i) &lt; 1e-12
+        assert abs(eff_from_nom(j, m) - i) &lt; 1e-12
+    if i &gt; 0:
+        for m, d, j in zip(ms, ds, js):
+            print(f"m = {m:3d}: d^(m) = {pct(d)}  i^(m) = {pct(j)}")
+        print(f"m = 10^6: d^(m) = {pct(disc_from_eff(i, 10**6))}",
+              f" i^(m) = {pct(nom_from_eff(i, 10**6))}",
+              f" ln(1.1) = {pct(log(1.1))}")
+    print(f"i = {i:+.2f}: chain strict for m in {ms}: pass")
+# 3. Lecture examples and open-source examples.
+print("12% fixed: daily", pct(eff_from_nom(0.12, 365)),
+      " limit e^0.12 - 1 =", pct(exp(0.12) - 1))
+print("i^(4) at 10% effective:", pct(nom_from_eff(0.10, 4)))
+print("d^(4) at 6% effective: ", pct(disc_from_eff(0.06, 4)))
+print("d^(12) = 6% to i^(4) directly:",
+      pct(4*((1 - Fr(6, 1200))**-3 - 1)),
+      " via i:", pct(nom_from_eff(eff_from_disc(0.06, 12), 4)))
+print("TI example, 15% convertible quarterly:",
+      pct(eff_from_nom(Fr(15, 100), 4)))
+print("TreasuryDirect 26-week bill at 0.145%:",
+      f"{1000*(1 - 0.00145*182/360):.2f}")
+price = 100*(1 - Fr(5125, 100000)*364/360)
+print(f"52-week bill at 5.125%: price {float(price):.4f},",
+      "effective (365-day year)", pct((100/price)**(365/364) - 1))
+# 4. Running case: 500,000 borrowed now, repaid in one sum after 5 years.
+offers = {"A 10% effective": eff_from_nom(Fr(10, 100), 1),
+          "B 9.6% conv. monthly": eff_from_nom(Fr(96, 1000), 12),
+          "C 9.8% conv. half-yearly": eff_from_nom(Fr(98, 1000), 2),
+          "D 9.5% discount quarterly": eff_from_disc(Fr(95, 1000), 4)}
+for name, i in offers.items():
+    owed = 500000*(1 + i)**5
+    print(f"{name:26s} {pct(i)}  i^(12) {pct(nom_from_eff(i, 12))}"
+          f"  owed {float(owed):11,.2f}")
+</code></pre>
+<p>Run in a fresh interpreter (<code>python -I</code>, Python 3.13), the program prints:</p>
+<pre><code>12% convertible monthly is effective 12.6825%
+same-frequency identities (2.14), (2.15) exact: pass; d^(12) = 11.8812%
+1000 for 20 quarters at 2%: 1485.95
+m =   1: d^(m) = 9.0909%  i^(m) = 10.0000%
+m =   2: d^(m) = 9.3075%  i^(m) = 9.7618%
+m =   3: d^(m) = 9.3812%  i^(m) = 9.6840%
+m =   4: d^(m) = 9.4184%  i^(m) = 9.6455%
+m =   6: d^(m) = 9.4557%  i^(m) = 9.6071%
+m =  12: d^(m) = 9.4933%  i^(m) = 9.5690%
+m =  52: d^(m) = 9.5223%  i^(m) = 9.5398%
+m = 365: d^(m) = 9.5298%  i^(m) = 9.5323%
+m = 10^6: d^(m) = 9.5310%  i^(m) = 9.5310%  ln(1.1) = 9.5310%
+i = +0.10: chain strict for m in (1, 2, 3, 4, 6, 12, 52, 365): pass
+i = -0.10: chain strict for m in (1, 2, 3, 4, 6, 12, 52, 365): pass
+12% fixed: daily 12.7475%  limit e^0.12 - 1 = 12.7497%
+i^(4) at 10% effective: 9.6455%
+d^(4) at 6% effective:  5.7847%
+d^(12) = 6% to i^(4) directly: 6.0605%  via i: 6.0605%
+TI example, 15% convertible quarterly: 15.8650%
+TreasuryDirect 26-week bill at 0.145%: 999.27
+52-week bill at 5.125%: price 94.8181, effective (365-day year) 5.4806%
+A 10% effective            10.0000%  i^(12) 9.5690%  owed  805,255.00
+B 9.6% conv. monthly       10.0339%  i^(12) 9.6000%  owed  806,495.47
+C 9.8% conv. half-yearly   10.0401%  i^(12) 9.6057%  owed  806,723.83
+D 9.5% discount quarterly  10.0920%  i^(12) 9.6533%  owed  808,628.54
+</code></pre>
+<p>The first two lines and the two "chain strict" lines are the independent checks: the exact identities, and the strict chain with the round trips at a positive and a negative rate. The other lines are the numbers used in the text. Two failure tests show what the checks detect. If \(d^{(12)}\) is computed as \(i^{(12)}(1+i^{(12)}/12)\) instead of \(i^{(12)}/(1+i^{(12)}/12)\), the first assertion fails, because (2.9) and (2.4) no longer give the same growth. If the factor \(m\) is dropped from (2.5), so that the function returns the periodic rate, the chain assertion fails, because the "nominal" rates fall below the rates of discount. A quoted rate read in the wrong convention, such as a rate of discount entered as a rate of interest, passes every assertion, since each function is evaluated correctly at a wrong input; only a comparison such as Table 2.3 exposes it.</p>
+
+<h2 id="limits">What these formulas establish and what they do not</h2>
+<p>Within their assumptions, (2.4), (2.5), (2.9), (2.10), (2.11), (2.14) and (2.15) are exact: each follows from the definitions (2.3) and (2.8) and the compound model (2.1) by algebra. The chain (2.13) is a theorem for every rate \(i\gt-1\), \(i\neq0\), and every pair of frequencies. The program confirms (2.14) and (2.15) exactly at one rate, and (2.13) and the round trips of (2.4), (2.5), (2.9) and (2.10) in floating point at two rates and eight frequencies; the proofs, not the program, establish them in general.</p>
+<p>The assumptions are of three kinds. Definitions: \(i^{(m)}\) and \(d^{(m)}\) are defined by (2.3) and (2.8), so a nominal rate means nothing until its frequency and its timing (in arrears or in advance) are stated. A model: one constant compound rate for the whole year and for every year, so that interest credited within a year earns interest at the same rate, and (2.1) holds for fractional times. A convention: the quoted rate follows the definitions of this chapter. The Treasury bill shows a quotation that does not: its discount is simple, proportional to days, on a 360-day year, and it must be priced by its own formula (2.16) before any conversion.</p>
+<p>The formulas stop applying where the boundary paragraphs of the bridge sections, the section on growth over \(t\) years and the section on Treasury bills say so: a rate that changes during the year makes the \(m\) factors of (2.4) different, and their product, not a power, is the growth of the year. The common limit \(\ln(1+i)\) of the nominal rates is used here only as a number; continuous compounding is a separate topic of the course.</p>
+<p>The conversion among \(i\), \(i^{(m)}\), \(d\) and \(d^{(m)}\), with the nominal rate convertible m-thly, is a named learning outcome of the Society of Actuaries Exam FM, in its topic on the time value of money (<a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA Exam FM syllabus, October 2026</a>, p. 2). The recordings of this chapter mention examinations in general and do not name one.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive).</strong> (a) Starting from (2.4) and (2.9), show that \(i^{(m)}/m-d^{(m)}/m=(i^{(m)}/m)(d^{(m)}/m)\) and that \(1/d^{(m)}-1/i^{(m)}=1/m\). (b) Show that \(d^{(m)}=i^{(m)}/(1+i^{(m)}/m)\), and explain it with a timeline of one period. (c) Check (a) and (b) at \(i=10\%\) and \(m=12\). Round rates to six decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) Both (2.4) and (2.9) equal \(1+i\), so \((1+i^{(m)}/m)^m=(1-d^{(m)}/m)^{-m}\). Both sides are positive; taking the \(m\)th root gives \(1+j=(1-z)^{-1}\) with \(j=i^{(m)}/m\), \(z=d^{(m)}/m\). Multiply by \(1-z\): \((1+j)(1-z)=1\), so \(j-z-jz=0\), which is the first identity. For \(i\neq0\), \(j\) and \(z\) are nonzero; dividing \(j-z=jz\) by \(jz\) gives \(1/z-1/j=1\), and substituting \(z=d^{(m)}/m\), \(j=i^{(m)}/m\) gives \(m/d^{(m)}-m/i^{(m)}=1\), the second identity after division by \(m\).</p>
+<p>(b) From \((1+j)(1-z)=1\), \(1-z=1/(1+j)\) and \(z=j/(1+j)\); multiplying by \(m\) gives \(d^{(m)}=i^{(m)}/(1+i^{(m)}/m)\). Timeline of one period of \(1/m\) year: a lender in arrears lends 1 at the start and collects \(1+j\) at the end, so the interest \(j\) is paid at the end. A lender in advance who is owed \(1+j\) at the end hands over 1 at the start and so takes \(j\) out of the amount due before lending; as a fraction of the amount due at the end, the interest taken is \(j/(1+j)=z\). The rate of discount is the same interest measured against the end amount instead of the start amount, which is the content of (2.8).</p>
+<p>(c) At \(i=10\%\), \(m=12\): \(i^{(12)}=0.095690\), \(d^{(12)}=0.094933\). Then \(j-z=0.0000630839\) and \(jz=0.0000630839\) (the products here use the unrounded rates; with the six-decimal rates the two sides are 0.0000630833 and 0.0000630843); \(1/d^{(12)}-1/i^{(12)}=0.083333=1/12\); and \(0.095690/(1+0.095690/12)=0.094933\).</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> A loan of 20,000 dollars is repaid in one sum after 3 years. The lender quotes a nominal rate of discount of 8% convertible monthly. Calculate the repayment, rounded to the nearest cent, with no intermediate rounding. Choose the closest answer: (A) 25,194.24 (B) 25,404.74 (C) 25,445.42 (D) 25,684.23 (E) 26,315.79.</p>
+<details><summary>Solution</summary>
+<p>By (2.9), \(1+i=(1-0.08/12)^{-12}\), and over 3 years the growth is \((1-0.08/12)^{-36}\). The repayment is \(20{,}000\times(0.993333\ldots)^{-36}=25{,}445.42\): answer (C).</p>
+<p>Each wrong choice comes from one error. (A) treats 8% as an effective rate of interest, \(20{,}000\times1.08^3\). (B) treats it as a nominal rate of interest convertible monthly, \(20{,}000\times(1+0.08/12)^{36}\). (D) treats it as an effective rate of discount, \(20{,}000\times0.92^{-3}\). (E) applies simple discount for 3 years, \(20{,}000/(1-3\times0.08)\). The correct answer exceeds (B) for a reason that holds at every rate: with \(z=0.08/12\), one month's growth is \((1-z)^{-1}\) for the rate of discount and \(1+z\) for the rate of interest, and \((1-z)(1+z)=1-z^2\lt1\), so \((1-z)^{-1}\gt1+z\). For the same quoted number and frequency, the rate of discount gives the larger growth.</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> A savings plan is advertised at "6% a year" with no frequency. A saver deposits 10,000 dollars for 4 years. (a) Compute the accumulated value if 6% is an effective annual rate; a nominal rate of interest convertible monthly; a nominal rate of discount convertible monthly; an effective annual rate of discount. (b) How large is the spread between the smallest and the largest reading? (c) What should the saver ask before comparing this plan with another? Round amounts to cents and rates to four decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) Effective 6%: \(10{,}000\times1.06^4=12{,}624.77\). Convertible monthly: \(1+i=1.005^{12}\), \(i=6.1678\%\), value \(10{,}000\times1.005^{48}=12{,}704.89\). Discount convertible monthly: \(1+i=0.995^{-12}\), \(i=6.1996\%\), value \(10{,}000\times0.995^{-48}=12{,}720.15\). Effective rate of discount: \(1+i=1/0.94\), \(i=6.3830\%\), value \(10{,}000\times0.94^{-4}=12{,}808.21\).</p>
+<p>(b) The spread is \(12{,}808.21-12{,}624.77=183.44\) dollars, 1.45% of the smallest value. The order of the four readings is the one that Exercise 4 proves for a fixed quoted number: a rate of interest grows least when it is effective (\(m=1\)), a rate of discount grows most when it is effective, and every reading as a rate of discount grows more than every reading as a rate of interest.</p>
+<p>(c) The saver should ask for the frequency and for whether interest is credited in arrears or deducted in advance, or, better, for the effective annual rate, and compare plans by effective annual rates. A rate with no stated frequency is ambiguous, and no formula of this chapter resolves the ambiguity.</p>
+</details>
+<p><strong>Exercise 4 (counterexample and proof).</strong> A student claims: "At the same quoted number, more frequent conversion always costs the borrower more." (a) Test the claim with the quoted number 9.5% as a nominal rate of interest and as a nominal rate of discount, at \(m=1,2,4,12\). (b) Prove that for a fixed number \(x\) with \(0\lt x\lt1\), \((1+x/m)^m\) increases with \(m\) and \((1-x/m)^{-m}\) decreases with \(m\). (c) State the corrected claim.</p>
+<details><summary>Solution</summary>
+<p>(a) Effective rates, in percent: as a rate of interest, 9.5000 (\(m=1\)), 9.7256 (2), 9.8438 (4), 9.9248 (12); as a rate of discount, 10.4972 (1), 10.2224 (2), 10.0920 (4), 10.0075 (12). The claim holds for rates of interest and fails for rates of discount, where a more frequent conversion costs less. Offer D of the running case, \(d^{(4)}=9.5\%\), costs less than a quote of 9.5% as an effective rate of discount.</p>
+<p>(b) Put \(y=1/m\). The logarithm of \((1+x/m)^m\) is \(\ln(1+xy)/y\), the chord slope of \(g(y)=\ln(1+xy)\), which has \(g(0)=0\) and \(g''(y)=-x^2/(1+xy)^2\lt0\). By the chord lemma of the section on the frequency of compounding, the slope strictly decreases in \(y\), so it strictly increases in \(m\). The logarithm of \((1-x/m)^{-m}\) is \(-\ln(1-xy)/y\), the chord slope of \(h(y)=-\ln(1-xy)\), defined for \(xy\lt1\), which holds for \(y\le1\) because \(x\lt1\); \(h(0)=0\) and \(h''(y)=x^2/(1-xy)^2\gt0\). The slope strictly increases in \(y\), so it strictly decreases in \(m\). Both chord slopes tend to \(x\) as \(y\to0\), so both effective rates tend to \(e^x-1=9.9659\%\) at \(x=9.5\%\): from below for interest, from above for discount. Because each sequence is strictly monotone, every effective rate of a discount quote lies above \(e^x-1\) and every effective rate of an interest quote lies below it.</p>
+<p>(c) At the same quoted number, more frequent conversion costs more for a nominal rate of interest and less for a nominal rate of discount, and every quote of a rate of discount costs more than every quote of the same number as a rate of interest.</p>
+</details>
+<p><strong>Exercise 5 (design and judgment).</strong> (a) A lender quotes \(i^{(4)}=8\%\). Find the equivalent \(d^{(12)}\) directly from the master equation (2.11), without computing \(i\), and check it through \(i\). (b) Deposit 1 is quoted at \(i^{(2)}=5\%\); deposit 2 is quoted at a nominal rate of discount of 4.95% convertible monthly, \(d^{(12)}=4.95\%\). Which earns more? Restate deposit 2 as an \(i^{(2)}\) directly. Round rates to four decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) Set \((1-d^{(12)}/12)^{-12}=(1+0.08/4)^4\). Raise both sides to the power \(-1/12\): \(1-d^{(12)}/12=1.02^{-1/3}\), so \(d^{(12)}=12(1-1.02^{-1/3})=7.8950\%\). The exponent \(-4/12=-1/3\) converts four quarterly factors into one monthly discount factor. Check: \(1+i=1.02^4=1.08243216\), \(i=8.2432\%\), and (2.10) gives \(d^{(12)}=12(1-1.08243216^{-1/12})=7.8950\%\).</p>
+<p>(b) Effective rates: deposit 1, \(1.025^2-1=5.0625\%\); deposit 2, \((1-0.0495/12)^{-12}-1=5.0853\%\). Deposit 2 earns more although its quoted number is lower. Directly from (2.11): \(1+i^{(2)}/2=(1-0.0495/12)^{-6}\), so the second deposit's equivalent \(i^{(2)}=2[(1-0.004125)^{-6}-1]=5.0223\%\gt5\%\). On the common scale \(i^{(2)}\), the comparison is between 5.0223% and 5%.</p>
+</details>
+<p><strong>Exercise 6 (trap: a market discount rate).</strong> A 26-week Treasury bill of face value 1,000,000 dollars is quoted at a discount rate of 4.8% (an invented quote). (a) Price it by (2.16), with 182 days to maturity. (b) A student reads the quote as \(d^{(2)}=4.8\%\) and prices the bill as \(1{,}000{,}000(1-0.048/2)\). Find the student's price and the error. (c) Find the effective annual rate of interest of the bill under each price, with a 365-day year and compound interest (2.1). Round prices to cents and rates to four decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) \(1{,}000{,}000\,(1-0.048\times182/360)=975{,}733.33\) dollars.</p>
+<p>(b) \(1{,}000{,}000\times(1-0.024)=976{,}000.00\). The student overprices the bill by 266.67 dollars, because 182 days are \(182/360=0.50556\) of a 360-day year, not half of it.</p>
+<p>(c) Correct price: \(1+i=(1{,}000{,}000/975{,}733.33)^{365/182}\), \(i=5.0501\%\). Student's price: \(1+i=(1/0.976)^{365/182}\), \(i=4.9925\%\). The quoted 4.8% is neither rate. The choice of a 365-day year for the effective rate is a convention chosen for this exercise; another day count gives another effective rate.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Recordings: <a href="https://www.youtube.com/watch?v=bExiStbDv68">Lecture 6, Nominal Interest Rates</a>; <a href="https://www.youtube.com/watch?v=Y2eHxCkNrgg">Lecture 7, Nominal Discount Rates</a>; NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras.</li>
+<li>Texas Instruments, <a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf"><em>BA II PLUS Calculator</em> guidebook</a> (English). Interest Conversion worksheet: variables NOM, EFF and C/Y, NOM as the rate per compounding period times the compounding periods per year, and the caution against comparing equal nominal rates with different compounding periods (p. 61); converting a nominal 15% compounded quarterly to an effective 15.87% (p. 62).</li>
+<li>TreasuryDirect, <a href="https://www.treasurydirect.gov/marketable-securities/understanding-pricing/"><em>Understanding Pricing and Interest Rates</em></a>, section Bills: the price of a bill from its discount rate, and the 26-week example.</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam, October 2026</em> syllabus</a>. Nominal rates convertible m-thly and the conversion among \(i\), \(i^{(m)}\), \(d\) and \(d^{(m)}\) (p. 2).</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><span>First available chapter</span><a href="index.html">Lecture index</a><a rel="next" href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html">Next available chapter</a></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>

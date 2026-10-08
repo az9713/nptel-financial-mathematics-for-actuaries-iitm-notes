@@ -1,0 +1,382 @@
+{
+  "chapter": 2,
+  "title": "Nominal rates of interest and of discount",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 2 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "bExiStbDv68",
+      "lecture": "Lecture 6",
+      "media_sha256": "1db94250ccc4a9c0491b0b92516638fc5ac9caa8932d67fdc1bd34bea364ed29",
+      "duration_seconds": 2024,
+      "transcript_first_start_seconds": 11.84,
+      "transcript_last_end_seconds": 2020.56
+    },
+    {
+      "video_id": "Y2eHxCkNrgg",
+      "lecture": "Lecture 7",
+      "media_sha256": "2dde292d6a7c1be9e595228be720b402904ee2ffbb98157cf1bc40ed17682615",
+      "duration_seconds": 2190,
+      "transcript_first_start_seconds": 12.32,
+      "transcript_last_end_seconds": 2186.64
+    }
+  ],
+  "practice_sources": [],
+  "practice_sources_note": "source-manifest.json lists Lecture 30 (HSrxblFzIsE, Module 1 review) as practice for chapters 1-6. Its transcript was searched for nominal, i(m), d(m), convertible, compounded, monthly, quarterly and superscript (no match) and its opening was read: the review names conversions among i, d and delta and the annuity families, with no nominal-rate problem. It is not used.",
+  "frames_viewed": {
+    "bExiStbDv68": [
+      "f0001",
+      "f0005",
+      "f0014",
+      "f0021",
+      "f0025",
+      "f0033",
+      "f0039",
+      "f0047",
+      "f0050",
+      "f0053",
+      "f0057",
+      "f0060",
+      "f0063",
+      "f0067"
+    ],
+    "Y2eHxCkNrgg": [
+      "f0001",
+      "f0005",
+      "f0014",
+      "f0017",
+      "f0018",
+      "f0025",
+      "f0029",
+      "f0039",
+      "f0040",
+      "f0046",
+      "f0061",
+      "f0062",
+      "f0065",
+      "f0067",
+      "f0069",
+      "f0071"
+    ]
+  },
+  "source_uncertainties": [
+    "Durations: transcript.json media_duration gives 2024 s (Lecture 6) and 2190 s (Lecture 7); source-manifest.json gives 2025 and 2191 s. This file uses the transcript.json values; every timestamp in the chapter (largest: L6 29:58 = 1798 s; L7 32:47 = 1967 s) lies inside both.",
+    "Instructor: the title slides of Lectures 6 and 7 (f0001 of each, viewed at full size) name Prof. Neelesh S. Upadhye, IIT Madras; the slide footers repeat the name. The Lecture 7 Treasury-bill slide (f0067) and the recording defer bill pricing to Module 2, which the recording says another presenter (Pramod Naik) teaches; the chapter names no second presenter.",
+    "Reference-mapping boxes on the roadmap slides (slide facts, not cited, books not open): Lecture 6 (f0005) Broverman section 1.4, Chan and Tse section 1.3; Lecture 7 (f0005) Broverman section 1.5, Chan and Tse section 1.5. The captions spell the first author 'Brauermann'.",
+    "Calculator: Lecture 6 shows a BA II Plus image with the ICONV worksheet (f0050, f0053); the NOM display reads 9.65 for the problem i = 10%, m = 4. Lecture 7 uses a software scientific calculator and states (slide f0062) that ICONV does not handle d(m). The TI guidebook (p. 61) lists only NOM, EFF and C/Y for that worksheet; the chapter cites the variable list, not a statement of absence.",
+    "Rounding on slides: Lecture 6 f0053 rounds the periodic rate to 0.02411 and prints i(4) = 4 x 0.02411 = 9.64% while the calculator shows 9.65; the unrounded value is 9.6455%. Lecture 7 f0061 prints 1 - d(4)/4 = 0.9855 and then d(4)/4 = 0.01446 (from the unrounded 0.9855384; 1 - 0.9855 would give 0.0145) and d(4) = 5.78% (unrounded 5.7847%). The Lecture 6 table (f0039) and the Lecture 7 handwritten values at 10% (f0046: 9.09, 9.31, 9.42, 9.49, 9.57, 9.65, 9.76) all agree with the unrounded values at two decimals.",
+    "Lecture 7 f0046: the handwritten number line marks a point d(1) beside d, and the recording speaks of d(1) and i(1) next to the end points. By definition d(1) = d and i(1) = i; the chapter says so and treats them as the end points.",
+    "Lecture 7 f0014: the slide describes the 1% monthly haircut for d(12) = 12% as taken from 'your balance' at the start of the month. By the definition d(m)/m (Golden Rule 2, f0017) the 1% is of the amount due at the end of the month; the chapter states that reading and the 1.0101% it implies on the amount handed over.",
+    "Lecture 7 f0067: a one-year T-bill quoted at 5.125% is described as an annualized discount rate using a 360-day year; the lecturer says the bill image is AI-generated. The chapter uses the slide's rate only, prices the bill with the TreasuryDirect formula (time in days over 360) at 364 days (52 weeks), and labels the conversion to an effective rate on a 365-day year as its own construction. The slide's statement that commercial paper is quoted by discount rates is attributed to the slide; no open source was checked for it.",
+    "Lecture 6 compares, in passing, a 5% simple-interest model with 4.65% compound interest from an earlier lecture (about 548-556 s); no slide was viewed for it and the chapter does not use it.",
+    "Speaker's judgments, attributed in the text and not used as findings: credit-card lenders quote a low nominal rate and charge a higher effective one (L6 about 1884-1901 s); exam-trap remarks (L6 about 607-622 s and 1752-1768 s). The chapter cites the TI guidebook (p. 61) for the narrower statement that equal nominal rates with different compounding frequencies are not comparable.",
+    "Caption errors corrected from the slides (paraphrased): in Lecture 6 the fourth root of 1.1 is given as 1.2411 where the slide (f0053) has 1.02411; 9.64% is called the effective rate where the slide computes the nominal i(4); 'i(m) by n' is said once for i(m)/m. In Lecture 7 the quarterly rate i(4) is described as accumulated every 4 months (about 1328 s); d at 10% is first read as 0.9 then corrected to 0.09; the equation of the 6% example is first spoken without its power -4, then corrected as on the slide (f0061); the speaker names i(6) (about 1085 s), which is not on the slide's line (f0039), in a correct comparison with i(12)."
+  ],
+  "sections": [
+    {
+      "section": "The running case and the tools from earlier in the course",
+      "video_id": "bExiStbDv68",
+      "start": 11.84,
+      "end": 159.36,
+      "lecture_material": "Roadmap: distinguish effective and nominal rates, frequency of compounding, relation between i and i(m), conversion formulas; examples of compounding frequencies (quarterly, semi-annual, monthly; daily for credit cards).",
+      "research_extension": "None.",
+      "teaching_construction": "Restatement, taken as given from earlier in the course, of a(t), A(t) = k a(t), the effective rate i = a(1) - 1, the compound model (2.1), v, d and 1 + i = (1 - d)^-1 (2.2); the rounding rule; the running case (500,000 repaid in one sum after 5 years; four invented quotes A-D) and the formal model (a year cut into m periods, a rate charged at the end or the start of each, the growth factor of the year).",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "A quoted rate and an earned rate: the bank advertisement",
+      "video_id": "bExiStbDv68",
+      "start": 159.36,
+      "end": 446.4,
+      "lecture_material": "Bank advertisement 12% compounded monthly; 1% a month, interest on interest; (1.01)^12 = 1.1268, effective 12.68% (f0014).",
+      "research_extension": "None.",
+      "teaching_construction": "Exact value 12.6825%; 10,000 earns 1,268.25 against 1,200; the assumption that monthly interest is left in the account.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Nominal rate of interest, frequency and periodic rate",
+      "video_id": "bExiStbDv68",
+      "start": 446.4,
+      "end": 773.2,
+      "lecture_material": "Effective rate i, nominal rate i(m) (name-only rate), frequency m (f0021); trap alert: the superscript is a label, not an exponent; golden rule: effective rate per period = i(m)/m, i(12) = 12% gives 1% (f0025); periodic rate as 'the real engine' (summary f0067); synonyms compounded, convertible, payable monthly all mean i(12) = 0.12 (f0060, L6 about 1752-1798 s).",
+      "research_extension": "None.",
+      "teaching_construction": "Numerical contrast i^12 = 10^-12 against i(12) = 9.5690% at 10%; definition (2.3) labelled as a convention; the book symbol j = i(m)/m; i(1) = i.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The bridge equation for nominal interest",
+      "video_id": "bExiStbDv68",
+      "start": 773.2,
+      "end": 1007.36,
+      "lecture_material": "Path A a(1) = 1 + i; path B compounding m times, period by period with the common factor 1 + i(m)/m; fundamental link 1 + i = (1 + i(m)/m)^m and i = (1 + i(m)/m)^m - 1 (f0033).",
+      "research_extension": "None.",
+      "teaching_construction": "Inverse (2.5) and its reading as m times the effective rate per period; checks m = 1, the advertisement, round trip, zero rate; running case offers B (10.0339%, 806,495.47) and C (10.0401%, 806,723.83); boundary (reinvestment, 1 + i(m)/m > 0, interest between period ends).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The frequency of compounding at a fixed nominal rate",
+      "video_id": "bExiStbDv68",
+      "start": 1007.36,
+      "end": 1164.96,
+      "lecture_material": "Nominal fixed at 12%: annual 12.00%, semi-annual 12.36%, quarterly 12.55%, monthly 12.68%, daily 12.747%; conclusion: as m increases, effective i increases (f0039).",
+      "research_extension": "None.",
+      "teaching_construction": "Table 2.1 to four decimals; the chord lemma with proof; proof of monotonicity in m for every m via the chord property of ln(1 + xy); limit (2.6) (1 + x/m)^m -> e^x with the cap e^0.12 - 1 = 12.7497% and the bound e^x - 1 - x; the opposite behaviour of discount quotes noted.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A nominal rate for a given effective rate, and the calculator worksheet",
+      "video_id": "bExiStbDv68",
+      "start": 1164.96,
+      "end": 1598.24,
+      "lecture_material": "Problem: i(4) equivalent to i = 10%; fourth root, isolate, multiply by 4 (f0047); printed solution 1.02411, 0.02411, 9.64% and calculator 9.65 (f0053); BA II Plus ICONV worksheet: 2nd and 2, NOM, EFF, C/Y (f0050).",
+      "research_extension": "TI BA II PLUS guidebook p. 61: worksheet variables NOM, EFF, C/Y; NOM defined as rate per compounding period times periods per year; equal nominal rates with different compounding periods are not comparable without conversion to EFF. p. 62: 15% compounded quarterly gives EFF 15.87.",
+      "teaching_construction": "Unrounded 9.6455%; the 2.41% error of omitting the factor 4; explanation of the slide's 9.64 against 9.65; 15.8650% for the guidebook example; keystrokes labelled an evaluation, not a derivation.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Growth over t years, and the words for compounding",
+      "video_id": "bExiStbDv68",
+      "start": 1598.24,
+      "end": 1798.16,
+      "lecture_material": "N = m t periods; A(t) = k (1 + i(m)/m)^(mt); example 1000 for 5 years at 8% quarterly: 20 periods, 2%, 1000 (1.02)^20 = 1485.95 (f0057); synonyms of compounded (f0060).",
+      "research_extension": "None.",
+      "teaching_construction": "Equivalence of (2.7) and (2.1); the case of non-whole mt (model against a bank's crediting rule); effective 8.2432% for the example; running case amounts for A, B, C; the ambiguity of a quote with no frequency.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The ordering of the nominal rates of interest",
+      "video_id": "bExiStbDv68",
+      "start": 1798.16,
+      "end": 2020.56,
+      "lecture_material": "For fixed effective i > 0: i(1) > i(2) > i(4) > i(12) > ...; the more powerful the compounding, the lower the required nominal rate (f0063); credit-card remark (speech); summary (f0067); next lecture: discount rates in advance.",
+      "research_extension": "None.",
+      "teaching_construction": "Values at 10%; the link to the monotonicity of the previous section; the proof deferred to the hierarchy section; the credit-card remark graded as the speaker's judgment.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Nominal rate of discount: interest taken in advance m times a year",
+      "video_id": "Y2eHxCkNrgg",
+      "start": 236.24,
+      "end": 497.28,
+      "lecture_material": "Roadmap (f0005); recall nominal interest paid at the end of every period; nominal discount d(m): interest taken in advance at the start of every period, m times a year; loan of 100 with 5 taken in advance; haircut: d(12) = 12% is 1% at the start of every month (f0014); Golden Rule 2: effective discount per period d(m)/m, the factor moves money backward 1/m year (f0017).",
+      "research_extension": "None.",
+      "teaching_construction": "Definition (2.8) as the value 1 - d(m)/m at the start of a period of 1 due at its end; the 1% as a fraction of the end amount, 1.0101% of the amount handed over; d(1) = d; the condition d(m)/m < 1.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The bridge equation for discount",
+      "video_id": "Y2eHxCkNrgg",
+      "start": 497.28,
+      "end": 763.28,
+      "lecture_material": "Present value of 1 over a full year: path A v = 1 - d, path B discounting m times v = (1 - d(m)/m)^m; fundamental link 1 - d = (1 - d(m)/m)^m; the memory aid +i against -d (f0018, f0025).",
+      "research_extension": "None.",
+      "teaching_construction": "The step-back argument for path B; the second form 1 + i = (1 - d(m)/m)^-m; inverse (2.10) and its reading; checks m = 1, i = 0, d(12) = 12% gives 12.8178% against 12.6825%; running case offer D (10.0920%, 808,628.54); boundary (discount on the end amount, d(m)/m < 1, not a day-proportional discount).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Converting between frequencies: the master equation",
+      "video_id": "Y2eHxCkNrgg",
+      "start": 763.28,
+      "end": 904.88,
+      "lecture_material": "Since v = (1 + i)^-1, the master equation (1 - d(p)/p)^-p = 1 + i = (1 + i(m)/m)^m with p and m possibly different; power: convert discount monthly to interest quarterly without finding i first (f0029, f0040).",
+      "research_extension": "None.",
+      "teaching_construction": "Equivalence of quotes as equality of 1 + i; direct conversion d(12) = 6% to i(4) = 6.0605% with the exponent -3, and the check through i = 6.1996%; the running case restated as i(12): 9.5690, 9.6000, 9.6057, 9.6533.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The hierarchy of rates",
+      "video_id": "Y2eHxCkNrgg",
+      "start": 904.88,
+      "end": 1400.32,
+      "lecture_material": "Number line with d at the left and i at the right; as m increases the rates move inward; inequality chain d < d(2) < d(4) < ... < i(4) < i(2) < i (f0039); values at 10%: d 9.09, d(2) 9.31, d(4) 9.42, d(12) 9.49, i(12) 9.57, i(4) 9.65, i(2) 9.76 (f0046); the rates converge to a central value, named in the recording as the force of interest treated later.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 2.2 to four decimals with m = 52, 365; d(1) = d and i(1) = i; application of the chord lemma; proof of (2.13) for every m, p and every i > -1, i != 0, with the common limit ln(1 + i); conditions (i = 0 collapses; strictness needs m > 1); 365-thly values 9.5298% and 9.5323%; interpretation by timing within the year.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A nominal rate of discount from an effective rate of interest",
+      "video_id": "Y2eHxCkNrgg",
+      "start": 1400.32,
+      "end": 1877.28,
+      "lecture_material": "Problem: d(4) equivalent to i = 6%; route through d = 0.06/1.06 = 0.0566; direct route (1 - d(4)/4)^-4 = 1.06, power -1/4, 0.9855, 0.01446, 5.78% (f0061); trap alert: ICONV handles only i(m), not d(m) (f0062).",
+      "research_extension": "TI BA II PLUS guidebook p. 61: ICONV variables NOM, EFF, C/Y (no rate of discount).",
+      "teaching_construction": "Unrounded 5.7847%; agreement of the two routes; explanation of 0.01446 against 0.0145; check of (2.13) at 6% (5.6604 < 5.7847 < 5.8269 < 5.8695 < 6).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "The same frequency: an identity linking the two nominal rates",
+      "video_id": "Y2eHxCkNrgg",
+      "start": 1877.28,
+      "end": 1966.96,
+      "lecture_material": "For m = p: i(m)/m - d(m)/m = (i(m)/m)(d(m)/m), or 1 + i(m)/m = (1 - d(m)/m)^-1, the periodic version of 1 + i = (1 - d)^-1 (f0065); i - d = id for effective rates (speech); summary of notation table a(1) for i, d, i(m), d(m) (f0069); d(m) < i(m) (f0071).",
+      "research_extension": "None.",
+      "teaching_construction": "Derivation of (2.14) from (2.11); reciprocal identity (2.15) 1/d(m) - 1/i(m) = 1/m with the check at 10%, m = 12; d(m) = i(m)/(1 + i(m)/m) and its reading; second proof of d(m) < i(m); exact check at i(12) = 12% (d(12) = 11.8812%).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A discount rate in a market quotation: Treasury bills",
+      "video_id": "Y2eHxCkNrgg",
+      "start": 1966.96,
+      "end": 2186.64,
+      "lecture_material": "US Treasury bills and commercial paper quoted by discount rates; one-year bill at 5.125% as an annualized discount rate on a 360-day year; pricing deferred to Module 2 (f0067); closing summary and preview of continuous compounding (f0071).",
+      "research_extension": "TreasuryDirect, Understanding Pricing and Interest Rates, section Bills: price = face (1 - discount rate x time/360), example 26-week bill at 0.145% priced 999.27.",
+      "teaching_construction": "(2.16) as simple discount on a 360-day year, contrasted with compound d(m); 182/360 = 0.50556 against 1/2; the lecture's bill at 364 days: price 94.8181, effective 5.4806% on a 365-day year (a labelled construction); the three sources of the 0.36-point gap.",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "The running case resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 2.3 (quote, growth factor, effective rate, rate restated as i(12), amount owed); D costs 3,373.54 more than A (0.42% of A's amount, 1.1% of A's interest 305,255.00); the reversal explained by (2.13); what generalizes (the conversion procedure) and what is case-specific (the gaps).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable check of the conversions and the running case",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library program: exact Fraction checks of (2.4) = (2.9) at i(12) = 12% with d(12) from (2.14), and of (2.14), (2.15); strict chain (2.13) and round trips of (2.4), (2.5), (2.9), (2.10) within 1e-12 at i = 10% and -10% for eight frequencies; lecture, guidebook and TreasuryDirect examples; running case; ValueError for a non-whole or non-positive m and a non-positive growth factor; two failure tests run.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What these formulas establish and what they do not",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "SOA Exam FM syllabus p. 2, learning outcome 1(c): conversion among the effective interest rate, nominal interest rate convertible m-thly, effective discount rate, nominal discount rate convertible m-thly and the force of interest.",
+      "teaching_construction": "Classification of the assumptions (definitions, a constant compound-rate model, a quotation convention); what the program tests and what only the proofs establish; where the formulas stop applying (changing rates, crediting rules for fractions of a period, unstated frequency, day-count discounts).",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercise 2 extends the d(4) example of Lecture 7; Exercise 5(a) uses the master equation of Lecture 7; Exercise 6 applies the Treasury-bill case of Lecture 7.",
+      "research_extension": "Exercise 6 uses the TreasuryDirect pricing formula.",
+      "teaching_construction": "Six original exercises with full solutions: derive (same-frequency identity, reciprocal identity, d(m) = i(m)/(1 + i(m)/m)), exam-style closest-of-five (a nominal discount rate, each distractor tied to an error), check an assumption (a quote with no frequency, four readings), counterexample and proof (frequency raises the cost of an interest quote and lowers that of a discount quote), design and judgment (direct conversion i(4) to d(12); two deposits compared), trap (a market discount rate read as d(2)).",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "The closing h2 'Primary sources' is a reference list with no lecture material, research claim or construction of its own; as in the pilot chapter, it has no entry in 'sections'. Every other h2 has exactly one entry, with the same title text. The Lecture 6 notation-trap slide (about 1752-1798 s) is discussed in the section on nominal rates (with the definitions) and in the growth section; the Lecture 6 ordering (about 1798 s) is stated in its own section and proved once in the Lecture 7 hierarchy section. The ordering section argues from the monotonicity of the frequency section and defers the full proof to the hierarchy section; both are classed as derivation.",
+  "references": [
+    {
+      "title": "Lecture 6 recording, Nominal Interest Rates (i^(m))",
+      "url": "https://www.youtube.com/watch?v=bExiStbDv68",
+      "supports": "Bank advertisement and 12.68%; effective rate, nominal rate, frequency and the label trap; golden rule i(m)/m; bridge equation; table at fixed 12%; reversal to i(4) at 10%; ICONV worksheet; growth over t years and 1485.95; synonyms; ordering of nominal rates.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 7 recording, Nominal Discount Rates (d^(m))",
+      "url": "https://www.youtube.com/watch?v=Y2eHxCkNrgg",
+      "supports": "Definition of d(m) and the haircut; Golden Rule 2; discount bridge equation; master equation with p and m; hierarchy of rates with values at 10%; d(4) at 6%; no ICONV for d(m); same-frequency identity; Treasury bills; summary of notation.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Texas Instruments, BA II PLUS Calculator guidebook (English)",
+      "url": "https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf",
+      "supports": "p. 61: the Interest Conversion worksheet converts between nominal rate (or APR) and annual effective rate; its variables are NOM, EFF and C/Y; NOM is the rate per compounding period times the compounding periods per year; comparing equal nominal rates with different compounding periods is misleading, convert to EFF. p. 62: steps of the conversion; 15% compounded quarterly is equivalent to an annual effective 15.87%.",
+      "page_checked": "p. 61 (PDF p. 66); p. 62 (PDF p. 67)"
+    },
+    {
+      "title": "TreasuryDirect, Understanding Pricing and Interest Rates",
+      "url": "https://www.treasurydirect.gov/marketable-securities/understanding-pricing/",
+      "supports": "Section Bills: bills are sold at face value or at a discount; Price = Face value (1 - (discount rate x time)/360); example: a 1,000-dollar 26-week bill at a discount rate of 0.145% sells for 999.27 (time 182).",
+      "page_checked": "web page, section 'Bills' (no page numbers); accessed 2026-10-07"
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam -- October 2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "p. 2: topic 1, time value of money; outcome 1(a) terms convertible m-thly, nominal rate, effective rate; outcome 1(c) conversion among the effective interest rate, nominal interest rate convertible m-thly, effective discount rate, nominal discount rate convertible m-thly and the force of interest.",
+      "page_checked": "p. 2 (same as PDF page)"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "t, a(t), A(t), k",
+      "first_section": "model",
+      "definition": "Time in years; accumulation function with a(0) = 1; amount function A(t) = k a(t); principal k (slide notation of Lecture 6)."
+    },
+    {
+      "symbol": "i",
+      "first_section": "model",
+      "definition": "Effective annual rate of interest, i = a(1) - 1, i > -1; compound model a(t) = (1+i)^t (2.1)."
+    },
+    {
+      "symbol": "v, d",
+      "first_section": "model",
+      "definition": "Discount factor 1/(1+i); effective annual rate of discount i/(1+i) = iv = 1 - v (2.2)."
+    },
+    {
+      "symbol": "m",
+      "first_section": "nominal-interest",
+      "definition": "Frequency: number of equal periods in a year, a positive whole number."
+    },
+    {
+      "symbol": "i(m)",
+      "first_section": "nominal-interest",
+      "definition": "Nominal annual rate of interest convertible m-thly; i(m)/m is the effective rate per 1/m year (2.3); the superscript is a label; i(1) = i."
+    },
+    {
+      "symbol": "j",
+      "first_section": "nominal-interest",
+      "definition": "Book symbol for the effective rate per period, j = i(m)/m (as in chapter 7)."
+    },
+    {
+      "symbol": "x, u, y",
+      "first_section": "frequency",
+      "definition": "x: a fixed quoted (nominal) rate; u = x/m; y = 1/m. Local to the frequency section, the ordering section, the hierarchy proof and Exercise 4."
+    },
+    {
+      "symbol": "N",
+      "first_section": "growth",
+      "definition": "Number of periods in t years, N = m t (slide notation)."
+    },
+    {
+      "symbol": "d(m)",
+      "first_section": "nominal-discount",
+      "definition": "Nominal annual rate of discount convertible m-thly; d(m)/m is the effective rate of discount per 1/m year (2.8); d(1) = d; requires d(m)/m < 1."
+    },
+    {
+      "symbol": "p",
+      "first_section": "master-equation",
+      "definition": "Frequency of a rate of discount when it differs from the interest frequency m (slide notation, Lecture 7 f0029)."
+    },
+    {
+      "symbol": "g, Y, Q(y)",
+      "first_section": "frequency",
+      "definition": "Twice-differentiable function on [0, Y) with g(0) = 0 in the chord lemma, and the numerator Q(y) = y g'(y) - g(y) of the derivative of g(y)/y. (Q is used instead of N, which is the number of periods m t on the Lecture 6 slide.)"
+    },
+    {
+      "symbol": "c, g1, g2",
+      "first_section": "hierarchy",
+      "definition": "c = ln(1+i); g1(y) = e^(cy) - 1, g2(y) = 1 - e^(-cy), the functions to which the chord lemma is applied in the proof of (2.13)."
+    },
+    {
+      "symbol": "z",
+      "first_section": "same-frequency",
+      "definition": "z = d(m)/m, with j = i(m)/m, in the derivation of (2.14) and (2.15) and in Exercise 1."
+    },
+    {
+      "symbol": "r, tau (Treasury bill)",
+      "first_section": "treasury-bills",
+      "definition": "Quoted bill discount rate r and number of days to maturity tau in (2.16); local to that section and Exercise 6 (tau replaces t, which counts years elsewhere)."
+    },
+    {
+      "symbol": "h (Exercise 4)",
+      "first_section": "exercises",
+      "definition": "h(y) = -ln(1 - x y), the function whose chord slope is the logarithm of (1 - x/m)^-m; used only in the solution of Exercise 4."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch02_verify_code.py (extracts the chapter listing, runs it with python -I in a fresh process from a temporary directory, Python 3.13, standard library only; exit 0, no stderr; 25 stdout lines, 1309 bytes, compared byte for byte with the printed block after converting CRLF to LF). Failure tests: python -I _editorial/tmp/ch02_failtests.py (both faults raise AssertionError at the lines named in the text).",
+    "stdout_matches_printed": true
+  }
+}
