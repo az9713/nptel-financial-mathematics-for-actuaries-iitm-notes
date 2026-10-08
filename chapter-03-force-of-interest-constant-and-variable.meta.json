@@ -1,0 +1,372 @@
+{
+  "chapter": 3,
+  "title": "The force of interest, constant and variable",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 2 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "RaG9vVPAiiY",
+      "lecture": "Lecture 8",
+      "media_sha256": "578ceb55233e4c05e9102794ebb8aafa70e6931f2571fca335cd02543823fd34",
+      "duration_seconds": 2007,
+      "transcript_first_start_seconds": 11.84,
+      "transcript_last_end_seconds": 2003.6
+    },
+    {
+      "video_id": "zCiKpaKsfAs",
+      "lecture": "Lecture 9",
+      "media_sha256": "942a09937a3c43f6a04af95fd413d6cdf4475e5ed7fc690f0d6b8c7aaaa5e6c6",
+      "duration_seconds": 1724,
+      "transcript_first_start_seconds": 12.0,
+      "transcript_last_end_seconds": 1720.48
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "HSrxblFzIsE",
+      "lecture": "Lecture 30",
+      "kind": "review",
+      "media_sha256": "2e5ea1674490e9912da2b7ec1a4d0027180b5683995cb7dddd66d690c7ec524c",
+      "duration_seconds": 1878,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1872.0,
+      "used_for": "Exercise 3: the idea of judging statements about the force of interest (the review's Q1 'Hierarchy of Value', f0022, statements delta = ln(1+i) and 'if delta is constant, funds grow exponentially'), restated for a step force with original statements (a)-(e). Only those two statements of Q1 were used; its continuous-annuity statement belongs to a later chapter. Read: transcript 0-900 s (review overview and Q1)."
+    }
+  ],
+  "frames_viewed": {
+    "RaG9vVPAiiY": [
+      "f0001",
+      "f0010",
+      "f0015",
+      "f0021",
+      "f0030",
+      "f0035",
+      "f0039",
+      "f0044",
+      "f0047",
+      "f0053",
+      "f0057",
+      "f0063",
+      "f0066",
+      "f0067"
+    ],
+    "zCiKpaKsfAs": [
+      "f0001",
+      "f0007",
+      "f0010",
+      "f0022",
+      "f0025",
+      "f0029",
+      "f0030",
+      "f0036",
+      "f0037",
+      "f0038",
+      "f0045",
+      "f0049",
+      "f0054",
+      "f0057"
+    ],
+    "HSrxblFzIsE": [
+      "f0018",
+      "f0022"
+    ]
+  },
+  "source_uncertainties": [
+    "Durations: transcript.json media_duration gives 2007 s (Lecture 8) and 1724 s (Lecture 9); source-manifest.json gives 2008 s and 1724 s. This file uses the transcript.json values; every timestamp in the chapter (largest L8 22:03 = 1323 s, L9 24:41 = 1481 s) lies inside both.",
+    "Instructor: the title slides of Lectures 8 and 9 (f0001 of each, viewed at full size) name Prof. Neelesh S. Upadhye, IIT Madras; the slide footers repeat the name. No other presenter is named in the frames viewed. Lecture 30 Q1 (f0022) has the footer 'Prof. Neelesh S. Upadhye (NPTEL)', 'FinMath L30', 'Week 6'.",
+    "Reference-mapping boxes on the roadmap slides (slide facts, not cited, books not open): Lecture 8 (f0010) Broverman section 1.6, Chan and Tse section 1.6; Lecture 9 (f0007) Broverman section 1.6, Chan and Tse section 1.6.",
+    "Slide 3 of Lecture 8 (f0015) states that money grows faster as the frequency m increases. This holds for a fixed nominal rate; for a fixed effective rate the equivalent nominal rate falls with m. The chapter states both readings and proves each.",
+    "Slide 4 of Lecture 8 (f0021) replaces i(m) by its limit delta inside (1 + i(m)/m)^m and applies the generalized Euler limit, which the recall box (f0015) states for a fixed r. The chapter supplies the lemma (3.6) for a convergent sequence and also derives delta = ln(1+i) directly from (e^u - 1)/u -> 1.",
+    "Slide 5 of Lecture 8 (f0030) draws annual compounding at 10% against e^(0.1 t); the recording (about 800-860 s) says the two are not equivalent. Figure 3.1 adds the equivalent curve 1.1^t and prints e^0.1 = 1.105171 against 1.10.",
+    "Slide 9 of Lecture 8 (f0047) says the truncated Maclaurin series 'confirms geometrically' that delta < i. The full series proves it on (-1, 1] (alternating decreasing terms for 0 < i <= 1, all negative terms for -1 < i < 0); the two-term truncation is a size estimate (error 0.000310 at 10%); the chapter proves delta < i for every i > -1, i != 0 from e^y > 1 + y.",
+    "Slide 10 of Lecture 8 (f0053) calls delta 'the perfect center'; the recording also calls it a balance point and a neutralizer, and says delta 'has more power'. The chapter attributes these as figures of speech and states the precise ordering (3.8); delta is not the midpoint of d and i (0.095310 against 0.095455 at 10%).",
+    "Speaker's judgments, attributed and not used as findings: the conversion skill is of the utmost importance for Exam FM (L8, about 1872-1881 s); students lose marks in Exam FM through wrong limits (L9, about 1158-1176 s); real growth is always continuous (L8, about 134-150 s, not used); rates fluctuate, central banks change rates, market volatility, repo rates (L9 f0010 and about 218-260 s), used only as the speaker's motivation; the integral as the 'resistance' or 'cost' of time (L9 f0054), reported as a metaphor.",
+    "Lecture 9 example 1 (f0036, f0037): the slide has no currency for the amount 100; the recording says rupees. The chapter gives the lecture's example without a currency and uses invented dollar amounts for the running case, as the pilot chapter does.",
+    "Lecture 9 derivation (f0022): the nominal rate of the interval [t, t + 1/m] is handwritten as i(m) = m [A(t + 1/m) - A(t)]/A(t), with the substitution m = 1/h; the chapter writes it as i(m) with subscript t to mark its dependence on t (the slide's handwriting has no subscript there and writes i(infinity)_t at the end).",
+    "Lecture 9 summary slide (f0057) uses v(t) = exp(-integral of delta) for the discount function; the chapter adopts v(t) with its argument and notes that v(t) = v^t for a constant force (notation proposal ch03.md).",
+    "Caption errors corrected from the slides (paraphrased): in Lecture 8 the nominal discount formula is spoken with the letter p (and once as 'dP by P') where the slide (f0063) has d(4) with p = 4; in Lecture 9 the definition is once transcribed as a dash of t over ln of t where the slide (f0022) has A'(t)/A(t), and once as A dash of t upon t A(t); the exponent of the linear-force example is once transcribed as 0.15 where the slide (f0036, f0037) has 0.125; 'Brauerman' is the caption spelling of Broverman (L9 roadmap).",
+    "The Society of Actuaries Exam FM sample-question PDF was not found at three probed soa.org URLs (HTTP 404, 2026-10-07); no sample question is used or cited.",
+    "Manifest: chapter 3's practice_lectures field is empty, while Lecture 30's practice_for list includes chapter 3. The chapter uses Lecture 30 for one exercise idea and records it here; the manifest was not edited (shared file)."
+  ],
+  "sections": [
+    {
+      "section": "The running case and the tools from earlier in the course",
+      "video_id": "RaG9vVPAiiY",
+      "start": 19.28,
+      "end": 276.0,
+      "lecture_material": "Recap of i, d, v, nominal rates i(m) and d(m) and their links to 1 + i; discrete compounding moves in steps; plan: from discrete m to continuous, define delta, derive 1 + i = e^delta, connect delta to i(m) and d(m).",
+      "research_extension": "None.",
+      "teaching_construction": "Restatement, taken as given from earlier in the course, of A(t) = A(0) a(t) with a(0) = 1 (3.1), compound interest (1+i)^t for real t, v and d, and the equivalences (3.2) and (3.3); the rounding convention; the running case (four invented offers quoted as 8%, a second deposit at t = 2, a target of 200,000 at t = 5); the formal model (accumulation function and its rate of growth).",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "From nominal rates to the force of interest",
+      "video_id": "RaG9vVPAiiY",
+      "start": 276.0,
+      "end": 660.88,
+      "lecture_material": "As m increases money grows faster; Euler's limit (1 + 1/n)^n -> e and its generalization (1 + r/m)^m -> e^r; i(m) -> delta as m -> infinity, written i(infinity); definition: delta is the nominal annual rate of interest compounded continuously; result 1 + i = lim (1 + delta/m)^m = e^delta.",
+      "research_extension": "None.",
+      "teaching_construction": "Separation of the fixed-nominal and fixed-effective questions, with the proof that (1 + q/m)^m increases in m and the numbers 1.104713 and 1.105171; values of i(m) at 10% falling with m; definition (3.4) and the derivation of delta = ln(1+i) from (e^u - 1)/u -> 1; d(m) -> delta; relation (3.5); lemma (3.6) with proof for a convergent sequence, which completes the slide's route; interpretation and boundary.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Converting between i and the force: steps and a ramp",
+      "video_id": "RaG9vVPAiiY",
+      "start": 674.16,
+      "end": 1037.68,
+      "lecture_material": "Staircase (annual compounding) against smooth ramp (continuous); at t = 1 equivalent rates reach the same height 1 + i; the slide's 10% staircase and e^(0.1t) are not equivalent; delta = ln(1+i); trap alert: delta slightly less than i, ln 1.10 = 9.53%.",
+      "research_extension": "None.",
+      "teaching_construction": "Figure 3.1 with the equivalent curve 1.1^t and the gap 1.105171 against 1.10; the staircase as the model (1+i)^floor(t), different from (1+i)^t between year ends (1.153690 against 1.10 at t = 1.5); conversion in both directions; size of the gap; banks A and C converted (0.076961; 8.3287%).",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "Accumulation and discounting under a constant force",
+      "video_id": "RaG9vVPAiiY",
+      "start": 1037.68,
+      "end": 1323.28,
+      "lecture_material": "a(t) = (1+i)^t = e^(delta t); FV = PV e^(delta t), PV = FV e^(-delta t); delta = 0 gives i = 0; doubling at constant force 5%: e^(0.05t) = 2, t = ln 2/0.05 = 0.6931/0.05 = 13.86 years.",
+      "research_extension": "None.",
+      "teaching_construction": "Units of delta t; v = e^(-delta); comparison with doubling at effective 5% (14.2067 years, gap 0.3438; effective equivalent 5.1271%); running case banks A (146,932.81) and C (149,182.47), difference 2,249.66; boundary.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Where the force sits among the other rates",
+      "video_id": "RaG9vVPAiiY",
+      "start": 1323.28,
+      "end": 2003.6,
+      "lecture_material": "Maclaurin series ln(1+i) = i - i^2/2 + i^3/3 - ...; delta approximately i - i^2/2 'confirms' delta < i, for positive or negative i; grand inequality d < d(m) < delta < i(m) < i for m > 1 on a number line, delta 'the perfect center'; Example 2: d(4) = 8%, (1 - 0.08/4)^(-4) = 1 + i = e^delta, delta = -4 ln 0.98 = 8.08%; the skill called important for Exam FM; summary (delta sits strictly between d(m) and i(m)).",
+      "research_extension": "SOA Exam FM syllabus p. 2: force of interest among the defined terms; conversion among i, i(m), d, d(m) and the force of interest.",
+      "teaching_construction": "Truncation error 0.000310 at 10%; proof of delta < i from e^y > 1 + y, including i = -5% (delta = -0.051293); proof of (3.8) from the integral representations (3.9), with monotonicity of i(m) and d(m) in m and their common limit; Table 3.1; the perfect-center metaphor graded, midpoint 0.095455 against 0.095310 and the i^3/6 difference; the full chain for d(4) = 8% (0.077632 < 0.08 < 0.080811 < 0.081633 < 0.084166); bank B 149,788.50 and the ranking B, C, A by force.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The force at an instant",
+      "video_id": "zCiKpaKsfAs",
+      "start": 218.16,
+      "end": 669.84,
+      "lecture_material": "Motivation: previous lectures had constant i or delta and growth e^(delta t); real world: rates fluctuate, central banks change rates, market volatility (speaker's illustration); can delta_t be negative (question left open); derivation from i(4)/4 = [A(t + 1/4) - A(t)]/A(t), i(m) = m [A(t + 1/m) - A(t)]/A(t), m = 1/h, limit A'(t)/A(t) = delta_t = d/dt ln A(t); A(t) = k a(t). Lecture 8 slide 11 (f0057) states the calculus definition and its interpretation as the relative rate of change.",
+      "research_extension": "None.",
+      "teaching_construction": "Assumptions of the derivation (A differentiable, A > 0); independence of the investment size; interest over a short interval A(t) delta_t h + o(h), daily example 21.92; units; checks: compound interest gives constant ln(1+i), simple interest gives i/(1 + it) (0.08 to 0.057143); negative force answered; boundary (no force at credit dates of a staircase).",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "From the force to the accumulation function",
+      "video_id": "zCiKpaKsfAs",
+      "start": 669.84,
+      "end": 867.52,
+      "lecture_material": "Integrate delta_r = d/dr ln a(r) from 0 to t: ln a(t) - ln a(0); a(0) = 1; master equation a(t) = exp(integral_0^t delta_r dr); delta is a function of time, location matters; to move from t1 to t2 integrate from t1 to t2, not from 0 to t2 - t1; AV = PV exp(integral_t1^t2 delta_r dr).",
+      "research_extension": "None.",
+      "teaching_construction": "Differential equation (3.11); uniqueness proof via (b e^(-Delta))' = 0, positivity for any sign of the force; checks for constant force and simple interest; (3.13) from (3.1) and (3.12); the average force and its equivalent effective rate.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Area under the force, and the integration-limit trap",
+      "video_id": "zCiKpaKsfAs",
+      "start": 867.52,
+      "end": 1183.68,
+      "lecture_material": "Integral as the area under delta_t, accumulation factor e^(area), intervals [1,2] and [2,3] have different areas; Example 1: delta_t = 0.01t, 100 invested for 5 years, integral 0.125, AV = 100 e^0.125 = 113.31; trap alert: deposit at t = 2, value at t = 5, correct exp(integral_2^5), wrong exp(integral_0^3); shape matters, time is absolute.",
+      "research_extension": "None.",
+      "teaching_construction": "Trap quantified for 0.01t (0.105 against 0.045; 1.110711 against 1.046028); shift formula beta t1 (t2 - t1) for a linear force; proof that the shortcut holds for all dates only for a constant force; Figure 3.2; running case bank D: a(t) = exp(0.06t + 0.004t^2), same a(5) as C, a(2.5) 1.191246 against 1.221403, second deposit 65,106.41 against C 63,562.46 and trap 62,055.12 (3,051.29 short), exponent gap 0.048, average force 0.088 (9.1988%).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A force that jumps: step functions",
+      "video_id": "zCiKpaKsfAs",
+      "start": 1183.68,
+      "end": 1356.96,
+      "lecture_material": "delta_t = 0.04 for 0 <= t < 3 and 0.06 for 3 <= t <= 5; value of 1 at t = 5; split the integral at 3, a single point contributes nothing; rectangles 0.12 + 0.12 = 0.24; AV = e^0.24 = 1.2712; draw delta_t to find split points.",
+      "research_extension": "None.",
+      "teaching_construction": "Continuity argument: a continuous at the jump, (3.12) on each piece joined by (3.13), a(5) = e^0.12 e^0.12; no derivative at t = 3 (one-sided slopes); equivalent effective rates 4.0811% and 6.1837% and the rounded-factor product 1.271251; average force 0.048; one-panel Simpson across the jump gives 0.216667.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "From the accumulation function back to the force",
+      "video_id": "zCiKpaKsfAs",
+      "start": 1356.96,
+      "end": 1481.2,
+      "lecture_material": "Given a(t) = 1 + 0.05t^2: a'(t) = 0.10t, delta_t = 0.10t/(1 + 0.05t^2), delta_2 = 0.20/1.20 = 16.67%.",
+      "research_extension": "None.",
+      "teaching_construction": "Check by (3.12) with substitution: integral 0 to 2 = ln 1.2 = 0.182322; difference-quotient check in the program; the force rises and falls (0, 0.166667, 0.222222, 0.166667 at t = 0, 2, 4, 10) although a increases; boundary (a differentiable, positive, a(0) = 1).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Discounting with a variable force",
+      "video_id": "zCiKpaKsfAs",
+      "start": 1481.2,
+      "end": 1720.48,
+      "lecture_material": "FV = PV exp(integral_0^T delta_r dr); multiply both sides by e^(-a); PV = FV exp(-integral_0^T delta_r dr); the integral as the total resistance or cost of time; summary: v(t) = exp(-integral_0^t delta_r dr), always integrate over [t1, t2]; next lecture: real and nominal rates, Fisher equation.",
+      "research_extension": "None.",
+      "teaching_construction": "(3.14) with v(t) = 1/a(t) and v(t) = v^t for constant force; discounting between t1 and t2; the metaphor restated as the logarithm of the accumulation factor; running case PV 134,064.01 under D, 136,116.64 under A, 153,594.71 at t = 2 under D; focal-date independence under a variable force.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The running case resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 3.2 with the four offers, the second deposit under C, D and the wrong limits, and the target deposit; differences 606.04, 2,855.70 and 1,543.95; the reversal caused by wrong limits; what generalizes (the procedure) and what is case-specific (the invented forces).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable check of the formulas and the running case",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library program: nominal rates at 10% for m = 1, 4, 12, 365, 10^6 and an assertion of (3.8) for m = 2..998; the lecture examples, with exact Fraction integrals (1/8, 6/25) by Simpson's rule, which is exact for cubics; the one-panel Simpson value across the jump; delta_2 by a central difference; assertions that a constant force reproduces 1.08^5 (1e-12) and that the simple-interest force integrates to ln 1.4 (1e-9); the running case with exponents 33/125 and 27/125; ValueError for i <= -1, t1 > t2, gaps or incomplete cover, odd or non-positive n; two failure tests described.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What these results establish and what they do not",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Lecture 8 names Exam FM.",
+      "research_extension": "SOA Exam FM syllabus p. 2: force of interest, conversions, and time-value equations involving variable force of interest.",
+      "teaching_construction": "Classification of the results (theorems from (3.6), (3.9), (3.11)) and of the assumptions (definitions, a deterministic continuous-growth model, a unit convention); where the results stop applying (discrete crediting, no single delta for a varying force, dependence on dates, no claim about actual rate paths).",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercise 3 restates the idea of the Lecture 30 Q1 statements for a step force; Exercises 2, 4, 5 and 6 extend the linear-force, step-force, discounting and inversion examples of Lecture 9.",
+      "research_extension": "None.",
+      "teaching_construction": "Six original exercises with full solutions: derive (force of simple discount against simple interest), exam-style closest-of-five (linear force, deposit at t = 1, each distractor tied to an error), check an assumption (five statements for a step force), counterexample and proof (order of step pieces), computation with two focal dates and a trap, inversion and judgment (maximum of the force of 1 + 0.05t^2).",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "The closing h2 'Primary sources' is a reference list with no lecture material, research claim or construction of its own; as in the pilot chapter, it has no entry in 'sections'. Every other h2 has exactly one entry, with the same title text. All source-grounded sections follow recording order.",
+  "references": [
+    {
+      "title": "Lecture 8 recording, The Force of Interest",
+      "url": "https://www.youtube.com/watch?v=RaG9vVPAiiY",
+      "supports": "Limit of nominal rates, definition of delta, 1 + i = e^delta, staircase and ramp, delta = ln(1+i) and the trap alert, accumulation under a constant force, doubling example, Maclaurin series, grand inequality, calculus definition preview, d(4) = 8% example.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 9 recording, Variable Force of Interest",
+      "url": "https://www.youtube.com/watch?v=zCiKpaKsfAs",
+      "supports": "Motivation, derivation of delta_t = A'(t)/A(t), the master equation, moving from t1 to t2, the integral as an area, linear-force and step-force examples, the integration-limit trap, inversion example, discounting with a variable force.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 30 recording, Module 1 Review",
+      "url": "https://www.youtube.com/watch?v=HSrxblFzIsE",
+      "supports": "Q1 statements on delta = ln(1+i) and exponential growth under a constant force (idea of Exercise 3).",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam -- October 2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "p. 2: topic 1, learning outcome a) lists force of interest among the terms to define; b) 'Solve time value of money equations involving variable force of interest'; c) given any one of i, i(m), d, d(m) or the force of interest, calculate the others.",
+      "page_checked": "p. 2 (same as PDF page)"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "t, A(t), a(t)",
+      "first_section": "model",
+      "definition": "Time in years from the first deposit; amount function; accumulation function with a(0) = 1 and A(t) = A(0) a(t) (3.1)."
+    },
+    {
+      "symbol": "i, v, d",
+      "first_section": "model",
+      "definition": "Effective annual rate of interest (i > -1); discount factor 1/(1+i); effective annual rate of discount i/(1+i) = 1 - v."
+    },
+    {
+      "symbol": "m, i(m), d(m)",
+      "first_section": "model",
+      "definition": "Conversions per year; nominal annual rates of interest and of discount convertible m-thly, equivalent to i by (3.2) and (3.3)."
+    },
+    {
+      "symbol": "q, f(x), u",
+      "first_section": "limit",
+      "definition": "q: a fixed nominal rate, used only in the paragraph on fixed nominal rates; f(x) = x ln(1 + q/x); u: auxiliary variable in limits (q/x, L/m, x_m/m)."
+    },
+    {
+      "symbol": "delta, i(infinity), L",
+      "first_section": "limit",
+      "definition": "Force of interest, the limit of i(m) (3.4), written i(infinity) on the slide; L = ln(1+i) in the derivation; delta = ln(1+i) (3.5)."
+    },
+    {
+      "symbol": "x_m, x, l(u)",
+      "first_section": "limit",
+      "definition": "A convergent sequence and its limit in the lemma (3.6); l(u) = ln(1+u)/u with l(0) = 1."
+    },
+    {
+      "symbol": "floor(t)",
+      "first_section": "convert",
+      "definition": "Largest whole number not above t, in the staircase model (1+i)^floor(t)."
+    },
+    {
+      "symbol": "PV, FV, AV",
+      "first_section": "constant",
+      "definition": "Slide labels: an amount at the earlier date and its value at the later date (FV in (3.7) and (3.14), AV in (3.13))."
+    },
+    {
+      "symbol": "g(y), y",
+      "first_section": "ordering",
+      "definition": "g(y) = e^y - 1 - y in the proof of delta < i."
+    },
+    {
+      "symbol": "z, s (integral representations)",
+      "first_section": "ordering",
+      "definition": "z: the variable of (3.9), applied with z = delta/m; s: integration variable on [0, 1] (also the integration variable in ln(1+u) as an integral, in the section on nominal rates)."
+    },
+    {
+      "symbol": "delta_t, i(m)_t, h",
+      "first_section": "instant",
+      "definition": "Force of interest at time t, A'(t)/A(t) (3.10); nominal rate of the interval [t, t + 1/m]; h = 1/m."
+    },
+    {
+      "symbol": "r",
+      "first_section": "integral",
+      "definition": "Integration variable in time integrals of the force (slide notation); not a rate in this chapter."
+    },
+    {
+      "symbol": "b(t), Delta(t)",
+      "first_section": "integral",
+      "definition": "Any solution of (3.11) in the uniqueness proof; Delta(t) = integral_0^t delta_r dr."
+    },
+    {
+      "symbol": "t1, t2, delta-bar",
+      "first_section": "integral",
+      "definition": "Investment and valuation dates in (3.13); average force over [t1, t2]."
+    },
+    {
+      "symbol": "alpha, beta",
+      "first_section": "area",
+      "definition": "Intercept and slope of a linear force in the shift formula; used only there."
+    },
+    {
+      "symbol": "tau",
+      "first_section": "area",
+      "definition": "A time length tau >= 0 in the argument that the shortcut integral over [0, t2 - t1] is correct for all dates only for a constant force; used only there."
+    },
+    {
+      "symbol": "w",
+      "first_section": "inversion",
+      "definition": "Substitution variable 1 + 0.05 r^2 in the check of the inversion example."
+    },
+    {
+      "symbol": "T, v(t)",
+      "first_section": "discount",
+      "definition": "Payment date; discount function exp(-integral_0^t delta_r dr) = 1/a(t) (3.14), equal to v^t for a constant force."
+    },
+    {
+      "symbol": "F1, F2",
+      "first_section": "exercises",
+      "definition": "The two step forces of Exercise 4."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch03_verify_code.py (extracts the chapter listing, checks it equals ch03_code.py, runs it with python -I in a fresh process from a temporary directory, Python 3.13, standard library only; exit 0, no stderr; 21 stdout lines, 933 bytes, compared byte for byte with the printed block after converting CRLF to LF; pycodestyle exit 0)",
+    "stdout_matches_printed": true
+  }
+}

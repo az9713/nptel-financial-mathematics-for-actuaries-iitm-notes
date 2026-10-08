@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="0683cd0fbc63b862775eb4c0dfb82e8cf435ae3b1e125e9329aaa2d98283e1bb"><title>The force of interest, constant and variable · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>The force of interest, constant and variable</h1>
+<p class="lead">A saver will hold 100,000 dollars for five years and has four offers, all advertised with the number 8%. Bank A pays an effective annual rate of 8%, bank B quotes a nominal rate of discount of 8% convertible quarterly, bank C quotes a constant force of interest of 8% a year, and bank D quotes a force of interest that rises in a straight line from 6% a year now to 10% a year in five years. The offers are invented for this chapter. After five years the deposit is worth 146,932.81 dollars at A, 149,788.50 at B, and 149,182.47 at both C and D: the same advertised number spans 2,855.70 dollars. Offers C and D agree at year 5, but they do not agree on a second deposit. Fifty thousand dollars added at year 2 is worth 63,562.46 dollars at year 5 under C and 65,106.41 under D; the error the lecture warns against, integrating over the wrong three years, gives 62,055.12, which is 3,051.29 dollars short. This chapter defines the force of interest as the limit of nominal rates, derives its relations to the effective and nominal rates, lets it vary with time, and derives the accumulation function from it, so that these four offers and these two deposits can be compared on one scale.</p>
+<p class="source-note">Grounded in two recordings of the NPTEL course <em>Financial Mathematics for Actuaries</em> (Prof. Neelesh S. Upadhye, IIT Madras): <a href="https://www.youtube.com/watch?v=RaG9vVPAiiY">Lecture 8</a> (the force of interest) and <a href="https://www.youtube.com/watch?v=zCiKpaKsfAs">Lecture 9</a> (variable force of interest); the Module 1 review, <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30</a>, supplied the idea of one exercise. <strong>Lecture material:</strong> the passage from compounding \(m\) times a year to continuous compounding, with Euler's limit for \(e\); the definition of \(\delta\) as the nominal annual rate of interest compounded continuously and the relation \(1+i=e^\delta\); the staircase-and-ramp picture of annual and continuous growth; \(\delta=\ln(1+i)\) with the warning that \(\delta\) is less than \(i\); accumulation and discounting under a constant force and the doubling-time example; the Maclaurin series of \(\ln(1+i)\); the ordering \(d\lt d^{(m)}\lt\delta\lt i^{(m)}\lt i\) on a number line; the conversion from a nominal discount rate of 8% convertible quarterly; the calculus definition \(\delta_t=A'(t)/A(t)\), derived from the nominal rate of a short interval; the accumulation formula \(a(t)=\exp\int_0^t\delta_r\,dr\) and the rule for moving money from \(t_1\) to \(t_2\); the integral as an area; the linear-force and step-force examples; the integration-limit trap; finding \(\delta_t\) from \(a(t)\); discounting with a variable force. <strong>Research extensions:</strong> the Society of Actuaries Exam FM syllabus on the place of the force of interest, constant and variable, in that examination. <strong>Original teaching constructions:</strong> the running case (four offers and two deposits, invented rates); the restatement of the earlier tools; the limit lemma that justifies the step from nominal rates to \(e^\delta\); the proof that a nominal rate grows with \(m\) only when it is held fixed; the proof of \(\delta\lt i\) for every non-zero \(i\gt-1\); the proof of the ordering of the five rates from two integral representations, and the comparison of \(\delta\) with the midpoint of \(d\) and \(i\); the separable differential equation for \(a(t)\) and the proof that its solution is unique; the shift formula that measures the integration-limit trap; the continuity argument for step forces; the forces of simple interest and simple discount; Figures 3.1 and 3.2; Tables 3.1 and 3.2; the code and the six exercises.</p>
+
+<h2 id="model">The running case and the tools from earlier in the course <a class="timestamp" href="https://www.youtube.com/watch?v=RaG9vVPAiiY&amp;t=19s">L8 0:19</a></h2>
+<p>Earlier weeks of the course measured growth with an effective rate of interest, an effective rate of discount, and nominal rates of interest and of discount that are converted \(m\) times a year. All of these rates describe growth over a step of time: a year, or an \(m\)th of a year. This chapter asks what remains when the step shrinks to zero, and what changes when the rate itself changes with time. This section restates the tools the chapter uses. Each is taken as given from earlier in the course; none is derived again here.</p>
+<p><strong>Amount and accumulation functions.</strong> Time \(t\) is measured in years from the date of the first deposit, \(t\ge0\). The amount function \(A(t)\) is the value at time \(t\) of an investment, and the accumulation function \(a(t)\) is the value at time \(t\) of an investment of 1 made at time 0, so \(a(0)=1\). For an investment of \(A(0)\gt0\),</p>
+\[
+A(t)=A(0)\,a(t),\qquad a(0)=1. \tag{3.1}
+\]
+<p>The letter \(a\) followed by a time in parentheses always denotes the accumulation function in this chapter. Under compound interest at the effective annual rate \(i\), \(a(t)=(1+i)^t\) for every real \(t\ge0\), not only for whole years. The discount factor is \(v=1/(1+i)\), and the effective annual rate of discount is \(d=i/(1+i)=1-v\), interest paid in advance as a fraction of the amount at the end of the year. All rates in this chapter satisfy \(i\gt-1\), so that \(1+i\gt0\) and its logarithm exists; most examples have \(i\gt0\).</p>
+<p><strong>Nominal rates.</strong> A nominal annual rate of interest convertible \(m\) times a year, \(i^{(m)}\), credits interest at the rate \(i^{(m)}/m\) for each \(m\)th of a year; the superscript \((m)\) is a label, not a power. A nominal annual rate of discount convertible \(m\) times a year, \(d^{(m)}\), charges discount at the rate \(d^{(m)}/m\) in advance for each \(m\)th of a year. Both are equivalent to the effective rate \(i\) when they produce the same growth over one year:</p>
+\[
+\Bigl(1+\frac{i^{(m)}}{m}\Bigr)^m=1+i,\qquad\text{so}\qquad i^{(m)}=m\bigl[(1+i)^{1/m}-1\bigr], \tag{3.2}
+\]
+\[
+\Bigl(1-\frac{d^{(m)}}{m}\Bigr)^{-m}=1+i,\qquad\text{so}\qquad d^{(m)}=m\bigl[1-v^{1/m}\bigr]. \tag{3.3}
+\]
+<p>With \(m=1\) the nominal rates are the effective ones: \(i^{(1)}=i\) and \(d^{(1)}=d\).</p>
+<p><strong>Rounding.</strong> Every computation in this chapter carries its intermediate values unrounded. Amounts are rounded to cents, and rates and accumulation factors are printed to six decimals or as percentages to four decimals, only where they are displayed; a few quantities are printed with fewer decimals (years to four, percentage points to two, one day's interest to three). A displayed product of a printed factor and an amount, or a difference of two printed amounts, can therefore differ from the printed result in the last cent. The spread of the four offers, 2,855.70 dollars, is the difference of the unrounded values 149,788.50498 and 146,932.80768; the two printed amounts differ by 2,855.69. Likewise bank B's margin over C is 606.04 from unrounded values and 606.03 from the printed amounts. The program at the end of the chapter reproduces every amount of the running case from unrounded values.</p>
+<p><strong>The running case.</strong> A saver deposits 100,000 dollars at \(t=0\) and withdraws at \(t=5\). Four banks quote "8%" (all four quotes are invented for this chapter):</p>
+<ul>
+<li>bank A: an effective annual rate of interest \(i=8\%\);</li>
+<li>bank B: a nominal annual rate of discount convertible quarterly, \(d^{(4)}=8\%\);</li>
+<li>bank C: a constant force of interest of 8% a year;</li>
+<li>bank D: a force of interest that rises linearly from 6% a year at \(t=0\) to 10% a year at \(t=5\).</li>
+</ul>
+<p>Three questions run through the chapter. Which bank gives the most at \(t=5\)? If the saver adds 50,000 dollars at \(t=2\), what is that deposit worth at \(t=5\) under C and under D? And what single deposit at \(t=0\) grows to 200,000 dollars at \(t=5\) under D? Banks A and B can be compared with the tools above. Banks C and D need a new object, the force of interest, which the next sections define. The formal model of the chapter is an accumulation function \(a(t)\) on a time axis, together with the rate of growth that generates it; every result below is a statement about one of these two objects or about the passage between them.</p>
+
+<h2 id="limit">From nominal rates to the force of interest <a class="timestamp" href="https://www.youtube.com/watch?v=RaG9vVPAiiY&amp;t=276s">L8 4:36</a></h2>
+<p><strong>Question.</strong> Interest can be credited once a year, monthly, daily or hourly. The lecture's question is what happens when the crediting interval shrinks without limit, so that \(m\to\infty\). Two different questions hide in this one, and they have different answers.</p>
+<p><strong>A fixed nominal rate.</strong> The slide opens with the statement that money grows faster as the frequency \(m\) increases. That statement holds when the nominal rate is held fixed. Let \(q\gt0\) be a fixed nominal annual rate (the letter \(q\) is used only in this paragraph) and compare the growth over one year, \((1+q/m)^m\), for different \(m\). Treat \(m\) as a real variable \(x\gt0\) and write \(f(x)=x\ln(1+q/x)\). With \(u=q/x\gt0\), the derivative is</p>
+\[
+f'(x)=\ln(1+u)-\frac{u}{1+u}\gt0,
+\]
+<p>because \(\ln(1+u)=\int_0^u\frac{ds}{1+s}\) and the integrand is larger than \(1/(1+u)\) for \(0\le s\lt u\). So the growth \(e^{f(m)}\) increases with \(m\). At \(q=10\%\) it is 1.100000 for \(m=1\), 1.104713 for \(m=12\), and it tends to \(e^{0.1}=1.105171\). The calculus result the slide recalls is Euler's limit \(\lim_{n\to\infty}(1+1/n)^n=e\) and its generalization \(\lim_{m\to\infty}(1+q/m)^m=e^q\) for a fixed number \(q\).</p>
+<p><strong>A fixed effective rate.</strong> The equivalence (3.2) asks the opposite question: the growth over the year is fixed at \(1+i\), and the nominal rate \(i^{(m)}\) that produces it is computed for each \(m\). Then the growth does not increase at all, and \(i^{(m)}\) changes with \(m\). At \(i=10\%\), \(i^{(1)}=0.100000\), \(i^{(12)}=0.095690\) and \(i^{(365)}=0.095323\) (Table 3.1, in the section on where the force sits among the other rates). The force of interest is defined from this second question.</p>
+<p><strong>Definition.</strong> The <em>force of interest</em> equivalent to the effective annual rate \(i\) is the limit of the equivalent nominal rates,</p>
+\[
+\delta=\lim_{m\to\infty}i^{(m)}. \tag{3.4}
+\]
+<p>The slide writes the limit as \(i^{(\infty)}\), denotes it by \(\delta\), and calls it the nominal annual rate of interest compounded continuously. Its unit is "per year", the unit of every nominal annual rate; the section on the force at an instant gives the unit a meaning at each instant.</p>
+<p><strong>Derivation of the value.</strong> The definition is useful only if the limit exists. Write \(L=\ln(1+i)\), so \((1+i)^{1/m}=e^{L/m}\) and, by (3.2),</p>
+\[
+i^{(m)}=m\bigl(e^{L/m}-1\bigr)=L\cdot\frac{e^{u}-1}{u}\quad\text{with }u=\frac{L}{m}\ (L\neq0).
+\]
+<p>As \(m\to\infty\), \(u\to0\), and \((e^u-1)/u\to1\), because this quotient is the difference quotient of \(e^u\) at 0 and the derivative of \(e^u\) at 0 is 1. Hence \(i^{(m)}\to L\): the limit (3.4) exists and \(\delta=\ln(1+i)\). If \(L=0\), then \(i=0\) and every \(i^{(m)}\) is 0. The same computation with (3.3) gives \(d^{(m)}=m(1-e^{-L/m})=L\,(1-e^{-u})/u\to L\): the nominal rates of discount have the same limit.</p>
+<p><strong>The relation \(1+i=e^\delta\).</strong> Exponentiating \(\delta=\ln(1+i)\) gives</p>
+\[
+1+i=e^{\delta},\qquad \delta=\ln(1+i),\qquad i=e^{\delta}-1. \tag{3.5}
+\]
+<p>The slide reaches (3.5) by another route: it starts from \(1+i=(1+i^{(m)}/m)^m\), which holds for every \(m\), replaces \(i^{(m)}\) by its limit \(\delta\) inside the bracket, and applies the generalized Euler limit. That step needs more than the generalized limit, because \(i^{(m)}\) is not a fixed number: it changes with \(m\). The following lemma supplies the missing step.</p>
+<p><strong>Lemma.</strong> If a sequence \(x_m\) tends to a number \(x\), then</p>
+\[
+\lim_{m\to\infty}\Bigl(1+\frac{x_m}{m}\Bigr)^m=e^{x}. \tag{3.6}
+\]
+<p><em>Proof.</em> For large \(m\), \(|x_m/m|\lt1\), so the logarithm of the bracket exists. Let \(\ell(u)=\ln(1+u)/u\) for \(u\neq0\) and \(\ell(0)=1\); \(\ell\) is continuous at 0 because the derivative of \(\ln(1+u)\) at 0 is 1. Then \(m\ln(1+x_m/m)=x_m\,\ell(x_m/m)\to x\cdot1\), and the exponential function is continuous, so the power tends to \(e^x\). With \(x_m=i^{(m)}\) and \(x=\delta\), the lemma turns the slide's route into a proof: the left side \(1+i\) does not depend on \(m\), and the right side tends to \(e^\delta\). ∎</p>
+<p><strong>Interpretation.</strong> The equivalent nominal rates \(i^{(m)}\) describe the same growth over a year, credited more and more often. As crediting becomes continuous, the nominal rate needed for that growth falls to \(\delta\). Relation (3.5) is the exchange rate between the two descriptions: \(e^\delta\) is the growth of 1 over a year under continuous crediting at nominal rate \(\delta\), and it equals the growth \(1+i\) under one annual credit.</p>
+<p><strong>Boundary.</strong> The definition (3.4) gives one number \(\delta\) for one effective rate \(i\) that holds in every year. If the rate of growth changes during the year or from year to year, (3.4) does not apply; the sections on the variable force replace it with a definition at each instant.</p>
+
+<h2 id="convert">Converting between i and the force: steps and a ramp <a class="timestamp" href="https://www.youtube.com/watch?v=RaG9vVPAiiY&amp;t=674s">L8 11:14</a></h2>
+<p>The lecture compares two pictures of growth over two years (slide 5 of Lecture 8). Under annual crediting, the balance stays at 1 until the end of the first year, jumps by the year's interest, stays at the new level for the second year, and jumps again: a staircase. Under continuous crediting, the balance rises without jumps: a ramp. The slide draws the staircase for an effective rate of 10% and the ramp \(e^{0.1t}\) for a force of 0.10, and the lecture points out that the two are not equivalent: at \(t=1\) the staircase reaches 1.10 and the ramp 1.105171. The slide's condition for equivalence is that both reach the same height \(1+i\) at \(t=1\).</p>
+<figure>
+<svg viewBox="0 0 640 310" role="img" aria-labelledby="fig-stair-title fig-stair-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-stair-title">Growth of 1 under interest credited once a year and under continuous growth</title>
+<desc id="fig-stair-desc">Accumulated value of 1 between t = 0 and t = 2. A staircase stays at 1 until t = 1, jumps to 1.10, stays there until t = 2 and jumps to 1.21. A smooth curve 1.1 to the power t meets the staircase at t = 1 and t = 2 and lies above it between those dates. A dashed curve e to the power 0.1 t lies above both and reaches 1.1052 at t = 1 and 1.2214 at t = 2.</desc>
+<line x1="70" y1="250" x2="610" y2="250" stroke="currentColor"/>
+<line x1="70" y1="250" x2="70" y2="30" stroke="currentColor"/>
+<g><line x1="70" y1="250" x2="70" y2="255" stroke="currentColor"/><text x="70" y="270" text-anchor="middle">0</text><line x1="202.5" y1="250" x2="202.5" y2="255" stroke="currentColor"/><text x="202.5" y="270" text-anchor="middle">0.5</text><line x1="335" y1="250" x2="335" y2="255" stroke="currentColor"/><text x="335" y="270" text-anchor="middle">1</text><line x1="467.5" y1="250" x2="467.5" y2="255" stroke="currentColor"/><text x="467.5" y="270" text-anchor="middle">1.5</text><line x1="600" y1="250" x2="600" y2="255" stroke="currentColor"/><text x="600" y="270" text-anchor="middle">2</text><line x1="65" y1="250" x2="70" y2="250" stroke="currentColor"/><text x="61" y="254.0" text-anchor="end">1.00</text><line x1="65" y1="208" x2="70" y2="208" stroke="currentColor"/><text x="61" y="212.0" text-anchor="end">1.05</text><line x1="65" y1="166" x2="70" y2="166" stroke="currentColor"/><text x="61" y="170.0" text-anchor="end">1.10</text><line x1="65" y1="124" x2="70" y2="124" stroke="currentColor"/><text x="61" y="128.0" text-anchor="end">1.15</text><line x1="65" y1="82" x2="70" y2="82" stroke="currentColor"/><text x="61" y="86.0" text-anchor="end">1.20</text><line x1="65" y1="40" x2="70" y2="40" stroke="currentColor"/><text x="61" y="44.0" text-anchor="end">1.25</text></g>
+<text x="335" y="292" text-anchor="middle">t (years)</text>
+<text x="18" y="145" text-anchor="middle" transform="rotate(-90 18 145)">accumulated value of 1</text>
+<polyline points="70,250 335,250 335,166 600,166 600,73.6" fill="none" stroke="currentColor" stroke-width="2.5"/>
+<polyline points="70,250 76.6,248 83.2,246 89.9,244 96.5,242 103.1,239.9 109.8,237.9 116.4,235.9 123,233.8 129.6,231.8 136.2,229.7 142.9,227.7 149.5,225.6 156.1,223.6 162.8,221.5 169.4,219.4 176,217.4 182.6,215.3 189.2,213.2 195.9,211.1 202.5,209 209.1,206.9 215.8,204.8 222.4,202.7 229,200.6 235.6,198.4 242.2,196.3 248.9,194.2 255.5,192 262.1,189.9 268.8,187.8 275.4,185.6 282,183.4 288.6,181.3 295.2,179.1 301.9,176.9 308.5,174.8 315.1,172.6 321.8,170.4 328.4,168.2 335,166 341.6,163.8 348.2,161.6 354.9,159.4 361.5,157.2 368.1,154.9 374.8,152.7 381.4,150.5 388,148.2 394.6,146 401.2,143.7 407.9,141.5 414.5,139.2 421.1,136.9 427.8,134.7 434.4,132.4 441,130.1 447.6,127.8 454.2,125.5 460.9,123.2 467.5,120.9 474.1,118.6 480.8,116.3 487.4,113.9 494,111.6 500.6,109.3 507.2,106.9 513.9,104.6 520.5,102.3 527.1,99.9 533.8,97.5 540.4,95.2 547,92.8 553.6,90.4 560.2,88 566.9,85.6 573.5,83.2 580.1,80.8 586.8,78.4 593.4,76 600,73.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<polyline points="70,250 76.6,247.9 83.2,245.8 89.9,243.7 96.5,241.6 103.1,239.4 109.8,237.3 116.4,235.2 123,233 129.6,230.9 136.2,228.7 142.9,226.6 149.5,224.4 156.1,222.3 162.8,220.1 169.4,217.9 176,215.7 182.6,213.5 189.2,211.3 195.9,209.1 202.5,206.9 209.1,204.7 215.8,202.5 222.4,200.3 229,198.1 235.6,195.8 242.2,193.6 248.9,191.3 255.5,189.1 262.1,186.8 268.8,184.6 275.4,182.3 282,180 288.6,177.8 295.2,175.5 301.9,173.2 308.5,170.9 315.1,168.6 321.8,166.3 328.4,164 335,161.7 341.6,159.3 348.2,157 354.9,154.7 361.5,152.3 368.1,150 374.8,147.6 381.4,145.3 388,142.9 394.6,140.5 401.2,138.2 407.9,135.8 414.5,133.4 421.1,131 427.8,128.6 434.4,126.2 441,123.8 447.6,121.4 454.2,118.9 460.9,116.5 467.5,114.1 474.1,111.6 480.8,109.2 487.4,106.7 494,104.3 500.6,101.8 507.2,99.3 513.9,96.8 520.5,94.3 527.1,91.9 533.8,89.4 540.4,86.8 547,84.3 553.6,81.8 560.2,79.3 566.9,76.8 573.5,74.2 580.1,71.7 586.8,69.1 593.4,66.6 600,64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+<line x1="95" y1="40" x2="125" y2="40" stroke="currentColor" stroke-width="2.5"/><text x="133" y="44">interest credited at each year end, 10% effective</text>
+<line x1="95" y1="60" x2="125" y2="60" stroke="currentColor" stroke-width="1.5"/><text x="133" y="64">1.1 to the power t: constant force ln 1.1 = 0.0953</text>
+<line x1="95" y1="80" x2="125" y2="80" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/><text x="133" y="84">e to the power 0.1t: constant force 0.10</text>
+</svg>
+<figcaption>Figure 3.1. Three accumulation functions on \([0,2]\). The staircase credits 10% at each year end. The solid curve \((1.1)^t=e^{0.095310\,t}\) is the continuous growth equivalent to it: the two agree at \(t=1\) and \(t=2\). The dashed curve \(e^{0.1t}\), the ramp drawn on the lecture's slide, uses a force of 0.10; it is above the staircase at every year end (1.105171 against 1.10 at \(t=1\)), so a force of 10% and an effective rate of 10% are not equivalent.</figcaption>
+</figure>
+<p>Figure 3.1 adds the curve that is equivalent to the staircase. Its force follows from (3.5): \(\delta=\ln1.10=0.095310\), the 9.53% of the slide. Between year ends, the staircase and the equivalent curve are different models. The staircase is \(a(t)=(1+i)^{\lfloor t\rfloor}\), where \(\lfloor t\rfloor\) is the largest whole number not above \(t\); it credits nothing until a year is complete. The compound model \(a(t)=(1+i)^t\) of (3.1) grows within the year: at \(t=1.5\) it gives 1.153690 against the staircase's 1.10. The two models agree at whole years, which is all that an effective annual rate specifies.</p>
+<p><strong>Conversion in both directions.</strong> By (3.5), an effective rate converts to a force by \(\delta=\ln(1+i)\), and a force converts to an effective rate by \(i=e^\delta-1\). The slide's trap alert is that \(\delta\) is always slightly less than \(i\): a quoted effective 10% must not be used as a force of 10%. The size of "slightly" depends on \(i\): at 10% the force is 0.47 percentage points lower, and the series of the next section gives the gap as about \(i^2/2\) for small \(i\). The claim "always" holds for every \(i\neq0\) with \(i\gt-1\); the next section proves it.</p>
+<p><strong>Banks A and C.</strong> Bank A's effective 8% corresponds to the force \(\ln1.08=0.076961\). Bank C's force of 8% corresponds to the effective rate \(e^{0.08}-1=8.3287\%\). Bank C therefore pays more than bank A, although both advertise 8%; the next section computes by how much.</p>
+
+<h2 id="constant">Accumulation and discounting under a constant force <a class="timestamp" href="https://www.youtube.com/watch?v=RaG9vVPAiiY&amp;t=1037s">L8 17:17</a></h2>
+<p><strong>Accumulation function.</strong> If the force \(\delta\) is constant over time, the accumulation function of compound interest becomes, by (3.5),</p>
+\[
+a(t)=(1+i)^t=\bigl(e^{\delta}\bigr)^t=e^{\delta t},\qquad \mathrm{FV}=\mathrm{PV}\cdot e^{\delta t},\qquad \mathrm{PV}=\mathrm{FV}\cdot e^{-\delta t}. \tag{3.7}
+\]
+<p>Here \(\mathrm{PV}\) is an amount at time 0 and \(\mathrm{FV}\) is its value at time \(t\), the labels of the slide. The discounting formula divides the accumulation formula by \(e^{\delta t}\); the discount factor for one year is \(v=e^{-\delta}\). The exponent \(\delta t\) is a pure number: \(\delta\) is per year and \(t\) is in years. If time were measured in months, the force per month would be \(\delta/12\).</p>
+<p><strong>Checks.</strong> The lecture notes that \(\delta=0\) gives \(e^\delta=1\), so \(1+i=1\) and \(i=0\): no growth. For \(\delta\gt0\), \(e^{\delta t}\) is increasing and exceeds 1 for every \(t\gt0\). At whole years (3.7) reproduces compound interest at \(i=e^\delta-1\), by construction.</p>
+<p><strong>The lecture's doubling example.</strong> An investment grows at a constant force of 5% a year. How long does it take to double? The condition \(e^{0.05t}=2\) gives, after taking logarithms, \(0.05t=\ln2\) and</p>
+\[
+t=\frac{\ln 2}{0.05}=\frac{0.693147}{0.05}=13.8629\text{ years},
+\]
+<p>the slide's 13.86 years. At an effective rate of 5% the doubling time is \(\ln2/\ln1.05=14.2067\) years, 0.3438 years longer, because a force of 5% corresponds to the effective rate \(e^{0.05}-1=5.1271\%\).</p>
+<p><strong>The running case, constant-force offers.</strong> Under bank A, the deposit grows to \(100{,}000\times1.08^5=146{,}932.81\) dollars. Under bank C, by (3.7), it grows to \(100{,}000\,e^{0.08\times5}=100{,}000\,e^{0.4}=149{,}182.47\) dollars, 2,249.66 dollars more. The difference is the gap between a force of 8% and a force of 7.6961%, compounded over five years.</p>
+<p><strong>Boundary.</strong> Formula (3.7) assumes one force for the whole term. A force that changes at a known date, or continuously, needs the integral formula derived in the section on the accumulation function.</p>
+
+<h2 id="ordering">Where the force sits among the other rates <a class="timestamp" href="https://www.youtube.com/watch?v=RaG9vVPAiiY&amp;t=1323s">L8 22:03</a></h2>
+<p><strong>The series.</strong> The lecture expands \(\delta=\ln(1+i)\) in its Maclaurin series (the Taylor series around 0),</p>
+\[
+\delta=\ln(1+i)=i-\frac{i^2}{2}+\frac{i^3}{3}-\dots\qquad(-1\lt i\le1),
+\]
+<p>and keeps two terms, \(\delta\approx i-i^2/2\). The slide reads the truncated series as confirmation that \(\delta\lt i\). The full series does prove it on \(-1\lt i\le1\). For \(0\lt i\le1\) the terms \(i^n/n\) alternate in sign and decrease strictly to 0, so the sum lies strictly between any two consecutive partial sums: \(i-i^2/2\lt\delta\lt i\). For \(-1\lt i\lt0\) every term after the first is negative, so \(\delta\lt i\) again. The two-term truncation by itself is a size estimate, not the proof: at \(i=10\%\) it gives 0.095000 against the exact 0.095310, an error of 0.000310, close to the next term \(i^3/3=0.000333\). The series says nothing for \(i\gt1\), where it diverges; the next paragraph proves \(\delta\lt i\) for every \(i\gt-1\), \(i\ne0\), without a series.</p>
+<p><strong>Proof that \(\delta\lt i\).</strong> For every real \(y\neq0\), \(e^y\gt1+y\). Indeed, \(g(y)=e^y-1-y\) has \(g(0)=0\) and \(g'(y)=e^y-1\), which is negative for \(y\lt0\) and positive for \(y\gt0\), so \(g\) has its only minimum, 0, at \(y=0\). Apply this with \(y=\delta=\ln(1+i)\), which is non-zero when \(i\neq0\): \(1+i=e^\delta\gt1+\delta\), so \(\delta\lt i\). The proof uses neither \(i\gt0\) nor a series, so it covers negative rates as well, as the lecture states: at \(i=-5\%\), \(\delta=\ln0.95=-0.051293\), which is less than \(-0.05\).</p>
+<p><strong>The ordering of the five rates.</strong> The slide's "grand inequality" places the force among the four discrete rates: for any \(m\gt1\),</p>
+\[
+d\lt d^{(m)}\lt\delta\lt i^{(m)}\lt i\qquad(i\gt0,\ m=2,3,\dots). \tag{3.8}
+\]
+<p>The derivation uses two integral representations. For \(z\neq0\),</p>
+\[
+\frac{e^{z}-1}{z}=\int_0^1e^{zs}\,ds,\qquad \frac{1-e^{-z}}{z}=\int_0^1e^{-zs}\,ds, \tag{3.9}
+\]
+<p>which follow by evaluating the integrals. Apply them with \(z=\delta/m\gt0\) (positive because \(i\gt0\)). By (3.2), (3.3) and \(1+i=e^\delta\), \(i^{(m)}=m(e^{\delta/m}-1)\) and \(d^{(m)}=m(1-e^{-\delta/m})\), so</p>
+\[
+i^{(m)}=\delta\int_0^1e^{\delta s/m}\,ds,\qquad d^{(m)}=\delta\int_0^1e^{-\delta s/m}\,ds .
+\]
+<p>Three facts follow. First, for \(0\lt s\le1\), \(e^{\delta s/m}\gt1\gt e^{-\delta s/m}\), so the first integral exceeds 1 and the second is less than 1: \(d^{(m)}\lt\delta\lt i^{(m)}\). Second, as \(m\) increases, each \(e^{\delta s/m}\) decreases and each \(e^{-\delta s/m}\) increases, so \(i^{(m)}\) decreases in \(m\) and \(d^{(m)}\) increases in \(m\). Comparing with \(m=1\), where \(i^{(1)}=i\) and \(d^{(1)}=d\), gives \(i^{(m)}\lt i\) and \(d^{(m)}\gt d\) for \(m\ge2\). Third, both integrands tend to 1 as \(m\to\infty\), which recovers \(\lim i^{(m)}=\lim d^{(m)}=\delta\) of (3.4). Together these give (3.8), and they say more than (3.8): the interest rates fall towards \(\delta\) and the discount rates rise towards it as conversion becomes more frequent. The chain holds for \(-1\lt i\lt0\) as well: with \(z\lt0\) the integrands satisfy \(e^{\delta s/m}\lt1\lt e^{-\delta s/m}\), and multiplying by the negative \(\delta\) reverses each inequality, so the same three facts follow (at \(i=-5\%\) and \(m=2\): \(-0.052632\lt-0.051957\lt-0.051293\lt-0.050641\lt-0.05\)). At \(i=0\) all five rates are 0.</p>
+<div class="table-wrap"><table>
+<caption>Table 3.1. Nominal rates equivalent to an effective rate of 10%, by (3.2) and (3.3), to six decimals. The force is \(\delta=\ln1.1=0.095310\).</caption>
+<thead><tr><th scope="col">Conversions per year, m</th><th scope="col">Discount rate \(d^{(m)}\)</th><th scope="col">Interest rate \(i^{(m)}\)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>0.090909</td><td>0.100000</td></tr>
+<tr><td>2</td><td>0.093075</td><td>0.097618</td></tr>
+<tr><td>4</td><td>0.094184</td><td>0.096455</td></tr>
+<tr><td>12</td><td>0.094933</td><td>0.095690</td></tr>
+<tr><td>365</td><td>0.095298</td><td>0.095323</td></tr>
+</tbody></table></div>
+<p><strong>The "perfect center".</strong> The slide draws (3.8) on a number line, with \(\delta\) between the discount rates on the left and the interest rates on the right, and calls \(\delta\) the perfect center; the lecture also calls it a balance point. These are figures of speech. The precise statement is (3.8) with its two monotone sequences: \(\delta\) is strictly between \(d^{(m)}\) and \(i^{(m)}\) for every \(m\), and it is their common limit. It is not the midpoint of \(d\) and \(i\): at \(i=10\%\), the midpoint is \((0.100000+0.090909)/2=0.095455\), and \(\delta=0.095310\) is 0.000144 below it. The series \(d=i-i^2+i^3-\dots\) shows why the two are close: \((i+d)/2=i-i^2/2+i^3/2-\dots\) agrees with \(\delta\) in the first two terms and differs by about \(i^3/6\) (0.000167 at 10%).</p>
+<p><strong>The lecture's conversion from a discount rate.</strong> Given \(d^{(4)}=8\%\), find the equivalent force. The slide's strategy is to convert to \(1+i\) first: by (3.3) and (3.5),</p>
+\[
+\Bigl(1-\frac{0.08}{4}\Bigr)^{-4}=1+i=e^{\delta},\qquad 0.98^{-4}=e^\delta,\qquad \delta=-4\ln0.98=0.080811,
+\]
+<p>the slide's 8.08%. The same numbers illustrate (3.8): \(1+i=0.98^{-4}=1.084166\), so \(i=0.084166\); \(d=1-0.98^4=0.077632\); and \(i^{(4)}=4(0.98^{-1}-1)=0.081633\) by (3.2). The chain is \(0.077632\lt0.08\lt0.080811\lt0.081633\lt0.084166\). The lecture calls this conversion skill of the utmost importance for Exam FM; that is the speaker's judgment. The published syllabus of the Society of Actuaries Exam FM lists the force of interest among the terms a candidate must define, and conversion among \(i\), \(i^{(m)}\), \(d\), \(d^{(m)}\) and the force of interest among its learning outcomes (<a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA Exam FM syllabus, October 2026</a>, p. 2).</p>
+<p><strong>Bank B.</strong> Bank B's quote is the lecture's example, so its force is 0.080811 and the deposit grows to \(100{,}000\times0.98^{-20}=100{,}000\,e^{5\times0.080811}=149{,}788.50\) dollars. The constant-force offers now rank B, C, A, in the order of their forces: 0.080811, 0.080000, 0.076961. Ordering the offers by force is equivalent to ordering them by effective rate, because \(i=e^\delta-1\) is increasing in \(\delta\); the advertised number 8% orders nothing, because it measures three different quantities.</p>
+
+<h2 id="instant">The force at an instant <a class="timestamp" href="https://www.youtube.com/watch?v=zCiKpaKsfAs&amp;t=218s">L9 3:38</a></h2>
+<p>So far one number \(\delta\) has described the growth in every year. Bank D's force is not one number: it is 6% a year at \(t=0\) and 10% a year at \(t=5\). The lecture motivates a varying force with the observation that rates fluctuate and central banks change them; that is the speaker's illustration of why the model is needed, and the book makes no claim about any market from it. The question is mathematical: if the rate of growth can be different at every instant, what is "the rate at time \(t\)", and how does the accumulation function follow from it?</p>
+<p><strong>Derivation.</strong> The lecture builds the definition from the nominal rate of a short interval, as (3.4) was built from nominal rates over a year. Over the interval from \(t\) to \(t+1/m\), an amount \(A(t)\) earns \(A(t+1/m)-A(t)\). As a rate per \(m\)th of a year this is \([A(t+1/m)-A(t)]/A(t)\), and as a nominal annual rate it is \(m\) times that:</p>
+\[
+i^{(m)}_t=m\cdot\frac{A(t+\frac1m)-A(t)}{A(t)} .
+\]
+<p>The slide works it first for quarters (\(m=4\)) and then for general \(m\). Substitute \(h=1/m\), so \(m\to\infty\) means \(h\to0\), and take \(1/A(t)\) out of the limit, since it does not depend on \(h\):</p>
+\[
+\lim_{m\to\infty}i^{(m)}_t=\frac{1}{A(t)}\lim_{h\to0}\frac{A(t+h)-A(t)}{h}=\frac{A'(t)}{A(t)} .
+\]
+<p>The last step is the definition of the derivative. It assumes that \(A\) is differentiable at \(t\) and that \(A(t)\gt0\).</p>
+<p><strong>Definition.</strong> The <em>force of interest at time \(t\)</em> is</p>
+\[
+\delta_t=\frac{A'(t)}{A(t)}=\frac{d}{dt}\ln A(t)=\frac{a'(t)}{a(t)}. \tag{3.10}
+\]
+<p>The middle form is the chain rule. The last form holds because \(A(t)=A(0)a(t)\) by (3.1): the constant \(A(0)\) cancels, so the force does not depend on the size of the investment. Slide 11 of Lecture 8 states (3.10) and calls it the relative rate of change of the accumulated value at time \(t\); Lecture 9 derives it as above.</p>
+<p><strong>Meaning and units.</strong> The force is a rate per year at an instant; nothing is paid at an instant. By the definition of the derivative, the interest earned over a short interval is</p>
+\[
+A(t+h)-A(t)=A(t)\,\delta_t\,h+\text{(terms smaller than }h\text{ as }h\to0),
+\]
+<p>so \(\delta_t\,h\) is, approximately, the interest per unit invested over the next \(h\) years. At a constant force of 8%, a balance of 100,000 dollars earns \(100{,}000\times0.08/365=21.92\) dollars over one day by this approximation, and \(100{,}000(e^{0.08/365}-1)=21.92\) dollars exactly by (3.7) (21.918 and 21.920 before rounding). The product \(\delta_t h\) is a pure number only when \(h\) is in the unit of \(\delta_t\), here years.</p>
+<p><strong>Checks against the constant case and against simple interest.</strong> For compound interest, \(a(t)=(1+i)^t\), so \(\ln a(t)=t\ln(1+i)\) and \(\delta_t=\ln(1+i)\) for every \(t\): the definition (3.10) gives back the constant force (3.5). For simple interest, \(a(t)=1+it\), so \(\delta_t=i/(1+it)\), which falls with \(t\): at \(i=8\%\) it is 0.08 at \(t=0\) and \(0.08/1.4=0.057143\) at \(t=5\). Compound interest is the case of a constant force, and simple interest is a case of a falling force; (3.10) measures both on one scale.</p>
+<p><strong>A negative force.</strong> The lecture leaves open whether \(\delta_t\) may be negative. Definition (3.10) allows it: \(\delta_t\lt0\) on an interval means \(A'(t)\lt0\) there, so the investment loses value during that interval. The accumulation function stays positive, as the next section shows.</p>
+<p><strong>Boundary.</strong> The force exists only where \(A\) is differentiable. The staircase of Figure 3.1 has no derivative at the credit dates, so it has no force at \(t=1\) or \(t=2\); between credit dates its force is 0.</p>
+
+<h2 id="integral">From the force to the accumulation function <a class="timestamp" href="https://www.youtube.com/watch?v=zCiKpaKsfAs&amp;t=669s">L9 11:09</a></h2>
+<p><strong>Question.</strong> Given the force \(\delta_t\) for \(t\ge0\), find the accumulation function. By (3.10), \(a\) must satisfy the differential equation</p>
+\[
+a'(t)=\delta_t\,a(t),\qquad a(0)=1. \tag{3.11}
+\]
+<p>Assume in this section that \(\delta_t\) is a continuous function of \(t\); the section on step functions relaxes this.</p>
+<p><strong>Derivation.</strong> The lecture integrates the middle form of (3.10) from 0 to \(t\), with \(r\) as the variable of integration (in this chapter \(r\) is only an integration variable):</p>
+\[
+\int_0^t\delta_r\,dr=\int_0^t\frac{d}{dr}\ln a(r)\,dr=\ln a(t)-\ln a(0)=\ln a(t),
+\]
+<p>since \(a(0)=1\) and \(\ln1=0\). Exponentiating gives the slide's master equation,</p>
+\[
+a(t)=\exp\Bigl(\int_0^t\delta_r\,dr\Bigr). \tag{3.12}
+\]
+<p><strong>Uniqueness.</strong> The derivation assumed that a positive, differentiable solution exists and then found it. Write \(\Delta(t)=\int_0^t\delta_r\,dr\); by the fundamental theorem of calculus, \(\Delta'(t)=\delta_t\). The function found is a solution: \((e^{\Delta(t)})'=\Delta'(t)\,e^{\Delta(t)}=\delta_t\,e^{\Delta(t)}\) by the chain rule, and \(e^{\Delta(0)}=e^0=1\). It remains to show that (3.11) has no other solution. Let \(b\) be any differentiable function with \(b'(t)=\delta_tb(t)\) and \(b(0)=1\). Then</p>
+\[
+\frac{d}{dt}\Bigl(b(t)e^{-\Delta(t)}\Bigr)=b'(t)e^{-\Delta(t)}-b(t)\,\delta_t\,e^{-\Delta(t)}=0,
+\]
+<p>so \(b(t)e^{-\Delta(t)}\) is constant and equal to its value 1 at \(t=0\): \(b(t)=e^{\Delta(t)}\), which is (3.12). The solution is unique, and it is positive for every \(t\), whatever the sign of \(\delta_t\). A negative force makes \(a\) fall but never reach 0.</p>
+<p><strong>Checks.</strong> With a constant force, \(\int_0^t\delta\,dr=\delta t\), and (3.12) gives \(e^{\delta t}\), which is (3.7). With the simple-interest force \(\delta_r=i/(1+ir)\) of the previous section, \(\int_0^ti/(1+ir)\,dr=\ln(1+it)\), and (3.12) gives back \(a(t)=1+it\). The program at the end of the chapter checks both numerically.</p>
+<p><strong>Moving money between two dates.</strong> An amount invested at \(t_1\) and held to \(t_2\ge t_1\) grows by the ratio of the accumulation function at the two dates. By (3.1) and (3.12),</p>
+\[
+A(t_2)=A(t_1)\,\frac{a(t_2)}{a(t_1)}=A(t_1)\exp\Bigl(\int_{t_1}^{t_2}\delta_r\,dr\Bigr),\qquad \mathrm{AV}=\mathrm{PV}\cdot\exp\Bigl(\int_{t_1}^{t_2}\delta_r\,dr\Bigr), \tag{3.13}
+\]
+<p>where the second form uses the slide's labels: \(\mathrm{PV}\) is the amount at \(t_1\) and \(\mathrm{AV}\) its accumulated value at \(t_2\). The exponent subtracts \(\int_0^{t_1}\) from \(\int_0^{t_2}\), which leaves the integral over \([t_1,t_2]\). The limits of integration are the two dates on the calendar of the force, not 0 and the length of the interval.</p>
+<p><strong>The average force.</strong> Dividing the exponent of (3.13) by the length \(t_2-t_1\) gives the average force over the interval, \(\bar\delta=\frac{1}{t_2-t_1}\int_{t_1}^{t_2}\delta_r\,dr\). A constant force \(\bar\delta\) produces the same growth over \([t_1,t_2]\), and the equivalent effective annual rate for that interval is \(e^{\bar\delta}-1\). The average depends on where the interval lies, which is the subject of the next section.</p>
+
+<h2 id="area">Area under the force, and the integration-limit trap <a class="timestamp" href="https://www.youtube.com/watch?v=zCiKpaKsfAs&amp;t=867s">L9 14:27</a></h2>
+<p><strong>The integral as an area.</strong> The exponent in (3.12) and (3.13) is the area under the graph of \(\delta_t\) between two dates. The slide's reading is that the accumulation factor is \(e\) raised to the area under the force; it shades the area under a rising force between \(t=2\) and \(t=4\) and contrasts it with other intervals of the same length, which have different areas. Two intervals of the same length give the same growth only if the force has the same area over both.</p>
+<p><strong>The lecture's linear force.</strong> With \(\delta_t=0.01t\), find the accumulated value at \(t=5\) of 100 invested at \(t=0\). The integral is</p>
+\[
+\int_0^5 0.01r\,dr=\Bigl[\frac{0.01r^2}{2}\Bigr]_0^5=\frac{0.01\times25}{2}=0.125,
+\]
+<p>and by (3.12), \(\mathrm{AV}=100\,e^{0.125}=100\times1.133148=113.31\), the slide's value.</p>
+<p><strong>The trap.</strong> The slide's trap alert concerns money deposited after time 0. If a deposit is made at \(t=2\) and its value is wanted at \(t=5\), the correct factor by (3.13) is \(\exp\int_2^5\delta_r\,dr\); the common mistake is \(\exp\int_0^3\delta_r\,dr\), which uses the length of the interval as if the deposit started at 0. With \(\delta_t=0.01t\), the correct exponent is \(0.01(25-4)/2=0.105\) and the factor 1.110711; the wrong exponent is \(0.01\times9/2=0.045\) and the factor 1.046028. The lecture's summary: the shape of \(\delta_t\) matters, and time is absolute, not relative.</p>
+<p><strong>The size of the error.</strong> For a linear force \(\delta_t=\alpha+\beta t\) (letters used only here), the two exponents are \(\alpha(t_2-t_1)+\beta(t_2^2-t_1^2)/2\) and \(\alpha(t_2-t_1)+\beta(t_2-t_1)^2/2\). Their difference is</p>
+\[
+\int_{t_1}^{t_2}\delta_r\,dr-\int_0^{t_2-t_1}\delta_r\,dr=\beta\,t_1\,(t_2-t_1),
+\]
+<p>which is zero only if \(\beta=0\) or \(t_1=0\). For the lecture's force, \(\beta=0.01\), \(t_1=2\), \(t_2-t_1=3\), and the difference is 0.06, the gap between 0.105 and 0.045. More generally, the shortcut \(\int_0^{t_2-t_1}\) is correct for every pair of dates only when the force is constant: if \(\int_{t_1}^{t_1+\tau}\delta_r\,dr=\int_0^{\tau}\delta_r\,dr\) for all \(t_1\) and \(\tau\ge0\), differentiating in \(\tau\) gives \(\delta_{t_1+\tau}=\delta_{\tau}\) for all \(t_1\) and \(\tau\ge0\), so the force takes the same value at every time.</p>
+<figure>
+<svg viewBox="0 0 640 305" role="img" aria-labelledby="fig-force-title fig-force-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-force-title">The two forces of the running case and the areas that set the growth of a deposit made at t = 2</title>
+<desc id="fig-force-desc">Force of interest against time from 0 to 5 years. A horizontal dashed line at 0.08 is bank C. A rising line from 0.06 at t = 0 to 0.10 at t = 5 is bank D. The area under bank D between t = 2 and t = 5 is shaded and equals 0.264. The area under bank D between t = 0 and t = 3, outlined by a dotted boundary, equals 0.216; it is the area used by the wrong integration limits.</desc>
+<polygon points="282,250 282,117 600,75 600,250" fill="currentColor" fill-opacity="0.22" stroke="none"/>
+<polygon points="70,250 70,145 388,103 388,250" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 3"/>
+<line x1="70" y1="250" x2="610" y2="250" stroke="currentColor"/>
+<line x1="70" y1="250" x2="70" y2="30" stroke="currentColor"/>
+<g><line x1="70" y1="250" x2="70" y2="255" stroke="currentColor"/><text x="70" y="270" text-anchor="middle">0</text><line x1="176" y1="250" x2="176" y2="255" stroke="currentColor"/><text x="176" y="270" text-anchor="middle">1</text><line x1="282" y1="250" x2="282" y2="255" stroke="currentColor"/><text x="282" y="270" text-anchor="middle">2</text><line x1="388" y1="250" x2="388" y2="255" stroke="currentColor"/><text x="388" y="270" text-anchor="middle">3</text><line x1="494" y1="250" x2="494" y2="255" stroke="currentColor"/><text x="494" y="270" text-anchor="middle">4</text><line x1="600" y1="250" x2="600" y2="255" stroke="currentColor"/><text x="600" y="270" text-anchor="middle">5</text><line x1="65" y1="250" x2="70" y2="250" stroke="currentColor"/><text x="61" y="254.0" text-anchor="end">0.00</text><line x1="65" y1="215" x2="70" y2="215" stroke="currentColor"/><text x="61" y="219.0" text-anchor="end">0.02</text><line x1="65" y1="180" x2="70" y2="180" stroke="currentColor"/><text x="61" y="184.0" text-anchor="end">0.04</text><line x1="65" y1="145" x2="70" y2="145" stroke="currentColor"/><text x="61" y="149.0" text-anchor="end">0.06</text><line x1="65" y1="110" x2="70" y2="110" stroke="currentColor"/><text x="61" y="114.0" text-anchor="end">0.08</text><line x1="65" y1="75" x2="70" y2="75" stroke="currentColor"/><text x="61" y="79.0" text-anchor="end">0.10</text><line x1="65" y1="40" x2="70" y2="40" stroke="currentColor"/><text x="61" y="44.0" text-anchor="end">0.12</text></g>
+<text x="335" y="292" text-anchor="middle">t (years)</text>
+<text x="18" y="145" text-anchor="middle" transform="rotate(-90 18 145)">force of interest (per year)</text>
+<line x1="70" y1="110" x2="600" y2="110" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+<line x1="70" y1="145" x2="600" y2="75" stroke="currentColor" stroke-width="2.5"/>
+<text x="604" y="79">D</text>
+<text x="604" y="114">C</text>
+<text x="441" y="188.8" text-anchor="middle">area from 2 to 5</text>
+<text x="441" y="204.8" text-anchor="middle">= 0.264 (correct)</text>
+<text x="176" y="215" text-anchor="middle">area from 0 to 3</text>
+<text x="176" y="231" text-anchor="middle">= 0.216 (wrong)</text>
+</svg>
+<figcaption>Figure 3.2. The forces of banks C (dashed, constant 0.08) and D (solid, \(0.06+0.008t\)). A deposit made at \(t=2\) and withdrawn at \(t=5\) grows by \(e\) raised to the shaded area under D, 0.264. The dotted outline is the area from 0 to 3, 0.216, which the wrong integration limits use. Over \([0,5]\) both forces have area 0.4.</figcaption>
+</figure>
+<p><strong>The running case, bank D.</strong> Bank D's force is \(\delta_t=0.06+0.008t\) for \(0\le t\le5\), the straight line from 0.06 to 0.10. By (3.12), \(a(t)=\exp(0.06t+0.004t^2)\). Over five years the exponent is \(0.3+0.1=0.4\), the same as bank C's \(0.08\times5\), so the first deposit grows to the same 149,182.47 dollars under both banks. The two accumulation functions differ before \(t=5\): at \(t=2.5\), bank D's exponent is \(0.15+0.025=0.175\) and \(a(2.5)=1.191246\), against bank C's \(e^{0.2}=1.221403\). Bank D's force is below 8% in the first half of the term and above it in the second half (Figure 3.2).</p>
+<p>The second deposit, 50,000 dollars at \(t=2\), sees only the second part of bank D's force. By (3.13) its exponent is \(\int_2^5(0.06+0.008r)\,dr=0.06\times3+0.004(25-4)=0.264\), and it grows to \(50{,}000\,e^{0.264}=65{,}106.41\) dollars. Under bank C the exponent is \(0.08\times3=0.24\) and the value is \(50{,}000\,e^{0.24}=63{,}562.46\). The integration-limit error uses \(\int_0^3(0.06+0.008r)\,dr=0.18+0.036=0.216\) and gives \(50{,}000\,e^{0.216}=62{,}055.12\), which is 3,051.29 dollars below the correct value. The exponents differ by \(\beta t_1(t_2-t_1)=0.008\times2\times3=0.048\), as the formula above predicts. The average force over \([2,5]\) is \(0.264/3=0.088\), an effective annual rate of \(e^{0.088}-1=9.1988\%\) for this deposit, against 8.3287% for the first deposit over \([0,5]\).</p>
+
+<h2 id="step">A force that jumps: step functions <a class="timestamp" href="https://www.youtube.com/watch?v=zCiKpaKsfAs&amp;t=1183s">L9 19:43</a></h2>
+<p><strong>The lecture's example.</strong> The force is 0.04 for \(0\le t\lt3\) and 0.06 for \(3\le t\le5\). Find the value at \(t=5\) of 1 invested at \(t=0\). The slide splits the integral at the date where the force changes:</p>
+\[
+\int_0^5\delta_r\,dr=\int_0^3 0.04\,dr+\int_3^5 0.06\,dr=0.04\times3+0.06\times2=0.12+0.12=0.24,
+\]
+<p>and the accumulated value is \(e^{0.24}=1.271249\), the slide's 1.2712. Each piece is the area of a rectangle, the force times the length of time it applies.</p>
+<p><strong>Why the split is legitimate.</strong> The derivation of (3.12) assumed a continuous force, and this force jumps at \(t=3\). One assumption and one fact repair the argument. The assumption is the model's: the accumulation function is continuous at the jump, because in this model money does not appear or disappear at an instant, so \(a(3)\) is the value reached from the left and the starting value for the right. On \([0,3)\) the force is constant, and (3.12) gives \(a(t)=e^{0.04t}\), so \(a(3)=e^{0.12}\). On \([3,5]\), (3.13) with \(t_1=3\) gives \(a(t)=a(3)\,e^{0.06(t-3)}\). Hence \(a(5)=e^{0.12}e^{0.12}=e^{0.24}\), the same as the split integral. The fact is that the value of the force at the single date \(t=3\) does not matter: the area under one point is 0, which is the lecture's remark that the split point "has no value". The function \(a\) has no derivative at \(t=3\); its slope is \(0.04\,a(3)\) from the left and \(0.06\,a(3)\) from the right. Equation (3.11) holds on each open piece, and continuity joins the pieces.</p>
+<p><strong>Equivalent effective rates.</strong> The two pieces correspond to the effective annual rates \(e^{0.04}-1=4.0811\%\) for three years and \(e^{0.06}-1=6.1837\%\) for two years, and \((e^{0.04})^3(e^{0.06})^2=e^{0.24}=1.271249\); the product of the two rounded factors, \(1.040811^3\times1.061837^2\), is 1.271251. The average force over five years is \(0.24/5=0.048\).</p>
+<p><strong>Drawing the force.</strong> The lecture advises drawing the graph of \(\delta_t\) to find the split points before integrating. The program at the end of the chapter shows why the advice matters for a numerical method as well: a standard numerical integration rule (Simpson's rule, which the program uses), applied in one panel across the jump at \(t=3\), returns 0.216667 instead of 0.24, because it samples the force at only three points (\(t=0\), 2.5 and 5) and cannot see where the jump falls. Integrating each piece separately removes the error.</p>
+
+<h2 id="inversion">From the accumulation function back to the force <a class="timestamp" href="https://www.youtube.com/watch?v=zCiKpaKsfAs&amp;t=1356s">L9 22:36</a></h2>
+<p>Definition (3.10) runs in the other direction: given \(a(t)\), differentiate and divide. The lecture's example is \(a(t)=1+0.05t^2\), with \(a(0)=1\) as required by (3.1). Then \(a'(t)=0.10t\) and</p>
+\[
+\delta_t=\frac{0.10\,t}{1+0.05\,t^2},\qquad \delta_2=\frac{0.20}{1+0.20}=\frac{0.20}{1.20}=0.166667,
+\]
+<p>the slide's 16.67% a year at \(t=2\).</p>
+<p><strong>Check.</strong> Formula (3.12) must return the given \(a\). With the substitution \(w=1+0.05r^2\), \(dw=0.10r\,dr\), the integral \(\int_0^2\delta_r\,dr=\int_1^{1.2}dw/w=\ln1.2=0.182322\), and \(e^{0.182322}=1.2=a(2)\). The program also computes \(\delta_2\) from a central difference quotient of \(\ln a(t)\) and prints 0.166667.</p>
+<p><strong>What the force of this function shows.</strong> The function \(a(t)=1+0.05t^2\) increases for every \(t\gt0\), and its increments grow, but its force does not increase throughout: \(\delta_0=0\), \(\delta_2=0.166667\), \(\delta_4=0.222222\), and \(\delta_{10}=0.166667\) again. The force measures growth relative to the current balance, while \(a'(t)\) measures growth in dollars; a balance that grows by a fixed-shape quadratic eventually grows more slowly than in proportion to its size. Exercise 6 finds the maximum.</p>
+<p><strong>Boundary.</strong> The inversion needs \(a\) differentiable and positive. A given function also needs \(a(0)=1\) to be an accumulation function; otherwise it is an amount function and (3.10) still gives its force, by the cancellation shown there.</p>
+
+<h2 id="discount">Discounting with a variable force <a class="timestamp" href="https://www.youtube.com/watch?v=zCiKpaKsfAs&amp;t=1481s">L9 24:41</a></h2>
+<p><strong>Derivation.</strong> Accumulation multiplies by \(\exp\int\delta_r\,dr\); discounting divides by it. To find the present value at time 0 of an amount \(\mathrm{FV}\) due at time \(T\), solve \(\mathrm{FV}=\mathrm{PV}\exp\int_0^T\delta_r\,dr\) for \(\mathrm{PV}\), as the slide does by multiplying both sides by \(e\) raised to minus the integral:</p>
+\[
+\mathrm{PV}=\mathrm{FV}\cdot\exp\Bigl(-\int_0^T\delta_r\,dr\Bigr),\qquad v(t)=\exp\Bigl(-\int_0^t\delta_r\,dr\Bigr)=\frac{1}{a(t)}. \tag{3.14}
+\]
+<p>The second formula is the discount function of the summary slide, the value at 0 of 1 due at \(t\). For a constant force, \(v(t)=e^{-\delta t}=v^t\), with \(v=1/(1+i)\) the discount factor of the earlier weeks; the argument in parentheses distinguishes the function \(v(t)\) from the number \(v\). The present value at \(t_1\) of an amount due at \(t_2\) is, by (3.13), \(\mathrm{FV}\exp(-\int_{t_1}^{t_2}\delta_r\,dr)\), with the same rule for the limits as in accumulation.</p>
+<p><strong>Interpretation.</strong> The slide describes the integral as the total "resistance" or "cost" of time from 0 to \(T\); that is a metaphor. In terms of the model, the integral is the logarithm of the accumulation factor over \([0,T]\): an amount due at \(T\) is worth less at 0 by the factor that 1 at time 0 would have grown by.</p>
+<p><strong>The running case.</strong> What deposit at \(t=0\) grows to 200,000 dollars at \(t=5\) under bank D? By (3.14) with the exponent 0.4 of the previous sections, \(\mathrm{PV}=200{,}000\,e^{-0.4}=134{,}064.01\) dollars; under bank A it is \(200{,}000\times1.08^{-5}=136{,}116.64\) dollars. Valued at \(t=2\) instead, the same 200,000 dollars is worth \(200{,}000\,e^{-0.264}=153{,}594.71\) under bank D, with the exponent from 2 to 5.</p>
+<p><strong>Equations of value.</strong> With a variable force, the comparison of payments at different dates still does not depend on the focal date. Moving every payment from a focal date \(t\) to another date \(t'\gt t\) multiplies every term by the same factor \(\exp\int_t^{t'}\delta_r\,dr\), so an equation that balances at one date balances at every date. What changes is that this factor depends on where \(t\) and \(t'\) lie, not only on \(t'-t\). Exercise 5 checks this numerically.</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The running case asked which of four offers advertised at 8% gives the most for 100,000 dollars over five years, what a second deposit of 50,000 dollars at \(t=2\) is worth at \(t=5\), and what deposit at \(t=0\) reaches 200,000 dollars at \(t=5\). Table 3.2 collects the answers computed in the sections above.</p>
+<div class="table-wrap"><table>
+<caption>Table 3.2. The running case. Amounts in dollars, rounded to cents at the end; intermediate values unrounded. The forces of A and B follow from (3.5) and (3.3).</caption>
+<thead><tr><th scope="col">Quantity</th><th scope="col">Bank</th><th scope="col">Force (per year)</th><th scope="col">Value</th></tr></thead>
+<tbody>
+<tr><td>100,000 from \(t=0\) to \(t=5\)</td><td>A, effective 8%</td><td>0.076961</td><td>146,932.81</td></tr>
+<tr><td>100,000 from \(t=0\) to \(t=5\)</td><td>B, \(d^{(4)}=8\%\)</td><td>0.080811</td><td>149,788.50</td></tr>
+<tr><td>100,000 from \(t=0\) to \(t=5\)</td><td>C, force 8%</td><td>0.080000</td><td>149,182.47</td></tr>
+<tr><td>100,000 from \(t=0\) to \(t=5\)</td><td>D, \(0.06+0.008t\)</td><td>average 0.080000</td><td>149,182.47</td></tr>
+<tr><td>50,000 from \(t=2\) to \(t=5\)</td><td>C</td><td>0.080000</td><td>63,562.46</td></tr>
+<tr><td>50,000 from \(t=2\) to \(t=5\)</td><td>D, limits 2 to 5</td><td>average 0.088000</td><td>65,106.41</td></tr>
+<tr><td>50,000 from \(t=2\) to \(t=5\)</td><td>D, wrong limits 0 to 3</td><td>average 0.072000</td><td>62,055.12</td></tr>
+<tr><td>deposit at \(t=0\) for 200,000 at \(t=5\)</td><td>D</td><td>average 0.080000</td><td>134,064.01</td></tr>
+</tbody></table></div>
+<p>For a single deposit over the full term, bank B is best, by 606.04 dollars over C and D and by 2,855.70 over A (differences of the unrounded values; the printed amounts differ by 606.03 and 2,855.69). The ranking follows the forces, and the advertised 8% does not determine it. For the second deposit, bank D is better than C by 1,543.95 dollars, because D's force averages 0.088 over \([2,5]\): it is below 0.08 only on \([2,2.5)\) and above it from \(t=2.5\) to \(t=5\). A saver who compares C and D by their five-year growth alone finds them equal and misses this difference; a saver who integrates over the wrong interval reverses it, since the wrong value 62,055.12 is below C's 63,562.46.</p>
+<p>What generalizes is the procedure: convert every quotation to a force, as a number for a constant rate or as a function of time for a varying one; integrate the force over the calendar dates during which each amount is invested; and exponentiate. What is specific to the case is the pair of invented forces: if bank D's force fell from 10% to 6% instead, the same arithmetic would favour C for the second deposit.</p>
+
+<h2 id="implementation">Executable check of the formulas and the running case</h2>
+<p>The program below implements (3.2), (3.3), (3.5) and the integral of (3.12) and (3.13). Its inputs are set in the code: the rates of Table 3.1, the lecture's examples and the four offers of the running case. It makes four groups of checks. (1) At \(i=10\%\) it prints \(d^{(m)}\) and \(i^{(m)}\) for \(m=1,4,12,365\) and \(10^6\), and asserts the ordering (3.8) for every \(m\) from 2 to 998. (2) It reproduces the lecture's examples: the force from \(d^{(4)}=8\%\), the doubling time, the linear and step integrals in exact rational arithmetic, the two accumulated values, the one-panel Simpson value across the jump, and \(\delta_2\) from a difference quotient. (3) It asserts that a constant force \(\ln1.08\) integrated over five years gives \(1.08^5\) to within \(10^{-12}\), and that the simple-interest force integrates to \(\ln1.4\) to within \(10^{-9}\). (4) It prints the running case.</p>
+<p>The integral is computed by the composite Simpson rule, which is exact for polynomials of degree at most three (on one panel \([c-h,c+h]\) the rule \(\frac h3[f(c-h)+4f(c)+f(c+h)]\) returns \(2h\), \(0\), \(2h^3/3\) and \(0\) for \(f=1\), \(t-c\), \((t-c)^2\) and \((t-c)^3\), which are the four exact integrals, and every cubic is a combination of these); for the linear forces of the lecture and of bank D, and for step forces integrated piece by piece, the program therefore returns exact fractions when the inputs are fractions (<code>fractions.Fraction</code>). Everything with an exponential or a logarithm uses floating point. A force is given as a list of pieces <code>(start, end, f)</code> in time order; the function <code>force_integral</code> raises <code>ValueError</code> if \(t_1\gt t_2\) or if the pieces leave a gap or do not cover \([t_1,t_2]\), and <code>simpson</code> raises it for an odd or non-positive number of subintervals \(n\) (one Simpson panel, as in the check across the jump described in the section on step functions, is \(n=2\)); <code>delta_from_i</code> raises it for \(i\le-1\). The program reads no files, writes only to standard output, and uses the standard library only. Printed amounts are rounded to cents only at the end.</p>
+<pre><code class="language-python">from fractions import Fraction as Fr
+from math import exp, log
+
+
+def delta_from_i(i):
+    """Constant force equivalent to the effective annual rate i (3.5)."""
+    if i &lt;= -1:
+        raise ValueError(f"need i &gt; -1: {i}")
+    return log(1 + i)
+
+
+def i_nom(i, m):
+    """Nominal rate of interest convertible m-thly (3.2)."""
+    return m*((1 + i)**(1/m) - 1)
+
+
+def d_nom(i, m):
+    """Nominal rate of discount convertible m-thly (3.3)."""
+    return m*(1 - (1 + i)**(-1/m))
+
+
+def simpson(f, t1, t2, n=2):
+    """Composite Simpson rule, n (even) subintervals; exact for cubics."""
+    if n &lt;= 0 or n % 2:
+        raise ValueError(f"need an even n &gt; 0: {n}")
+    h = (t2 - t1)/Fr(n)
+    inner = sum((4 if k % 2 else 2)*f(t1 + k*h) for k in range(1, n))
+    return (f(t1) + inner + f(t2))*h/3
+
+
+def force_integral(pieces, t1, t2, n=2):
+    """Integral of a piecewise force from t1 to t2 (3.13).
+    pieces: (start, end, f) in time order, each f smooth on its piece."""
+    if t1 &gt; t2:
+        raise ValueError(f"need t1 &lt;= t2: {t1}, {t2}")
+    ends = [(a, b) for a, b, _ in pieces]
+    gaps = any(b != a2 for (_, b), (a2, _) in zip(ends, ends[1:]))
+    if gaps or ends[0][0] &gt; t1 or ends[-1][1] &lt; t2:
+        raise ValueError("pieces do not cover [t1, t2] without gaps")
+    total = 0
+    for a, b, f in pieces:
+        lo, hi = max(a, t1), min(b, t2)
+        if lo &lt; hi:
+            total += simpson(f, lo, hi, n)
+    return total
+
+
+# 1. The nominal rates squeeze the force (3.8), at i = 10 %.
+i = 0.10
+de = delta_from_i(i)
+for m in (1, 4, 12, 365, 10**6):
+    print(f"m = {m:&gt;7}: d(m) = {d_nom(i, m):.6f}  i(m) = {i_nom(i, m):.6f}")
+print(f"delta = ln 1.1 = {de:.6f}; midpoint of d and i = {(i + i/1.1)/2:.6f}")
+assert all(i/1.1 &lt; d_nom(i, m) &lt; de &lt; i_nom(i, m) &lt; i for m in range(2, 999))
+# 2. Lecture examples.
+print(f"delta from d(4) = 8%: {-4*log(0.98):.6f}")
+print(f"doubling at force 5%: {log(2)/0.05:.4f} years")
+lin = [(0, 5, lambda r: Fr(1, 100)*r)]
+step = [(0, 3, lambda r: Fr(4, 100)), (3, 5, lambda r: Fr(6, 100))]
+print("exact integrals: linear", force_integral(lin, 0, 5),
+      " step", force_integral(step, 0, 5))
+print(f"100 at force 0.01t for 5 years: {100*exp(1/8):.2f}")
+a_step = exp(force_integral(step, 0, 5))
+print(f"1 under the step force at t = 5: {a_step:.6f}")
+jump = (lambda r: 0.04 if r &lt; 3 else 0.06)
+print(f"one Simpson panel across the jump: {simpson(jump, 0, 5):.6f}")
+
+
+def ln_a(t):
+    return log(1 + 0.05*t*t)
+
+
+h = 1e-5
+d2 = (ln_a(2 + h) - ln_a(2 - h))/(2*h)
+print(f"delta_2 from a(t) = 1 + 0.05t^2: {d2:.6f}")
+# 3. Checks of (3.12) against closed forms.
+k = delta_from_i(0.08)
+flat = [(0, 5, lambda r: k)]
+assert abs(exp(force_integral(flat, 0, 5)) - 1.08**5) &lt; 1e-12
+simple = [(0, 5, lambda r: 0.08/(1 + 0.08*r))]
+assert abs(force_integral(simple, 0, 5, 200) - log(1.4)) &lt; 1e-9
+print("constant force = compound, simple-interest force: pass")
+# 4. Running case: 100,000 for 5 years; 50,000 more at t = 2.
+lin_D = [(0, 5, lambda r: Fr(6, 100) + Fr(8, 1000)*r)]
+offers = {"A: i = 8%": 1.08**5, "B: d(4) = 8%": 0.98**-20,
+          "C: delta = 8%": exp(0.4),
+          "D: 0.06 + 0.008t": exp(force_integral(lin_D, 0, 5))}
+for name, a5 in offers.items():
+    print(f"{name:17s} 100,000 -&gt; {100000*a5:12,.2f}")
+right, wrong = force_integral(lin_D, 2, 5), force_integral(lin_D, 0, 3)
+print(f"50,000 at t = 2 under D: from 2 to 5 ({right}) "
+      f"{50000*exp(right):,.2f}")
+print(f"wrong limits, from 0 to 3 ({wrong}) {50000*exp(wrong):,.2f}")
+print(f"PV at 0 of 200,000 due at 5 under D: {200000*exp(-0.4):,.2f}")
+</code></pre>
+<p>Run in a fresh interpreter (<code>python -I</code>, Python 3.13), the program prints:</p>
+<pre><code>m =       1: d(m) = 0.090909  i(m) = 0.100000
+m =       4: d(m) = 0.094184  i(m) = 0.096455
+m =      12: d(m) = 0.094933  i(m) = 0.095690
+m =     365: d(m) = 0.095298  i(m) = 0.095323
+m = 1000000: d(m) = 0.095310  i(m) = 0.095310
+delta = ln 1.1 = 0.095310; midpoint of d and i = 0.095455
+delta from d(4) = 8%: 0.080811
+doubling at force 5%: 13.8629 years
+exact integrals: linear 1/8  step 6/25
+100 at force 0.01t for 5 years: 113.31
+1 under the step force at t = 5: 1.271249
+one Simpson panel across the jump: 0.216667
+delta_2 from a(t) = 1 + 0.05t^2: 0.166667
+constant force = compound, simple-interest force: pass
+A: i = 8%         100,000 -&gt;   146,932.81
+B: d(4) = 8%      100,000 -&gt;   149,788.50
+C: delta = 8%     100,000 -&gt;   149,182.47
+D: 0.06 + 0.008t  100,000 -&gt;   149,182.47
+50,000 at t = 2 under D: from 2 to 5 (33/125) 65,106.41
+wrong limits, from 0 to 3 (27/125) 62,055.12
+PV at 0 of 200,000 due at 5 under D: 134,064.01
+</code></pre>
+<p>The first six lines show (3.8) and (3.4) numerically: the discount rates rise and the interest rates fall towards 0.095310, and at \(m=10^6\) both agree with it to six decimals. The exact integrals 1/8 and 6/25 are the lecture's 0.125 and 0.24, and the exponents 33/125 and 27/125 are the running case's 0.264 and 0.216. The values for banks C and D are both \(100{,}000\,e^{0.4}\), computed once from the constant and once from the integral of the linear force. Two failure tests show what the checks detect. If \(d^{(m)}\) is coded as \(m[(1+i)^{1/m}-1]/(1+i)\), the ordering assertion fails at \(m=2\), because that expression is below \(d\). If the step force is integrated in one Simpson panel without its split point, the result is 0.216667, as printed, not 0.24. The integration-limit error of the running case passes every assertion, because the program integrates correctly over whatever interval it is given; only the comparison of the two printed lines for the second deposit exposes it.</p>
+
+<h2 id="limits">What these results establish and what they do not</h2>
+<p>Within their assumptions, the results of this chapter are exact. The limit (3.4), the relation (3.5), the ordering (3.8) and the formula (3.12) are theorems about the functions defined in (3.1)–(3.3) and (3.10): (3.4) and (3.5) follow from the limit \((e^u-1)/u\to1\) and the lemma (3.6), (3.8) from the integral representations (3.9), and (3.12) from the differential equation (3.11) and its uniqueness. The program confirms (3.5), (3.8) and (3.12) numerically; it does not prove them.</p>
+<p>The assumptions are of three kinds. Definitions: the force is \(A'(t)/A(t)\), the accumulation function starts at \(a(0)=1\), and a constant force \(\delta\) is equivalent to the effective rate \(e^\delta-1\). A model: growth is continuous in time, with no jumps in the balance, and the force is a known function of time, continuous or with finitely many jumps; the same force applies to every amount invested at the same date. A convention: time is measured in years and every force is per year; a force per month or per day must be converted before it is integrated against years.</p>
+<p>The results stop applying in identifiable places. A balance that is credited only at discrete dates, like the staircase of Figure 3.1, has no force at the credit dates, and its value between credit dates is not \((1+i)^t\). With a varying force, there is no single \(\delta\) with \(1+i=e^\delta\) for all years: if \(i\) is the effective rate measured over one particular year, \(\ln(1+i)\) is the average force over that year, not the force at any instant of it, and the equivalent effective rate of another interval is \(e^{\bar\delta}-1\) for the average force over that interval. The value of an amount invested from \(t_1\) to \(t_2\) depends on the dates themselves, not only on \(t_2-t_1\), unless the force is constant. The model takes the future force as known; it says nothing about how actual rates move, and the lecture's references to central banks and market volatility are illustrations, not evidence used here.</p>
+<p>The force of interest, the conversion between it and the effective and nominal rates, and time-value equations "involving variable force of interest" are named learning outcomes of the Society of Actuaries Exam FM (SOA Exam FM syllabus, October 2026, p. 2). The lecture names Exam FM as the examination for which the conversion skill matters; the recordings do not state that the course is a preparation for it.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive).</strong> Under simple discount at rate \(d\), the accumulation function is \(a(t)=1/(1-dt)\) for \(0\le t\lt1/d\). (a) Derive the force \(\delta_t\). (b) Compare it with the force \(i/(1+it)\) of simple interest: which one rises and which one falls with \(t\)? (c) Check (3.12) for the simple-discount force over \([0,5]\) with \(d=8\%\). Round to six decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) Write \(a(t)=(1-dt)^{-1}\), where \(d\) is the rate of simple discount. Its derivative is \(a'(t)=d\,(1-dt)^{-2}\), so by (3.10) \(\delta_t=\frac{a'(t)}{a(t)}=\frac{d\,(1-dt)^{-2}}{(1-dt)^{-1}}=\frac{d}{1-dt}\) for \(0\le t\lt1/d\). (The derivative is written with a prime so that the letter \(d\) means only the rate in this display.)</p>
+<p>(b) The simple-discount force \(d/(1-dt)\) has a denominator that falls with \(t\), so the force rises, without bound as \(t\to1/d\). The simple-interest force \(i/(1+it)\) has a denominator that rises, so the force falls. With \(d=i=8\%\), both start at 0.08 at \(t=0\); at \(t=5\) the simple-discount force is \(0.08/0.6=0.133333\) and the simple-interest force \(0.08/1.4=0.057143\); at \(t=10\) they are 0.400000 and 0.044444. Compound interest, with a constant force, lies between the two models.</p>
+<p>(c) \(\int_0^5\frac{0.08}{1-0.08r}\,dr=\bigl[-\ln(1-0.08r)\bigr]_0^5=-\ln0.6=0.510826\), and \(e^{0.510826}=1.666667=1/0.6=a(5)\). Formula (3.12) returns the given accumulation function.</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> The force of interest is \(\delta_t=0.02+0.01t\) for \(t\ge0\). A deposit of 1,000 dollars is made at \(t=1\). Calculate its value at \(t=4\), rounded to the nearest cent, with no intermediate rounding. Choose the closest answer: (A) 1,110.71 (B) 1,135.00 (C) 1,144.54 (D) 1,173.51 (E) 1,197.22.</p>
+<details><summary>Solution</summary>
+<p>By (3.13), the exponent is \(\int_1^4(0.02+0.01r)\,dr=0.02\times3+0.005(16-1)=0.06+0.075=0.135\), and the value is \(1000\,e^{0.135}=1{,}144.54\): answer (C).</p>
+<p>Each wrong choice comes from a specific error. (A) integrates from 0 to 3, the integration-limit trap: \(1000\,e^{0.105}\). (B) adds the exponent as simple interest, \(1000(1+0.135)\). (D) integrates from 0 to 4, as if the deposit had been made at \(t=0\): \(1000\,e^{0.16}\). (E) uses the force at the withdrawal date, \(\delta_4=0.06\), for all three years: \(1000\,e^{0.18}\). For a linear force the exact exponent equals the force at the midpoint of the interval times its length, \(\delta_{2.5}\times3=0.045\times3=0.135\), a quick check.</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> A review question of the course asks which of four statements about interest rates is false for \(i\gt0\). Take the force of the step example of this chapter, 0.04 for \(0\le t\lt3\) and 0.06 for \(3\le t\le5\), and decide for each statement whether it holds for this force. Give a number for each statement that fails. (a) The force equals \(\ln(1+i)\) for one fixed effective rate \(i\). (b) The accumulation function is \(e^{\delta t}\) for one number \(\delta\). (c) The growth factor from \(t_1\) to \(t_2\) depends only on \(t_2-t_1\). (d) \(v(t)\,a(t)=1\) for every \(t\). (e) \(a(t)\gt0\) for every \(t\). Round to six decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) Fails. The force is \(\ln1.040811\) on \([0,3)\) and \(\ln1.061837\) on \([3,5]\); no single \(i\) gives both. The effective rate over the first year is 4.0811% and over the fifth year 6.1837%.</p>
+<p>(b) Fails. If \(a(t)=e^{\delta t}\), then \(a(3)=e^{0.12}\) forces \(\delta=0.04\), but then \(a(5)=e^{0.2}=1.221403\), while the true value is \(e^{0.24}=1.271249\).</p>
+<p>(c) Fails. From 0 to 1 the factor is \(e^{0.04}=1.040811\); from 4 to 5, an interval of the same length, it is \(e^{0.06}=1.061837\).</p>
+<p>(d) Holds, by (3.14): \(v(t)=1/a(t)\) for every force. At \(t=5\), \(v(5)=e^{-0.24}=0.786628\) and \(a(5)v(5)=1\).</p>
+<p>(e) Holds, by the uniqueness argument after (3.12): \(a(t)\) is an exponential, positive for every force, including a negative one.</p>
+<p>Statements (a), (b) and (c) are properties of a constant force only. They are true in the review question's setting, where the force is constant, and they fail as soon as the force varies.</p>
+</details>
+<p><strong>Exercise 4 (counterexample and proof).</strong> A student claims: "With a step force, only the rates and their durations matter, not their order." Compare force F1 (0.04 on \([0,3)\), 0.06 on \([3,5]\)) with force F2 (0.06 on \([0,2)\), 0.04 on \([2,5]\)). (a) Show that 1 invested at \(t=0\) has the same value at \(t=5\) under both forces, and prove that this holds for any rearrangement of the pieces over \([0,5]\). (b) Show that 100,000 dollars invested at \(t=2\) and withdrawn at \(t=5\) has different values under F1 and F2. (c) State the correct version of the student's claim. Round amounts to cents and factors to six decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) Under F1, \(\int_0^5\delta_r\,dr=0.04\times3+0.06\times2=0.24\); under F2, \(0.06\times2+0.04\times3=0.24\). Both give \(a(5)=e^{0.24}=1.271249\). In general, the integral over \([0,5]\) of a step force is the sum of the products force times duration, and a sum does not depend on the order of its terms; so any rearrangement of the pieces leaves \(a(5)\) unchanged.</p>
+<p>(b) Under F1 the deposit sees 0.04 for one year and 0.06 for two: exponent \(0.04+0.12=0.16\), value \(100{,}000\,e^{0.16}=117{,}351.09\). Under F2 it sees 0.04 for three years: exponent 0.12, value \(100{,}000\,e^{0.12}=112{,}749.69\). The difference is 4,601.40 dollars.</p>
+<p>(c) The order of the pieces does not matter for an amount invested over the whole interval on which the force is rearranged. It matters for every amount invested over part of that interval, because (3.13) integrates only over the dates the amount is invested. The same holds for discounting: the present value at 0 of 1 due at \(t=3\) is \(e^{-0.12}=0.886920\) under F1 and \(e^{-0.16}=0.852144\) under F2.</p>
+</details>
+<p><strong>Exercise 5 (computation, focal dates).</strong> The force is 0.05 for \(0\le t\lt4\) and 0.07 for \(t\ge4\). Payments of 10,000 dollars at \(t=2\) and 20,000 dollars at \(t=6\) are due. (a) Find their present value at \(t=0\). (b) Find their value at the focal date \(t=4\), moving each payment separately, and check that it equals the answer to (a) times \(a(4)\). (c) A student discounts the second payment at 0.07 for all six years. How large is the error? Round amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) By (3.14), the first payment is discounted over \([0,2]\) with exponent \(0.05\times2=0.1\): \(10{,}000\,e^{-0.1}=9{,}048.37\). The second is discounted over \([0,6]\), split at 4: exponent \(0.05\times4+0.07\times2=0.34\), so \(20{,}000\,e^{-0.34}=14{,}235.41\). The present value is 23,283.78 dollars.</p>
+<p>(b) The first payment is accumulated from 2 to 4 with exponent 0.1: \(10{,}000\,e^{0.1}=11{,}051.71\). The second is discounted from 6 to 4 with exponent 0.14: \(20{,}000\,e^{-0.14}=17{,}387.16\). The sum is 28,438.87 dollars. Also \(a(4)=e^{0.2}\), and \(23{,}283.78\times e^{0.2}=28{,}438.87\) (from the unrounded present value). The two focal dates agree, as the section on discounting showed they must.</p>
+<p>(c) The student's value is \(20{,}000\,e^{-0.42}=13{,}140.94\), which is 1,094.47 dollars below the correct 14,235.41: it applies the later force to the first four years, where the force is 0.05.</p>
+</details>
+<p><strong>Exercise 6 (inversion and judgment).</strong> Take the lecture's accumulation function \(a(t)=1+0.05t^2\). (a) Find the time at which its force is largest, and the largest force. (b) A colleague says: "The balance grows by more each year, so its force of interest rises every year." Judge the statement with numbers. (c) Is there an effective annual rate \(i\) for which \(a(t)=(1+i)^t\)? Round to six decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) \(\delta_t=0.1t/(1+0.05t^2)\). Its derivative has the sign of \(0.1(1+0.05t^2)-0.1t\times0.1t=0.1-0.005t^2\), which is positive for \(t\lt\sqrt{20}\) and negative after. The maximum is at \(t=\sqrt{20}=4.472136\), where \(\delta_t=0.1\times4.472136/(1+1)=0.223607\).</p>
+<p>(b) The first half of the statement is true: \(a'(t)=0.1t\) increases, so the yearly increments grow. The second half is false after \(t=4.472136\): \(\delta_{10}=0.166667\) and \(\delta_{20}=0.095238\), both below the maximum. The force is growth relative to the balance; the balance grows quadratically, while growth in proportion to the balance would make it grow exponentially. An increasing \(a'(t)\) does not imply an increasing \(a'(t)/a(t)\).</p>
+<p>(c) No. Compound interest has a constant force, \(\ln(1+i)\), by (3.10); this function's force is 0 at \(t=0\) and changes with \(t\). Equivalently, \(a(1)=1.05\) would require \(i=5\%\), but then \(a(2)\) would be \(1.1025\), not \(1.2\).</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Recordings: <a href="https://www.youtube.com/watch?v=RaG9vVPAiiY">Lecture 8, The Force of Interest</a>; <a href="https://www.youtube.com/watch?v=zCiKpaKsfAs">Lecture 9, Variable Force of Interest</a>; <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30, Module 1 Review</a>; NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras.</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam, October 2026</em> syllabus</a>. Force of interest among the defined terms; time-value equations involving variable force of interest; conversion among \(i\), \(i^{(m)}\), \(d\), \(d^{(m)}\) and the force of interest (p. 2).</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-02-nominal-rates-of-interest-and-discount.html">Previous available chapter</a><a href="index.html">Lecture index</a><a rel="next" href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html">Next available chapter</a></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>
