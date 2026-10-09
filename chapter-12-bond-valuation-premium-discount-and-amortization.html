@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="adb1d4778819b77650a2cd8803a0f2c7fd2592e06c019e0b57c0b0e43fe7a16b"><title>Bond valuation, premium and discount, and the bond amortization schedule · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Bond valuation, premium and discount, and the bond amortization schedule</h1>
+<p class="lead">A fund is considering an invented bond with face value 100,000 dollars, a 5% annual coupon paid half-yearly, and redemption of 102,000 dollars in five years. At a required yield of 4% a year convertible half-yearly, its price is 106,131.99 dollars. The 2,500-dollar coupon is larger than the interest earned at the required yield, so part of each coupon recovers the 4,131.99 paid above redemption. After the fourth coupon the resulting book value is 104,576.66 dollars. If the market then requires 6% convertible half-yearly, the same remaining payments are worth 98,966.37 dollars. And if the issuer can redeem after the sixth coupon for 102,000 dollars, a purchaser who requires at least the original yield under every permitted redemption date should pay at most 104,576.66 dollars today. The chapter separates four questions: the purchase price at a chosen yield, the remaining book value at that original yield, the value of the remaining payments at a changed market yield, and the purchase price that preserves a yield floor across permitted redemption dates.</p>
+<p class="source-note">Grounded in NPTEL IIT Madras <em>Financial Mathematics for Actuaries</em>: <a href="https://www.youtube.com/watch?v=vJmT7TLlfnk">Lecture 39</a>, <a href="https://www.youtube.com/watch?v=B8W1OSYRhBs">Lecture 40</a>, and <a href="https://www.youtube.com/watch?v=1o_cw0NG5Os">Lecture 41</a>. <strong>Lecture material:</strong> the coupon-plus-redemption price; three valuation examples; Makeham's formula; premium and discount; effective-interest amortization and the premium, discount and general schedules; callable-bond examples; zero-coupon yield; perpetuity valuation; and book value versus market value. <strong>Research extensions:</strong> the Society of Actuaries October 2026 Exam FM syllabus on these calculations and its coupon-date boundary; FINRA on the issuer's call right and reinvestment risk; and the SEC's Investor.gov explanation of interest-rate and credit risk. <strong>Original teaching constructions:</strong> the fund's running case, the explicit coupon-date state, proofs linking prospective and recursive values, signed amortization identities and boundary cases, the contractual yield-floor argument, the numerical program, and six exercises.</p>
+
+<h2 id="model">Cash flows, rate periods and the valuation date <a class="timestamp" href="https://www.youtube.com/watch?v=vJmT7TLlfnk&amp;t=64s">L39 1:04</a></h2>
+<p>A fixed-coupon bond promises periodic payments and a terminal redemption. Here all promised payments are made in full and on time; there are no fees, taxes, missed payments or interim changes of coupon. The buyer values the bond immediately after a coupon date, before the next coupon. This includes a newly issued bond whose first coupon is one full period away. The promised payments alone determine the price within the chosen constant-yield model.</p>
+<p><strong>Face and redemption.</strong> Let \(F\gt0\) be the face value, the amount used to calculate coupons. Let \(M\gt0\) be the terminal redemption amount. Lecture 39 first writes redemption as \(M\), then explicitly identifies \(C=M\) in its equivalent price formula; Lectures 40 and 41 use \(C\). We retain that bridge and use \(C\) from here onward. Equality \(C=F\) is an additional contract term, not part of the definition of a bond. In the running case \(F=100{,}000\), \(C=M=102{,}000\), all in dollars.</p>
+<p><strong>Coupon rate and coupon amount.</strong> Write \(r_{\mathrm{ann}}\) for the quoted annual coupon rate and \(m\) for the number of equal coupon periods in a year, a positive integer. Under the payment convention used in these lectures, each coupon is \(F r_{\mathrm{ann}}/m\). The slides use \(r\) for the coupon rate <em>per coupon period</em>. Thus</p>
+\[
+r=\frac{r_{\mathrm{ann}}}{m},\qquad c=Fr. \tag{12.1}
+\]
+<p>The cash coupon \(c\) has money units; \(r\) is a fraction of face value. A 5% annual coupon paid half-yearly means \(r=0.05/2=0.025\), so the running bond pays \(c=2500\) every half-year. Coupons are fixed cash payments. The annual coupon quote does not say that an invested balance compounds at 5%.</p>
+<p>Coupons are nonnegative in this chapter: \(c\ge0\). The special case \(c=0\) is a zero-coupon bond. Redemption remains positive in both cases.</p>
+<p><strong>Yield and time.</strong> Let \(j\gt-1\) be the effective yield per coupon period and \(v=(1+j)^{-1}\) its positive discount factor. A required nominal annual yield \(i^{(m)}\) convertible \(m\)-thly means \(j=i^{(m)}/m\); a required effective annual yield \(i\) means \(j=(1+i)^{1/m}-1\). Both satisfy \(1+i=(1+j)^m\). These conversions are developed in <a href="chapter-02-nominal-rates-of-interest-and-discount.html#bridge-interest">Nominal rates of interest and of discount</a>. The lectures label their effective <em>periodic</em> yield \(i\); in this chapter their \(i\) is our \(j\), preserving this book's distinction between periodic and annual rates. In the running case \(i^{(2)}=4\%\), \(j=2\%\) per half-year, and the effective annual yield is \(1.02^2-1=4.04\%\).</p>
+<p>Let \(n\) be the integer number of remaining coupon periods and let \(t\) count those periods from purchase, so \(t=0,1,\ldots,n\). A five-year term with two coupons a year gives \(n=10\). The buyer pays \(P\) at \(t=0\), receives \(c\) at each of \(t=1,\ldots,n\), and also receives \(C\) at \(t=n\). Coupon and yield periods must agree before any formula is evaluated.</p>
+<p>Write \(B_t\) for the book value in the state just after coupon \(t\), retaining any redemption still due. At purchase \(B_0=P\); at the final date the intermediate state after the coupon and before redemption has \(B_n=C\). Paying redemption then leaves zero. This timing convention makes the cash-flow diagram and the later schedule refer to the same state.</p>
+<figure>
+<svg viewBox="0 0 740 240" role="img" aria-labelledby="fig-bond-title fig-bond-desc" font-family="Georgia, serif" font-size="14" fill="currentColor">
+<title id="fig-bond-title">Bond cash flows and the terminal book-value state</title>
+<desc id="fig-bond-desc">The purchaser pays P at time zero, receives coupon c at each integer coupon date, and receives both c and redemption C at date n. B t is valued after coupon t. At date n, the intermediate state after the coupon but before redemption is B n equals C; after redemption the remaining balance is zero.</desc>
+<line x1="65" y1="82" x2="685" y2="82" stroke="currentColor" stroke-width="1.5"/>
+<path d="M685 82l-10 -5m10 5l-10 5" stroke="currentColor" fill="none"/>
+<g stroke="currentColor"><line x1="80" y1="76" x2="80" y2="88"/><line x1="205" y1="76" x2="205" y2="88"/><line x1="330" y1="76" x2="330" y2="88"/><line x1="520" y1="76" x2="520" y2="88"/><line x1="645" y1="76" x2="645" y2="88"/></g>
+<g text-anchor="middle"><text x="80" y="58">−P</text><text x="205" y="58">c</text><text x="330" y="58">c</text><text x="425" y="58">…</text><text x="520" y="58">c</text><text x="645" y="58">c + C</text><text x="80" y="110">0</text><text x="205" y="110">1</text><text x="330" y="110">2</text><text x="520" y="110">n − 1</text><text x="645" y="110">n</text></g>
+<text x="80" y="147">B<tspan dy="4" font-size="11">0</tspan><tspan dy="-4"> = P</tspan></text>
+<text x="360" y="147">B<tspan dy="4" font-size="11">t</tspan><tspan dy="-4">: after coupon t</tspan></text>
+<text x="360" y="181">After final coupon, before redemption: B<tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> = C</tspan></text>
+<text x="360" y="213">After redemption C is paid: remaining balance = 0</text>
+</svg>
+<figcaption>Figure 12.1. An original timeline. At the terminal date the two payments can be treated as consecutive bookkeeping events even when the contract pays them together. The intermediate state is the one used by the amortization schedule.</figcaption>
+</figure>
+<p><strong>Rounding.</strong> All numerical results below use unrounded intermediate values; money is displayed to cents and rates to the stated number of decimals only at the end. Rounded table entries need not add exactly to a rounded total. The program uses exact rational arithmetic for integer-period calculations; its only fractional-power example, the inverse yield of a zero-coupon bond, uses floating point.</p>
+
+<h2 id="price">The price is the value of coupons plus redemption <a class="timestamp" href="https://www.youtube.com/watch?v=vJmT7TLlfnk&amp;t=142s">L39 2:22</a></h2>
+<p><strong>Question.</strong> What purchase price gives the required yield on the promised payments? Moving each payment to \(t=0\) gives \(c v^k\) for the coupon at date \(k\), and \(C v^n\) for redemption. Define the annuity-immediate factor \(a_{\overline{n}|j}=\sum_{k=1}^n v^k\), with \(a_{\overline{0}|j}=0\). It is the value of one unit at each remaining coupon date, as in <a href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html#pv-immediate">Annuities: the present value of an annuity-immediate</a>. The equation of value is</p>
+\[
+P=c\sum_{k=1}^n v^k+Cv^n
+  =Fr\,a_{\overline{n}|j}+Cv^n. \tag{12.2}
+\]
+<p><strong>The hinge in the factor.</strong> Multiply \(a=v+v^2+\cdots+v^n\) by \(1+j=1/v\): \((1+j)a=1+v+\cdots+v^{n-1}\). Subtract \(a\); all interior terms cancel, leaving \(ja=1-v^n\). Therefore</p>
+\[
+a_{\overline{n}|j}=\begin{cases}(1-v^n)/j,&amp;j\ne0,\\n,&amp;j=0,\end{cases}
+\qquad v^n=1-j a_{\overline{n}|j}. \tag{12.3}
+\]
+<p>The second identity also holds at zero yield, without division. Each term in the sum is positive for \(j\gt-1\), so the factor is positive when \(n\ge1\). In Lecture 39's alternative notation, PVIFA is this annuity factor and PVIF is \(v^n\); replacing \(M\) by the explicitly equivalent \(C\) changes no cash flow.</p>
+<p><strong>The lecture's three applications.</strong> The first bond has a 30-year term, face and redemption both 100 dollars, an annual coupon of 4.5% paid half-yearly, and a nominal annual yield of 4.53% convertible half-yearly. Thus \(c=100(0.045/2)=2.25\), \(j=0.0453/2=0.02265\), and \(n=30\times2=60\). Formula (12.2) gives \(2.25 a_{\overline{60}|0.02265}+100(1.02265)^{-60}=99.5104918\), or 99.51 dollars. Using the annual numbers directly would value different payments at a different yield.</p>
+<p>The second bond was issued on June 15, 2005 and matures on June 15, 2020. Purchase immediately after the eighth coupon on June 15, 2009 leaves \(30-8=22\) half-yearly coupons. With face and redemption 100 dollars, an annual coupon of 4.2%, and nominal yield 4% convertible half-yearly, \(c=2.10\), \(j=0.02\), and \(P=2.10a_{\overline{22}|0.02}+100(1.02)^{-22}=101.7658048\), or 101.77 dollars. The original 30 periods do not all remain at purchase.</p>
+<p>The third bond pays no coupons and redeems 100 dollars in 18 months. Its nominal yield is 4.24% convertible half-yearly, so \(j=0.0212\) and \(n=3\). Setting \(c=0\) gives \(P=100(1.0212)^{-3}=93.9004301\), or 93.90 dollars. A zero-coupon bond has no periodic coupon payments; it can still have a positive yield.</p>
+<p><strong>The running case.</strong> With \(c=2500\), \(C=102{,}000\), \(j=0.02\) and \(n=10\), (12.2) gives \(P=106{,}131.99\) dollars. The buyer pays this price, receives ten coupons totalling 25,000 dollars, and receives redemption of 102,000 dollars. The required yield is a rate equating these dated payments with the price; it is not the coupon divided by price, and it does not by itself specify how withdrawn coupons will be reinvested.</p>
+<p><strong>Checks and boundary.</strong> With \(n=1\), (12.2) becomes \((c+C)/(1+j)\), the value of the one final payment. At \(j=0\), it becomes \(nc+C\). At \(n=0\), there is only immediate redemption and the intermediate price is \(C\). For positive yield, \(v^n\lt1\); for negative yield, \(v^n\gt1\), which is valid algebra rather than a reason to replace the factor by zero. Formula (12.2) assumes whole coupon periods and purchase on a coupon date. It does not choose a day-count or accrued-interest rule for a purchase between coupons.</p>
+
+<h2 id="makeham">Makeham's formula separates two parts of the price <a class="timestamp" href="https://www.youtube.com/watch?v=vJmT7TLlfnk&amp;t=1020s">L39 17:00</a></h2>
+<p>Lecture 39 introduces \(K=Cv^n\), the present value of redemption, and the modified coupon rate \(g=c/C=Fr/C\), coupon per unit of redemption per period. Its Makeham slide writes this rate as \(\tilde g\); the general schedule in Lecture 40 writes \(g\). We use \(g=\tilde g\) for the same quantity here. This is a coupon ratio, separate from a payment-growth rate or a one-year accumulation factor elsewhere in the book.</p>
+<p><strong>Derivation.</strong> Since \(c=Cg\), insert (12.3) in (12.2), for \(j\ne0\): \(P=Cg(1-v^n)/j+K\). Distribute the factor \(C\) inside the numerator: \(C(1-v^n)=C-Cv^n=C-K\). Hence</p>
+\[
+P=K+\frac gj(C-K),\qquad K=Cv^n,\quad g=\frac{Fr}{C},\quad j\ne0. \tag{12.4}
+\]
+<p>The first term is the value of redemption; the second is the value of the coupons. At positive yield, \(C-K\) is the present-value shortfall of redemption below its terminal amount. The multiplier \(g/j\) converts that shortfall into the coupon value. When \(g=j\), the two terms add to \(C\), independently of the term. At negative yield, \(C-K\) and \(j\) are both negative, so the coupon term is still positive when \(c\gt0\).</p>
+<p><strong>Check.</strong> In the running case \(g=2500/102000\), about 2.4510% per half-year. Substituting \(K=102000(1.02)^{-10}\) in (12.4) gives the same 106,131.99 dollars as the direct sum. At zero yield the expression \(g(C-K)/j\) is undefined. Its limit is \(nc\), because \((C-K)/j=C a_{\overline{n}|j}\to Cn\); use \(P=C+nc\) at zero, not an unqualified division by \(j\).</p>
+
+<h2 id="premium">Premium and discount require a stated benchmark <a class="timestamp" href="https://www.youtube.com/watch?v=B8W1OSYRhBs&amp;t=76s">L40 1:16</a></h2>
+<p>Lecture 40 compares purchase price with redemption. A price above \(C\) has a premium \(P-C\); a price below \(C\) has a discount of amount \(C-P\). The signed difference \(P-C\) is useful because one formula covers both.</p>
+<p><strong>Derivation.</strong> Replace \(v^n\) in (12.2) by \(1-j a_{\overline{n}|j}\) from (12.3). Then \(P=c a_{\overline{n}|j}+C-Cj a_{\overline{n}|j}\), so</p>
+\[
+P-C=(c-Cj)a_{\overline{n}|j}
+    =C(g-j)a_{\overline{n}|j}. \tag{12.5}
+\]
+<p>For \(n\ge1\), the positive annuity factor leaves the sign unchanged: \(P\gt C\) exactly when \(c\gt Cj\), \(P=C\) exactly when \(c=Cj\), and \(P\lt C\) exactly when \(c\lt Cj\). The comparison is between the cash coupon and the required interest on <em>redemption</em>. If \(C=F\), it reduces to the familiar comparison \(r\) with \(j\): coupon rate above yield means premium, below yield means discount. If \(C\ne F\), that shortcut fails. Conventional price comparisons with face value must retain \(P-F=(C-F)+(c-Cj)a_{\overline{n}|j}\).</p>
+<p><strong>The running case.</strong> Required interest on redemption is \(Cj=2040\) dollars per half-year, below the coupon by 460 dollars. Thus \(P-C=460a_{\overline{10}|0.02}=4131.99\) dollars. At a nominal annual yield of 6% convertible half-yearly, \(j=0.03\) and \(c-Cj=2500-3060=-560\). The price becomes \(102000-560a_{\overline{10}|0.03}=97{,}223.09\) dollars, a discount of 4,776.91 below redemption.</p>
+<p><strong>Why a higher yield lowers this price.</strong> For fixed nonnegative coupons and positive redemption with \(n\ge1\), increasing \(j\) decreases every \((1+j)^{-k}\) with \(k\ge1\). At least the positive redemption term decreases strictly. Therefore the direct sum (12.2) is strictly decreasing in \(j\) on \((-1,\infty)\). This argument covers negative as well as positive yields. It holds the promised cash flows fixed; it does not infer how an issuer will change a callable bond's payment date.</p>
+<p><strong>Checks and boundaries.</strong> At zero yield the signed premium is \(nc\), consistent with the undiscounted payments. For a zero-coupon bond at positive yield, \(P-C=-Cj a_{\overline{n}|j}\lt0\). At \(n=0\), \(P=C\) for every \(j\), so the equivalence between the sign and \(c-Cj\) needs \(n\ge1\). These are mathematical comparisons with redemption; no accounting or tax rule has been inferred from them.</p>
+
+<h2 id="book-value">The amortization state and equivalent calculations <a class="timestamp" href="https://www.youtube.com/watch?v=B8W1OSYRhBs&amp;t=466s">L40 7:46</a></h2>
+<p>Lecture 40 selects the effective-interest method rather than straight-line allocation. In this model the interest for a period is the purchase yield times the opening book value. This chapter uses <em>book value</em> for that fixed-yield mathematical schedule. Whether a particular financial statement must use this value is a separate question about its accounting rules.</p>
+<p>Define \(B_t\) as the value just after coupon \(t\) has been paid, retaining redemption if it has not yet been paid. Thus \(B_0=P\). At \(t=n\) this definition means the intermediate state after the final coupon and before redemption, so \(B_n=C\), exactly the terminal entry in the lecture's general table. After redemption is paid, the remaining balance is 0.</p>
+<p><strong>Prospective calculation.</strong> After coupon \(t\), there remain \(n-t\) coupons and redemption \(n-t\) periods away. Applying (12.2) to those payments at the original yield gives</p>
+\[
+B_t=c a_{\overline{n-t}|j}+Cv^{n-t}
+   =C+(c-Cj)a_{\overline{n-t}|j},\qquad 0\le t\le n. \tag{12.6}
+\]
+<p>The first expression values the future payments; the second measures the unamortized signed premium. At \(t=0\) it returns the purchase price, and at \(t=n\) the empty coupon sum vanishes while redemption remains.</p>
+<p><strong>Recursive calculation.</strong> One period earlier, the next coupon has value \(cv\) and the later payments have value \(vB_t\). Thus \(B_{t-1}=v(c+B_t)\). Multiplying by \(1+j\) gives \((1+j)B_{t-1}=c+B_t\), or</p>
+\[
+I_t=j B_{t-1},\qquad A_t=c-I_t,\qquad
+B_t=B_{t-1}-A_t=(1+j)B_{t-1}-c,
+\quad 1\le t\le n. \tag{12.7}
+\]
+<p>Here \(I_t\) is the effective interest amount, in money, and \(A_t\) is the signed amount amortized from the opening book value. The period's coupon splits into \(I_t+A_t=c\). Positive \(A_t\) reduces a premium; negative \(A_t\) increases the book value, accumulating a discount. Subtracting a negative amount is the necessary increase, not a sign error. At the terminal date (12.7) removes the final coupon only; redemption then removes \(C\).</p>
+<p><strong>Retrospective calculation.</strong> Repeatedly applying the recurrence gives \(B_1=P(1+j)-c\), \(B_2=P(1+j)^2-c(1+j)-c\), and, by induction,</p>
+\[
+B_t=P(1+j)^t-c s_{\overline{t}|j},\qquad
+s_{\overline{t}|j}=\sum_{k=0}^{t-1}(1+j)^k. \tag{12.8}
+\]
+<p>To verify the induction, multiply the expression for \(B_{t-1}\) by \(1+j\) and subtract \(c\); the coupon sum gains precisely its final term 1. This view accumulates the initial price and subtracts the accumulated coupons already paid. Multiplying (12.2) by \((1+j)^t\) and removing coupons 1 through \(t\) leaves coupons \(t+1\) through \(n\), valued at \(t\), plus redemption; that is (12.6). The two views therefore agree because they describe the same dated payments, not because two rounded tables happen to be close.</p>
+<p><strong>The first period of the running case.</strong> \(I_1=0.02P=2122.64\) dollars, \(A_1=2500-I_1=377.36\), and \(B_1=105{,}754.63\). The coupon exceeds the interest, and the difference returns part of the price paid above redemption. Using the coupon rate to calculate \(I_1\) would erase the distinction between coupon and yield.</p>
+
+<h2 id="schedule">Premium reduction, discount accumulation and the general schedule <a class="timestamp" href="https://www.youtube.com/watch?v=B8W1OSYRhBs&amp;t=1393s">L40 23:13</a></h2>
+<p><strong>The two source examples.</strong> Lecture 40 uses a three-year bond with face and redemption 1,000 rupees, a 5% annual coupon paid half-yearly, and six coupons of 25 rupees. At a nominal annual yield of 4% convertible half-yearly, \(j=0.02\), its price is 1,028.01 rupees. At 6% convertible half-yearly, \(j=0.03\), the price is 972.91 rupees. Applying (12.7) without intermediate rounding produces the schedules below.</p>
+<div class="table-wrap"><table>
+<caption>Table 12.1. Lecture 40's premium and discount examples, recomputed. All entries are rupees. Each closing value follows that row's coupon and precedes redemption; displayed entries are rounded separately.</caption>
+<thead><tr><th scope="col">Period</th><th scope="col">Premium: interest</th><th scope="col">Premium: signed amortization</th><th scope="col">Premium: closing value</th><th scope="col">Discount: interest</th><th scope="col">Discount: signed amortization</th><th scope="col">Discount: closing value</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>—</td><td>—</td><td>1,028.01</td><td>—</td><td>—</td><td>972.91</td></tr>
+<tr><td>1</td><td>20.56</td><td>4.44</td><td>1,023.57</td><td>29.19</td><td>−4.19</td><td>977.10</td></tr>
+<tr><td>2</td><td>20.47</td><td>4.53</td><td>1,019.04</td><td>29.31</td><td>−4.31</td><td>981.41</td></tr>
+<tr><td>3</td><td>20.38</td><td>4.62</td><td>1,014.42</td><td>29.44</td><td>−4.44</td><td>985.86</td></tr>
+<tr><td>4</td><td>20.29</td><td>4.71</td><td>1,009.71</td><td>29.58</td><td>−4.58</td><td>990.43</td></tr>
+<tr><td>5</td><td>20.19</td><td>4.81</td><td>1,004.90</td><td>29.71</td><td>−4.71</td><td>995.15</td></tr>
+<tr><td>6</td><td>20.10</td><td>4.90</td><td>1,000.00</td><td>29.85</td><td>−4.85</td><td>1,000.00</td></tr>
+<tr><th scope="row">Total</th><td>121.99</td><td>28.01</td><td>—</td><td>177.09</td><td>−27.09</td><td>—</td></tr>
+</tbody></table></div>
+<p>At the positive yields of these examples, the premium bond's opening value falls, so its effective interest also falls; the constant coupon then leaves a larger premium reduction each period. The discount bond's opening value rises, its effective interest rises, and the negative signed amortization has increasing magnitude. The cash coupon is 25 throughout both schedules; effective interest is not an additional payment.</p>
+<p><strong>The general amount.</strong> Subtract the two prospective values in (12.6). With \(N=n-t+1\), the difference between \(a_{\overline{N}|j}\) and \(a_{\overline{N-1}|j}\) is its final term \(v^N\). Thus</p>
+\[
+A_t=B_{t-1}-B_t=(c-Cj)v^{n-t+1},\qquad
+A_{t+1}=(1+j)A_t\quad(1\le t\lt n). \tag{12.9}
+\]
+<p>This is the signed amortization formula in Lecture 40's general table, where \(c-Cj=C(g-j)\). Every \(v^{n-t+1}\) is positive, so every signed amount has the sign of the original premium. When \(j\gt0\), positive premium reductions increase and negative discount amounts increase in magnitude. When \(-1\lt j\lt0\), the multiplier \(1+j\) is between 0 and 1; with nonnegative coupons, \(c-Cj\gt0\), and successive positive reductions shrink. At \(j=0\), \(A_t=c\). When \(c=Cj\), every \(A_t=0\); the recurrence is valid, while a ratio \(A_{t+1}/A_t\) would be undefined.</p>
+<p><strong>Totals.</strong> The book-value differences telescope: \(\sum_{t=1}^n A_t=B_0-B_n=P-C\). Since \(I_t=c-A_t\),</p>
+\[
+\sum_{t=1}^n A_t=P-C,\qquad
+\sum_{t=1}^n I_t=nc-(P-C)=nc+C-P. \tag{12.10}
+\]
+<p>The sum of effective interest is total cash received, including redemption, minus the purchase price. In the premium example it is \(150-28.007154\ldots=121.99\) rupees; in the discount example it is \(150+27.085957\ldots=177.09\). For a negative yield it can be negative; the identities do not assume that every item named interest is positive.</p>
+<p><strong>The complete running schedule.</strong> Here \(c-Cj=460\) dollars. Formula (12.9) gives \(A_1=460v^{10}\) and \(A_{10}=460v\); the ratio of successive nonzero signed amounts is 1.02. The table gives every coupon date, so the 4,131.99-dollar premium can be followed to its final disappearance.</p>
+<div class="table-wrap"><table>
+<caption>Table 12.2. Original running case, dollars. Each coupon is 2,500.00; the fixed periodic yield is 2%. The final 102,000.00 is subsequently redeemed, leaving zero.</caption>
+<thead><tr><th scope="col">Coupon date</th><th scope="col">Effective interest</th><th scope="col">Premium reduction</th><th scope="col">Book value after coupon</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>—</td><td>—</td><td>106,131.99</td></tr>
+<tr><td>1</td><td>2,122.64</td><td>377.36</td><td>105,754.63</td></tr>
+<tr><td>2</td><td>2,115.09</td><td>384.91</td><td>105,369.72</td></tr>
+<tr><td>3</td><td>2,107.39</td><td>392.61</td><td>104,977.12</td></tr>
+<tr><td>4</td><td>2,099.54</td><td>400.46</td><td>104,576.66</td></tr>
+<tr><td>5</td><td>2,091.53</td><td>408.47</td><td>104,168.19</td></tr>
+<tr><td>6</td><td>2,083.36</td><td>416.64</td><td>103,751.56</td></tr>
+<tr><td>7</td><td>2,075.03</td><td>424.97</td><td>103,326.59</td></tr>
+<tr><td>8</td><td>2,066.53</td><td>433.47</td><td>102,893.12</td></tr>
+<tr><td>9</td><td>2,057.86</td><td>442.14</td><td>102,450.98</td></tr>
+<tr><td>10</td><td>2,049.02</td><td>450.98</td><td>102,000.00</td></tr>
+<tr><th scope="row">Total</th><td>20,868.01</td><td>4,131.99</td><td>—</td></tr>
+</tbody></table></div>
+<p><strong>Boundary.</strong> A straight-line allocation would divide \(P-C\) equally across \(n\) periods, unlike (12.9). Except in special cases such as zero yield, it would not produce the interest split \(I_t=jB_{t-1}\). The fixed-yield method keeps that equation at every period. If the bond is called before maturity, the actual final payment and the remaining term change; the original maturity schedule cannot be continued as if the bond still existed.</p>
+
+<h2 id="callable">A callable bond: a price that preserves a yield floor <a class="timestamp" href="https://www.youtube.com/watch?v=1o_cw0NG5Os&amp;t=46s">L41 0:46</a></h2>
+<p>A callable bond gives the issuer a contractual right to redeem before maturity. A <em>call price</em> is the specified redemption payment if that right is exercised; the excess of a call price above face value is a <em>call premium</em>. A call-protection period postpones the particular call right until the first permitted call date. The issuer chooses whether to exercise its right. FINRA emphasizes this right rather than an obligation, and explains that refinancing at a lower interest rate can motivate a call (<a href="https://www.finra.org/investors/insights/callable-bonds-your-issuer-may-come-calling">Callable Bonds: Be Aware That Your Issuer May Come Calling</a>, April 19, 2024, “How Do Callable Bonds Work?”). The lecture's examples ask a narrower calculation: a defensive purchaser wants a specified minimum yield whichever allowed date the issuer selects.</p>
+<p><strong>The contract and criterion.</strong> Let \(S\) be a finite nonempty set of permitted redemption periods, including maturity. Each \(k\in S\) is a positive integer, and \(C_k\gt0\) is the redemption amount at that date. The contract in this model pays coupons \(c\ge0\) at dates 1 through \(k\), including the coupon immediately before redemption \(C_k\). No payments follow redemption. At a target periodic yield \(j_0\gt-1\), define the candidate price</p>
+\[
+P_k(j_0)=c a_{\overline{k}|j_0}+C_k(1+j_0)^{-k}. \tag{12.11}
+\]
+<p>For that one candidate cash-flow stream, the price function is continuous and strictly decreasing in its yield: each positive dated payment decreases as the yield rises. As the yield tends to \(-1\) from above, its positive terminal payment makes the value tend to infinity; as the yield tends to infinity, the value tends to zero. Thus any positive purchase price \(p\) has exactly one yield for that candidate stream. Monotonicity gives the equivalence: that yield is at least \(j_0\) if and only if \(p\le P_k(j_0)\). Requiring it for <em>every</em> permitted redemption date means taking the intersection of these price bounds. The largest permitted price is</p>
+\[
+p_{\max}=\min_{k\in S} P_k(j_0). \tag{12.12}
+\]
+<p>This is a contractual yield-floor calculation under full payment, not a prediction of which date the issuer will choose. It supplies no probability of exercise and no stochastic valuation of the embedded option. Nor does it guarantee a compound terminal return after coupons have been withdrawn: that requires an additional reinvestment rule.</p>
+<p><strong>A constant call price.</strong> If \(C_k=C\) at every permitted date, (12.5) gives \(P_k=C+(c-Cj_0)a_{\overline{k}|j_0}\). Adding one period adds one discounted coupon-factor term, so</p>
+\[
+P_{k+1}-P_k=(c-Cj_0)(1+j_0)^{-(k+1)}. \tag{12.13}
+\]
+<p>The factor is positive. With \(c\gt Cj_0\), candidate prices increase with the redemption period and the earliest permitted date sets the smallest price; with \(c\lt Cj_0\), the latest date sets it; with equality, all candidates equal \(C\). Lecture 41 describes earliest or maturity exercise under an unchanged yield and constant call price. Equation (12.13) establishes the price comparison used in that simplified setting. An actual issuer's exercise decision can depend on refinancing terms and future yields, so that comparison is not a general exercise law.</p>
+<p><strong>The first lecture example.</strong> Face and redemption are 1,000 rupees, the annual coupon is 5% paid half-yearly, maturity is in three years, and the first permitted call follows coupon 4. At the target nominal annual yield of 4% convertible half-yearly, \(c=25\), \(j_0=0.02\) and \(S=\{4,5,6\}\). The candidates are 1,019.04, 1,023.57 and 1,028.01 rupees; the bound is 1,019.04. The coupon multiplier is \(0.05/2=0.025\), not 0.02: the latter is the yield. Four periods describe the first call, while six describe maturity.</p>
+<p><strong>A changing call price can put the minimum in the middle.</strong> The second lecture example has face value 1,000 dollars, a 4% annual coupon paid half-yearly, a 15-year term and target nominal annual yield 5% convertible half-yearly. Thus \(c=20\), \(j_0=0.025\), and the permitted periods are 15 through 30. Its call amount is \(C_k=1000\) for \(15\le k\le20\), and \(C_k=1000+10(k-20)\) for \(20\lt k\le30\). Formula (12.11) gives 938.09 dollars at period 15, 934.72 at 16, 922.05 at 20, 925.03 at 21, and 943.02 at 30. Evaluation of all sixteen candidates gives the minimum 922.05 at period 20. The constant-price shortcut cannot be applied across the changing redemption amounts.</p>
+<p><strong>The running case with a call provision.</strong> Suppose its first call is immediately after coupon 6, and redemption is 102,000 dollars at every date 6 through 10. Because \(c-Cj_0=460\gt0\) at \(j_0=0.02\), the first call supplies the smallest candidate price: \(2500a_{\overline{6}|0.02}+102000(1.02)^{-6}=104{,}576.66\) dollars. This is 1,555.33 below the maturity-only price 106,131.99. Paying the maturity-only price gives a yield below the target if the issuer calls at period 6, because the purchase price exceeds that stream's present value at the target yield.</p>
+<p>This bound equals \(B_4\) because both calculations value six coupons and redemption at the same yield. The bound values a six-period contract at purchase; \(B_4\) values the six periods remaining after coupon 4. The amounts agree, but their focal dates are different.</p>
+<p><strong>Boundary.</strong> If the contract permits redemption between coupons or omits the coupon on a call date, its candidate cash flows must change. If call prices differ, check every permitted candidate unless a proved comparison reduces the set. FINRA also distinguishes optional calls, extraordinary redemptions, sinking-fund redemptions and make-whole provisions; a protection period for one right should not be read as a blanket exclusion of other contractual redemptions (same FINRA source, “Are All Callable Bonds the Same?”). Early redemption ends future coupons and can force reinvestment at a lower rate (same source, “Why Does This All Matter?”).</p>
+
+<h2 id="zero-perpetual">Zero-coupon yield and a bond without a terminal date <a class="timestamp" href="https://www.youtube.com/watch?v=1o_cw0NG5Os&amp;t=826s">L41 13:46</a></h2>
+<p><strong>Solving for zero-coupon yield.</strong> With \(c=0\), \(P=C(1+j)^{-n}\). If \(P\gt0\), \(C\gt0\) and \(n\ge1\), rearrange to \((1+j)^n=C/P\), take the positive \(n\)-th root, then subtract 1:</p>
+\[
+j=\left(\frac CP\right)^{1/n}-1. \tag{12.14}
+\]
+<p>The yield is per period counted by \(n\). In Lecture 41, a zero-coupon bond costs 520 rupees and redeems 1,000 rupees in five years. Taking each period as a year, its effective annual yield is \((1000/520)^{1/5}-1=13.9723\%\), approximately the lecture's 13.97%. Substituting it back gives \(520(1+j)^5=1000\), with only floating-point rounding in the check. If \(P=C\), yield is zero; if \(P\gt C\), it is negative but greater than \(-1\). If \(n=0\), \(P=C\) carries no information about yield, and (12.14) is unavailable.</p>
+<p><strong>Perpetual coupons.</strong> A perpetual bond, also called a consol in the lecture, has no fixed redemption date in this simplified model. It pays the positive coupon \(c\) at the end of every period forever. For \(j\gt0\), \(0\lt v\lt1\), and (12.3) gives \(a_{\overline{n}|j}=(1-v^n)/j\to1/j\). Therefore</p>
+\[
+P_{\infty}=\sum_{k=1}^{\infty}c v^k=\frac cj,\qquad c\gt0,\quad j\gt0. \tag{12.15}
+\]
+<p>The limit may also be taken through finite bonds with a fixed redemption \(C\): their redemption value \(Cv^n\) tends to zero. The lecture's annual coupon of 100 rupees has value \(100/0.15=666.67\) rupees at an effective annual yield of 15%, 1,000.00 at 10%, and 500.00 at 20%. The inverse price-yield relation here follows directly from the denominator.</p>
+<p><strong>Convergence is a hypothesis.</strong> At zero yield a positive coupon produces the divergent sum \(c+c+\cdots\). For \(-1\lt j\lt0\), the discounted coupons grow instead of tending to zero, so the positive series also diverges. The finite-bond formulas remain valid at those rates, but the perpetuity formula requires positive yield. If \(c=0\) and there is no redemption, every payment is zero and the value is zero; that degenerate stream is separate from the positive-coupon perpetuity.</p>
+
+<h2 id="market">Book value follows one yield; market value can follow another <a class="timestamp" href="https://www.youtube.com/watch?v=1o_cw0NG5Os&amp;t=1225s">L41 20:25</a></h2>
+<p>The lecture contrasts an amortization path with a price at which the bond may be traded. It illustrates a discount bond whose book value has risen from 950 toward 1,000 rupees while a higher market interest rate makes its market price fall, for example to 920. The mathematical distinction can be made exact without assuming a financial-reporting rule.</p>
+<p>At coupon date \(t\), retain \(j\) as the original purchase yield that defines \(B_t\). Let \(h\gt-1\) be a new required yield per coupon period for the unchanged remaining payments, and let \(Q_t(h)\) denote their model price. Then</p>
+\[
+B_t=c a_{\overline{n-t}|j}+C(1+j)^{-(n-t)},\qquad
+Q_t(h)=c a_{\overline{n-t}|h}+C(1+h)^{-(n-t)}. \tag{12.16}
+\]
+<p>Changing \(h\) while holding \(t\) and the payments fixed changes \(Q_t\), and leaves the chosen fixed-yield schedule \(B_t\) unchanged. Moving to the next coupon date changes \(B_t\) through amortization. Thus “unaffected by a market-yield change” must not be read as “constant over the bond's life.” Nor is the mathematical \(Q_t(h)\) necessarily an observed trade price; the actual market may price credit and liquidity risks or call rights that this fixed-payment model omits.</p>
+<p><strong>The running case after two years.</strong> Four coupons have been paid and six remain. At purchase yield \(j=0.02\), \(B_4=104{,}576.66\) dollars. At the new yield \(h=0.03\), \(Q_4=98{,}966.37\). The difference is 5,610.29 dollars, despite identical remaining promised payments. At the terminal intermediate state both values equal \(C\), because the only remaining payment is immediate redemption; after all terminal payments, both remaining balances are zero.</p>
+<p>The SEC's Investor.gov page distinguishes credit risk, in which the issuer may fail to make interest or principal payments, from interest-rate risk, in which rate changes affect the bond's value before maturity (<a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds">Bonds — FAQs</a>, “What are the benefits and risks of bonds?”). Our price comparison changes the discount yield with full promised payments. A default or a revised expectation of payment requires another cash-flow model.</p>
+
+<h2 id="implementation">Executable checks of price, schedule and call candidates</h2>
+<p>The program implements (12.2), (12.3) and the recurrence (12.7). Inputs \(c,C,j\) must have Python type <code>Fraction</code>, with \(c\ge0\), \(C\gt0\) and \(j\gt-1\); <code>n</code> must be a nonnegative Python integer, excluding booleans. <code>price</code> returns a <code>Fraction</code>. <code>schedule</code> returns a list of \(n\) tuples: period, opening book value, interest, signed amortization and closing book value, all money fields exact fractions. For \(n=0\) the list is empty and price is immediate redemption. Wrong types raise <code>TypeError</code>; out-of-domain values raise <code>ValueError</code>. The code reads no files, uses only the standard library, and writes standard output.</p>
+<p>For 36 combinations of term, yield and coupon, the checks independently add each remaining discounted coupon and redemption and compare that sum with the recursively computed balance. They also check Makeham's form where division is allowed, the signed amounts, the total identities, and the terminal state. The cases include zero and negative yield, zero coupons, zero periods and one period. Exact comparisons need no tolerance. For monetary display a fraction is converted to <code>Decimal</code> with 60-digit precision and rounded to cents with the default half-even rule; the displayed examples are far from a cent-rounding tie. The fractional-power inverse-yield check uses binary floating point and an absolute tolerance of \(10^{-9}\) rupee on the reconstructed redemption.</p>
+<pre><code class="language-python">from decimal import Decimal, getcontext
+from fractions import Fraction as Fr
+
+getcontext().prec = 60
+
+
+def check(n, j, c=Fr(0), C=Fr(1)):
+    if type(n) is not int:
+        raise TypeError("n must be an integer, excluding bool")
+    if any(type(x) is not Fr for x in (j, c, C)):
+        raise TypeError("j, c and C must be Fraction instances")
+    if n &lt; 0 or j &lt;= -1 or c &lt; 0 or C &lt;= 0:
+        raise ValueError("require n &gt;= 0, j &gt; -1, c &gt;= 0, C &gt; 0")
+
+
+def annuity(n, j):
+    check(n, j)
+    return Fr(n) if j == 0 else (1 - (1 + j) ** -n) / j
+
+
+def price(c, C, j, n):
+    check(n, j, c, C)
+    return c * annuity(n, j) + C * (1 + j) ** -n
+
+
+def schedule(c, C, j, n):
+    check(n, j, c, C)
+    B = price(c, C, j, n)
+    rows = []
+    for t in range(1, n + 1):
+        opening = B
+        interest = j * opening
+        amortized = c - interest
+        B = (1 + j) * opening - c
+        rows.append((t, opening, interest, amortized, B))
+    return rows
+
+
+def money(x):
+    value = Decimal(x.numerator) / Decimal(x.denominator)
+    return f"{value:,.2f}"
+
+
+cases = 0
+for j in (Fr(-1, 100), Fr(0), Fr(1, 50)):
+    for n in (0, 1, 2, 6, 10, 60):
+        for c in (Fr(0), Fr(25)):
+            C = Fr(1000)
+            P = price(c, C, j, n)
+            v = 1 / (1 + j)
+            direct = sum((c * v**k for k in range(1, n + 1)), Fr(0))
+            assert P == direct + C * v**n
+            rows = schedule(c, C, j, n)
+            for t, opening, interest, amortized, B in rows:
+                left = n - t
+                tail = sum((c * v**k for k in range(1, left + 1)), Fr(0))
+                assert B == tail + C * v**left
+                assert amortized == (c - C * j) * v**(n - t + 1)
+                assert interest + amortized == c
+                assert opening - B == amortized
+            assert (rows[-1][-1] if rows else P) == C
+            assert sum((row[3] for row in rows), Fr(0)) == P - C
+            assert sum((row[2] for row in rows), Fr(0)) == n * c + C - P
+            if j != 0:
+                K, g = C * v**n, c / C
+                assert P == K + g / j * (C - K)
+            cases += 1
+
+bad_inputs = ((True, Fr(0), Fr(0), Fr(1), TypeError),
+              (1, 0.02, Fr(0), Fr(1), TypeError),
+              (-1, Fr(0), Fr(0), Fr(1), ValueError),
+              (1, Fr(-1), Fr(0), Fr(1), ValueError),
+              (1, Fr(0), Fr(-1), Fr(1), ValueError),
+              (1, Fr(0), Fr(0), Fr(0), ValueError))
+for n, j, c, C, error in bad_inputs:
+    try:
+        price(c, C, j, n)
+    except error:
+        pass
+    else:
+        raise AssertionError("invalid input accepted")
+print(f"exact direct-sum and schedule checks: {cases} cases pass")
+print(f"input failures: {len(bad_inputs)} cases pass")
+
+c, C, j, n = Fr(2500), Fr(102000), Fr(1, 50), 10
+P = price(c, C, j, n)
+rows = schedule(c, C, j, n)
+print("running price:", money(P), "premium:", money(P - C))
+print("period | interest | signed amortization | after-coupon value")
+for t, opening, interest, amortized, B in rows:
+    print(f"{t:2d} | {money(interest):&gt;8} | {money(amortized):&gt;7} |"
+          f" {money(B):&gt;10}")
+print("totals: interest", money(sum((r[2] for r in rows), Fr(0))),
+      "amortization", money(sum((r[3] for r in rows), Fr(0))))
+print("after redemption:", money(rows[-1][-1] - C))
+print("coupon 4: book", money(rows[3][-1]), "new-yield price",
+      money(price(c, C, Fr(3, 100), 6)))
+print("maturity price at 6% nominal:", money(price(c, C, Fr(3, 100), n)))
+print("running call bound at period 6:", money(price(c, C, j, 6)))
+print("L39 prices:", money(price(Fr(9, 4), Fr(100), Fr(453, 20000), 60)),
+      money(price(Fr(21, 10), Fr(100), Fr(1, 50), 22)),
+      money(price(Fr(0), Fr(100), Fr(53, 2500), 3)))
+print("L40 prices:", money(price(Fr(25), Fr(1000), Fr(1, 50), 6)),
+      money(price(Fr(25), Fr(1000), Fr(3, 100), 6)))
+first_calls = [price(Fr(25), Fr(1000), Fr(1, 50), k) for k in (4, 5, 6)]
+print("L41 constant call candidates:", *(money(p) for p in first_calls))
+calls = [(k, price(Fr(20), Fr(1000 if k &lt;= 20 else 1000 + 10*(k - 20)),
+                   Fr(1, 40), k)) for k in range(15, 31)]
+k, bound = min(calls, key=lambda item: item[1])
+print("L41 varying call minimum: period", k, "price", money(bound))
+zero_yield = (1000 / 520) ** (1 / 5) - 1
+assert abs(520 * (1 + zero_yield)**5 - 1000) &lt; 1e-9
+print(f"L41 zero-coupon annual yield: {100*zero_yield:.4f}%")
+print("L41 perpetuity prices:", *(money(Fr(100) / y)
+      for y in (Fr(3, 20), Fr(1, 10), Fr(1, 5))))
+</code></pre>
+<p>Run in a fresh isolated Python interpreter, the listing prints:</p>
+<pre><code>exact direct-sum and schedule checks: 36 cases pass
+input failures: 6 cases pass
+running price: 106,131.99 premium: 4,131.99
+period | interest | signed amortization | after-coupon value
+ 1 | 2,122.64 |  377.36 | 105,754.63
+ 2 | 2,115.09 |  384.91 | 105,369.72
+ 3 | 2,107.39 |  392.61 | 104,977.12
+ 4 | 2,099.54 |  400.46 | 104,576.66
+ 5 | 2,091.53 |  408.47 | 104,168.19
+ 6 | 2,083.36 |  416.64 | 103,751.56
+ 7 | 2,075.03 |  424.97 | 103,326.59
+ 8 | 2,066.53 |  433.47 | 102,893.12
+ 9 | 2,057.86 |  442.14 | 102,450.98
+10 | 2,049.02 |  450.98 | 102,000.00
+totals: interest 20,868.01 amortization 4,131.99
+after redemption: 0.00
+coupon 4: book 104,576.66 new-yield price 98,966.37
+maturity price at 6% nominal: 97,223.09
+running call bound at period 6: 104,576.66
+L39 prices: 99.51 101.77 93.90
+L40 prices: 1,028.01 972.91
+L41 constant call candidates: 1,019.04 1,023.57 1,028.01
+L41 varying call minimum: period 20 price 922.05
+L41 zero-coupon annual yield: 13.9723%
+L41 perpetuity prices: 666.67 1,000.00 500.00
+</code></pre>
+<p><strong>What the checks detect.</strong> Replacing the recurrence's coupon subtraction by addition makes the first remaining-cash-flow check fail. Omitting the last coupon from the price sum makes the initial direct-sum comparison fail. Replacing the final post-coupon value by zero makes the prospective check fail, because redemption remains due in that state. Each mutation was run in a fresh process and raised <code>AssertionError</code>. A wrong annual-to-periodic input can still satisfy every algebra check: the formulas faithfully value the wrong rate. The quotation and contract must be interpreted before the program is called.</p>
+
+<h2 id="limits">What this valuation model establishes</h2>
+<p>The proofs establish identities for complete, level, equally spaced cash flows at one constant periodic yield. The price formula, the signed premium and the prospective and retrospective book values remain valid for \(j\gt-1\), including zero and negative yields, provided divisions are treated as their sections require. The infinite positive-coupon limit needs \(j\gt0\). The program checks specific exact-arithmetic cases; the proofs establish the identities for all admissible inputs.</p>
+<p>The schedule is an allocation of a fixed purchase price at a fixed purchase yield. It does not freeze market value, remove default risk or settle which value belongs in an accounting statement. The minimum of call-date prices enforces the target yield on each specified contractual payment stream, assuming full payment. A market valuation of a callable bond would additionally need a model of interest rates and exercise; a reinvested terminal wealth would need the rates earned on coupons. Fees, tax treatment, inflation, changing coupons, uncertain payments and valuation between coupon dates require their own terms.</p>
+<p>The Society of Actuaries' <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">October 2026 Exam FM syllabus</a>, p. 4, names price, book value, market value, amortization of premium, accumulation of discount, redemption, face value, yield and coupons among its bond learning outcomes. It also asks for callable-bond prices achieving a specified minimum yield and expressly excludes valuation between coupon payment dates. This dated syllabus supports the examination scope stated here; it does not turn the mathematical schedule into an accounting standard.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive and interpret).</strong> For \(c\ge0\), \(C\gt0\), \(j\gt-1\) and integer \(n\ge1\), derive the signed amortization formula from prospective book values, prove that the amounts sum to \(P-C\), and determine how their magnitudes change for positive, zero and negative yields. Explain the case \(c=Cj\) without taking a ratio of zero amounts.</p>
+<details><summary>Solution</summary>
+<p>From (12.6), \(B_{t-1}-B_t=(c-Cj)(a_{\overline{n-t+1}|j}-a_{\overline{n-t}|j})\). The two sums share their first \(n-t\) terms; the remaining term is \(v^{n-t+1}\). Hence \(A_t=(c-Cj)v^{n-t+1}\). Summing the book-value differences telescopes to \(B_0-B_n=P-C\). Equivalently, reversing the exponents gives \(\sum A_t=(c-Cj)\sum_{k=1}^n v^k=(c-Cj)a_{\overline{n}|j}\), which agrees with (12.5).</p>
+<p>Since \(v^{-1}=1+j\), \(A_{t+1}=(1+j)A_t\). For positive yield the magnitude of each nonzero amount increases; the sign says whether this is a larger premium reduction or a larger discount accumulation. At zero yield all amounts are \(c\). For a negative yield the multiplier lies in \((0,1)\), so each nonzero magnitude decreases; with \(c\ge0\) and \(C\gt0\), \(c-Cj\gt0\), hence the amounts are positive. If \(c=Cj\), all amounts are zero and \(B_t=C\) at every intermediate coupon-date state. The recurrence remains true; \(0/0\) does not define a ratio.</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> A bond has face value 20,000 dollars, redemption of 20,600 dollars in three years, and a 6% annual coupon paid quarterly. It is bought on a coupon date at a nominal annual yield of 5% convertible quarterly. Find its price, with unrounded intermediates and the answer rounded to cents. Choose (A) 20,553.97, (B) 20,812.42, (C) 21,070.87, (D) 24,200.00, or (E) 14,129.83 dollars. Explain the other choices.</p>
+<details><summary>Solution</summary>
+<p>There are \(n=3\times4=12\) quarterly periods. The coupon is \(c=20000(0.06/4)=300\) dollars and the yield is \(j=0.05/4=0.0125\). Therefore \(P=300a_{\overline{12}|0.0125}+20600(1.0125)^{-12}=21{,}070.87\) dollars: (C). The premium relative to redemption is \((300-20600\times0.0125)a_{\overline{12}|0.0125}=42.5a_{\overline{12}|0.0125}=470.87\).</p>
+<p>(A) replaces redemption by face value and loses the discounted extra 600 dollars. (B) omits the final 300-dollar coupon and loses \(300(1.0125)^{-12}=258.45\) dollars. (D) adds the twelve coupons and redemption without discounting: \(3600+20600=24200\). (E) uses 5% as the yield <em>per quarter</em> instead of dividing the nominal annual yield by four. All four errors have plausible arithmetic but different cash flows or rate periods.</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> A five-year bond with face and redemption 1,000 dollars pays a 6% annual coupon half-yearly. A purchaser is told the required yield is “4% a year,” with no convention. Compute the price if this means (a) 4% nominal convertible half-yearly and (b) 4% effective annual. Round prices to cents only at the end. Which reading gives the higher price, and what information is missing from the quotation?</p>
+<details><summary>Solution</summary>
+<p>The cash coupon is 30 dollars and there are ten half-yearly periods. In (a), \(j=0.04/2=0.02\), giving \(P_a=30a_{\overline{10}|0.02}+1000(1.02)^{-10}=1089.83\) dollars. In (b), \(j=\sqrt{1.04}-1=0.0198039027\ldots\), giving \(P_b=30a_{\overline{10}|j}+1000(1+j)^{-10}=1091.68\). The unrounded difference rounds to 1.86 dollars.</p>
+<p>The effective-annual reading has the smaller periodic yield and therefore the larger price. The first reading corresponds to 4.04% effective annually; they are not two names for the same growth. The quotation must say whether 4% is effective annually or nominal, and give the conversion frequency for a nominal rate. Coupon frequency alone does not resolve that question.</p>
+</details>
+<p><strong>Exercise 4 (counterexamples).</strong> A student claims (a) “Coupon rate equal to yield means price equals face value,” and (b) “Premium reductions always increase from one coupon to the next.” Test (a) with \(F=1000\), \(C=800\), \(r=j=0.02\), \(n=5\), all money in dollars. Test (b) with coupon 10 dollars, redemption 100 dollars, \(j=-0.01\) and \(n=2\). Compute prices and signed reductions to cents with unrounded intermediates, and state corrected versions of the claims.</p>
+<details><summary>Solution</summary>
+<p>(a) The coupon is \(c=Fr=20\), while \(Cj=16\). Thus \(P=800+4a_{\overline{5}|0.02}=818.85\) dollars. Price is above redemption and below face even though \(r=j\). Equality with redemption requires \(c=Cj\), or \(g=j\); equality with face follows from \(r=j\) only under the additional condition \(C=F\). In this example a redemption-relative premium is compatible with a face-relative discount.</p>
+<p>(b) Here \(c-Cj=10-100(-0.01)=11\) and \(v=1/0.99\). Price is \(100+11(v+v^2)=122.33\) dollars. The signed reductions are \(A_1=11v^2=11.22\) and \(A_2=11v=11.11\). They are positive and decrease: \(A_2=0.99A_1\). Positive premium reductions increase when \(j\gt0\), remain constant when \(j=0\), and decrease when \(-1\lt j\lt0\). The sign of yield belongs in the claim.</p>
+</details>
+<p><strong>Exercise 5 (judge a callable offer).</strong> A bond pays 40 dollars annually. The issuer may redeem immediately after coupon 2 for 1,050 dollars, after coupon 3 for 1,020, or at maturity immediately after coupon 4 for 1,000. A buyer requires at least 3% effective annually for every permitted redemption date. Find the largest price meeting that requirement. Is an offer at 1,040 dollars acceptable? Round money to cents after evaluating all candidates without intermediate rounding, and distinguish this decision from forecasting the issuer's call.</p>
+<details><summary>Solution</summary>
+<p>The candidate prices at the target yield are \(P_2=40a_{\overline{2}|0.03}+1050(1.03)^{-2}=1066.26\), \(P_3=40a_{\overline{3}|0.03}+1020(1.03)^{-3}=1046.59\), and \(P_4=40a_{\overline{4}|0.03}+1000(1.03)^{-4}=1037.17\) dollars. Their minimum, 1,037.17, is the largest admissible price. The changing call amounts require all three calculations.</p>
+<p>The 1,040-dollar offer exceeds the period-4 candidate by 2.83 dollars, so its maturity yield is below 3%; strict monotonicity of that candidate's price function establishes the failure without solving for the yield. Earlier calls would pass the floor, but the buyer requires every allowed outcome to pass. This rejects the offer under the stated criterion. It does not claim that the issuer will choose period 4, or that its probability is known.</p>
+</details>
+<p><strong>Exercise 6 (design and verify).</strong> A bond has face and redemption 10,000 dollars, six remaining half-yearly coupons and purchase yield 2% per half-year. Choose a level coupon so that its book value just after coupon 3 is exactly 10,300 dollars. Find the coupon, the annual coupon quote, and the initial price. Use unrounded values in the design; display money to cents and the annual quote to four decimals in percent. Explain what changes if the contract rounds the coupon to cents.</p>
+<details><summary>Solution</summary>
+<p>There are three coupons left after coupon 3. Equation (12.6) requires \(10300=10000+(c-200)a_{\overline{3}|0.02}\). Isolate the coupon difference: \(c-200=300/a_{\overline{3}|0.02}\). Thus \(c=200+300/a_{\overline{3}|0.02}=304.0264018\ldots\) dollars, displayed as 304.03. The annual coupon quote is \(r_{\mathrm{ann}}=2c/10000=6.0805\%\). The initial price is \(P=10000+(c-200)a_{\overline{6}|0.02}=10{,}582.70\).</p>
+<p>The verification has two parts. Substituting the unrounded coupon in (12.6) returns \(B_3=10300\) exactly. Also \(a_{\overline{6}|j}=a_{\overline{3}|j}+v^3a_{\overline{3}|j}\), by splitting its six terms into the first and last three. Hence \(P-C=300(1+v^3)\), giving the same initial price without a second coupon calculation. If the contract instead fixes \(c=304.03\), the target is exceeded by \((304.03-c)a_{\overline{3}|0.02}\), about one cent. Display rounding leaves the exact designed contract unchanged; contractual rounding changes the cash flow and must be checked again.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>NPTEL IIT Madras, <em>Financial Mathematics for Actuaries</em>: <a href="https://www.youtube.com/watch?v=vJmT7TLlfnk">Lecture 39, Bond Valuation</a>; <a href="https://www.youtube.com/watch?v=B8W1OSYRhBs">Lecture 40, Bond Amortization Schedule</a>; <a href="https://www.youtube.com/watch?v=1o_cw0NG5Os">Lecture 41, Bond Valuation</a>. The last recording includes callable bonds, zero-coupon yield, perpetual bonds and book value versus market value.</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam — October 2026</em> syllabus</a>, p. 4: bond terminology, coupon-date calculations, premium and discount, and the callable-bond minimum-yield outcome.</li>
+<li>FINRA, <a href="https://www.finra.org/investors/insights/callable-bonds-your-issuer-may-come-calling"><em>Callable Bonds: Be Aware That Your Issuer May Come Calling</em></a>, April 19, 2024: the optional call right, refinancing motivation, differences among redemption provisions, and lost coupons and reinvestment risk.</li>
+<li>SEC Investor.gov, <a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds"><em>Bonds — FAQs</em></a>, “What are the benefits and risks of bonds?”: credit risk and interest-rate risk.</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-11-bond-basics-and-price.html">Previous available chapter</a><a href="index.html">Lecture index</a><span>Further chapters pending</span></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>

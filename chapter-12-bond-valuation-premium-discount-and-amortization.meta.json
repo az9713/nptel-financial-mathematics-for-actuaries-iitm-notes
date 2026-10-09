@@ -1,0 +1,324 @@
+{
+  "chapter": 12,
+  "title": "Bond valuation, premium and discount, and the bond amortization schedule",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 2 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "vJmT7TLlfnk",
+      "lecture": "Lecture 39",
+      "media_sha256": "0fdbd187e9c55d826ca0d153457fb4dac2055535e7fe561ec3c5054a9d3d1859",
+      "duration_seconds": 1384,
+      "transcript_first_start_seconds": 15.2,
+      "transcript_last_end_seconds": 1380.4
+    },
+    {
+      "video_id": "B8W1OSYRhBs",
+      "lecture": "Lecture 40",
+      "media_sha256": "fb3383792335d2fbf83230459d3b779a8ee2af9cb9aebe8442cbdba1962beb87",
+      "duration_seconds": 2222,
+      "transcript_first_start_seconds": 15.44,
+      "transcript_last_end_seconds": 2219.28
+    },
+    {
+      "video_id": "1o_cw0NG5Os",
+      "lecture": "Lecture 41",
+      "media_sha256": "80bb55c908189ffe40bcddb0c62e977f3b926b2de708d9969ac4f6eca38372b1",
+      "duration_seconds": 1481,
+      "transcript_first_start_seconds": 15.04,
+      "transcript_last_end_seconds": 1477.52
+    }
+  ],
+  "practice_sources": [],
+  "practice_sources_note": "At assignment the manifest mapped Lecture 57 (HIiybva-FN4) to Chapter 12. The author read its full publisher captions (16.32-1535.48 s), all three contact sheets, and native frames f0003, f0012, f0024 and f0043. Actual content is bond-market equilibrium, demand/supply shifts, Fisher effect, risk structure and ratings, not valuation or amortization worked practice. The lead independently verified and reassigned it to Chapter 13 in source-manifest.json during this draft. It supplies no substantive claim or exercise here. Detailed topic spans are in the private author report.",
+  "frames_viewed": {
+    "vJmT7TLlfnk": [
+      "f0003",
+      "f0009",
+      "f0013",
+      "f0017",
+      "f0023",
+      "f0033",
+      "f0038",
+      "f0040"
+    ],
+    "B8W1OSYRhBs": [
+      "f0004",
+      "f0013",
+      "f0017",
+      "f0024",
+      "f0027",
+      "f0047",
+      "f0055",
+      "f0057",
+      "f0062",
+      "f0064",
+      "f0066",
+      "f0070"
+    ],
+    "1o_cw0NG5Os": [
+      "f0005",
+      "f0008",
+      "f0009",
+      "f0011",
+      "f0012",
+      "f0013",
+      "f0017",
+      "f0018",
+      "f0025",
+      "f0026",
+      "f0027",
+      "f0033",
+      "f0038",
+      "f0041",
+      "f0044",
+      "f0047"
+    ],
+    "HIiybva-FN4": [
+      "f0003",
+      "f0012",
+      "f0024",
+      "f0043"
+    ]
+  },
+  "source_uncertainties": [
+    "Durations use transcript.json: L39 1384 s, L40 2222 s and L41 1481 s; the manifest listed 1384, 2223 and 1482 s. All chapter timestamps lie inside both versions. The inspected/reassigned L57 has media duration 1545 s against manifest 1546 s, media SHA256 91a95492c1c2b51edff5f925743e37c6b7e2704f513449465891fe2895b36afc.",
+    "L39 f0003 explicitly uses P = Fr a + M v^n, then its alternative PVIFA/PVIF form identifies C = M. This bridge is stated before using C. Equality F = C = M = 100 occurs only in its numerical examples; face and redemption remain separate in the general model.",
+    "L39 f0009 has annual coupon 0.045/2, nominal annual yield 0.0453/2 and n = 30*2 = 60. The chapter distinguishes annual coupon quote r_ann, per-period coupon ratio r and cash c, and translates the slide's periodic yield i to the book's j explicitly.",
+    "L39 f0013 prints 99.5103 using rounded intermediate factors; recomputation without intermediate rounding gives 99.5104918351. L39 f0023 prints 101.765 after rounding factors; the unrounded result is 101.7658048197, or 101.77 to cents. The chapter states its final-only rounding convention.",
+    "L39 f0038 uses tilde-g = Fr/C for modified coupon; L40 f0064 and f0066 use g = Fr/C. The chapter defines g = tilde-g as the same coupon-per-redemption ratio and distinguishes it from earlier accumulation/payment-growth notation.",
+    "L40 f0027 and f0066 end the schedule at C after the final coupon, with redemption not deducted. The chapter explicitly fixes this intermediate state and then deducts redemption to reach zero. It does not describe the post-all-cash-flows balance as C.",
+    "L40 speech around 796-804 s suggests effective interest rises in the premium example; f0027 shows it falling from 20.56 to 20.10 as book value falls. The chapter follows the table and the fixed-yield equation. f0057 shows the opposite trend for a discount. Monetary discount 27.09 is not treated as a percentage.",
+    "L40 mentions accounting and taxation and calls the method common; L41 gives an accounting description of book value. No accounting-law or tax-law source was checked, so the chapter confines book value to the stated mathematical fixed-yield model and makes no GAAP, tax or prevalence claim.",
+    "L41 f0012 states annual coupon 5%, nominal semiannual yield 4%, maturity after six coupons and first call after coupon four. f0013/f0017 print 1000*0.02 = 25, an arithmetic and rate-label error; c = 1000*0.025 = 25 is used consistently. The same printed note labels the four-period call calculation maturity; the chapter retains first call = 4 and maturity = 6.",
+    "L41 f0018 prose mentions call periods only through 20 while the displayed second branch and f0026 full table extend through 30. The chapter uses the displayed piecewise contract and all sixteen periods 15-30, which the computation verifies; the minimum is at 20.",
+    "L41 f0009 and speech 244.96-276.24 discuss earliest or maturity call under unchanged yield and a constant redemption amount. The chapter proves the candidate-price comparison under those hypotheses and treats the minimum as a conservative contractual yield criterion, not a general option-price or issuer-exercise theorem.",
+    "L41 zero-coupon labels may suggest zero interest; the chapter distinguishes a zero coupon from the positive yield computed in f0033. It uses an explicitly annual period for the 520-to-1000 five-year example. The consol historical anecdote and claims about rarity are not used as independently verified findings.",
+    "L41 f0044 and speech contrast market value with book value but can be read as saying book value never changes and always ends at face. f0047 itself shows an amortizing book value. The chapter says a fixed-date market-yield change does not change the chosen schedule, while time changes its book value; the terminal intermediate amount is redemption C, which equals face only if the contract says so.",
+    "No lecture section among 39-41 develops clean/dirty pricing or a day-count convention. Those are not invented as lecture material; the coupon-date boundary is explicit and independently corroborated only as an Exam FM syllabus scope statement.",
+    "All assigned captions were read sequentially in full, and all thirteen contact sheets were scanned before selecting native frames. None of the relied-on formulas or table entries remained unreadable. The instructor/book reference names mentioned in recordings are not used as inaccessible textbook citations."
+  ],
+  "sections": [
+    {
+      "section": "Cash flows, rate periods and the valuation date",
+      "video_id": "vJmT7TLlfnk",
+      "start": 64.0,
+      "end": 142.0,
+      "lecture_material": "Coupon-plus-redemption model, face F, periodic coupon r, redemption M and explicit C=M bridge in f0003; periodic yield i used by the lecture.",
+      "research_extension": "None.",
+      "teaching_construction": "Restated prerequisites, annual coupon quote versus periodic ratio and cash amount, annual effective/nominal yield bridge, original 100000-face/102000-redemption five-year running case, B_t state and terminal payment ordering, original SVG timeline and final-only rounding convention.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "The price is the value of coupons plus redemption",
+      "video_id": "vJmT7TLlfnk",
+      "start": 142.0,
+      "end": 1020.0,
+      "lecture_material": "Thirty-year semiannual 4.5% coupon/4.53% nominal yield example; remaining 22 periods after the eighth coupon of a fifteen-year bond; eighteen-month zero-coupon price at 4.24% nominal semiannual yield; PVIFA/PVIF notation.",
+      "research_extension": "None.",
+      "teaching_construction": "Term-by-term price derivation, annuity cancellation hinge, unrounded source computations, original price 106131.99, zero/one-period and negative-yield boundaries, explicit yield versus coupon/reinvestment distinction.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Makeham's formula separates two parts of the price",
+      "video_id": "vJmT7TLlfnk",
+      "start": 1020.0,
+      "end": 1380.4,
+      "lecture_material": "K = Cv^n; modified coupon tilde-g = Fr/C; Makeham formula K + (g/i)(C-K); derivation in f0038/f0040.",
+      "research_extension": "None.",
+      "teaching_construction": "g/tilde-g and i/j bridges, complete substitution/distribution hinge, money interpretation, running-case equivalence, zero-yield limit and direct formula at zero, negative-yield sign check.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Premium and discount require a stated benchmark",
+      "video_id": "B8W1OSYRhBs",
+      "start": 76.0,
+      "end": 466.0,
+      "lecture_material": "Premium/discount identity P-C=(Fr-Ci)a; sign classifications relative to redemption; special face-equals-redemption coupon/yield comparison; straight-line and effective-interest methods named.",
+      "research_extension": "None.",
+      "teaching_construction": "Exact n>=1 hypothesis, comparison with face when C differs, original prices at 4% and 6% nominal yields, direct monotonic-price proof for fixed nonnegative payments, zero-yield/zero-coupon/n=0 boundaries.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The amortization state and equivalent calculations",
+      "video_id": "B8W1OSYRhBs",
+      "start": 466.0,
+      "end": 1393.0,
+      "lecture_material": "Effective-interest premium example: c25, j.02, n6, P1028.01; I = j opening value, signed amount = coupon minus interest, closing value = opening minus signed amount; spreadsheet calculation and total rows.",
+      "research_extension": "None; no financial-reporting rule asserted.",
+      "teaching_construction": "Precise after-coupon/pre-redemption state; prospective remaining-payment formula, recursion from one-period equation of value, retrospective induction and equivalence proof, original first-period split, terminal C then zero.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Premium reduction, discount accumulation and the general schedule",
+      "video_id": "B8W1OSYRhBs",
+      "start": 1393.0,
+      "end": 2133.0,
+      "lecture_material": "Discount example at .03 periodic yield, P972.91 and signed negative amounts; general g=Fr/C formula and n-period table, effective-interest and signed-amortization columns, total rows in f0064/f0066/f0070.",
+      "research_extension": "None.",
+      "teaching_construction": "Recomputed source schedules, complete original ten-row schedule, proof A_t=(c-Cj)v^(n-t+1), recurrence A_(t+1)=(1+j)A_t, telescope totals, sign/magnitude/zero/negative-yield qualifications, straight-line distinction and called-bond boundary.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A callable bond: a price that preserves a yield floor",
+      "video_id": "1o_cw0NG5Os",
+      "start": 46.0,
+      "end": 826.48,
+      "lecture_material": "Issuer call right, call premium/protection, simplified constant-yield earliest/maturity comparison, three candidate-price first example, sixteen-candidate varying-call-price second example with minimum922.05 at20.",
+      "research_extension": "FINRA April19 2024 article: right not obligation/refinancing motivation; varied contractual redemptions; ending coupons and reinvestment risk.",
+      "teaching_construction": "Finite contractual date set S, full-payment hypothesis, monotonic/existence/uniqueness argument proving max admissible price=min candidates, constant-price difference formula, correction of coupon multiplier/date labels, original first-call6 bound104576.66, option-model and reinvestment boundaries.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Zero-coupon yield and a bond without a terminal date",
+      "video_id": "1o_cw0NG5Os",
+      "start": 826.48,
+      "end": 1225.12,
+      "lecture_material": "Zero-coupon 520-to1000 five-year yield13.97%; perpetual bond/consol, coupon100 at yields15%,10%,20% gives666.67,1000,500; inverse price-yield observation.",
+      "research_extension": "None.",
+      "teaching_construction": "Root-isolation derivation and dimensional periodic interpretation, back-substitution, positive/zero/negative-yield inverse cases and n0 nonidentification; finite-sum limit proving perpetuity price c/j with convergence hypothesis and zero-coupon degeneration.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Book value follows one yield; market value can follow another",
+      "video_id": "1o_cw0NG5Os",
+      "start": 1225.12,
+      "end": 1431.84,
+      "lecture_material": "Book versus market distinction, discount value rising950-to1000 with hypothetical market price920 while book960, inverse market-price/yield relation.",
+      "research_extension": "SEC Investor.gov Bonds FAQs: credit risk versus interest-rate risk.",
+      "teaching_construction": "Separate original j and new h, model Q_t(h) explicitly distinguished from observed trades, original after-fourth-coupon values104576.66 and98966.37 and gap5610.29; fixed-date versus passage-of-time qualification and terminal redemption state.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Executable checks of price, schedule and call candidates",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "No additional span claimed; the code reproduces the numerical examples already attributed to the three recordings.",
+      "research_extension": "None.",
+      "teaching_construction": "Stdlib Fraction price and recurrence functions with explicit type/domain contract, 36 exact independent direct-sum/schedule/Makeham/totals cases, six failure cases, complete running-case stdout, call candidates, floating inverse-yield back-check, 60-digit Decimal display, three independently run assertion-failing mutations.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What this valuation model establishes",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "SOA October2026 Exam FM syllabus p4: named bond learning outcomes, coupon-date exclusion, specified-minimum-yield callable pricing.",
+      "teaching_construction": "Exact algebra versus checked instances, finite/positive-perpetuity rate domains, fixed-yield schedule versus market/accounting/default model, call criterion versus exercise prediction, reinvestment and other omitted terms.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercises extend the source concepts with original contracts and numbers; no practice recording is used.",
+      "research_extension": "None.",
+      "teaching_construction": "Six original complete solutions: derive signed amortization and totals; exam-style quarterly coupon/redemption price with four reasoned distractors; ambiguous annual yield; counterexamples with unequal face/redemption and negative yield; judge varying call schedule; design coupon from a prescribed intermediate book value with rounding distinction.",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "Every non-reference h2 has one matching section entry. The closing Primary sources heading contains only the reference list and is omitted from sections, following the pilot. The source schedule section spans the discount example through the general formula table (L40 1393-2133 s); the prior state section includes the premium example and spreadsheet arithmetic (466-1393 s). The zero-coupon/perpetuity section follows L41 826-1225 s in its delivered order. Source introductions, closing previews, and unverified historical/prevalence/accounting anecdotes are not promoted to mathematical or empirical findings.",
+  "references": [
+    {
+      "title": "NPTEL Lecture39, Bond Valuation",
+      "url": "https://www.youtube.com/watch?v=vJmT7TLlfnk",
+      "supports": "Price formula, C=M bridge, three examples and Makeham formula.",
+      "page_checked": "Native frames listed in frames_viewed; full publisher captions and all three contact sheets."
+    },
+    {
+      "title": "NPTEL Lecture40, Bond Amortization Schedule",
+      "url": "https://www.youtube.com/watch?v=B8W1OSYRhBs",
+      "supports": "Premium/discount identity, effective-interest examples and general schedule/total formulas.",
+      "page_checked": "Native frames listed in frames_viewed; full publisher captions and all four contact sheets."
+    },
+    {
+      "title": "NPTEL Lecture41, Bond Valuation",
+      "url": "https://www.youtube.com/watch?v=1o_cw0NG5Os",
+      "supports": "Callable-date candidate examples, zero-coupon inverse yield, perpetuity and book/market distinction.",
+      "page_checked": "Native frames listed in frames_viewed; full publisher captions and all three contact sheets."
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam October2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "Topic4 learning outcomes: bond terms and calculations; between-coupon valuation excluded; callable price to achieve specified minimum yield.",
+      "page_checked": "p.4 (PDF p.4), opened and read2026-10-09."
+    },
+    {
+      "title": "FINRA, Callable Bonds: Be Aware That Your Issuer May Come Calling",
+      "url": "https://www.finra.org/investors/insights/callable-bonds-your-issuer-may-come-calling",
+      "supports": "Optional issuer call right and refinancing motivation; optional/extraordinary/sinking-fund/make-whole provisions; ended coupon stream and reinvestment risk.",
+      "page_checked": "Web page dated2024-04-19, sections How Do Callable Bonds Work?, Are All Callable Bonds the Same?, Why Does This All Matter?; opened and read2026-10-09."
+    },
+    {
+      "title": "SEC Investor.gov, Bonds FAQs",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds",
+      "supports": "Credit risk is failure of interest/principal payments; interest-rate risk affects bond value before maturity.",
+      "page_checked": "Web section What are the benefits and risks of bonds?, opened and read2026-10-09; no publication date shown."
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "F, M, C",
+      "first_section": "model",
+      "definition": "Face value F sets coupons; redemption M=C is terminal money amount; equality with F is an additional contract term."
+    },
+    {
+      "symbol": "r_ann, m, r, c",
+      "first_section": "model",
+      "definition": "Annual coupon quote, positive-integer coupon frequency, per-period coupon ratio r=r_ann/m and money coupon c=Fr."
+    },
+    {
+      "symbol": "j, v, i, i^(m)",
+      "first_section": "model",
+      "definition": "Effective yield per coupon period j>-1, v=(1+j)^-1; effective annual i and nominal annual i^(m), linked by1+i=(1+j)^m; slide periodic i translated to j."
+    },
+    {
+      "symbol": "n, t, P, B_t",
+      "first_section": "model",
+      "definition": "Remaining integer coupon-period count n, period date t, purchase price P; B_t after coupon t but before any same-date redemption, B0=P and Bn=C before final redemption."
+    },
+    {
+      "symbol": "k, a angle n at j, PVIFA, PVIF",
+      "first_section": "price",
+      "definition": "Coupon index k; annuity-immediate sum of v^k for k1..n; PVIFA=a and PVIF=v^n are slide alternative factor labels."
+    },
+    {
+      "symbol": "K, g, tilde-g",
+      "first_section": "makeham",
+      "definition": "K=Cv^n present value of redemption; g=tilde-g=c/C modified coupon per redemption unit per period, distinct from earlier growth notation."
+    },
+    {
+      "symbol": "I_t, A_t, s angle t at j",
+      "first_section": "book-value",
+      "definition": "Money interest jB_(t-1), signed amortization c-I_t, and accumulated coupon factor sum(1+j)^k for k0..t-1."
+    },
+    {
+      "symbol": "N",
+      "first_section": "schedule",
+      "definition": "Local remaining-count abbreviation N=n-t+1 in the amortization derivation."
+    },
+    {
+      "symbol": "S, k, C_k, j0, P_k, p, p_max",
+      "first_section": "callable",
+      "definition": "Finite permitted redemption-period set; candidate date k and redemption C_k; target periodic yield j0; candidate price P_k(j0), positive purchase price p and maximum meeting every candidate's yield floor."
+    },
+    {
+      "symbol": "P_infinity",
+      "first_section": "zero-perpetual",
+      "definition": "Value of positive coupons forever, c/j only with positive periodic yield."
+    },
+    {
+      "symbol": "h, Q_t(h)",
+      "first_section": "market",
+      "definition": "New required periodic yield and fixed-payment model price at coupon date t, separate from fixed purchase-yield book value."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch12_verify.py; extracts listing, runs Python3.13.5 with -I in a fresh temporary directory, exit0/no stderr; 25 stdout lines/1013 UTF8 bytes match printed block after CRLF-to-LF normalization. Three fresh subprocess mutations each raise AssertionError; 36 exact independent-sum/schedule cases and6 input failures run in listing.",
+    "stdout_matches_printed": true
+  }
+}

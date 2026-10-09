@@ -1955,6 +1955,138 @@
       "teaching_construction": "Six original reasoned exercises: derivation/counterexample, period conversion, income ratio, shortcut judgment, hypothetical default, liability design.",
       "evidence_class": "model",
       "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Cash flows, rate periods and the valuation date",
+      "video_id": "vJmT7TLlfnk",
+      "start": 64.0,
+      "end": 142.0,
+      "lecture_material": "Coupon-plus-redemption model, face F, periodic coupon r, redemption M and explicit C=M bridge in f0003; periodic yield i used by the lecture.",
+      "research_extension": "None.",
+      "teaching_construction": "Restated prerequisites, annual coupon quote versus periodic ratio and cash amount, annual effective/nominal yield bridge, original 100000-face/102000-redemption five-year running case, B_t state and terminal payment ordering, original SVG timeline and final-only rounding convention.",
+      "evidence_class": "model",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "The price is the value of coupons plus redemption",
+      "video_id": "vJmT7TLlfnk",
+      "start": 142.0,
+      "end": 1020.0,
+      "lecture_material": "Thirty-year semiannual 4.5% coupon/4.53% nominal yield example; remaining 22 periods after the eighth coupon of a fifteen-year bond; eighteen-month zero-coupon price at 4.24% nominal semiannual yield; PVIFA/PVIF notation.",
+      "research_extension": "None.",
+      "teaching_construction": "Term-by-term price derivation, annuity cancellation hinge, unrounded source computations, original price 106131.99, zero/one-period and negative-yield boundaries, explicit yield versus coupon/reinvestment distinction.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "Makeham's formula separates two parts of the price",
+      "video_id": "vJmT7TLlfnk",
+      "start": 1020.0,
+      "end": 1380.4,
+      "lecture_material": "K = Cv^n; modified coupon tilde-g = Fr/C; Makeham formula K + (g/i)(C-K); derivation in f0038/f0040.",
+      "research_extension": "None.",
+      "teaching_construction": "g/tilde-g and i/j bridges, complete substitution/distribution hinge, money interpretation, running-case equivalence, zero-yield limit and direct formula at zero, negative-yield sign check.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "Premium and discount require a stated benchmark",
+      "video_id": "B8W1OSYRhBs",
+      "start": 76.0,
+      "end": 466.0,
+      "lecture_material": "Premium/discount identity P-C=(Fr-Ci)a; sign classifications relative to redemption; special face-equals-redemption coupon/yield comparison; straight-line and effective-interest methods named.",
+      "research_extension": "None.",
+      "teaching_construction": "Exact n>=1 hypothesis, comparison with face when C differs, original prices at 4% and 6% nominal yields, direct monotonic-price proof for fixed nonnegative payments, zero-yield/zero-coupon/n=0 boundaries.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "The amortization state and equivalent calculations",
+      "video_id": "B8W1OSYRhBs",
+      "start": 466.0,
+      "end": 1393.0,
+      "lecture_material": "Effective-interest premium example: c25, j.02, n6, P1028.01; I = j opening value, signed amount = coupon minus interest, closing value = opening minus signed amount; spreadsheet calculation and total rows.",
+      "research_extension": "None; no financial-reporting rule asserted.",
+      "teaching_construction": "Precise after-coupon/pre-redemption state; prospective remaining-payment formula, recursion from one-period equation of value, retrospective induction and equivalence proof, original first-period split, terminal C then zero.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "Premium reduction, discount accumulation and the general schedule",
+      "video_id": "B8W1OSYRhBs",
+      "start": 1393.0,
+      "end": 2133.0,
+      "lecture_material": "Discount example at .03 periodic yield, P972.91 and signed negative amounts; general g=Fr/C formula and n-period table, effective-interest and signed-amortization columns, total rows in f0064/f0066/f0070.",
+      "research_extension": "None.",
+      "teaching_construction": "Recomputed source schedules, complete original ten-row schedule, proof A_t=(c-Cj)v^(n-t+1), recurrence A_(t+1)=(1+j)A_t, telescope totals, sign/magnitude/zero/negative-yield qualifications, straight-line distinction and called-bond boundary.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "A callable bond: a price that preserves a yield floor",
+      "video_id": "1o_cw0NG5Os",
+      "start": 46.0,
+      "end": 826.48,
+      "lecture_material": "Issuer call right, call premium/protection, simplified constant-yield earliest/maturity comparison, three candidate-price first example, sixteen-candidate varying-call-price second example with minimum922.05 at20.",
+      "research_extension": "FINRA April19 2024 article: right not obligation/refinancing motivation; varied contractual redemptions; ending coupons and reinvestment risk.",
+      "teaching_construction": "Finite contractual date set S, full-payment hypothesis, monotonic/existence/uniqueness argument proving max admissible price=min candidates, constant-price difference formula, correction of coupon multiplier/date labels, original first-call6 bound104576.66, option-model and reinvestment boundaries.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "Zero-coupon yield and a bond without a terminal date",
+      "video_id": "1o_cw0NG5Os",
+      "start": 826.48,
+      "end": 1225.12,
+      "lecture_material": "Zero-coupon 520-to1000 five-year yield13.97%; perpetual bond/consol, coupon100 at yields15%,10%,20% gives666.67,1000,500; inverse price-yield observation.",
+      "research_extension": "None.",
+      "teaching_construction": "Root-isolation derivation and dimensional periodic interpretation, back-substitution, positive/zero/negative-yield inverse cases and n0 nonidentification; finite-sum limit proving perpetuity price c/j with convergence hypothesis and zero-coupon degeneration.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "Book value follows one yield; market value can follow another",
+      "video_id": "1o_cw0NG5Os",
+      "start": 1225.12,
+      "end": 1431.84,
+      "lecture_material": "Book versus market distinction, discount value rising950-to1000 with hypothetical market price920 while book960, inverse market-price/yield relation.",
+      "research_extension": "SEC Investor.gov Bonds FAQs: credit risk versus interest-rate risk.",
+      "teaching_construction": "Separate original j and new h, model Q_t(h) explicitly distinguished from observed trades, original after-fourth-coupon values104576.66 and98966.37 and gap5610.29; fixed-date versus passage-of-time qualification and terminal redemption state.",
+      "evidence_class": "model",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "Executable checks of price, schedule and call candidates",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "No additional span claimed; the code reproduces the numerical examples already attributed to the three recordings.",
+      "research_extension": "None.",
+      "teaching_construction": "Stdlib Fraction price and recurrence functions with explicit type/domain contract, 36 exact independent direct-sum/schedule/Makeham/totals cases, six failure cases, complete running-case stdout, call candidates, floating inverse-yield back-check, 60-digit Decimal display, three independently run assertion-failing mutations.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "What this valuation model establishes",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "SOA October2026 Exam FM syllabus p4: named bond learning outcomes, coupon-date exclusion, specified-minimum-yield callable pricing.",
+      "teaching_construction": "Exact algebra versus checked instances, finite/positive-perpetuity rate domains, fixed-yield schedule versus market/accounting/default model, call criterion versus exercise prediction, reinvestment and other omitted terms.",
+      "evidence_class": "model",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercises extend the source concepts with original contracts and numbers; no practice recording is used.",
+      "research_extension": "None.",
+      "teaching_construction": "Six original complete solutions: derive signed amortization and totals; exam-style quarterly coupon/redemption price with four reasoned distractors; ambiguous annual yield; counterexamples with unequal face/redemption and negative yield; judge varying call schedule; design coupon from a prescribed intermediate book value with rounding distinction.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-12-bond-valuation-premium-discount-and-amortization.html"
     }
   ]
 }
