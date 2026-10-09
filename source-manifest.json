@@ -1,8 +1,8 @@
 {
   "course": "Financial Mathematics for Actuaries",
   "provider": "NPTEL, IIT Madras (YouTube: NPTEL-NOC IITM)",
-  "instructor": "Prof. Neelesh S. Upadhye",
-  "instructor_note": "Lecture 16 title slide (frame f0001) names Prof. Neelesh S. Upadhye, IIT Madras, and the footer of its slides repeats the name. The NPTEL course page (nptel.ac.in/courses/111106930) lists Prof. Neelesh S. Upadhye and Prof. Pramod Kumar Naik. No video description names a presenter. Only lecture 16 has been checked on a slide; the other recordings are unchecked.",
+  "instructor": "Prof. Neelesh S. Upadhye and Prof. Pramod Kumar Naik",
+  "instructor_note": "Lecture 16 title slide (frame f0001) names Prof. Neelesh S. Upadhye, IIT Madras; Lecture 31 title slide (frame f0001) names Prof. Pramod Kumar Naik, IIT Madras. Both frames have been checked. The NPTEL course page (nptel.ac.in/courses/111106930) also lists both names. Other recording-level checks are documented in each chapter's source metadata; no presenter is inferred from a video description.",
   "slide_textbook_mapping": "The roadmap slide of lecture 16 (frame f0008) has a \"Reference Mapping\" box that cites Broverman section 2.1 and Chan and Tse section 2.1. Neither book is open-access: they are not page sources for this book.",
   "term": "NPTEL course 111106930 (YouTube upload 2026)",
   "slug": "nptel-financial-mathematics-for-actuaries-iitm-notes",
@@ -47,7 +47,7 @@
       "title": "Solving the equation of value for an unknown time or interest rate",
       "lectures": "12, 13",
       "practice_lectures": "",
-      "chapter_status": "pending"
+      "chapter_status": "reviewed and locally validated"
     },
     {
       "order": 6,
@@ -145,7 +145,7 @@
       "duration": 1897,
       "url": "https://www.youtube.com/watch?v=gf6eD1YzUNY",
       "chapter_order": 1,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -158,7 +158,7 @@
       "duration": 1597,
       "url": "https://www.youtube.com/watch?v=fZziBpLbjuM",
       "chapter_order": 1,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -171,7 +171,7 @@
       "duration": 1522,
       "url": "https://www.youtube.com/watch?v=pPqQhytNnNs",
       "chapter_order": 1,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -184,7 +184,7 @@
       "duration": 1393,
       "url": "https://www.youtube.com/watch?v=WN6gPabPCeY",
       "chapter_order": 1,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -199,7 +199,7 @@
       "practice_for": [
         1
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -212,7 +212,7 @@
       "duration": 2025,
       "url": "https://www.youtube.com/watch?v=bExiStbDv68",
       "chapter_order": 2,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -225,7 +225,7 @@
       "duration": 2191,
       "url": "https://www.youtube.com/watch?v=Y2eHxCkNrgg",
       "chapter_order": 2,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -238,7 +238,7 @@
       "duration": 2008,
       "url": "https://www.youtube.com/watch?v=RaG9vVPAiiY",
       "chapter_order": 3,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -251,7 +251,7 @@
       "duration": 1724,
       "url": "https://www.youtube.com/watch?v=zCiKpaKsfAs",
       "chapter_order": 3,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -264,7 +264,7 @@
       "duration": 2060,
       "url": "https://www.youtube.com/watch?v=fOwVbMKW1_0",
       "chapter_order": 4,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -277,7 +277,7 @@
       "duration": 2278,
       "url": "https://www.youtube.com/watch?v=M9N7Jj4zfvw",
       "chapter_order": 4,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -290,7 +290,7 @@
       "duration": 1756,
       "url": "https://www.youtube.com/watch?v=wszQ2wUP-SQ",
       "chapter_order": 5,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -303,7 +303,7 @@
       "duration": 1362,
       "url": "https://www.youtube.com/watch?v=wUR79TZ25RA",
       "chapter_order": 5,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -316,7 +316,7 @@
       "duration": 1736,
       "url": "https://www.youtube.com/watch?v=b9iovZzyDH4",
       "chapter_order": 6,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -331,7 +331,7 @@
       "practice_for": [
         6
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -411,7 +411,7 @@
       "duration": 1633,
       "url": "https://www.youtube.com/watch?v=hx17UwmWgGQ",
       "chapter_order": 8,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -424,7 +424,7 @@
       "duration": 1371,
       "url": "https://www.youtube.com/watch?v=XyLON0qRvwU",
       "chapter_order": 8,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -437,7 +437,7 @@
       "duration": 1417,
       "url": "https://www.youtube.com/watch?v=S5uCUQzS7lQ",
       "chapter_order": 8,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -450,7 +450,7 @@
       "duration": 1517,
       "url": "https://www.youtube.com/watch?v=iMyv1yex8VA",
       "chapter_order": 8,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -465,7 +465,7 @@
       "practice_for": [
         8
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -478,7 +478,7 @@
       "duration": 1960,
       "url": "https://www.youtube.com/watch?v=ZN_DAzG_1KI",
       "chapter_order": 9,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -491,7 +491,7 @@
       "duration": 1145,
       "url": "https://www.youtube.com/watch?v=u8EUCQvpxKA",
       "chapter_order": 9,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -504,7 +504,7 @@
       "duration": 1855,
       "url": "https://www.youtube.com/watch?v=iIMAS4uB47Q",
       "chapter_order": 9,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -517,7 +517,7 @@
       "duration": 1282,
       "url": "https://www.youtube.com/watch?v=nUw77BsMz00",
       "chapter_order": 9,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -540,7 +540,7 @@
         8,
         9
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -553,7 +553,7 @@
       "duration": 1470,
       "url": "https://www.youtube.com/watch?v=LgrcQWuysCI",
       "chapter_order": 10,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -566,7 +566,7 @@
       "duration": 1222,
       "url": "https://www.youtube.com/watch?v=XUxnlhIZI7k",
       "chapter_order": 10,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -579,7 +579,7 @@
       "duration": 1297,
       "url": "https://www.youtube.com/watch?v=VExPn6Ofang",
       "chapter_order": 10,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -594,7 +594,7 @@
       "practice_for": [
         10
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -607,7 +607,7 @@
       "duration": 1220,
       "url": "https://www.youtube.com/watch?v=nJRpWdGCDfo",
       "chapter_order": 10,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -620,7 +620,7 @@
       "duration": 1952,
       "url": "https://www.youtube.com/watch?v=mneV22uOry0",
       "chapter_order": 11,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -633,7 +633,7 @@
       "duration": 2619,
       "url": "https://www.youtube.com/watch?v=UX1CYUtoo4c",
       "chapter_order": 11,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -646,7 +646,7 @@
       "duration": 1233,
       "url": "https://www.youtube.com/watch?v=38UuErhSrHU",
       "chapter_order": 11,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -659,7 +659,7 @@
       "duration": 1384,
       "url": "https://www.youtube.com/watch?v=vJmT7TLlfnk",
       "chapter_order": 12,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -672,7 +672,7 @@
       "duration": 2223,
       "url": "https://www.youtube.com/watch?v=B8W1OSYRhBs",
       "chapter_order": 12,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -685,7 +685,7 @@
       "duration": 1482,
       "url": "https://www.youtube.com/watch?v=1o_cw0NG5Os",
       "chapter_order": 12,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -698,7 +698,7 @@
       "duration": 1373,
       "url": "https://www.youtube.com/watch?v=-TBV82vh_ls",
       "chapter_order": 13,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -711,7 +711,7 @@
       "duration": 2741,
       "url": "https://www.youtube.com/watch?v=we1wEAjrwFI",
       "chapter_order": 13,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -724,7 +724,7 @@
       "duration": 1705,
       "url": "https://www.youtube.com/watch?v=cJySvysCXx4",
       "chapter_order": 13,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -737,7 +737,7 @@
       "duration": 1876,
       "url": "https://www.youtube.com/watch?v=odCBqtk9n4g",
       "chapter_order": 14,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -750,7 +750,7 @@
       "duration": 2047,
       "url": "https://www.youtube.com/watch?v=0xQ4ZxBUZGI",
       "chapter_order": 14,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -763,7 +763,7 @@
       "duration": 1267,
       "url": "https://www.youtube.com/watch?v=w9vs3Iye9G4",
       "chapter_order": 15,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -776,7 +776,7 @@
       "duration": 1346,
       "url": "https://www.youtube.com/watch?v=XRMoarERFdQ",
       "chapter_order": 15,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -789,7 +789,7 @@
       "duration": 1896,
       "url": "https://www.youtube.com/watch?v=fS9WNrrAuzA",
       "chapter_order": 15,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -802,7 +802,7 @@
       "duration": 1012,
       "url": "https://www.youtube.com/watch?v=jcQNKTSuYq0",
       "chapter_order": 16,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -815,7 +815,7 @@
       "duration": 1692,
       "url": "https://www.youtube.com/watch?v=RF5WoSnlKAw",
       "chapter_order": 16,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -828,7 +828,7 @@
       "duration": 1711,
       "url": "https://www.youtube.com/watch?v=DtFhc5Czqz8",
       "chapter_order": 16,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -841,7 +841,7 @@
       "duration": 2339,
       "url": "https://www.youtube.com/watch?v=25qctpkSVX4",
       "chapter_order": 17,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -854,7 +854,7 @@
       "duration": 1312,
       "url": "https://www.youtube.com/watch?v=q6xeg4iIEjo",
       "chapter_order": 17,
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -869,7 +869,7 @@
       "practice_for": [
         10
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -884,7 +884,7 @@
       "practice_for": [
         11
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -899,7 +899,7 @@
       "practice_for": [
         12
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     },
     {
@@ -916,7 +916,7 @@
         15,
         16
       ],
-      "transcript_status": "pending",
+      "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"
     }
   ]

@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="d301872039a8834cc1320838ccbb63f18b8aa1d035d192756e22e5719dc8a9c3"><title>Solving the equation of value for an unknown time or interest rate · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Solving the equation of value for an unknown time or interest rate</h1>
+<p class="lead">A borrower needs 20,000 dollars today, and three lenders make offers whose terms are invented for this example. Lender A charges 7% a year, effective, and accepts repayments of 2,500 dollars at the end of each year until the loan is repaid. Lender B asks for 2,800 dollars at the end of each year for 10 years and states no rate. Lender C asks for one repayment of 37,000 dollars at the end of year 10 and states no rate either. Each offer is one equation of value with one unknown: a time for A, a rate for B and C. The results of this chapter give A's term as 12.1342 years, which is not a whole number of payments: the borrower makes 12 payments of 2,500 dollars and a 13th payment of 345.29 dollars one year later, or 11 payments of 2,500 dollars and a 12th payment enlarged to 2,822.70 dollars. They give B's rate as 6.6373% and C's as 6.3450%, both effective annual rates. A one-step linear interpolation between 6% and 7%, the hand method the lecture calls the exam method, gives 6.6455% for B, which is 0.0082 percentage points too high, and the chapter proves why the error has that sign. The rates rank C cheapest and A dearest; yet for a borrower whose savings earn 5% a year, C costs the most in present value (22,714.79 dollars against 21,620.86 for B). This chapter solves the equation of value for the time and for the rate, says what a non-integer time means, gives a root-finding method with a stopping rule and a check, and states when the rate is unique and when it is not.</p>
+<p class="source-note">Grounded in two recordings of the NPTEL course <em>Financial Mathematics for Actuaries</em> (Prof. Neelesh S. Upadhye, IIT Madras): <a href="https://www.youtube.com/watch?v=wszQ2wUP-SQ">Lecture 12</a> (solving for unknown time) and <a href="https://www.youtube.com/watch?v=wUR79TZ25RA">Lecture 13</a> (solving for unknown interest rate). <strong>Lecture material:</strong> the equation of value \(\mathrm{FV}=\mathrm{PV}(1+i)^n\) solved for \(n\) with natural logarithms; the picture of exponential growth meeting a target value; the doubling time at 6%; the rule of 72 and its warning about high rates; the sum of a level stream of payments as a geometric series, written \((1-v^n)/i\); the loan of 5,000 repaid by 1,000 a year at 6% and its term of 6.12 payments; the trap that a fraction of a payment cannot be paid; the drop payment and the balloon payment; the accumulated value \(s_{\overline{k}|}\) of the payments; the balance after the last full payment and the general formula for the drop payment; the doubling time at 8% convertible quarterly; the single-sum rate \(i=(1.5)^{0.2}-1\); the cubic equation from three payments, which the lecture says a school formula does not solve; the two-payment loan solved as a quadratic in \(v\); linear interpolation between a low and a high trial rate, its formula and its example with 13.13%; the convexity of the present-value curve as the reason the interpolated rate is too high; the BA II Plus cash-flow worksheet and its IRR key; Descartes' rule of signs, the one-sign-change loan and the mine-closure example with two rates. <strong>Research extensions:</strong> the Texas Instruments BA II PLUS guidebook on how its IRR computation behaves with zero, one and several sign changes; the Society of Actuaries Exam FM syllabus on unknown-time, unknown-rate and final-payment problems and on the role of calculators. <strong>Original teaching constructions:</strong> the running case (three loan offers with invented terms); the restatement of the earlier tools; the series derivation of the rule of 72 with its error table and the proof that the rule's error changes sign exactly once; the condition that the payment exceed the interest on the loan; the check of the drop and balloon payments by the equation of value and the proof that a drop payment is smaller than a full payment; the exact values behind the slides' rounded numbers; equated time and the proof that it is later than the exact time; the proof that interpolation overestimates the rate; bisection and repeated interpolation with stopping rules; the proof of uniqueness for one sign change and the existence condition; the stream with two sign changes and no rate; Figure 5.1; the code and the six exercises.</p>
+
+<h2 id="model">The running case and the tools from earlier in the course <a class="timestamp" href="https://www.youtube.com/watch?v=wszQ2wUP-SQ&amp;t=140s">L12 2:20</a></h2>
+<p>Earlier lectures of the course built the compound-interest model and the equation of value. This chapter uses them to find an unknown time or an unknown rate. This section restates what the chapter uses. Each tool is taken as given from earlier in the course; none is derived again here.</p>
+<p><strong>Effective rate and compound interest.</strong> Time \(t\) is measured in years, or in periods of another stated length. The effective rate of interest \(i\) for a period is the interest that one unit invested at the start of the period earns by its end. Under compound interest at a constant rate \(i\), an amount \(X\) at time \(s\) has the value</p>
+\[
+X(1+i)^{t-s}\quad\text{at time } t, \tag{5.1}
+\]
+<p>for any \(t\), later or earlier than \(s\), including fractional \(t-s\). For \(t\gt s\) this is accumulation; for \(t\lt s\) it is discounting. Rates satisfy \(i\gt-1\), so that \(1+i\gt0\); the sections say where \(i\gt0\) is needed.</p>
+<p><strong>Discount factor.</strong> The discount factor \(v=1/(1+i)\) is the value at the start of a period of one unit due at its end. Two identities follow by algebra and are used below:</p>
+\[
+v=\frac1{1+i},\qquad v(1+i)=1,\qquad 1-v=\frac{i}{1+i}=iv. \tag{5.2}
+\]
+<p><strong>Equation of value.</strong> To compare payments made at different times, choose one date, the <em>focal date</em>, move every payment to it with (5.1), and set the value of what is received equal to the value of what is paid. With one constant rate the answer does not depend on the focal date: moving every term from focal date \(t\) to focal date \(t'\) multiplies both sides by the same factor \((1+i)^{t'-t}\). The unknown in the equation can be an amount, a time or a rate. This chapter treats the last two.</p>
+<p><strong>Geometric series.</strong> For a first term \(c\), a ratio \(q\neq1\) and \(n\) terms,</p>
+\[
+c+cq+\dots+cq^{n-1}=\frac{c(1-q^n)}{1-q}=\frac{c(q^n-1)}{q-1}. \tag{5.3}
+\]
+<p>The hinge is one subtraction: if \(S\) is the sum, \(S-qS=c-cq^n\), because every other term appears in both sums. (The slides write the first term as \(a\) and the ratio as \(r\); this chapter writes \(c\) and \(q\), because \(a\) with an angle subscript and \(r\) are used for other objects in the course.)</p>
+<p><strong>Logarithms.</strong> The natural logarithm \(\ln\) is defined for positive numbers, is strictly increasing, and turns a power into a product: \(\ln(x^n)=n\ln x\) for \(x\gt0\) and every real \(n\). It is the tool for an unknown exponent.</p>
+<p><strong>Rounding.</strong> Every computation in this chapter carries its intermediate values unrounded. Amounts are rounded to cents, rates are printed in percent to four decimals, and times to four decimals, only where they are displayed. A displayed equation therefore shows rounded operands beside a result computed from unrounded values, and recomputing it from the printed operands can differ in the last printed digit. Where a slide rounds an intermediate value, the text gives the slide's figure and the unrounded result side by side.</p>
+<p><strong>The running case.</strong> A borrower receives 20,000 dollars at \(t=0\). Lender A charges 7% effective a year and is repaid by 2,500 dollars at the end of each year, as many years as needed. Lender B is repaid by 2,800 dollars at \(t=1,2,\dots,10\). Lender C is repaid by 37,000 dollars at \(t=10\). All terms are invented. Three questions run through the chapter: how long A's loan lasts and what the last payment is; what rate B and C charge; and which offer is cheapest. The formal model is a list of cash flows at stated times, one constant rate and one focal date. In each section exactly one quantity in the equation of value is unknown.</p>
+
+<h2 id="single-time">Unknown time for a single sum: logarithms and doubling <a class="timestamp" href="https://www.youtube.com/watch?v=wszQ2wUP-SQ&amp;t=213s">L12 3:33</a></h2>
+<p><strong>Question.</strong> An amount \(\mathrm{PV}\gt0\) is invested now at the effective rate \(i\). How long does it take to grow to a target \(\mathrm{FV}\)? (\(\mathrm{PV}\) and \(\mathrm{FV}\) are the slide's labels for the present value and the future value.)</p>
+<p><strong>Derivation.</strong> By (5.1) with focal date \(n\), the equation of value is \(\mathrm{FV}=\mathrm{PV}(1+i)^n\), so \((1+i)^n=\mathrm{FV}/\mathrm{PV}\). The unknown is an exponent. Taking natural logarithms of both sides, the slide's step, gives \(n\ln(1+i)=\ln(\mathrm{FV}/\mathrm{PV})\), and for \(i\neq0\)</p>
+\[
+n=\frac{\ln(\mathrm{FV}/\mathrm{PV})}{\ln(1+i)}. \tag{5.4}
+\]
+<p><strong>Interpretation.</strong> The slide's picture is the graph of \(\mathrm{PV}(1+i)^t\) against \(t\), an exponential curve, and a horizontal line at the target; \(n\) is the coordinate on the time axis where the curve meets the line. For \(i\gt0\) the curve is strictly increasing, so it meets the line at most once: the answer is unique. (For \(-1\lt i\lt0\) the curve is strictly decreasing and the answer is again unique; the examples here use \(i\gt0\).) At a positive rate it meets the line at a positive time exactly when \(\mathrm{FV}\gt\mathrm{PV}\); for \(\mathrm{FV}\lt\mathrm{PV}\), (5.4) gives a negative \(n\), the time in the past at which the smaller amount would have had to be invested. Formula (5.4) depends only on the ratio \(\mathrm{FV}/\mathrm{PV}\). The lecture's remark that the doubling time is the same for 100, 200 or 300 dollars is this fact. The unit of \(n\) is the period of \(i\): years for an annual rate, quarters for a quarterly rate.</p>
+<p><strong>Doubling at 6%.</strong> With \(\mathrm{FV}/\mathrm{PV}=2\) and \(i=6\%\), \(1.06^n=2\) and</p>
+\[
+n=\frac{\ln2}{\ln1.06}=\frac{0.6931472}{0.0582689}=11.8957\ \text{years}.
+\]
+<p>The slide prints the quotient as \(0.6931/0.05827\) and the result as 11.896 years. The answer is not a whole number, and for a single sum it needs no interpretation: compound interest under (5.1) gives a value at every time, so the amount reaches exactly twice its start after 11.8957 years. A fractional time becomes a problem only when payments are made at whole periods, as in the sections on payment streams below.</p>
+<p><strong>Check.</strong> Substituting back, \(1.06^{11.8957}=2.0000\) to four decimals. As \(i\to0\) the denominator of (5.4) tends to 0 and \(n\to\infty\): without interest a sum never doubles.</p>
+
+<h2 id="rule-72">The rule of 72 as an approximation to the exact time <a class="timestamp" href="https://www.youtube.com/watch?v=wszQ2wUP-SQ&amp;t=472s">L12 7:52</a></h2>
+<p>The slide gives a mental check of a doubling time: \(n\approx72/(100\,i)\), with \(i\) as a decimal, so 72 is divided by the rate in percent. At 6% it gives \(72/6=12\) years against the exact 11.8957. The slide adds a warning: the rule is highly accurate for rates from 2% to 10%, and its error grows at higher rates, for example above 20%. This section derives the rule from (5.4) and measures the warning.</p>
+<p><strong>Derivation.</strong> The doubling time is \(n=\ln2/\ln(1+i)\). For \(|i|\lt1\) the logarithm has the series \(\ln(1+i)=i-i^2/2+i^3/3-\dots\), so \(\ln(1+i)=i\,(1-i/2+i^2/3-\dots)\). The reciprocal of the bracket is \(1+i/2-i^2/12+\dots\): multiplying, \((1-i/2+i^2/3)(1+i/2-i^2/12)=1+(\tfrac12-\tfrac12)i+(-\tfrac1{12}-\tfrac14+\tfrac13)i^2+\dots=1+0\cdot i+0\cdot i^2+\dots\). Hence</p>
+\[
+n=\frac{\ln2}{\ln(1+i)}=\ln2\Bigl(\frac1i+\frac12-\frac{i}{12}+\dots\Bigr)\approx\frac{69.3}{100\,i}+0.35. \tag{5.5}
+\]
+<p>The first term alone, \(69.3/(100\,i)\), is too small by about 0.35 periods at every small rate. The rule of 72 replaces both terms by one fraction: \(72/(100\,i)=69.3/(100\,i)+2.7/(100\,i)\), and the added \(2.7/(100\,i)\) equals the correction 0.35 at \(i=7.7\%\). So the rule is tuned to rates near 8%.</p>
+<p><strong>Where the rule is exact, and the sign of its error.</strong> The ratio of the rule to the exact time is \(72\ln(1+i)/(100\,i\ln2)\). The function \(\ln(1+i)/i\) is strictly decreasing for \(i\gt0\): its derivative is \([\,i/(1+i)-\ln(1+i)\,]/i^2\), and \(\ln(1+i)=\int_0^i dx/(1+x)\gt i/(1+i)\), because the integrand exceeds \(1/(1+i)\) on \([0,i)\). So the ratio falls as \(i\) rises; it is 1.0285 at 2% and 0.9993 at 8% (the signs of the first and third rows of Table 5.1), so it equals 1 at exactly one rate, \(i=7.8469\%\). Below that rate the rule overestimates the doubling time; above it, the rule underestimates it. Table 5.1 gives the size.</p>
+<div class="table-wrap"><table>
+<caption>Table 5.1. Doubling time by (5.4) and by the rule of 72, in periods of the rate. Error = rule / exact − 1.</caption>
+<thead><tr><th scope="col">Rate per period</th><th scope="col">Exact \(\ln2/\ln(1+i)\)</th><th scope="col">Rule \(72/(100\,i)\)</th><th scope="col">Error</th></tr></thead>
+<tbody>
+<tr><td>2%</td><td>35.0028</td><td>36.0000</td><td>+2.85%</td></tr>
+<tr><td>6%</td><td>11.8957</td><td>12.0000</td><td>+0.88%</td></tr>
+<tr><td>8%</td><td>9.0065</td><td>9.0000</td><td>−0.07%</td></tr>
+<tr><td>10%</td><td>7.2725</td><td>7.2000</td><td>−1.00%</td></tr>
+<tr><td>20%</td><td>3.8018</td><td>3.6000</td><td>−5.31%</td></tr>
+<tr><td>50%</td><td>1.7095</td><td>1.4400</td><td>−15.77%</td></tr>
+</tbody></table></div>
+<p>Between 2% and 10% the error is at most 2.85% of the doubling time (at 2%, about 1 period in 35). At 20% it is 5.31% and at 50% it is 15.77%. These are the numbers behind the slide's warning. The rule is a check on (5.4), not a replacement for it: the summary slide recommends it for quick estimates, and an exam answer to four decimals needs the logarithm. The rule applies to the rate per period at which interest is credited; Exercise 3 shows what happens when it is applied to an annual rate that is not that rate.</p>
+
+<h2 id="level-pv">The present value of a level stream of payments <a class="timestamp" href="https://www.youtube.com/watch?v=wszQ2wUP-SQ&amp;t=577s">L12 9:37</a></h2>
+<p>A loan is repaid by several payments, not one, so the equation of value has one term per payment. The lecture sums such a stream before it solves for an unknown term; it labels the result a preview of the annuity formulas of a later week. This section derives the sum, because the next three sections need it.</p>
+<p><strong>Question.</strong> What is the value at \(t=0\) of payments of \(R\) at the end of each period, at \(t=1,2,\dots,n\)? The slide writes the regular payment as \(R\) in its general formula and as 1,000 in its example; the calculator key for the same quantity is PMT.</p>
+<p><strong>Derivation.</strong> By (5.1), the payment at \(t=j\) is worth \(Rv^j\) at \(t=0\). The sum \(Rv+Rv^2+\dots+Rv^n\) is a geometric series (5.3) with first term \(c=Rv\), ratio \(q=v\) and \(n\) terms, so its value is \(Rv(1-v^n)/(1-v)\). By (5.2), \(1-v=iv\), and the factor \(v\) cancels. For one unit per period the result is written \(a_{\overline{n}|}\), read "a angle n":</p>
+\[
+a_{\overline{n}|}=v+v^2+\dots+v^n=\frac{1-v^n}{i},\qquad\text{so}\qquad\mathrm{PV}=R\,a_{\overline{n}|}. \tag{5.6}
+\]
+<p>The slide's display for its example is \(\mathrm{PV}=1000\,[(1-v^n)/i]\); it does not yet use the symbol \(a_{\overline{n}|}\), which this chapter uses as an abbreviation of the bracket. When the rate must be shown, the symbol is written \(a_{\overline{n}|i}\).</p>
+<p><strong>Checks.</strong> As \(i\to0\), every \(v^j\to1\) and the sum tends to \(n\), the undiscounted total, while the closed form becomes \(0/0\); the sum is the definition and the closed form holds for \(i\neq0\). For \(i\gt0\), \(a_{\overline{n}|}\lt n\) and \(a_{\overline{n}|}\lt1/i\) for every \(n\), because \(1-v^n\lt1\). The second bound returns in the next section. For the running case, \(a_{\overline{12}|0.07}=7.942686\), so 12 payments of 2,500 are worth 19,856.72 dollars at 7%, less than the 20,000 lent; 13 payments are worth \(2500\,a_{\overline{13}|0.07}=20{,}894.13\), more than the loan.</p>
+
+<h2 id="unknown-n">An unknown number of payments <a class="timestamp" href="https://www.youtube.com/watch?v=wszQ2wUP-SQ&amp;t=833s">L12 13:53</a></h2>
+<p><strong>The lecture's example.</strong> A loan of 5,000 dollars is repaid by 1,000 dollars at the end of each year, and the effective rate is 6%. How many payments are needed? The equation of value at focal date 0 is \(5000=1000\,a_{\overline{n}|}\), so \(5=(1-1.06^{-n})/0.06\), then \(0.30=1-1.06^{-n}\) and \(1.06^{-n}=0.70\). Taking logarithms, \(-n\ln1.06=\ln0.70\), and</p>
+\[
+n=\frac{\ln0.70}{-\ln1.06}=\frac{-0.356675}{-0.058269}=6.1212 .
+\]
+<p>The slide prints \(-0.3567/{-0.05827}\) and 6.12 payments.</p>
+<p><strong>The general formula.</strong> For a loan \(L\) repaid by \(R\) at the end of each period at rate \(i\gt0\) (the slide's \(L\) and \(R\)), the equation \(L=R(1-v^n)/i\) gives \(v^n=1-Li/R\). The right side must be positive for a logarithm to exist, which needs \(R\gt Li\). Then</p>
+\[
+n=\frac{-\ln(1-Li/R)}{\ln(1+i)}\qquad(R\gt Li). \tag{5.7}
+\]
+<p>The condition has a direct meaning. \(Li\) is the interest that the loan earns in the first period. If the payment is no larger than that interest, the balance never falls, and no number of payments repays the loan; equivalently, \(L\ge R/i\gt R\,a_{\overline{n}|}\) for every \(n\) by the bound of the previous section. In the lecture's example \(Li=300\lt1000\). In the running case, lender A's loan earns \(20{,}000\times0.07=1{,}400\) a year, the payment is 2,500, and (5.7) gives</p>
+\[
+n=\frac{-\ln(1-1400/2500)}{\ln1.07}=\frac{\ln(1/0.44)}{\ln1.07}=12.1342\ \text{years}.
+\]
+<p><strong>The trap.</strong> The slide's trap alert is that 6.12 payments cannot be made: no one writes a cheque for 0.12 times a payment. The same holds for 12.1342. Formula (5.7) treats \(n\) as a continuous variable, but payments occur only at whole periods. The number tells two things: \(\lfloor n\rfloor\) full payments (the largest whole number not above \(n\)) are not enough, and \(\lfloor n\rfloor+1\) full payments are too much. For lender A, 12 payments repay less than the loan (19,856.72 against 20,000 in value at \(t=0\)) and 13 repay more (20,894.13). The next section turns the remainder into one payment.</p>
+
+<h2 id="final-payment">Non-integer terms: the drop payment and the balloon payment <a class="timestamp" href="https://www.youtube.com/watch?v=wszQ2wUP-SQ&amp;t=1009s">L12 16:49</a></h2>
+<p>The slide states two options when \(n=6.12\). <em>Option A, the drop payment:</em> make 6 full payments of 1,000 and a smaller 7th payment at \(t=7\) that clears the remaining balance. <em>Option B, the balloon payment:</em> make 5 full payments of 1,000 and a larger 6th payment at \(t=6\) that clears everything. The lecture works out option A. Both are named final-payment conventions in the Exam FM syllabus, which lists "final payment (drop payment, balloon payment)" among the loan terms a candidate must know (<a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA Exam FM syllabus, October 2026</a>, p. 3).</p>
+<p><strong>The accumulated value of the payments.</strong> The balance after \(k\) payments compares two values at \(t=k\): the loan grown with interest, and the payments grown with interest. The payment at \(t=j\) is worth \(R(1+i)^{k-j}\) at \(t=k\), so the \(k\) payments are worth \(R[(1+i)^{k-1}+\dots+(1+i)+1]\), the slide's sum. It is a geometric series (5.3) with first term 1, ratio \(1+i\) and \(k\) terms; the second form of (5.3) gives, per unit of payment,</p>
+\[
+s_{\overline{k}|}=1+(1+i)+\dots+(1+i)^{k-1}=\frac{(1+i)^k-1}{i}, \tag{5.8}
+\]
+<p>read "s angle k", the slide's notation for the accumulated value of a series of payments, valued at the time of the last payment.</p>
+<p><strong>The balance and the two final payments.</strong> The outstanding balance just after the \(k\)th payment is the accumulated loan minus the accumulated payments:</p>
+\[
+B_k=L(1+i)^k-R\,s_{\overline{k}|}. \tag{5.9}
+\]
+<p>(The slide writes \(\mathrm{Balance}_6\).) Let \(k=\lfloor n\rfloor\). Under the drop convention nothing is paid between \(t=k\) and \(t=k+1\), so the balance earns one period of interest, and the final payment at \(t=k+1\) is</p>
+\[
+\text{drop payment at } t=k+1:\quad B_k(1+i)=\bigl(L(1+i)^k-R\,s_{\overline{k}|}\bigr)(1+i), \tag{5.10}
+\]
+<p>the slide's general strategy: the outstanding balance accrued for one period. Under the balloon convention the balance is added to the \(k\)th payment:</p>
+\[
+\text{balloon payment at } t=k:\quad R+B_k. \tag{5.11}
+\]
+<p><strong>The lecture's numbers, exact and rounded.</strong> For the loan of 5,000 at 6%, \(k=6\), \(1.06^6=1.418519\) and \(s_{\overline{6}|}=6.975319\). Then \(B_6=7{,}092.60-6{,}975.32=117.28\), the drop payment at \(t=7\) is \(117.28\times1.06=124.31\), and the balloon payment at \(t=6\) is \(1{,}117.28\). The slide prints \(5000(1.4185)=7{,}092.50\), \(1000(6.9753)=6{,}975.30\), a balance of 117.20 and a drop payment of 124.23. The difference of 8 cents comes from rounding the two factors to four decimals before multiplying: \(1.4185\) for \(1.418519\) makes the accumulated loan 0.10 dollars too small, \(6.9753\) for \(6.975319\) makes the accumulated payments 0.02 dollars too small, and the balance, a small difference of two large numbers, carries the net error of 0.08 dollars into the drop payment. Under this chapter's rule, with no intermediate rounding, the drop payment is 124.31.</p>
+<p><strong>Check by the equation of value.</strong> A final payment is correct if the full schedule satisfies the equation of value at \(t=0\). For the drop schedule, \(1000\,a_{\overline{6}|}+124.31\,v^7=4{,}917.32+82.68=5{,}000.00\). For the balloon schedule, \(1000\,a_{\overline{5}|}+1{,}117.28\,v^6=4{,}212.36+787.64=5{,}000.00\). The program at the end of the chapter asserts both identities for every loan it treats.</p>
+<p><strong>Why the drop payment is smaller than a full payment.</strong> If \(n\) is not a whole number, \(k\lt n\lt k+1\). Because \(a_{\overline{n}|}\) increases with \(n\), \(R\,a_{\overline{k}|}\lt L\lt R\,a_{\overline{k+1}|}\). The first inequality, multiplied by \((1+i)^k\), says \(B_k\gt0\), since \((1+i)^k a_{\overline{k}|}=s_{\overline{k}|}\). The second, multiplied by \((1+i)^{k+1}\), says \(L(1+i)^{k+1}\lt R\,s_{\overline{k+1}|}=R\,s_{\overline{k}|}(1+i)+R\), that is \(B_k(1+i)\lt R\). So \(0\lt\) drop payment \(\lt R\): it is a genuine partial payment. If \(n\) is a whole number, \(B_n=0\) and no final adjustment is needed.</p>
+<p><strong>The fractional part of \(n\) is not the final payment.</strong> Multiplying the fraction 0.1212 by 1,000 gives 121.19, not 124.31. The drop payment carries interest for the extra period, and the payments are not a linear function of time, so the fractional part of \(n\) measures the final payment only roughly. A problem that asks for a final payment must name the convention; the two conventions give different amounts at different dates.</p>
+<p><strong>The running case: lender A.</strong> With \(L=20{,}000\), \(R=2{,}500\), \(i=7\%\) and \(k=12\): \(L(1.07)^{12}=45{,}043.83\), \(R\,s_{\overline{12}|}=2500\times17.888451=44{,}721.13\), and \(B_{12}=322.70\). Under the drop convention the borrower pays 12 payments of 2,500 and a drop payment of \(322.70\times1.07=345.29\) dollars at \(t=13\); under the balloon convention, 11 payments of 2,500 and a balloon payment of \(2{,}500+322.70=2{,}822.70\) dollars at \(t=12\), the 12th payment enlarged by the balance. Check at \(t=0\): \(2500\,a_{\overline{11}|}+2{,}822.70\,v^{12}=18{,}746.69+1{,}253.31=20{,}000.00\). The fractional part gives \(0.1342\times2500=335.39\), 9.90 dollars short of the drop payment. The borrower pays 30,345.29 dollars in total under the drop convention and 30,322.70 under the balloon convention.</p>
+
+<h2 id="periods">Time counted in compounding periods <a class="timestamp" href="https://www.youtube.com/watch?v=wszQ2wUP-SQ&amp;t=1523s">L12 25:23</a></h2>
+<p>The lecture's second doubling example quotes the rate as 8% a year credited quarterly: a nominal rate convertible quarterly, \(i^{(4)}=8\%\). A nominal rate \(i^{(m)}\) convertible \(m\) times a year means an effective rate of \(i^{(m)}/m\) per \(1/m\) year; chapter 2 defines it in its section <a href="chapter-02-nominal-rates-of-interest-and-discount.html#nominal-interest">"Nominal rate of interest, frequency and periodic rate"</a>. Here the rate per quarter is \(8\%/4=2\%\).</p>
+<p>The slide's method keeps the quarter as the period. If \(N\) is the number of quarters, \(1.02^N=2\), and (5.4) gives \(N=\ln2/\ln1.02=35.0028\) quarters, which is \(35.0028/4=8.7507\) years. (The slide writes the number of quarters as \(m\); this chapter writes \(N\), because \(m\) is already the number of conversions per year in \(i^{(m)}\), and the two are different numbers here, 4 and 35.0028.) The same answer follows in years: the effective annual rate is \(1.02^4-1=8.2432\%\), and \(\ln2/\ln1.082432=8.7507\) years. The two routes agree because \(\ln(1.02^4)=4\ln1.02\). The error to avoid is to divide by \(\ln1.08\), as if 8% were effective: that gives 9.0065 years, the 8% row of Table 5.1, which is 0.2558 years too long.</p>
+
+<h2 id="equated-time">Several payments replaced by one: equated time and exact time</h2>
+<p>This section is an extension; the two lectures do not treat it. It applies the method of the section on single sums to several payments, and it uses the convexity argument that the section on interpolation needs again.</p>
+<p><strong>Question.</strong> A debtor owes amounts \(c_1,\dots,c_J\gt0\), with an integer \(J\ge2\), at distinct times \(t_1,\dots,t_J\). At what single time \(t\) does one payment of the total \(C=c_1+\dots+c_J\) have the same value? The equation of value at focal date 0 is \(Cv^t=\sum_j c_jv^{t_j}\), and (5.4) gives the exact time \(t=\ln\bigl(C/\sum_j c_jv^{t_j}\bigr)/\ln(1+i)\). A shortcut, the <em>method of equated time</em>, uses instead the average of the dates weighted by the amounts:</p>
+\[
+\bar t=\frac{c_1t_1+\dots+c_Jt_J}{c_1+\dots+c_J}. \tag{5.12}
+\]
+<p><strong>Claim.</strong> For \(i\gt0\), \(\bar t\gt t\): the equated time is later than the exact time, so a single payment at \(\bar t\) is worth less than the debts it replaces.</p>
+<p><strong>Proof.</strong> Write \(w_j=c_j/C\), so \(w_j\gt0\), \(\sum_jw_j=1\) and \(\sum_jw_jt_j=\bar t\). The exact time satisfies \(v^t=\sum_jw_jv^{t_j}\). The function \(f(x)=v^x\) has \(f''(x)=(\ln v)^2v^x\gt0\). Let \(g(x)=f(x)-f(\bar t)-f'(\bar t)(x-\bar t)\), the gap between \(f\) and its tangent line at \(\bar t\) (\(f\) and \(g\) are local to this proof). Then \(g(\bar t)=0\) and \(g'(x)=f'(x)-f'(\bar t)\), which is negative for \(x\lt\bar t\) and positive for \(x\gt\bar t\), since \(f'\) is strictly increasing. So \(g(x)\gt0\) for \(x\neq\bar t\). Multiply \(g(t_j)\ge0\) by \(w_j\) and add: the tangent terms cancel because \(\sum_jw_j(t_j-\bar t)=0\), and \(\sum_jw_jf(t_j)\gt f(\bar t)\), strictly because the \(t_j\) are distinct, so at least one differs from \(\bar t\). Hence \(v^t\gt v^{\bar t}\), and since \(0\lt v\lt1\), \(t\lt\bar t\). ∎</p>
+<p><strong>Example and limit.</strong> Debts of 10,000 dollars at \(t=2\) and 20,000 at \(t=8\), at 6%: \(\bar t=(20{,}000+160{,}000)/30{,}000=6\) years, while the exact time is 5.7588 years. The debts are worth 21,448.21 dollars at \(t=0\); 30,000 paid at \(t=6\) is worth 21,148.82, so the creditor who accepts the equated time loses 299.40 dollars of present value. As the rate falls the gap closes: the exact time is 5.9599 years at 1%.</p>
+<p><strong>The size of the gap.</strong> Write \(u=\ln(1+i)\), so \(v^x=e^{-ux}\), and let \(\sigma^2=\sum_jw_j(t_j-\bar t)^2\) be the variance of the dates weighted by the amounts. The exponential series gives \(\sum_jw_je^{-ut_j}=1-u\bar t+\tfrac12u^2\sum_jw_jt_j^2+O(u^3)\). With \(\ln(1+y)=y-y^2/2+O(y^3)\), the logarithm of this sum is \(-u\bar t+\tfrac12u^2\bigl(\sum_jw_jt_j^2-\bar t^2\bigr)+O(u^3)=-u\bar t+\tfrac12u^2\sigma^2+O(u^3)\). Dividing by \(\ln v=-u\) gives the exact time:</p>
+\[
+t=\bar t-\tfrac12\,u\,\sigma^2+O(u^2),\qquad u=\ln(1+i).
+\]
+<p>So \(\bar t\) is the limit of the exact time as \(i\to0\), and the gap \(\bar t-t\) is first order in \(\ln(1+i)\) and proportional to the spread of the dates. In the example \(\sigma^2=\tfrac13(2-6)^2+\tfrac23(8-6)^2=8\), and the formula gives \(\tfrac12\times0.058269\times8=0.2331\) years against the actual gap \(6-5.7588=0.2412\); at 1% it gives 0.0398 against 0.0401. Exercise 6 measures the gap in a case with a wider spread of dates and a higher rate.</p>
+
+<h2 id="single-rate">Why an unknown rate is harder: the single sum <a class="timestamp" href="https://www.youtube.com/watch?v=wUR79TZ25RA&amp;t=104s">L13 1:44</a></h2>
+<p>The lecture's roadmap names three methods for an unknown rate: an analytic method for simple cases, linear interpolation, which it calls the exam method, and calculator iteration, which it calls the practitioner's method. This section and the next treat the analytic cases.</p>
+<p><strong>One payment.</strong> If \(\mathrm{PV}\) grows to \(\mathrm{FV}\) in \(n\) periods, \((1+i)^n=\mathrm{FV}/\mathrm{PV}\), and taking the positive \(n\)th root,</p>
+\[
+i=\Bigl(\frac{\mathrm{FV}}{\mathrm{PV}}\Bigr)^{1/n}-1. \tag{5.13}
+\]
+<p>The slide's case is \(100(1+i)^5=150\): \(i=1.5^{0.2}-1=8.4472\%\). For the running case, lender C turns 20,000 dollars into 37,000 in 10 years, so \(i=1.85^{0.1}-1=6.3450\%\). The root is unique because \(x\mapsto x^n\) is strictly increasing for \(x\gt0\).</p>
+<p><strong>Several payments.</strong> The slide's contrast is a loan of 100 repaid by 10, 20 and 100 at \(t=1,2,3\): \(100=10v+20v^2+100v^3\). This is a polynomial equation of degree 3 in \(v\), and the rate cannot be isolated by taking a root. The lecture's summary states that algebra works only for single payments or quadratics. That is a statement about hand methods, and the book does not rely on it: every equation of value with payments at whole periods is a polynomial in \(v\), and the sections below solve it numerically for any degree, with a stopping rule and a check. Lender B's equation, \(20{,}000=2{,}800\,a_{\overline{10}|i}\), has degree 10.</p>
+
+<h2 id="quadratic">Two payments: a quadratic in the discount factor <a class="timestamp" href="https://www.youtube.com/watch?v=wUR79TZ25RA&amp;t=216s">L13 3:36</a></h2>
+<p><strong>The lecture's example.</strong> A loan of 180 is repaid by 100 at \(t=1\) and 100 at \(t=2\). The equation of value is \(180=100v+100v^2\), that is \(100v^2+100v-180=0\), or \(5v^2+5v-9=0\). The quadratic formula with \(a=5\), \(b=5\), \(c=-9\) (the school letters, used only in this paragraph) gives</p>
+\[
+v=\frac{-5\pm\sqrt{25+180}}{10}=\frac{-5\pm\sqrt{205}}{10}. \tag{5.14}
+\]
+<p>The negative root, \(v=-1.93\), would mean \(1+i\lt0\) and has no financial meaning; the slide discards it. The positive root is \(v=0.931782\), and \(i=1/v-1=7.3212\%\).</p>
+<p><strong>A rounding trap in the slide.</strong> The slide rounds the root to \(v\approx0.931\) and then reports \(i=(1/v)-1\approx7.41\%\). The rounding of \(v\) by 0.000782 moves the rate by 0.09 percentage points, from 7.3212% to 7.4114%, because \(di/dv=-1/v^2\approx-1.15\): 0.000782 in \(v\) is 0.08% of \(v\) but 1.2% of \(i\). The check is to substitute: at \(v=0.931\), \(100v+100v^2=179.78\), not 180; at \(v=0.931782\), the sum is 180.00. The rule of this chapter, no intermediate rounding, gives 7.3212%.</p>
+<p><strong>When the quadratic route works.</strong> Two payments at \(t=1\) and \(t=2\) always give a quadratic in \(v\); payments at \(t=1\) and \(t=3\) give a cubic, and payments at \(t=2\) and \(t=4\) give a quadratic in \(v^2\). With one outflow at \(t=0\) and positive payments \(c_1\), \(c_2\) and loan \(L\gt0\), the product of the two roots is \(-L/c_2\lt0\), so exactly one root is positive: the rate is unique. The section on sign changes generalizes this.</p>
+
+<h2 id="interpolation">Linear interpolation and the convexity gap <a class="timestamp" href="https://www.youtube.com/watch?v=wUR79TZ25RA&amp;t=405s">L13 6:45</a></h2>
+<p><strong>The method.</strong> Write \(\mathrm{PV}(i)\) for the present value at rate \(i\) of the payments received, and let the target be the amount paid at \(t=0\). Guess a low rate \(i_L\), at which \(\mathrm{PV}_L=\mathrm{PV}(i_L)\) is above the target, and a high rate \(i_H\), at which \(\mathrm{PV}_H=\mathrm{PV}(i_H)\) is below it. (The subscripts \(L\) and \(H\) are the slide's: low and high rate. A low rate gives a high present value.) The root is trapped between \(i_L\) and \(i_H\). Replace the curve between them by the straight line through \((i_L,\mathrm{PV}_L)\) and \((i_H,\mathrm{PV}_H)\), and find where the line meets the target. Equal ratios along the line, the slide's similar triangles, \((i-i_L)/(i_H-i_L)=(\mathrm{PV}_L-\text{Target})/(\mathrm{PV}_L-\mathrm{PV}_H)\), give</p>
+\[
+i\approx i_L+\frac{\mathrm{PV}_L-\text{Target}}{\mathrm{PV}_L-\mathrm{PV}_H}\,(i_H-i_L). \tag{5.15}
+\]
+<p><strong>The lecture's example.</strong> An investor pays 100 at \(t=0\) and receives 60 at \(t=1\) and 60 at \(t=2\): \(100=60v+60v^2\). At 10%, \(\mathrm{PV}=54.545+49.587=104.13\), too high; at 15%, \(\mathrm{PV}=52.174+45.369=97.54\), too low. The slide prints the terms to cents, 54.54 and 49.59, then 52.17 and 45.37; \(60/1.1=54.545\). Then (5.15) gives \(i\approx0.10+(4.13/6.59)(0.05)=13.13\%\); with unrounded present values the step gives 13.1354%. This example is also a quadratic, \(6v^2+6v-10=0\), so its exact root is known: \(v=(-6+\sqrt{276})/12=0.884437\) and \(i=13.0662\%\). The exact root 13.0662% rounds to 13.07%, the value marked in Figure 5.1; the slide reports the calculator's display as 13.06%. The interpolated rate is too high by 0.0691 percentage points.</p>
+<p><strong>Why the interpolated rate is too high.</strong> The slide's explanation is the convexity gap: the present-value curve is convex, curved like a smile; the straight line lies above the curve; at the target the line therefore corresponds to a higher rate than the curve. Here is the argument in full, with its hypothesis. Suppose every payment received is positive: \(\mathrm{PV}(i)=\sum_jc_j(1+i)^{-t_j}\) with all \(c_j\gt0\) and \(t_j\gt0\). Differentiating twice,</p>
+\[
+\mathrm{PV}'(i)=-\sum_jt_jc_j(1+i)^{-t_j-1}\lt0,\qquad \mathrm{PV}''(i)=\sum_jt_j(t_j+1)c_j(1+i)^{-t_j-2}\gt0. \tag{5.16}
+\]
+<p>So \(\mathrm{PV}\) is strictly decreasing and strictly convex for \(i\gt-1\). Let \(\ell(i)\) be the chord through the two trial points, and \(h=\ell-\mathrm{PV}\) on \([i_L,i_H]\). Then \(h(i_L)=h(i_H)=0\) and \(h''=-\mathrm{PV}''\lt0\). If \(h\) were negative somewhere inside the interval, it would have an interior minimum, where \(h''\ge0\); that is impossible, so \(h\ge0\): the chord lies on or above the curve. Let \(i^*\) be the interpolated rate, so \(\ell(i^*)=\text{Target}\), and let \(i_0\) be the root, \(\mathrm{PV}(i_0)=\text{Target}\). Then \(\mathrm{PV}(i^*)\le\ell(i^*)=\mathrm{PV}(i_0)\), and because \(\mathrm{PV}\) is decreasing, \(i^*\ge i_0\). The interpolated rate never underestimates the root under this hypothesis. The slide's summary, that interpolation slightly overestimates \(i\) because of convexity, is this result; the word "slightly" depends on the bracket. Exercise 5 shows that the same method applied to an accumulated value, an increasing convex function of the rate, errs in the other direction.</p>
+<figure>
+<svg viewBox="0 0 640 360" role="img" aria-labelledby="fig-chord-title fig-chord-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-chord-title">Present value against the rate, with the chord used by linear interpolation</title>
+<desc id="fig-chord-desc">The present value of 60 at times 1 and 2 falls and curves upward as the rate rises from 0 to 45 percent. A straight chord joins the curve at 2 percent and at 40 percent and lies above the curve between them. A horizontal line at 100 marks the target. The curve meets the target at 13.07 percent; the chord meets it at 16.57 percent, to the right.</desc>
+<line x1="70" y1="300" x2="600" y2="300" stroke="currentColor"/>
+<line x1="70" y1="300" x2="70" y2="30" stroke="currentColor"/>
+<g text-anchor="middle">
+<line x1="70.0" y1="300" x2="70.0" y2="305" stroke="currentColor"/>
+<text x="70.0" y="320">0%</text>
+<line x1="128.9" y1="300" x2="128.9" y2="305" stroke="currentColor"/>
+<text x="128.9" y="320">5%</text>
+<line x1="187.8" y1="300" x2="187.8" y2="305" stroke="currentColor"/>
+<text x="187.8" y="320">10%</text>
+<line x1="246.7" y1="300" x2="246.7" y2="305" stroke="currentColor"/>
+<text x="246.7" y="320">15%</text>
+<line x1="305.6" y1="300" x2="305.6" y2="305" stroke="currentColor"/>
+<text x="305.6" y="320">20%</text>
+<line x1="364.4" y1="300" x2="364.4" y2="305" stroke="currentColor"/>
+<text x="364.4" y="320">25%</text>
+<line x1="423.3" y1="300" x2="423.3" y2="305" stroke="currentColor"/>
+<text x="423.3" y="320">30%</text>
+<line x1="482.2" y1="300" x2="482.2" y2="305" stroke="currentColor"/>
+<text x="482.2" y="320">35%</text>
+<line x1="541.1" y1="300" x2="541.1" y2="305" stroke="currentColor"/>
+<text x="541.1" y="320">40%</text>
+<line x1="600.0" y1="300" x2="600.0" y2="305" stroke="currentColor"/>
+<text x="600.0" y="320">45%</text>
+<text x="335" y="342">rate i</text>
+</g>
+<g text-anchor="end">
+<line x1="65" y1="300.0" x2="70" y2="300.0" stroke="currentColor"/>
+<text x="61" y="304.0">60</text>
+<line x1="65" y1="260.0" x2="70" y2="260.0" stroke="currentColor"/>
+<text x="61" y="264.0">70</text>
+<line x1="65" y1="220.0" x2="70" y2="220.0" stroke="currentColor"/>
+<text x="61" y="224.0">80</text>
+<line x1="65" y1="180.0" x2="70" y2="180.0" stroke="currentColor"/>
+<text x="61" y="184.0">90</text>
+<line x1="65" y1="140.0" x2="70" y2="140.0" stroke="currentColor"/>
+<text x="61" y="144.0">100</text>
+<line x1="65" y1="100.0" x2="70" y2="100.0" stroke="currentColor"/>
+<text x="61" y="104.0">110</text>
+<line x1="65" y1="60.0" x2="70" y2="60.0" stroke="currentColor"/>
+<text x="61" y="64.0">120</text>
+</g>
+<text x="20" y="22">PV(i)</text>
+<line x1="70" y1="140.0" x2="600" y2="140.0" stroke="currentColor" stroke-dasharray="3 4"/>
+<text x="600" y="132.0" text-anchor="end">target 100</text>
+<polyline points="70.0,60.0 75.9,63.6 81.8,67.1 87.7,70.6 93.6,74.0 99.4,77.4 105.3,80.8 111.2,84.1 117.1,87.3 123.0,90.6 128.9,93.7 134.8,96.9 140.7,100.0 146.6,103.0 152.4,106.1 158.3,109.1 164.2,112.0 170.1,114.9 176.0,117.8 181.9,120.7 187.8,123.5 193.7,126.2 199.6,129.0 205.4,131.7 211.3,134.4 217.2,137.0 223.1,139.7 229.0,142.2 234.9,144.8 240.8,147.3 246.7,149.8 252.6,152.3 258.4,154.7 264.3,157.2 270.2,159.5 276.1,161.9 282.0,164.2 287.9,166.6 293.8,168.8 299.7,171.1 305.6,173.3 311.4,175.5 317.3,177.7 323.2,179.9 329.1,182.0 335.0,184.1 340.9,186.2 346.8,188.3 352.7,190.4 358.6,192.4 364.4,194.4 370.3,196.4 376.2,198.4 382.1,200.3 388.0,202.2 393.9,204.1 399.8,206.0 405.7,207.9 411.6,209.7 417.4,211.6 423.3,213.4 429.2,215.2 435.1,216.9 441.0,218.7 446.9,220.4 452.8,222.2 458.7,223.9 464.6,225.6 470.4,227.2 476.3,228.9 482.2,230.5 488.1,232.2 494.0,233.8 499.9,235.4 505.8,236.9 511.7,238.5 517.6,240.1 523.4,241.6 529.3,243.1 535.2,244.6 541.1,246.1 547.0,247.6 552.9,249.1 558.8,250.5 564.7,252.0 570.6,253.4 576.4,254.8 582.3,256.2 588.2,257.6 594.1,259.0 600.0,260.3" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="93.6" y1="74.0" x2="541.1" y2="246.1" stroke="currentColor" stroke-dasharray="8 5"/>
+<circle cx="93.6" cy="74.0" r="4"/>
+<circle cx="541.1" cy="246.1" r="4"/>
+<line x1="223.9" y1="140.0" x2="223.9" y2="300" stroke="currentColor" stroke-dasharray="2 3"/>
+<circle cx="223.9" cy="140.0" r="3.5"/>
+<text x="217.9" y="270" text-anchor="end">root 13.07%</text>
+<line x1="265.1" y1="140.0" x2="265.1" y2="300" stroke="currentColor" stroke-dasharray="2 3"/>
+<circle cx="265.1" cy="140.0" r="3.5"/>
+<text x="271.1" y="270" text-anchor="start">chord 16.57%</text>
+<text x="101.6" y="66.0">i = 2%</text>
+<text x="535.1" y="266.1" text-anchor="end">i = 40%</text>
+</svg>
+<figcaption>Figure 5.1. The present value \(\mathrm{PV}(i)=60(1+i)^{-1}+60(1+i)^{-2}\) of the lecture's example (solid curve), the chord between the trial rates 2% and 40% (dashed), and the target 100 (dotted). The chord lies above the convex curve, so it reaches the target at 16.57%, to the right of the root 13.07%. The bracket here is wider than the slide's 10% to 15%, so that the gap is visible; with the slide's bracket the gap is 0.0691 percentage points.</figcaption>
+</figure>
+<p><strong>The size of the gap.</strong> The slide's strategy is to choose \(i_L\) and \(i_H\) close together: the closer they are, the more accurate the answer. For the lecture's example the error of one interpolation step is 0.0691 percentage points from the bracket [10%, 15%], 0.0116 from [12%, 14%], 0.000722 from [13%, 14%] and 0.0000261 from [13%, 13.1%]. The size follows from the curvature. Near the root \(i_0\), the chord lies above the curve by about \(\tfrac12\mathrm{PV}''(i_0)(i_0-i_L)(i_H-i_0)\), and dividing this vertical gap by the slope \(|\mathrm{PV}'(i_0)|\) turns it into a gap in the rate: the error of one step is about \(\mathrm{PV}''(i_0)(i_0-i_L)(i_H-i_0)/(2|\mathrm{PV}'(i_0)|)\). For the example, \(\mathrm{PV}''(i_0)=303.3\) and \(\mathrm{PV}'(i_0)=-130.0\), and the bracket [10%, 15%] gives \(303.3\times0.030662\times0.019338/260.0=0.000692\), against the error 0.000691 found above. The error is proportional to the product of the distances from the root to the two trial rates, which is why [13%, 14%], with one end 0.066 points from the root, does 16 times better than [12%, 14%]. Figure 5.1 shows a wide bracket: from [2%, 40%] the chord gives 16.57%, 3.50 points too high.</p>
+<p><strong>The running case: lender B.</strong> The equation \(20{,}000=2{,}800\,a_{\overline{10}|i}\) has positive payments, so the hypothesis of (5.16) holds. At 6%, \(2{,}800\,a_{\overline{10}|}=20{,}608.24\); at 7%, 19,666.03. One step of (5.15) gives 6.6455%. The root, found in the next section, is 6.6373%; the step is too high by 0.0082 percentage points, as the proof requires.</p>
+
+<h2 id="iteration">Iteration with a stopping rule <a class="timestamp" href="https://www.youtube.com/watch?v=wUR79TZ25RA&amp;t=958s">L13 15:58</a></h2>
+<p>The lecture's third method is the IRR key of the BA II Plus cash-flow worksheet: enter \(\mathrm{CF}_0=-100\) (the outflow), C01 = 60 with frequency F01 = 2 (two inflows of 60), then press IRR and CPT; the slide reports 13.06%. The <em>internal rate of return</em> (IRR) is the rate at which the net present value of all cash flows, received positive and paid negative, is zero, which is the rate that solves the equation of value. The guidebook defines it the same way and says that the calculator finds it by a series of iterative calculations (<a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf">Texas Instruments, BA II PLUS guidebook</a>, p. 40). A keystroke sequence evaluates a root; it does not show that the root exists, that it is unique, or how accurate it is. This section gives two iterations whose accuracy is known.</p>
+<p><strong>The function.</strong> Write the equation of value as \(f(i)=0\), with \(f(i)=\sum_jc_j(1+i)^{-t_j}\) the net present value, outflows negative. For a loan or an investment with one outflow at \(t=0\) followed by inflows, \(f\) is \(\mathrm{PV}(i)-\text{Target}\): continuous and strictly decreasing by (5.16). If \(f(i_{\text{lo}})\gt0\gt f(i_{\text{hi}})\), the root lies in \((i_{\text{lo}},i_{\text{hi}})\) by the intermediate value theorem, and it is the only root there.</p>
+<p><strong>Bisection.</strong> Evaluate \(f\) at the midpoint of the bracket and keep the half on which \(f\) still changes sign. Each step halves the bracket, and the root always stays inside it. <em>Stopping rule:</em> stop when the bracket is no wider than a tolerance \(\varepsilon\), and report its midpoint, which is within \(\varepsilon/2\) of the root. From a bracket of width \(w\), the number of steps is the smallest integer \(K\) with \(w/2^K\le\varepsilon\), known before the first step. From \([10^{-9},1]\) with \(\varepsilon=10^{-12}\), \(K=40\), since \(2^{-40}=9.1\times10^{-13}\). The program below finds 13.0662% for the lecture's example and 6.6373% for lender B, each in 40 halvings. <em>Check:</em> substitute the root; the net present value there is \(5\times10^{-11}\) for the example and \(-3\times10^{-8}\) dollars for lender B, on a loan of 20,000, which is what a rate error below \(\varepsilon/2=5\times10^{-13}\) allows, since \(|f'|\) is about 93,000 dollars per unit of rate there and \(93{,}000\times5\times10^{-13}=4.7\times10^{-8}\).</p>
+<p><strong>Repeated interpolation.</strong> The lecture's method 2 can be repeated: after one step of (5.15), evaluate \(f\) at the new rate, keep the sub-bracket on which the sign still changes, and interpolate again. This is the <em>method of false position</em>. Under the hypothesis of (5.16) each new rate lies above the root, so the high end moves and the low end stays. <em>Stopping rule:</em> stop when \(|f|\) at the new rate is below a tolerance, here \(10^{-9}\) dollars. For the lecture's example the rates are 13.1354%, 13.0687%, 13.0663%, …; the errors fall by a factor of about 28 per step, and 7 steps reach the tolerance. For lender B, 8 steps reach it. Both stopping rules end with the same check: substitute the reported rate into the equation of value.</p>
+<p><strong>Why false position converges under (5.16).</strong> Let \(i_0\) be the root and start from \(f(i_{\text{lo}})\gt0\gt f(i_{\text{hi}})\). The interpolated rate \(x\) satisfies \(x\lt i_{\text{hi}}\), because \(f(i_{\text{lo}})/(f(i_{\text{lo}})-f(i_{\text{hi}}))\lt1\), and \(x\ge i_0\) by the chord argument of the section on interpolation (the chord lies on or above the convex curve). So \(f(x)\le0\): if \(f(x)=0\) the root is found and the stopping rule ends the iteration; otherwise the high end moves to \(x\) and the low end never moves. The high ends form a nonincreasing sequence bounded below by \(i_0\), so they converge to a limit \(i_\infty\ge i_0\gt i_{\text{lo}}\). Each new high end is \(i_{\text{lo}}+f(i_{\text{lo}})(i_{\text{hi}}-i_{\text{lo}})/(f(i_{\text{lo}})-f(i_{\text{hi}}))\) with the previous one as \(i_{\text{hi}}\); the denominator is positive because \(f\) is strictly decreasing, and \(f\) is continuous, so letting both high ends tend to \(i_\infty\) gives \((i_\infty-i_{\text{lo}})\bigl(f(i_{\text{lo}})-f(i_\infty)\bigr)=f(i_{\text{lo}})(i_\infty-i_{\text{lo}})\). Dividing by \(i_\infty-i_{\text{lo}}\gt0\) leaves \(f(i_\infty)=0\), so \(i_\infty=i_0\), the only root. Since \(f(i_{\text{hi}})\to0\), the stopping rule \(|f|\lt10^{-9}\) is reached after finitely many steps.</p>
+<p><strong>Rate error at the stopping point.</strong> If the stopping point \(x=i_0\), its error is zero. Otherwise \(x\gt i_0\), and the mean value theorem gives \(f(x)-f(i_0)=f'(\xi)(x-i_0)\) for some \(\xi\) between \(i_0\) and \(x\), so \(|x-i_0|=|f(x)|/|f'(\xi)|\). Under (5.16), \(f'\) is negative and increasing, so \(|f'|\) decreases with the rate; \(\xi\lt x\) therefore gives \(|f'(\xi)|\ge|f'(x)|\). Hence \(|x-i_0|\le|f(x)|/|f'(x)|\lt10^{-9}/|f'(x)|\). At the stopping point \(|f'(x)|\approx130\) for the lecture's example and \(93{,}000\) for lender B, giving rate errors below \(10^{-11}\) and \(10^{-13}\), respectively.</p>
+<p>The SOA syllabus states that the calculators allowed in the exam remove the need to learn and be examined on certain mathematical methods of approximation (SOA Exam FM syllabus, p. 1). The lecture's label for interpolation as "the exam method" is the speaker's description of practice. The book treats interpolation as the first step of a convergent iteration, whose error has a known sign under (5.16).</p>
+
+<h2 id="sign-changes">Several sign changes: uniqueness and multiple rates <a class="timestamp" href="https://www.youtube.com/watch?v=wUR79TZ25RA&amp;t=1032s">L13 17:12</a></h2>
+<p><strong>The lecture's rule.</strong> The slide quotes Descartes' rule of signs, a theorem about polynomials: the number of positive real roots is at most the number of sign changes in the cash-flow stream. Its examples are a normal loan, \(-100,+50,+50,+50\), with one sign change and a unique \(i\), and a complex project, \(-100,+230,-132\), with two sign changes and the potential for two roots. The chapter does not prove Descartes' rule; it proves the case it needs, one sign change, directly, and it treats two sign changes by example.</p>
+<p><strong>One sign change: at most one rate.</strong> Let the cash flows \(c_0,c_1,\dots,c_n\) at \(t=0,1,\dots,n\) change sign once: the nonzero ones are negative up to some time and positive after it, or the reverse. Let \(p\) be the first time with a cash flow of the second sign. Multiply the net present value by \((1+i)^p\gt0\), which does not change its zeros:</p>
+\[
+g(i)=(1+i)^p f(i)=\sum_{t\lt p}c_t(1+i)^{p-t}+\sum_{t\ge p}c_t(1+i)^{-(t-p)}. \tag{5.17}
+\]
+<p>Take the case of outflows first (\(c_t\le0\) for \(t\lt p\), \(c_t\ge0\) for \(t\ge p\), as in a loan seen from the lender, with at least one negative \(c_t\) before \(p\)). In the first sum each exponent is positive, so each term with \(c_t\lt0\) is strictly decreasing in \(i\) and each term with \(c_t=0\) is constant; in the second sum each exponent is zero or negative and each coefficient is zero or positive, so each term is nonincreasing. So \(g\) is strictly decreasing on \(i\gt-1\) and has at most one zero. The reverse case is the same with signs exchanged, and \(g\) is strictly increasing. A positive root \(v=1/(1+i)\) of the polynomial corresponds to a rate \(i\gt-1\), so "at most one positive root" is a statement about all rates above \(-100\%\).</p>
+<p><strong>Existence, and a positive rate.</strong> Uniqueness does not give existence. Write the net present value as a polynomial in \(v\), \(P(v)=c_0+c_1v+\dots+c_nv^n\). Near \(v=0\) (very high rates) \(P\) has the sign of its first nonzero coefficient, and for large \(v\) (rates near \(-100\%\)) the sign of its last nonzero coefficient. With one sign change these two coefficients have opposite signs, so \(P\) has a positive root by the intermediate value theorem: a rate \(i\gt-1\) exists. In the outflows-first case \(g\) is strictly decreasing, so the rate is positive exactly when \(g(0)=f(0)\gt0\), that is, when the cash flows add to more than zero without discounting: the payments return more than was paid. For lender B, seen from the lender, \(-20{,}000+10\times2{,}800=8{,}000\gt0\), so the rate is positive and unique; for the normal loan on the slide, \(-100+150=50\gt0\).</p>
+<p><strong>Two sign changes: the mine closure.</strong> The slide's project pays 100 to dig a mine, earns 230 a year later and pays 132 for cleanup a year after that: \(-100+230v-132v^2=0\). The slide checks two rates: at 10%, \(-100+209.09-109.09=0\), and at 20%, \(-100+191.67-91.67=0\) (the slide prints 191.66 and 91.66). The quadratic factors exactly: \(132v^2-230v+100=132(v-1/1.1)(v-1/1.2)\), because \(132/1.32=100\) and \(132(1/1.1+1/1.2)=120+110=230\). Both 10% and 20% satisfy the equation of value, as the slide concludes. Neither is "the" rate of the project. The net present value is \(-2\) at 0%, positive between 10% and 20% (0.19 at 15%) and negative above 20%, so a statement such as "the project earns more than 10%" has no single meaning. The guidebook states that with several sign changes the calculator displays the solution closest to zero, and warns that this solution has no financial meaning for investment decisions (TI guidebook, p. 41); here that rule would display 10%.</p>
+<p><strong>Two sign changes and no rate.</strong> Raise the cleanup cost to 140: \(-100+230v-140v^2=0\). The discriminant is \(230^2-4\times140\times100=52{,}900-56{,}000=-3{,}100\lt0\), so there is no real \(v\) and no rate at all. The net present value is at most \(-100+230^2/(4\times140)=-5.5357\) at every rate: the project loses value at every rate of interest. Two sign changes allow two rates; they do not guarantee one. The guidebook's statement that at least one solution exists when there are two or more sign changes (p. 41) does not hold for this stream. A correct sufficient condition is that the first and last nonzero cash flows have opposite signs: then the polynomial in \(v\) takes opposite signs near \(v=0\) and for large \(v\), and has a positive root. Exercise 4 finds the cleanup cost at which the two rates merge into one.</p>
+<p><strong>What the calculator does with each case.</strong> The guidebook states that with no sign change the calculator reports Error 5 (no solution), with one sign change it displays the only solution, and for complex problems with several sign changes it may stop with Error 7 (iteration limit exceeded) even when a solution exists (TI guidebook, pp. 40–41 and 79–80). Counting sign changes before computing tells which case applies.</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The borrower receives 20,000 dollars and can choose among three repayment schedules. Table 5.2 collects the results of the sections above.</p>
+<div class="table-wrap"><table>
+<caption>Table 5.2. The three offers. Rates are effective annual rates; amounts in dollars, rounded to cents at the end.</caption>
+<thead><tr><th scope="col">Offer</th><th scope="col">Repayments</th><th scope="col">Unknown and result</th><th scope="col">Total repaid</th><th scope="col">PV at 5%</th></tr></thead>
+<tbody>
+<tr><td>A</td><td>2,500 at \(t=1,\dots,12\); drop 345.29 at \(t=13\)</td><td>term \(n=12.1342\) at 7%</td><td>30,345.29</td><td>22,341.25</td></tr>
+<tr><td>B</td><td>2,800 at \(t=1,\dots,10\)</td><td>rate 6.6373%</td><td>28,000.00</td><td>21,620.86</td></tr>
+<tr><td>C</td><td>37,000 at \(t=10\)</td><td>rate 6.3450%</td><td>37,000.00</td><td>22,714.79</td></tr>
+</tbody></table></div>
+<p>Each rate is the unique rate of its offer: every schedule is one inflow to the borrower followed by outflows, a single sign change, and every total exceeds 20,000, so each rate is positive. By rate, C (6.3450%) is cheapest, then B (6.6373%), then A (7%). By total repaid, B is cheapest and C dearest. The two rankings disagree because the totals ignore when the money is paid: C's 37,000 arrives 10 years later than the loan.</p>
+<p>Neither ranking answers the borrower's question by itself. A rate summarizes one schedule; comparing schedules with different timing needs one common rate at which the borrower values money. If the borrower's savings earn 5% a year (an invented rate), the cost today of each schedule is its present value at 5%, the last column: B costs 21,620.86, A 22,341.25 and C 22,714.79, so B is cheapest and C dearest, although C has the lowest rate. C's low rate applies to a large sum held for 10 years; at 5% the borrower would rather repay early. At a higher valuation rate the order changes: C costs less than A when the valuation rate is above 5.4313%, and less than B above 6.0540% (each crossing rate solves one more equation of value, found by bisection). The decision rule is the point: solve for each offer's rate to describe it, and compare offers by present value at the borrower's own rate.</p>
+
+<h2 id="implementation">Executable check of the methods and the running case</h2>
+<p>The program below implements (5.4), (5.6), (5.7), (5.8), (5.10), (5.11) and (5.15), bisection and false position, and the count of sign changes. Its inputs are set in the code: the lecture examples, the running case and the mine closure. It prints the doubling times of Table 5.1, the term, balance, drop and balloon payments of the lecture's loan and of lender A, the single-sum and quadratic rates with the slide's rounding of \(v\), the interpolated, bisected and false-position rates with the net present value at the bisection root, lender C's rate, the present values of Table 5.2, the two mine-closure rates, the largest net present value of the two streams with two sign changes, and the equated-time example.</p>
+<p>Failure behaviour: <code>n_single</code> raises <code>ValueError</code> for a non-positive amount, for \(i\le-1\) or for \(i=0\); <code>n_level</code> raises it when the payment does not exceed the interest \(Li\), the condition of (5.7); <code>bisect</code> raises it when \(f\) does not change sign on the bracket; <code>false_position</code> raises it when the bracket is not \(f(i_{\text{lo}})\gt0\gt f(i_{\text{hi}})\) or when 100 steps do not reach the tolerance. <code>final_payment</code> asserts that the drop and the balloon schedules satisfy the equation of value at \(t=0\) to within \(10^{-8}\) dollars. The search for the largest net present value is a grid of 25,001 rates from \(-50\%\) to \(200\%\) in steps of 0.01 percentage point; it is a numerical illustration of the discriminant argument, not a proof. The program uses floating point throughout and the standard library only, reads no files and writes only to standard output. Printed amounts are rounded to cents and rates to four decimals in percent at the end.</p>
+<pre><code class="language-python">from math import floor, log, sqrt
+
+
+def n_single(pv, fv, i):
+    """Time n with pv*(1+i)**n = fv (5.4); pv, fv &gt; 0, i &gt; -1, i != 0."""
+    if pv &lt;= 0 or fv &lt;= 0 or i &lt;= -1 or i == 0:
+        raise ValueError("need pv, fv &gt; 0 and i &gt; -1, i != 0")
+    return log(fv/pv)/log(1 + i)
+
+
+def a_imm(n, i):
+    """PV at 0 of 1 at t = 1, ..., n (5.6)."""
+    return (1 - (1 + i)**(-n))/i
+
+
+def s_imm(k, i):
+    """Value at t = k of 1 at t = 1, ..., k (5.8)."""
+    return ((1 + i)**k - 1)/i
+
+
+def n_level(loan, r, i):
+    """Term n with r*a_imm(n, i) = loan (5.7); needs r &gt; loan*i."""
+    if i &lt;= 0 or loan &lt;= 0 or r &lt;= loan*i:
+        raise ValueError("payment does not exceed the interest loan*i")
+    return -log(1 - loan*i/r)/log(1 + i)
+
+
+def final_payment(loan, r, i):
+    """k full payments; drop at k+1 (5.10) and balloon at k (5.11)."""
+    n = n_level(loan, r, i)
+    k = floor(n)
+    bal = loan*(1 + i)**k - r*s_imm(k, i)
+    drop, balloon = bal*(1 + i), r + bal
+    # Check: both schedules satisfy the equation of value at t = 0.
+    assert abs(r*a_imm(k, i) + drop*(1 + i)**(-k - 1) - loan) &lt; 1e-8
+    assert abs(r*a_imm(k - 1, i) + balloon*(1 + i)**(-k) - loan) &lt; 1e-8
+    return n, k, bal, drop, balloon
+
+
+def npv(flows, i):
+    """Value at t = 0 of flows[t] paid at t = 0, 1, 2, ..."""
+    return sum(c*(1 + i)**(-t) for t, c in enumerate(flows))
+
+
+def bisect(f, lo, hi, tol=1e-12):
+    """Root of f in [lo, hi] by halving; stop when hi - lo &lt;= tol."""
+    if f(lo)*f(hi) &gt;= 0:
+        raise ValueError("f does not change sign on [lo, hi]")
+    steps = 0
+    while hi - lo &gt; tol:
+        mid = (lo + hi)/2
+        if f(mid)*f(lo) &gt; 0:
+            lo = mid
+        else:
+            hi = mid
+        steps += 1
+    return (lo + hi)/2, steps
+
+
+def interpolate(f, lo, hi):
+    """One linear-interpolation step (5.15) for f(lo) &gt; 0 &gt; f(hi)."""
+    return lo + f(lo)/(f(lo) - f(hi))*(hi - lo)
+
+
+def false_position(f, lo, hi, ftol=1e-9, maxit=100):
+    """Repeat (5.15), keeping the sign change; stop when |f| &lt; ftol."""
+    if not f(lo) &gt; 0 &gt; f(hi):
+        raise ValueError("need f(lo) &gt; 0 &gt; f(hi)")
+    for steps in range(1, maxit + 1):
+        x = interpolate(f, lo, hi)
+        if abs(f(x)) &lt; ftol:
+            return x, steps
+        lo, hi = (x, hi) if f(x) &gt; 0 else (lo, x)
+    raise ValueError("no convergence in maxit steps")
+
+
+def sign_changes(flows):
+    signs = [c &gt; 0 for c in flows if c != 0]
+    return sum(p != q for p, q in zip(signs, signs[1:]))
+
+
+# 1. Unknown time for a single sum; the rule of 72 against (5.4).
+print(f"doubling at 6%: n = {n_single(1, 2, 0.06):.4f} years")
+for i in (0.02, 0.06, 0.08, 0.10, 0.20, 0.50):
+    n = n_single(1, 2, i)
+    print(f"  i = {i:4.0%}: exact {n:7.4f}, rule of 72 {72/(100*i):7.4f}"
+          f" ({100*(72/(100*i)/n - 1):+6.2f}%)")
+print(f"8% convertible quarterly: {n_single(1, 2, 0.02):.4f} quarters")
+# 2. Unknown number of payments and the final payment.
+for loan, r, i in ((5000, 1000, 0.06), (20000, 2500, 0.07)):
+    n, k, bal, drop, balloon = final_payment(loan, r, i)
+    print(f"loan {loan}, {r} a year at {i:.0%}: n = {n:.4f}; balance at"
+          f" {k} = {bal:.2f}; drop at {k + 1} = {drop:.2f};"
+          f" balloon at {k} = {balloon:.2f}")
+# 3. Unknown rate: single sum, quadratic in v, rounding v first.
+print(f"100(1+i)^5 = 150: i = {1.5**0.2 - 1:.4%}")
+v = (-5 + sqrt(205))/10
+print(f"180 = 100v + 100v^2: v = {v:.6f}, i = {1/v - 1:.4%};"
+      f" with v rounded to 0.931: {1/0.931 - 1:.4%}")
+# 4. Example of Lecture 13 and the running case (lender B):
+# interpolation, bisection, false position, and the check of each root.
+ex2 = [-100, 60, 60]
+loan_b = [-20000] + [2800]*10
+for name, flows, lo, hi in (("100 = 60v + 60v^2", ex2, 0.10, 0.15),
+                            ("lender B", loan_b, 0.06, 0.07)):
+    f = (lambda x, fl=flows: npv(fl, x))
+    one = interpolate(f, lo, hi)
+    root, steps = bisect(f, 1e-9, 1.0)
+    fp, fsteps = false_position(f, lo, hi)
+    print(f"{name}: one interpolation step {one:.4%}; bisection {root:.4%}"
+          f" in {steps} halvings, NPV there {f(root):.2e};"
+          f" false position {fp:.4%} in {fsteps} steps")
+print(f"lender C, 37000 at t = 10: i = {1.85**0.1 - 1:.4%}")
+offers = {"A": [0] + [2500]*12 + [final_payment(20000, 2500, 0.07)[3]],
+          "B": [0] + [2800]*10, "C": [0]*10 + [37000]}
+print("PV of repayments at 5%:",
+      ", ".join(f"{k} {npv(x, 0.05):,.2f}" for k, x in offers.items()))
+# 5. Several sign changes: the mine closure and a stream with no rate.
+for flows in ([-100, 230, -132], [-100, 230, -140]):
+    best = max(npv(flows, x/10000) for x in range(-5000, 20001))
+    print(f"{flows}: {sign_changes(flows)} sign changes; largest NPV on"
+          f" [-50%, 200%] = {best:.4f}")
+mine = (lambda x: npv([-100, 230, -132], x))
+r1, _ = bisect(mine, 0.0, 0.15)
+r2, _ = bisect(mine, 0.15, 0.5)
+print(f"mine closure: roots {r1:.4%} and {r2:.4%}")
+# 6. Equated time against the exact time (two debts at 6%).
+amts, times, i = (10000, 20000), (2, 8), 0.06
+tbar = sum(c*t for c, t in zip(amts, times))/sum(amts)
+pv = sum(c*(1 + i)**(-t) for c, t in zip(amts, times))
+print(f"equated time {tbar:.4f}; exact {n_single(pv, sum(amts), i):.4f}")
+</code></pre>
+<p>Run in a fresh interpreter (<code>python -I</code>, Python 3.13), the program prints:</p>
+<pre><code>doubling at 6%: n = 11.8957 years
+  i =   2%: exact 35.0028, rule of 72 36.0000 ( +2.85%)
+  i =   6%: exact 11.8957, rule of 72 12.0000 ( +0.88%)
+  i =   8%: exact  9.0065, rule of 72  9.0000 ( -0.07%)
+  i =  10%: exact  7.2725, rule of 72  7.2000 ( -1.00%)
+  i =  20%: exact  3.8018, rule of 72  3.6000 ( -5.31%)
+  i =  50%: exact  1.7095, rule of 72  1.4400 (-15.77%)
+8% convertible quarterly: 35.0028 quarters
+loan 5000, 1000 a year at 6%: n = 6.1212; balance at 6 = 117.28; drop at 7 = 124.31; balloon at 6 = 1117.28
+loan 20000, 2500 a year at 7%: n = 12.1342; balance at 12 = 322.70; drop at 13 = 345.29; balloon at 12 = 2822.70
+100(1+i)^5 = 150: i = 8.4472%
+180 = 100v + 100v^2: v = 0.931782, i = 7.3212%; with v rounded to 0.931: 7.4114%
+100 = 60v + 60v^2: one interpolation step 13.1354%; bisection 13.0662% in 40 halvings, NPV there 5.38e-11; false position 13.0662% in 7 steps
+lender B: one interpolation step 6.6455%; bisection 6.6373% in 40 halvings, NPV there -2.71e-08; false position 6.6373% in 8 steps
+lender C, 37000 at t = 10: i = 6.3450%
+PV of repayments at 5%: A 22,341.25, B 21,620.86, C 22,714.79
+[-100, 230, -132]: 2 sign changes; largest NPV on [-50%, 200%] = 0.1894
+[-100, 230, -140]: 2 sign changes; largest NPV on [-50%, 200%] = -5.5357
+mine closure: roots 10.0000% and 20.0000%
+equated time 6.0000; exact 5.7588
+</code></pre>
+<p>The checks the program makes are the substitution of every root (the net present value at the bisection roots, the assertions on the final payments) and the agreement of three methods on each rate. Two failure tests show what the checks detect. If the drop payment is computed as \(B_k\) without the factor \(1+i\), the first assertion in <code>final_payment</code> fails, because \(B_kv^{k+1}\) is short of the remaining value by \(B_k(v^k-v^{k+1})\). If (5.15) is coded with \(\mathrm{PV}_H-\text{Target}\) in place of \(\mathrm{PV}_L-\text{Target}\), the interpolated rate falls below the low end of the bracket, every later step moves further from the root, and <code>false_position</code> raises <code>ValueError</code> after 100 steps without reaching the tolerance. A wrong rate convention in the input, such as an effective rate entered where a nominal rate is meant, passes every check, because the equation is then solved correctly for the wrong cash flows.</p>
+
+<h2 id="limits">What these methods establish and what they do not</h2>
+<p>Formulas (5.4), (5.7) and (5.13) are exact solutions of the equation of value under one constant compound rate. Formula (5.7) requires \(R\gt Li\). Formulas (5.10) and (5.11) are exact under their conventions, and each is checked by substituting the schedule into the equation of value. Formula (5.5), the rule of 72, and equated time (5.12) are approximations: the rule's error is measured in Table 5.1 and changes sign once, at 7.8469%, by the proof in its section; the equated time is later than the exact time for every positive rate, by the proof in its section. Interpolation (5.15) is an approximation whose error has a known sign only under the hypothesis of (5.16), positive payments after one outflow. Bisection is guaranteed to converge to a root inside a bracket with a sign change, with an error bound known in advance; false position converges under (5.16), by the argument in the section on iteration, and in the lecture's example its error falls by a factor of about 28 per step.</p>
+<p>The assumptions are of three kinds. Definitions: an equation of value at one focal date, cash flows at stated times, a final payment named by its convention. A model: one constant compound rate for the whole term, the same in both directions, so that every payment can be moved with (5.1). A convention: the rate is the effective rate per period; a nominal rate is converted first, as in the section on compounding periods.</p>
+<p>The methods stop applying in identifiable places. A non-integer term has no meaning as a stream of equal payments until a final-payment convention is chosen. A stream with more than one sign change may have no rate, one rate or several, and a calculator display does not say which; the net present value at a stated rate remains well defined in every case. A rate that changes during the term is outside the model of this chapter. Under simple interest the equation of value depends on the focal date, because \((1+is)(1+it)\neq1+i(s+t)\) for \(i,s,t\gt0\), and the logarithm step of (5.4) does not apply, because \(1+it\) is linear in \(t\). The topics of the chapter are part of the Exam FM syllabus: given any three of the interest rate, the period of time, the present value and the future value, calculate the remaining item, and write the equation of value given a set of cash flows and an interest rate (SOA Exam FM syllabus, p. 2, outcomes 1b and 1d); find the missing item among term, rate, payment and principal of a loan, and know the drop and balloon payments (p. 3, topic 3).</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive).</strong> A loan \(L\gt0\) is repaid by \(R\) at the end of each period at an effective rate \(i\gt0\). (a) Derive (5.7) and show that no term repays the loan when \(R\le Li\). (b) Let \(k=\lfloor n\rfloor\). Show that the drop payment (5.10) and the balloon payment (5.11) both satisfy the equation of value at \(t=0\). (c) Show that the balloon payment exceeds \(R\) and that the drop payment is less than \(R\) when \(n\) is not a whole number. Check (b) with the lecture's loan of 5,000 at 6%, amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) By (5.6), \(L=R(1-v^n)/i\), so \(v^n=1-Li/R\). If \(R\gt Li\), the right side lies in \((0,1)\), and taking logarithms, \(n\ln v=\ln(1-Li/R)\); with \(\ln v=-\ln(1+i)\) this is (5.7), and \(n\gt0\). If \(R\le Li\), the right side is at most 0, while \(v^n\gt0\) for every \(n\): there is no solution. In words, \(R\,a_{\overline{n}|}\lt R/i\le L\) for every \(n\): a payment no larger than one period's interest on the loan never reduces the balance.</p>
+<p>(b) Drop: the value at \(t=0\) of the schedule is \(R\,a_{\overline{k}|}+B_k(1+i)v^{k+1}=R\,a_{\overline{k}|}+B_kv^k\). By (5.9), \(B_kv^k=L-R\,s_{\overline{k}|}v^k=L-R\,a_{\overline{k}|}\), because \(s_{\overline{k}|}v^k=a_{\overline{k}|}\) (multiply (5.8) by \(v^k\)). The sum is \(L\). Balloon: the value is \(R\,a_{\overline{k-1}|}+(R+B_k)v^k=R\,a_{\overline{k}|}+B_kv^k=L\), since \(R\,a_{\overline{k-1}|}+Rv^k=R\,a_{\overline{k}|}\). For the lecture's loan: \(1000\,a_{\overline{6}|0.06}=4{,}917.32\) and \(124.31\times1.06^{-7}=82.68\), total 5,000.00; \(1000\,a_{\overline{5}|0.06}=4{,}212.36\) and \(1{,}117.28\times1.06^{-6}=787.64\), total 5,000.00.</p>
+<p>(c) If \(n\) is not a whole number, \(k\lt n\), so \(R\,a_{\overline{k}|}\lt L\) and \(B_k=(L-R\,a_{\overline{k}|})(1+i)^k\gt0\); the balloon payment \(R+B_k\) exceeds \(R\). And \(n\lt k+1\) gives \(L\lt R\,a_{\overline{k+1}|}\); multiplied by \((1+i)^{k+1}\), \(L(1+i)^{k+1}\lt R\,s_{\overline{k+1}|}=R(1+i)s_{\overline{k}|}+R\), so \(B_k(1+i)\lt R\). For the lecture's loan, \(124.31\lt1000\lt1{,}117.28\).</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> A loan of 12,000 dollars is repaid by payments of 1,500 dollars at the end of each year, followed by a smaller final payment one year after the last full payment. The effective annual rate is 5%. Calculate the final payment, rounded to the nearest cent, with no intermediate rounding. Choose the closest answer: (A) 679.90 (B) 704.77 (C) 713.89 (D) 740.01 (E) 2,179.90.</p>
+<details><summary>Solution</summary>
+<p>The interest on the loan is \(12{,}000\times0.05=600\lt1{,}500\), so (5.7) applies: \(n=-\ln(1-600/1500)/\ln1.05=-\ln0.6/\ln1.05=10.4698\). There are 10 full payments. By (5.9), \(B_{10}=12{,}000\times1.05^{10}-1500\,s_{\overline{10}|0.05}=19{,}546.74-18{,}866.84=679.90\). The final payment one year later is the drop payment (5.10), \(679.8967\times1.05=713.89\): answer (C). Check: \(1500\,a_{\overline{10}|}+713.89\times1.05^{-11}=11{,}582.60+417.40=12{,}000.00\).</p>
+<p>Each wrong choice comes from a specific error. (A) is the balance after the 10th payment, paid a year later without its interest. (B) multiplies the fractional part of \(n\) by the payment, \(0.469848\times1500=704.77\). (D) adds a year's interest to (B). (E) is the balloon payment at \(t=10\), \(1500+679.90\), which answers a different convention.</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> A card balance grows at 2% a month, compounded monthly, and nothing is paid. (a) Find the exact doubling time in months and in years. (b) Apply the rule of 72 three ways: to the monthly rate 2%, to the nominal annual rate 24%, and to the effective annual rate. Compare each with (a). (c) State to which rate the rule should be applied. Round times to four decimals and errors to two decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) The period is the month and the rate per period is 2%: \(n=\ln2/\ln1.02=35.0028\) months, which is 2.9169 years.</p>
+<p>(b) Monthly rate: \(72/2=36\) months, 2.85% too long (the 2% row of Table 5.1). Nominal annual 24%: \(72/24=3\) years, which is again 36 months; the agreement with the monthly reading is exact, because \(72/24\) years and \(72/2\) months are the same length of time. Effective annual rate: \(1.02^{12}-1=26.8242\%\), and \(72/26.8242=2.6841\) years, 7.98% too short.</p>
+<p>(c) The rule is derived from the series (5.5) for the rate per period at which interest compounds; its error grows with that rate (Table 5.1). Applied to the monthly 2% it is accurate to 2.85%. Applied to the effective annual 26.8242%, it is applied at a rate where Table 5.1 shows errors of more than 5%. The nominal 24% happens to give the same estimate as the monthly rate, because dividing 72 by 24 is dividing it by 2 and converting months to years. The assumption to check is that the rate in the rule is the rate per compounding period.</p>
+</details>
+<p><strong>Exercise 4 (counterexample).</strong> A project has cash flows \(-100\) at \(t=0\), \(+230\) at \(t=1\) and \(-c\) at \(t=2\), with \(c\gt0\). (a) For \(c=140\), show that no rate solves the equation of value, and find the largest net present value over all rates. (b) Find the value of \(c\) at which the project has exactly one rate, and find that rate. (c) The BA II Plus guidebook states that a stream with two or more sign changes has at least one IRR. Which part of this exercise contradicts the statement, and what condition does guarantee a rate? Round rates to four decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) The equation is \(-100+230v-140v^2=0\). Its discriminant is \(230^2-4\times140\times100=-3{,}100\lt0\), so no real \(v\), and no rate, exists. As a function of \(v\), the net present value is a downward parabola with its maximum at \(v=230/280=0.821429\), that is \(i=21.7391\%\), where it equals \(-100+230^2/560=-5.5357\). So the net present value is negative at every rate.</p>
+<p>(b) Exactly one real root needs a zero discriminant: \(230^2=400c\), \(c=132.25\). The double root is \(v=230/(2\times132.25)=0.869565=1/1.15\), so \(i=15.0000\%\). The rates 10% and 20% of the mine closure (\(c=132\)) have merged into one; for \(c\) between 132.25 and 140 there is none, and for \(c\lt132.25\) there are two (for \(c=132\), 10% and 20%).</p>
+<p>(c) Part (a): the stream \(-100,+230,-140\) has two sign changes and no rate. A sufficient condition for a rate \(i\gt-1\) is that the first and last nonzero cash flows have opposite signs. Writing the net present value as a polynomial \(P(v)=c_0+c_1v+\dots+c_nv^n\), \(P(v)\) has the sign of \(c_0\) near \(v=0\) and the sign of \(c_n\) for large \(v\), so it has a positive root by the intermediate value theorem. Here \(c_0=-100\) and \(c_2=-140\) have the same sign, and the condition fails.</p>
+</details>
+<p><strong>Exercise 5 (counterexample to a slide's summary).</strong> A saver deposits 1,000 dollars at the end of each year for 10 years and has 14,000 dollars just after the last deposit. (a) Write the equation of value at \(t=10\) and at \(t=0\), and explain why they have the same root. (b) Interpolate the rate between 7% and 8% using the accumulated value \(1000\,s_{\overline{10}|i}\) as the function and 14,000 as the target. (c) The root is 7.2792%. Is the interpolated rate too high or too low? Explain with convexity, and say what this means for the slide's summary that interpolation overestimates \(i\). Round factors to six decimals and rates to four decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) At \(t=10\): \(1000\,s_{\overline{10}|i}=14{,}000\). At \(t=0\): \(1000\,a_{\overline{10}|i}=14{,}000\,v^{10}\). The second is the first multiplied by \(v^{10}\gt0\), so they hold at the same rates.</p>
+<p>(b) \(s_{\overline{10}|0.07}=13.816448\) and \(s_{\overline{10}|0.08}=14.486562\). The function increases with the rate, so the interpolation is \(i\approx0.07+(14-13.816448)/(14.486562-13.816448)\times0.01=7.2739\%\).</p>
+<p>(c) The root is 7.2792%, so the interpolated rate is too low by 0.0053 percentage points. The function \(s_{\overline{10}|i}=\sum_{j=0}^{9}(1+i)^j\) is increasing and convex in \(i\) (each term has a nonnegative second derivative, and the terms with \(j\ge2\) a positive one). Its chord lies above the curve, as in the section on interpolation, but because the function increases, the chord reaches the target at a smaller rate than the curve does. The slide's summary holds for present values of positive payments, the hypothesis of (5.16), where the function decreases; it is not a property of interpolation in general. The direction of the error depends on which side of the equation of value is used as the function.</p>
+</details>
+<p><strong>Exercise 6 (equated time, method and judgment).</strong> A debtor owes 4,000 dollars at \(t=1\), 6,000 at \(t=3\) and 10,000 at \(t=10\), and proposes to pay the total, 20,000 dollars, in one sum. The creditor values money at 8% effective. (a) Find the equated time (5.12) and the exact time. (b) Find the present value at 8% of the debts and of 20,000 paid at the equated time. Who gains from the equated time, and by how much? (c) The gap here is larger than in the example of the section on equated time. Name the two features of this case that make it larger. Round times to four decimals and amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) \(\bar t=(4{,}000+18{,}000+100{,}000)/20{,}000=6.1\) years. The debts are worth \(4000v+6000v^3+10{,}000v^{10}=13{,}098.63\) at \(t=0\) at 8%, so the exact time solves \(20{,}000v^t=13{,}098.63\): \(t=\ln(20{,}000/13{,}098.63)/\ln1.08=5.4992\) years.</p>
+<p>(b) 20,000 at \(t=6.1\) is worth \(20{,}000\times1.08^{-6.1}=12{,}506.77\). The debtor gains and the creditor loses \(13{,}098.63-12{,}506.77=591.86\) dollars of present value, because the payment is made 0.6008 years later than the exact time, as the proof in the section on equated time guarantees for every positive rate. A creditor should accept 20,000 only at the exact time 5.4992, or ask for \(13{,}098.63\times1.08^{6.1}=20{,}946.47\) at \(t=6.1\).</p>
+<p>(c) By the expansion in the section on equated time, the gap is about \(\tfrac12\ln(1+i)\,\sigma^2\). Both factors are larger here. The rate is higher: \(\ln1.08=0.076961\) against \(\ln1.06=0.058269\). The dates are spread more widely: with weights 0.2, 0.3 and 0.5, \(\sigma^2=0.2(1-6.1)^2+0.3(3-6.1)^2+0.5(10-6.1)^2=15.69\), against 8. The formula gives \(\tfrac12\times0.076961\times15.69=0.6038\) years, against the actual gap 0.6008. The proof fixes the sign of the error for every positive rate; its size grows with the rate and with the spread of the dates. For a decision, compute the exact time.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Recordings: <a href="https://www.youtube.com/watch?v=wszQ2wUP-SQ">Lecture 12, Solving for Unknown Time (n)</a>; <a href="https://www.youtube.com/watch?v=wUR79TZ25RA">Lecture 13, Solving for Unknown Interest Rate (i)</a>; NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras.</li>
+<li>Texas Instruments, <a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf"><em>BA II PLUS Calculator</em> guidebook</a> (English). Cash Flow worksheet: IRR is the rate at which the net present value of the cash flows is 0, computed by iterative calculations; no sign change gives no solution, one sign change gives exactly one (p. 40); with several sign changes the calculator displays the solution closest to zero, which has no financial meaning, and may not find a solution (p. 41); Error 5 and Error 7 (pp. 79–80).</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam, October 2026</em> syllabus</a>. Calculators and methods of approximation (p. 1); given any three of rate, time, present value and future value, calculate the fourth, and write the equation of value (p. 2, outcomes 1b, 1d); missing item of a loan, and final payment (drop payment, balloon payment) (p. 3, topic 3).</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-03-force-of-interest-constant-and-variable.html">Previous available chapter</a><a href="index.html">Lecture index</a><a rel="next" href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html">Next available chapter</a></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>

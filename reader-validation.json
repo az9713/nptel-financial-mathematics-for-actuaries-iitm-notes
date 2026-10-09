@@ -1,12 +1,12 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-08T07:35:17.359333+00:00",
+  "checked_at_utc": "2026-10-09T16:22:07.384457+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
-    "html_files": 9,
-    "local_links_checked": 91,
-    "timestamps_checked": 60,
+    "html_files": 12,
+    "local_links_checked": 105,
+    "timestamps_checked": 83,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
     "warnings": []
@@ -66,6 +66,24 @@
         "controls": true,
         "emptyToc": false,
         "file": "chapter-03-force-of-interest-constant-and-variable.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 686,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-05-unknown-time-and-unknown-rate.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 686,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-05-unknown-time-and-unknown-rate.html",
         "viewport": 390
       },
       {
