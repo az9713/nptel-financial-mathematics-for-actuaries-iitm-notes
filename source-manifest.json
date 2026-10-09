@@ -65,10 +65,10 @@
     },
     {
       "order": 8,
-      "title": "Perpetuities, continuous annuities, deferred annuities and unknown n and i",
+      "title": "Perpetuities, continuous and deferred annuities, and unknown terms and rates",
       "lectures": "21, 22, 23, 24",
       "practice_lectures": "25",
-      "chapter_status": "pending"
+      "chapter_status": "reviewed and locally validated"
     },
     {
       "order": 9,

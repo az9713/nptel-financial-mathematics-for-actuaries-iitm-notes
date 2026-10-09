@@ -1,0 +1,519 @@
+{
+  "chapter": 8,
+  "title": "Perpetuities, continuous and deferred annuities, and unknown terms and rates",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 2 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "hx17UwmWgGQ",
+      "lecture": "Lecture 21",
+      "media_sha256": "346b368bf3c3bd11a10b8064bc93bff81b5b9f510077573f312ee3c3fb070b3a",
+      "duration_seconds": 1633,
+      "transcript_first_start_seconds": 11.84,
+      "transcript_last_end_seconds": 1629.36
+    },
+    {
+      "video_id": "XyLON0qRvwU",
+      "lecture": "Lecture 22",
+      "media_sha256": "a5c809d0dad93543c993290d767b760303818d45ab1810c76ab73596a9facaf5",
+      "duration_seconds": 1371,
+      "transcript_first_start_seconds": 12.0,
+      "transcript_last_end_seconds": 1367.04
+    },
+    {
+      "video_id": "S5uCUQzS7lQ",
+      "lecture": "Lecture 23",
+      "media_sha256": "3a1e1a77cffb45b2ef7d3c8ee93a36911372386537fcee96df9cd39090565cce",
+      "duration_seconds": 1416,
+      "transcript_first_start_seconds": 12.16,
+      "transcript_last_end_seconds": 1410.72
+    },
+    {
+      "video_id": "iMyv1yex8VA",
+      "lecture": "Lecture 24",
+      "media_sha256": "7dcc7569aa0a6dfd86672c3bccc02e670b4b210f430feb31236cb536a43750b6",
+      "duration_seconds": 1516,
+      "transcript_first_start_seconds": 12.0,
+      "transcript_last_end_seconds": 1512.64
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "ZXgVaHagW34",
+      "lecture": "Lecture 25",
+      "media_sha256": "b0cee932ab5b2a12438ae95d0843e5c4e22616ca86bf99e80dddd2ba143b0f6e",
+      "duration_seconds": 1150,
+      "transcript_first_start_seconds": 12.08,
+      "transcript_last_end_seconds": 1146.32,
+      "kind": "lab",
+      "used_for": "All four lab constructions: split rates, deferred continuous patent royalties, layer-cake payments, and wait-to-endowment threshold. Exercise5 uses original amounts, rates and duration."
+    },
+    {
+      "video_id": "HSrxblFzIsE",
+      "lecture": "Lecture 30",
+      "media_sha256": "2e5ea1674490e9912da2b7ec1a4d0027180b5683995cb7dddd66d690c7ec524c",
+      "duration_seconds": 1878,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1872.0,
+      "kind": "review",
+      "used_for": "Question1 positive-rate timing hierarchy, proved by integral bounds in timing-bounds; original Exercise3 checks its negative-rate boundary. Entire recording read; the remaining varying-payment review material is outside this chapter."
+    }
+  ],
+  "source_reading": {
+    "all_assigned_recordings_read_sequentially_in_full": true,
+    "contact_sheets_scanned": {
+      "hx17UwmWgGQ": [
+        "s01",
+        "s02",
+        "s03"
+      ],
+      "XyLON0qRvwU": [
+        "s01",
+        "s02",
+        "s03"
+      ],
+      "S5uCUQzS7lQ": [
+        "s01",
+        "s02",
+        "s03"
+      ],
+      "iMyv1yex8VA": [
+        "s01",
+        "s02",
+        "s03"
+      ],
+      "ZXgVaHagW34": [
+        "s01",
+        "s02"
+      ],
+      "HSrxblFzIsE": [
+        "s01",
+        "s02",
+        "s03",
+        "s04"
+      ]
+    }
+  },
+  "frames_viewed": {
+    "hx17UwmWgGQ": [
+      "f0001",
+      "f0008",
+      "f0020",
+      "f0025",
+      "f0028",
+      "f0034",
+      "f0040",
+      "f0043",
+      "f0046",
+      "f0050",
+      "f0051",
+      "f0052"
+    ],
+    "XyLON0qRvwU": [
+      "f0001",
+      "f0008",
+      "f0018",
+      "f0020",
+      "f0024",
+      "f0025",
+      "f0028",
+      "f0034",
+      "f0039",
+      "f0041",
+      "f0043"
+    ],
+    "S5uCUQzS7lQ": [
+      "f0001",
+      "f0008",
+      "f0010",
+      "f0014",
+      "f0017",
+      "f0024",
+      "f0030",
+      "f0031",
+      "f0036",
+      "f0038",
+      "f0041",
+      "f0044"
+    ],
+    "iMyv1yex8VA": [
+      "f0001",
+      "f0008",
+      "f0014",
+      "f0019",
+      "f0025",
+      "f0028",
+      "f0032",
+      "f0036",
+      "f0040",
+      "f0045",
+      "f0048"
+    ],
+    "ZXgVaHagW34": [
+      "f0001",
+      "f0010",
+      "f0012",
+      "f0014",
+      "f0020",
+      "f0023",
+      "f0025",
+      "f0027",
+      "f0031",
+      "f0035"
+    ],
+    "HSrxblFzIsE": [
+      "f0001",
+      "f0025"
+    ]
+  },
+  "source_uncertainties": [
+    "L21 f0020: v<1 requires i>0. The chapter states that condition and treats divergence at zero/negative rates.",
+    "L21 f0050: nominal i^(12) is rounded to5.84%; unrounded5.84106068% gives20,544.21.",
+    "L22 f0034: printed11,810,456 differs from full-precision11,810,677.35. Displayed0.68819/0.05827 gives11,810,365.54. Formula and inputs retained; answer corrected.",
+    "L22 f0039: I/Y6,P/Y5000 with C/Y5000 uses nominal6%;11,646,726.99 reproduces the printed answer and approaches force6%, different from effective annual6%. Physical calculator C/Y state is unknown. The chapter states the conditional reconstruction and the correct C/Y1 setup.",
+    "L23 captions around483s suggest v^n; f0014 andf0017 support v^m a_n and the subtraction identity. The slide decides notation.",
+    "L23 f0024/f0030: manual13,364.50 uses rounded local amounts; full-precision13,364.31 matches the calculator line. Immediate and due conventions describe identical payment dates.",
+    "L23 f0036:5000 first at5 has no numerical rate specified; only its formula is evaluated.",
+    "L24 f0025: rounded factors give200.70 and210.74; unrounded balance200.684005606 gives drop210.718205886, rounded210.72.",
+    "L24 f0028 calls isolation of i impossible. The chapter qualifies the general numerical difficulty and permits short polynomial special cases.",
+    "L24 f0036/f0040:6.40% correctly rounds the root6.4022407643%. Secant interpolation6.4074048862% is approximate, with residual-0.69786370 dollars.",
+    "L24 f0045/f0048:240 end-month deposits of1000 targeting500000 require monthly0.5550781904% and annual effective6.8681020581%. Slide monthly0.5636% accumulates506,203.55 instead; both printed rates are corrected.",
+    "L25 f0010/f0012: rounded components give1434.01; unrounded1434.002176285 rounds1434.00. f0027 whole-dollar243,295 agrees with243,294.77 rounded to dollars.",
+    "L25 f0020:527,633.44 truncates527,633.447259;410,921.3 is a coarser rounding of410,921.341900. The chapter uses cents from unrounded values.",
+    "L25 f0035:16.83 is the growth anchor. Whole-year anchor17 gives the first annual payment at18. Both real-time and whole-year calendars are stated because the source does not completely specify the calendar.",
+    "Every viewed formula-bearing frame is readable. No empirical forecast or universal preferred-stock contract claim is used."
+  ],
+  "sections": [
+    {
+      "section": "The time unit and the finite starting point",
+      "section_id": "model",
+      "video_id": "hx17UwmWgGQ",
+      "start": 243,
+      "end": 384,
+      "lecture_material": "Infinite-stream visual anchor and the finite annuity formula (f0020).",
+      "research_extension": "None.",
+      "teaching_construction": "Restated constant compound model, i/d/v/delta, units, certainty and finite rate domain; geometric derivation and original20-award scholarship capital163,083.92.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The vanishing tail and a perpetuity's convergence",
+      "section_id": "perpetuity",
+      "video_id": "hx17UwmWgGQ",
+      "start": 384,
+      "end": 612,
+      "lecture_material": "Limit (1-v^n)/i = 1/i and vanishing-tail picture. Large-N calculator shortcut at1274s (f0046).",
+      "research_extension": "None.",
+      "teaching_construction": "Convergence only for i>0, divergence at zero/negative rates; exact tail and absolute/relative tolerances; original scholarship tail5940.01 after100 and439-payment cent tolerance.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A fund that spends only interest, and a fixed-dividend model",
+      "section_id": "funds",
+      "video_id": "hx17UwmWgGQ",
+      "start": 612,
+      "end": 1274,
+      "lecture_material": "10,000 annual scholarship at4% needs250,000; interest-only fund picture; dividend5 at8% gives62.50 and at10% gives50 (f0025,f0028,f0040,f0043).",
+      "research_extension": "None.",
+      "teaching_construction": "Account recurrence and invariant-balance induction; nominal principal versus purchasing power; fixed-dividend assumptions and price derivative; original12,000 scholarship fund.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "A payment today and payments more often than once a year",
+      "section_id": "due-frequency",
+      "video_id": "hx17UwmWgGQ",
+      "start": 844,
+      "end": 1629.36,
+      "lecture_material": "Perpetuity-due = 1+1/i = 1/d (f0034); monthly100 at effective annual6%, annual total1200 and nominal i^(12) conversion (f0050).",
+      "research_extension": "None.",
+      "teaching_construction": "Finite versus infinite due differences;312,000 running due fund; frequency p distinct from deferral m; full-precision monthly20,544.21 and per-period due shift.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "From many small payments to a continuous intensity",
+      "section_id": "continuous",
+      "video_id": "XyLON0qRvwU",
+      "start": 227,
+      "end": 648,
+      "lecture_material": "Rectangles-to-area transition, v^t=e^(-delta t), integral (1-v^n)/delta and denominator comparison (f0018,f0020,f0024).",
+      "research_extension": "None.",
+      "teaching_construction": "Fixed-annual-total Riemann sum, intensity units, real finite duration, zero/negative force domains, small-rate expansion and frequency-to-force limit with scholarship connection.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Why continuous payments lie between immediate and due",
+      "section_id": "timing-bounds",
+      "video_id": "XyLON0qRvwU",
+      "start": 648,
+      "end": 828,
+      "lecture_material": "Earlier-arrival intuition and continuous perpetuity1/delta (f0024,f0025,f0028). L30 Question1 timing hierarchy (f0025).",
+      "research_extension": "None.",
+      "teaching_construction": "Integral timing bounds, reversal at negative interest, midpoint convexity caution, convergence and invariant-balance differential equation;305,960.78 running continuous fund.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Toll receipts, calculator settings and continuous savings",
+      "section_id": "continuous-examples",
+      "video_id": "XyLON0qRvwU",
+      "start": 828,
+      "end": 1286,
+      "lecture_material": "Toll intensity1million/year for20years at effective6%, printed11,810,456; high-frequency calculator11,646,727; continuous2400/year for10years at force4% gives29,509.48 (f0034,f0039,f0041,f0043).",
+      "research_extension": "TI guidebook p.21 (PDF p.26): nominal I/Y and P/Y sets C/Y; p.69 (PDF p.74): per-payment conversion formula. Both rendered pages checked.",
+      "teaching_construction": "Exact11,810,677.35 and printed rounded-input mismatch; conditional reconstruction under C/Y5000 versus C/Y1; force6% versus ln1.06; endpoint discretization68.82; accumulated integral derivation and PV/FV identity.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Deferral moves a complete block to a later date",
+      "section_id": "deferral",
+      "video_id": "S5uCUQzS7lQ",
+      "start": 229,
+      "end": 491,
+      "lecture_material": "Deferral gap m, local anchor and v^m a_n; subtraction a_(m+n)-a_m; first-at10 counting trap at897s (f0010,f0014,f0017,f0031).",
+      "research_extension": "None.",
+      "teaching_construction": "First payment at m+1 and integer versus real timing domains; discount and subtraction derivations; original accessible birthday timeline with immediate20/due21 anchors.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The birthday trust and the pension counting trap",
+      "section_id": "trust-pension",
+      "video_id": "S5uCUQzS7lQ",
+      "start": 491,
+      "end": 1307,
+      "lecture_material": "Four10,000 awards at21-24, immediate anchor20 versus due21; manual13,364.50 and calculator13,364.31. Pension at age40, first payment65,20payments of50,000,6% (f0024,f0030,f0041,f0044).",
+      "research_extension": "None.",
+      "teaching_construction": "Full-precision trust value13,364.31 and due/immediate equivalence by cancellation and direct sum; pension141,641.22 and certain-payment qualification.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Deferred perpetual and continuous streams",
+      "section_id": "deferred-infinite-continuous",
+      "video_id": "S5uCUQzS7lQ",
+      "start": 976,
+      "end": 1307,
+      "lecture_material": "Deferred perpetuity v^m/i,5000 first at5 with unspecified rate; continuous deferral integral (f0036,f0038). L25 patent intensity50,000/year from5 to20 at force5% (f0014,f0020).",
+      "research_extension": "None.",
+      "teaching_construction": "Original first-at6 scholarship capital246,578.13 with anchor5; integral variable substitution, endpoints and zero/infinite limits; patent527,633.45 at5 and410,921.34 today.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A complex stream is a sum of correctly anchored blocks",
+      "section_id": "lab",
+      "video_id": "ZXgVaHagW34",
+      "start": 77,
+      "end": 1051,
+      "lecture_material": "Split rates6% first10years/8% later; layer of20,000 first5payments then10,000 forever;50,000 at6% waiting until an8000 perpetuity can be supported (f0010,f0012,f0023,f0025,f0027,f0031,f0035).",
+      "research_extension": "None.",
+      "teaching_construction": "Full-precision1434.00 and243,294.77; product discounting and equal-rate collapse; real wait16.83280646 versus whole-year anchor17/first18; running200,000 fund anchor11/first12 and balance307,890.81.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "An unknown term: feasibility before taking logarithms",
+      "section_id": "unknown-term",
+      "video_id": "iMyv1yex8VA",
+      "start": 259,
+      "end": 556,
+      "lecture_material": "Logarithmic rearrangement;10,000 loan at5% repaid1000/year, real term14.206 (f0014,f0019).",
+      "research_extension": "None.",
+      "teaching_construction": "Feasibility PMT>Li, equality interest-only perpetuity, insufficient-payment growth, zero and negative rates; real root distinct from schedule; original donor fund real term28.01102276.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A real term becomes an actual final-payment schedule",
+      "section_id": "final-payment",
+      "video_id": "iMyv1yex8VA",
+      "start": 556,
+      "end": 794,
+      "lecture_material": "Balance at14 from loan accumulation minus accumulated payments; printed200.70 balance and210.74 drop payment (f0025).",
+      "research_extension": "SOA October2026 FM syllabus p.3: drop and balloon final payments.",
+      "teaching_construction": "Unrounded balance200.684005606, corrected210.72 drop at15 and1200.68 balloon at14; integer-root and K=0 boundaries; independent recurrence and direct present-value verification.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "An unknown yield: prove a root exists and is unique",
+      "section_id": "unknown-rate",
+      "video_id": "iMyv1yex8VA",
+      "start": 794,
+      "end": 1236,
+      "lecture_material": "Unknown annuity rate, practical algebra warning,5000 investment/1200 at5year ends giving6.40%; interpolation between6% and7% (f0028,f0036,f0040).",
+      "research_extension": "None.",
+      "teaching_construction": "Finite polynomial qualification; continuity, negative derivative, existence/uniqueness on(-1,infinity) and sign test; interpolation6.4074048862% versus root6.4022407643%, residual-0.69786370 and convexity; running perpetuity inverse4%/6%.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Stopping rules, calculator signs and a monthly savings yield",
+      "section_id": "root-calculator",
+      "video_id": "iMyv1yex8VA",
+      "start": 849,
+      "end": 1414,
+      "lecture_material": "Opposite PV/PMT signs and Error5;240 month-end deposits of1000 targeting500,000; slide monthly0.5636% and annual6.99% (f0032,f0045,f0048).",
+      "research_extension": "TI guidebook pp.21-22 (PDF pp.26-27): END/BGN and cash-flow signs; per-payment rate interpretation from p.69 (PDF p.74).",
+      "teaching_construction": "Bisection rate-width and currency-residual stopping rules; zero-terminal-value sign argument; unique savings root, corrected monthly0.5550781904% and annual6.8681020581%; monthly versus nominal annual worksheet units.",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "The donor's decision on one table",
+      "section_id": "running-case",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Original five-promise decision table;200,000 capital supports a finite plan or waits11years for the perpetual plan's anchor, first payment12.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable checks of convergence, timing and numerical roots",
+      "section_id": "code",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "96-line standard-library listing: exact Fraction finite/due/deferred identities, stable exponential/log functions, independent midpoint integration, exact loan recurrence plus direct PV, positive-yield bisection with two stopping rules, four invalid-input checks; exact13-line461-byte stdout.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Exercises",
+      "section_id": "exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "L25 block constructions and L30 positive-rate hierarchy inspire original exercises. All six prompts and solutions are authored; numerical Exercise4 uses different loan parameters from L24.",
+      "research_extension": "None.",
+      "teaching_construction": "Six complete solutions: derive a perpetuity tail; original birthday-trust exam question; negative-rate convergence/timing assumption; original8000-at4% fractional-payment counterexample; original split-rate stream design; original8-payment yield and mean-value slope bound.",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "Every h2 except Primary sources has one entry with matching heading text. The chapter follows L21, L22 and L23; L25 blocks then motivate L24 inverse problems. The patent is placed with continuous deferral, and L30 Question1 with timing comparison. All actual lab/review uses are listed in practice_sources.",
+  "references": [
+    {
+      "title": "Lecture 21 recording",
+      "url": "https://www.youtube.com/watch?v=hx17UwmWgGQ",
+      "supports": "Perpetuity convergence, scholarship fund, due and monthly perpetuities, large-N calculator approximation, fixed-dividend example.",
+      "page_checked": "Full caption recording and contact sheets read; slide frames listed in frames_viewed."
+    },
+    {
+      "title": "Lecture 22 recording",
+      "url": "https://www.youtube.com/watch?v=XyLON0qRvwU",
+      "supports": "Continuous payment intensity, integral present value, timing relation, continuous perpetuity, toll-road example, high-frequency calculator settings, continuous savings.",
+      "page_checked": "Full caption recording and contact sheets read; slide frames listed in frames_viewed."
+    },
+    {
+      "title": "Lecture 23 recording",
+      "url": "https://www.youtube.com/watch?v=S5uCUQzS7lQ",
+      "supports": "Deferred finite annuities by discounting/subtraction, birthday trust and due anchor, first-payment counting trap, deferred perpetual/continuous streams, pension.",
+      "page_checked": "Full caption recording and contact sheets read; slide frames listed in frames_viewed."
+    },
+    {
+      "title": "Lecture 24 recording",
+      "url": "https://www.youtube.com/watch?v=iMyv1yex8VA",
+      "supports": "Logarithmic unknown term, fractional root and drop payment, calculator signs, unknown yield and interpolation, monthly savings yield.",
+      "page_checked": "Full caption recording and contact sheets read; slide frames listed in frames_viewed."
+    },
+    {
+      "title": "Lecture 25 recording",
+      "url": "https://www.youtube.com/watch?v=ZXgVaHagW34",
+      "supports": "All four worked lab structures: split rates, patent royalties, layered payment amounts, growth to an endowment threshold.",
+      "page_checked": "Full caption recording and contact sheets read; slide frames listed in frames_viewed."
+    },
+    {
+      "title": "Lecture 30 recording",
+      "url": "https://www.youtube.com/watch?v=HSrxblFzIsE",
+      "supports": "Question1 positive-rate immediate/continuous/due hierarchy.",
+      "page_checked": "Full caption recording and contact sheets read; slide frames listed in frames_viewed."
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam -- October2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "Definitions of perpetuity and payable continuously, solving unknown annuity quantities, and final drop/balloon loan payments.",
+      "page_checked": "p.3 (PDF p.3), primary PDF text read2026-10-09."
+    },
+    {
+      "title": "Texas Instruments, BA II PLUS guidebook, English",
+      "url": "https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf",
+      "supports": "Nominal I/Y, P/Y sets C/Y, END/BGN payment timing, cash inflow/outflow signs, and per-payment rate formula.",
+      "page_checked": "pp.21-22 (PDF pp.26-27), p.69 (PDF p.74); all three primary PDF pages rendered and viewed2026-10-09."
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "t,i,v,d,delta",
+      "first_section": "model",
+      "definition": "Time in years from today; constant effective annual interest; discount factor1/(1+i); effective discounti/(1+i); force per year ln(1+i)."
+    },
+    {
+      "symbol": "n,H,k",
+      "first_section": "model",
+      "definition": "Integer discrete payment count; temporary geometric sum H; payment index k. n is a real continuous duration in continuous and an analytic real term in unknown-term."
+    },
+    {
+      "symbol": "PMT,PV,a_angle_n,ddot_a_angle_n",
+      "first_section": "model",
+      "definition": "Positive level amount per payment; present value at0; unit immediate and due finite factors."
+    },
+    {
+      "symbol": "a_angle_infinity,N,epsilon,eta",
+      "first_section": "perpetuity",
+      "definition": "Unit immediate perpetuity, defined only i>0; N is truncation count, epsilon relative tolerance, eta absolute currency tolerance."
+    },
+    {
+      "symbol": "F_k,F_0",
+      "first_section": "funds",
+      "definition": "Fund balance immediately after payment k and initial balance at0."
+    },
+    {
+      "symbol": "p,j,i^(p),R",
+      "first_section": "due-frequency",
+      "definition": "Payments per year p; effective rate j per1/p year; nominal annual rate pj; annual total R distributed as R/p per payment."
+    },
+    {
+      "symbol": "rho(t),dt,bar_a_angle_n",
+      "first_section": "continuous",
+      "definition": "Payment intensity in currency/year, differential time in years, continuous unit-intensity factor in years. R becomes the constant intensity here."
+    },
+    {
+      "symbol": "F(t)",
+      "first_section": "timing-bounds",
+      "definition": "Continuously evolving fund balance, satisfying F'=delta F-R."
+    },
+    {
+      "symbol": "FV_n,bar_s_angle_n",
+      "first_section": "continuous-examples",
+      "definition": "Value at terminal date n and continuous unit-intensity accumulated factor in years."
+    },
+    {
+      "symbol": "m,{}m|a_angle_n,u",
+      "first_section": "deferral",
+      "definition": "Deferral m in years, distinct from frequency p; deferred immediate factor; integration variable u=t-m in(8.17)."
+    },
+    {
+      "symbol": "L,K,B_K,s_angle_K,ell",
+      "first_section": "unknown-term",
+      "definition": "Positive loan/price L; K=floor(n); balance B_K after K full payments; finite accumulated factor s; sum index ell. K,B_K,s,ell are defined in final-payment."
+    },
+    {
+      "symbol": "f(i),i_sec",
+      "first_section": "unknown-rate",
+      "definition": "Present value of receipts minus price, and secant interpolation rate estimate."
+    },
+    {
+      "symbol": "i_lo,i_hi,W,b",
+      "first_section": "root-calculator",
+      "definition": "Bisection interval endpoints, initial width W, number b of halvings."
+    },
+    {
+      "symbol": "h,closed,midpoint",
+      "first_section": "code",
+      "definition": "Integration width, closed integral value and independent midpoint sum."
+    },
+    {
+      "symbol": "xi,i_*",
+      "first_section": "exercises",
+      "definition": "Mean-value intermediate rate and unique root in Exercise6."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch08_verify.py: extracts96-line standard-library listing, runs fresh python -I, exit0/no stderr, compares LF-normalized stdout byte-for-byte:13lines461bytes. python -I _editorial/tmp/ch08_numerics.py: independent exact sums, recurrence, integration and worked amounts.",
+    "stdout_matches_printed": true
+  }
+}

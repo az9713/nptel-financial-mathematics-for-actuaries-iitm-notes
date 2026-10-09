@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="80bd83feff7c9646153997acab26d910ba8ccfde5963004f86241283011d128b"><title>Perpetuities, continuous and deferred annuities, and unknown terms and rates · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Perpetuities, continuous and deferred annuities, and unknown terms and rates</h1>
+<p class="lead">A donor wants a scholarship of 12,000 dollars each year forever. At an invented effective annual rate of 4%, a fund of 300,000 dollars supports the first payment one year from now. Paying the first scholarship today needs 312,000 dollars; paying at a continuous intensity of 12,000 dollars a year needs 305,960.78 dollars. A donor with only 200,000 dollars can instead let it grow for 11 whole years before starting the annual plan, with its first payment at year 12. These differences come from the dates and form of the payments, even though every plan promises the same annual total. This chapter derives their values, decides when an infinite payment stream has a finite value, and solves the inverse questions: how many payments a fund supports and what rate balances a specified stream.</p>
+<p class="source-note">Grounded in Prof. Neelesh S. Upadhye's NPTEL course <em>Financial Mathematics for Actuaries</em>, <a href="https://www.youtube.com/watch?v=hx17UwmWgGQ">Lecture 21</a> (perpetuities), <a href="https://www.youtube.com/watch?v=XyLON0qRvwU">Lecture 22</a> (continuous annuities), <a href="https://www.youtube.com/watch?v=S5uCUQzS7lQ">Lecture 23</a> (deferred annuities) and <a href="https://www.youtube.com/watch?v=iMyv1yex8VA">Lecture 24</a> (unknown terms and rates). The complex-stream lab, <a href="https://www.youtube.com/watch?v=ZXgVaHagW34">Lecture 25</a>, supplies four worked constructions; Question 1 of the module review, <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30</a>, supplies the timing comparison. <strong>Lecture material:</strong> the vanishing-tail derivation, immediate and due perpetuities, scholarship and fixed-dividend examples, monthly payments, the integral for a continuous stream, continuous savings, the two deferral methods and their counting trap, birthday-trust and pension examples, the logarithmic term, final drop payment, calculator signs, yield interpolation and monthly savings yield. <strong>Research extensions:</strong> the October 2026 Society of Actuaries Exam FM syllabus on these cash-flow types and final-payment conventions, and the Texas Instruments guidebook on payment timing, cash-flow signs and rate conversion. <strong>Original teaching constructions:</strong> the donor's running case; explicit convergence and zero-rate limits; a quantified truncation error; the Riemann-sum limit and timing bounds; full-precision recomputations; existence and uniqueness proofs with numerical stopping rules; the timeline, executable checks and six exercises. All amounts are rounded to cents only at the end; rates and factors retain full precision in computations.</p>
+
+<h2 id="model">The time unit and the finite starting point <a class="timestamp" href="https://www.youtube.com/watch?v=hx17UwmWgGQ&amp;t=243s">L21 4:03</a></h2>
+<p>A <em>perpetuity</em> is a payment stream with no last payment. A <em>continuous annuity</em> pays through time at a stated intensity, rather than as separate amounts. A <em>deferred annuity</em> begins after a waiting interval. Each is valued by the same rule: move every payment to one focal date, here today, and add its value there. For an infinite stream, that addition must converge; for a continuous stream, the addition becomes an integral.</p>
+<p>Unless another unit is stated, time \(t\) is measured in years from today, and \(i\) is one constant effective annual interest rate. The compound model accumulates a unit over \(t\) years to \((1+i)^t\), including fractional \(t\). Its one-year discount factor \(v\), effective discount rate \(d\), and constant force of interest \(\delta\) are</p>
+\[
+v=\frac1{1+i},\qquad d=\frac{i}{1+i}=1-v,\qquad \delta=\ln(1+i),\qquad v^t=e^{-\delta t}. \tag{8.1}
+\]
+<p>The force \(\delta\) is per year when \(t\) is in years, so \(\delta t\) is dimensionless. The effective rate \(i\) is a fraction per specified period: 4% enters a formula as 0.04. We require \(i\gt-1\), so accumulation and discounting are positive. A finite stream permits zero or negative \(i\); a positive level perpetuity will require the stronger \(i\gt0\). Payments are certain, rates deterministic, and valuation linear in the amounts; taxes, fees and defaults are outside this model.</p>
+<p>For an integer \(n\ge1\), the annuity-immediate pays one currency unit at each of \(1,2,\ldots,n\). Its factor \(a_{\overline{n}|i}\), with the rate subscript omitted when clear, follows by summing a geometric series. If \(H=v+\cdots+v^n\), then \((1-v)H=v-v^{n+1}\), and \(v/(1-v)=1/i\). Thus</p>
+\[
+a_{\overline{n}|i}=\sum_{k=1}^{n}v^k=\frac{1-v^n}{i}\quad(i\ne0),\qquad a_{\overline{n}|0}=n. \tag{8.2}
+\]
+<p>A level payment \(\mathrm{PMT}\) gives \(\mathrm{PV}=\mathrm{PMT}\,a_{\overline{n}|i}\). The factor has no units for unit discrete payments; multiplying by an amount per payment gives currency. The annuity-due pays at \(0,1,\ldots,n-1\), one year earlier, and its factor is \(\ddot a_{\overline{n}|i}=(1+i)a_{\overline{n}|i}\). These finite definitions fix the schedules whose limits we take. The running scholarship uses \(\mathrm{PMT}=12{,}000\) and \(i=0.04\); 20 end-year awards need \(12{,}000a_{\overline{20}|0.04}=163{,}083.92\) dollars today.</p>
+<p>With zero payments, the empty sum has value zero: \(a_{\overline0|}=\ddot a_{\overline0|}=0\). This convention permits a zero deferral in the subtraction method below.</p>
+
+<h2 id="perpetuity">The vanishing tail and a perpetuity's convergence <a class="timestamp" href="https://www.youtube.com/watch?v=hx17UwmWgGQ&amp;t=384s">L21 6:24</a></h2>
+<p>For \(i\gt0\), \(0\lt v\lt1\), so \(v^n\to0\). The increasing finite partial sums in (8.2) therefore have the limit</p>
+\[
+a_{\overline{\infty}|}=\sum_{k=1}^{\infty}v^k=\frac1i,\qquad \mathrm{PV}=\frac{\mathrm{PMT}}i. \tag{8.3}
+\]
+<p>This is the lecture's vanishing-tail argument: a distant payment has a small value, and the <em>sum</em> of all distant values also becomes small. Those are different statements; convergence follows from the geometric sum, not merely from inspecting the last term. At \(i=0\), every discounted unit equals 1, and the partial sums are \(n\to\infty\). At \(-1\lt i\lt0\), \(v\gt1\), so even the terms grow and cannot sum to a finite value. Substituting a negative \(i\) into \(1/i\) would produce a negative number for a sum of positive payments. It is an invalid limit, not a cheap perpetuity.</p>
+<p>The exact amount excluded by keeping only the first \(N\) payments is</p>
+\[
+\mathrm{PV}_{\infty}-\mathrm{PV}_N
+=\mathrm{PMT}\sum_{k=N+1}^{\infty}v^k
+=\frac{\mathrm{PMT}}i v^N. \tag{8.4}
+\]
+<p>Hence a relative truncation tolerance \(\varepsilon\in(0,1)\) needs \(N\ge\ln(1/\varepsilon)/\ln(1+i)\), rounded up. An absolute tolerance \(\eta\gt0\) needs \(N\ge\ln[(\mathrm{PMT}/i)/\eta]/\ln(1+i)\), when the logarithm is positive. The lecture's calculator substitutes a very large N, 9,999, with FV zero. Formula (8.4) says when that shortcut is adequate. It is not the same as saying that 100 years is always enough: the running scholarship still has a tail of 5,940.01 dollars after year 100, and needs 439 payments for an omitted value at most one cent. As \(i\to0^+\), the present value and the horizon needed for a fixed relative accuracy both grow without bound.</p>
+
+<h2 id="funds">A fund that spends only interest, and a fixed-dividend model <a class="timestamp" href="https://www.youtube.com/watch?v=hx17UwmWgGQ&amp;t=612s">L21 10:12</a></h2>
+<p>The lecture's scholarship pays 10,000 dollars annually, first at year 1, at 4%. Formula (8.3) gives 250,000 dollars. There is also an account check: let \(F_k\) be the fund immediately after payment \(k\), with \(F_0\) the initial deposit. Between payments it earns interest, then pays the award:</p>
+\[
+F_k=(1+i)F_{k-1}-\mathrm{PMT}. \tag{8.5}
+\]
+<p>If \(F_0=\mathrm{PMT}/i\), substitution gives \(F_1=\mathrm{PMT}/i\); induction keeps every \(F_k\) equal to that balance. The interest \(iF_{k-1}\) exactly funds each payment. For the running case, 300,000 dollars earns 12,000 in each year and returns to 300,000 just after the award. This is a statement about constant nominal payments and a constant rate. It does not promise preservation of purchasing power, or show that a risky investment produces the same interest in every year.</p>
+<p>The lecture also models a security as paying a fixed dividend of 5 dollars at every year end forever, with no redemption payment. At a required effective annual rate of 8%, its model value is \(5/0.08=62.50\) dollars; at 10%, \(5/0.10=50.00\). For a fixed positive dividend, differentiating \(\mathrm{PMT}/i\) gives \(-\mathrm{PMT}/i^2\lt0\), explaining the inverse price response. The model assumes the entire promised stream is paid and the required rate discounts every year consistently. Calling it a preferred-stock example does not make those assumptions true of every preferred-share contract.</p>
+
+<h2 id="due-frequency">A payment today and payments more often than once a year <a class="timestamp" href="https://www.youtube.com/watch?v=hx17UwmWgGQ&amp;t=844s">L21 14:04</a></h2>
+<p>A perpetuity-due pays at \(0,1,2,\ldots\). It consists of one payment today plus the entire immediate perpetuity. Equivalently, it shifts every immediate payment one period earlier:</p>
+\[
+\ddot a_{\overline{\infty}|}=1+\frac1i
+=\frac{1+i}{i}=\frac1d,\qquad i\gt0. \tag{8.6}
+\]
+<p>The running fund needs 312,000 dollars if the first award is today. After paying 12,000 immediately, it holds the 300,000 needed for all subsequent awards. The difference between the due and immediate perpetuities is exactly one payment, although the finite \(n\)-payment difference is \(\mathrm{PMT}(1-v^n)\): the finite due stream also loses the immediate stream's last payment. Letting \(n\to\infty\) makes that lost distant value vanish.</p>
+<p>For payments \(p\) times per year, keep \(i\) as the effective annual rate and write \(j\) for the effective rate per payment period. Here \(p\) is a frequency; later \(m\) is a waiting time. Rate equivalence gives \((1+j)^p=1+i\), so \(j=(1+i)^{1/p}-1\). The nominal annual rate convertible \(p\)-thly is \(i^{(p)}=pj\). If the annual total is \(R\), each end-period payment is \(R/p\), and</p>
+\[
+\mathrm{PV}=\sum_{k=1}^{\infty}\frac Rp v^{k/p}
+=\frac{R/p}{j}=\frac R{i^{(p)}}. \tag{8.7}
+\]
+<p>The lecture's 100 dollars at each month end forever, with an effective annual rate of 6%, has \(p=12\), \(R=1200\), \(j=0.004867550565\) and \(i^{(12)}=0.0584106068\). Its present value is 20,544.21 dollars. Dividing 100 by 0.06 combines a monthly amount with a yearly rate; dividing 1200 by 0.06 gives the value of one 1200-dollar payment at each year end. Monthly payments arrive earlier within the year, so their value is larger. If payments are at the beginnings of the months, multiply (8.7) by \(1+j\); the extra value is exactly 100 dollars for this perpetuity.</p>
+
+<h2 id="continuous">From many small payments to a continuous intensity <a class="timestamp" href="https://www.youtube.com/watch?v=XyLON0qRvwU&amp;t=227s">L22 3:47</a></h2>
+<p>A rate of payment \(\rho(t)\), in dollars per year, means that an interval of length \(dt\) receives the amount \(\rho(t)dt\). An instantaneous rate is not a lump sum. For a level intensity \(R\), the total undiscounted payment over \(n\) years is \(Rn\). A toll-revenue example motivates the lecture's continuous approximation; actual receipts can still be discrete, and the approximation must preserve their annual total.</p>
+<p>Take \(pn\) equal intervals, initially with \(n\) a whole number. Pay \(R/p\) at each interval's right endpoint \(k/p\). Discounting each gives the Riemann sum \(\sum_{k=1}^{pn}(R/p)e^{-\delta k/p}\). As \(p\to\infty\), the interval width tends to zero, while the total payment remains \(Rn\); continuity of the exponential gives</p>
+\[
+\mathrm{PV}=R\int_0^n e^{-\delta t}\,dt
+=R\bar a_{\overline{n}|},\qquad
+\bar a_{\overline{n}|}=\frac{1-e^{-\delta n}}{\delta}\quad(\delta\ne0). \tag{8.8}
+\]
+<p>The last equality integrates the exponential: its antiderivative is \(-e^{-\delta t}/\delta\), so the endpoints give \((1-e^{-\delta n})/\delta\). The integral definition applies to every real duration \(n\ge0\). With \(\delta=0\), the integrand is 1 and \(\bar a_{\overline{n}|}=n\), which is also the limit of (8.8). For finite \(n\), negative \(\delta\) is allowed; the numerator and denominator are then both negative, leaving a positive value. Interpreted with a yearly intensity, the integral factor carries years, and multiplication by dollars per year gives dollars.</p>
+<p>For the same annual total, comparing (8.2) and (8.8) yields \(\bar a_{\overline{n}|}=a_{\overline{n}|}i/\delta\) for nonzero \(i\) and an integer \(n\). The common numerator is \(1-v^n\); the payment pattern changes the denominator from \(i\) to \(d\) to \(\delta\). These denominators represent different timings, not three interchangeable names for a quoted rate. In particular \(\delta=\ln(1+i)\), not \(i\), except at zero. Near zero, \(\delta=i-i^2/2+O(i^3)\), so \(i/\delta=1+i/2+O(i^2)\); identifying them is an approximation whose first relative correction is about half the annual rate.</p>
+<p>The frequency formula (8.7) reaches the same continuous limit for a positive-rate perpetuity. Since \(i^{(p)}=p(e^{\delta/p}-1)\) and \((e^x-1)/x\to1\) as \(x\to0\), \(i^{(p)}\to\delta\), and \(R/i^{(p)}\to R/\delta\). Holding the annual total fixed is essential: retaining the same amount at every increasingly frequent payment would make the annual payment grow without bound. For the donor's fixed annual total of 12,000, progressively smaller and earlier instalments approach the 305,960.78-dollar continuous value.</p>
+
+<h2 id="timing-bounds">Why continuous payments lie between immediate and due <a class="timestamp" href="https://www.youtube.com/watch?v=XyLON0qRvwU&amp;t=648s">L22 10:48</a></h2>
+<p>At \(i\gt0\), the discount function \(e^{-\delta t}\) decreases strictly. On each year \(k-1\lt t\lt k\), its value lies strictly between \(v^k\) and \(v^{k-1}\). Integrate over that year, then add the \(n\) inequalities:</p>
+\[
+a_{\overline{n}|}\lt\bar a_{\overline{n}|}\lt\ddot a_{\overline{n}|},\qquad n\in\{1,2,\ldots\},\ i\gt0. \tag{8.9}
+\]
+<p>This proves the intuition behind Question 1 of the module review: distributing each year's payment through the year brings it earlier than the end, but later than the beginning. It also checks \(d\lt\delta\lt i\), because the common numerator is positive. At zero all three values equal \(n\). At a negative rate the discount function increases, and the order reverses. The positive-rate hypothesis matters.</p>
+<p>The lecture describes a continuous annual amount as arriving on average halfway through its year. The undiscounted average time is indeed one-half, but discounting the whole amount at that time is a midpoint approximation. For \(\delta\ne0\), the function \(e^{-\delta t}\) is strictly convex, since its second derivative is \(\delta^2e^{-\delta t}\gt0\). Its average value over an interval exceeds its value at the midpoint. A yearly midpoint payment therefore slightly underestimates the continuous value; the integral supplies the exact value in this model.</p>
+<p>As \(n\to\infty\), the continuous level stream converges only if \(\delta\gt0\), equivalently \(i\gt0\):</p>
+\[
+\bar a_{\overline{\infty}|}=\int_0^{\infty}e^{-\delta t}\,dt=\frac1\delta,
+\qquad \mathrm{PV}=\frac R\delta. \tag{8.10}
+\]
+<p>At zero the integral is an infinite duration; at a negative force its integrand grows. The running fund paying continuously at \(R=12{,}000\) dollars per year needs \(12{,}000/\ln1.04=305{,}960.78\) dollars, between the immediate 300,000 and due 312,000. The account equation provides a second check: for balance \(F(t)\), constant-force earnings minus payment intensity gives \(F'(t)=\delta F(t)-R\). Starting from \(R/\delta\) makes the derivative zero at all times. A constant balance under continuous spending depends on the force, while the end-year balance in (8.5) depends on the effective yearly rate.</p>
+
+<h2 id="continuous-examples">Toll receipts, calculator settings and continuous savings <a class="timestamp" href="https://www.youtube.com/watch?v=XyLON0qRvwU&amp;t=828s">L22 13:48</a></h2>
+<p>The toll-road example specifies an intensity of 1,000,000 dollars per year for 20 years and an effective annual rate \(i=6\%\). With \(\delta=\ln1.06\), (8.8) gives</p>
+\[
+\mathrm{PV}=1{,}000{,}000\frac{1-1.06^{-20}}{\ln1.06}
+=11{,}810{,}677.35\text{ dollars}. \tag{8.11}
+\]
+<p>The lecture prints 11,810,456; full-precision inputs give (8.11), and dividing its displayed numerator 0.68819 by its displayed force 0.05827 does not reproduce the printed answer either. Its subsequent high-frequency calculator setup uses P/Y = 5000, N = 100000, I/Y = 6, and PMT = 200, and reports 11,646,727. The guidebook states that I/Y is a nominal annual rate and that setting P/Y also sets C/Y to the same value unless changed (<a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf">TI guidebook</a>, p. 21). With C/Y = 5000, the per-payment rate is \(0.06/5000\), so these entries give 11,646,726.99 dollars. As the frequency increases, that rate convention tends to the force \(\delta=0.06\), whose exact continuous value is 11,646,763.13. This is a different rate from \(\ln1.06\); the 163,950-dollar discrepancy from (8.11) is not a tiny discretization error.</p>
+<p>To preserve the stated effective annual 6%, set C/Y = 1 after P/Y = 5000, with I/Y = 6. The guidebook's rate formula then gives \(j=(1.06)^{1/5000}-1\) per payment period (p. 69). The 100,000 end-period payments of 200 now have value 11,810,608.53, 68.82 dollars below the integral, and their values approach (8.11) as frequency rises. Direct use of the integral avoids the setting ambiguity. All these values are mathematical evaluations of the stated settings, rather than a claim about the state of a physical calculator.</p>
+<p>For continuous savings, move the payment at time \(t\) forward to the terminal date \(n\), using \(e^{\delta(n-t)}\):</p>
+\[
+\mathrm{FV}_n=R\int_0^n e^{\delta(n-t)}\,dt
+=R\bar s_{\overline{n}|},\qquad
+\bar s_{\overline{n}|}=\frac{e^{\delta n}-1}{\delta}
+=e^{\delta n}\bar a_{\overline{n}|}. \tag{8.12}
+\]
+<p>At \(\delta=0\), \(\bar s_{\overline{n}|}=n\). The identity on the right checks the focal date: accumulating the present value over \(n\) years must give the same terminal value. The lecture's intensity of 2400 dollars per year, over 10 years at a <em>force</em> of 4%, produces \(2400(e^{0.4}-1)/0.04=29{,}509.48\) dollars, agreeing with its answer. This problem specifies \(\delta=0.04\); converting it to an effective annual rate gives \(e^{0.04}-1\), rather than silently treating 4% as \(i\).</p>
+
+<h2 id="deferral">Deferral moves a complete block to a later date <a class="timestamp" href="https://www.youtube.com/watch?v=S5uCUQzS7lQ&amp;t=229s">L23 3:49</a></h2>
+<p>Let \(m\ge0\) be the deferral in years, and \(n\) the number of annual payments. The deferred immediate unit annuity, written \({}_{m|}a_{\overline{n}|}\), pays at \(m+1,m+2,\ldots,m+n\). The vertical bar separates the waiting interval from the payment term. The value at time \(m\), one period before its first payment, is \(a_{\overline{n}|}\); discounting that entire value to today gives the lecture's first method. A second method deletes the first \(m\) payments of an immediate annuity of \(m+n\) payments, when \(m,n\) are integers:</p>
+\[
+{}_{m|}a_{\overline{n}|}=\sum_{k=1}^{n}v^{m+k}
+=v^m a_{\overline{n}|}
+=a_{\overline{m+n}|}-a_{\overline{m}|}. \tag{8.13}
+\]
+<p>The discount identity applies to real \(m\ge0\) with integer \(n\) under fractional-time compound growth; the subtraction identity describes two actual annual streams when \(m\) is also integer. Algebraically, their closed forms agree for real \(m\) as well, but that does not invent a fraction of a discrete payment. At zero interest the value is \(n\), independent of the deferral. At positive interest it decreases with \(m\), since \(v^m\) decreases.</p>
+<p>Figure 8.1 illustrates the anchor choice for four payments at times 21 through 24: the immediate value is at 20, while the due value is at 21. Both describe the same stream and discount to the same value at 0.</p>
+<figure>
+<svg viewBox="0 0 760 200" role="img" aria-labelledby="ch08-timeline-title ch08-timeline-desc">
+<title id="ch08-timeline-title">One stream with two valid valuation anchors</title>
+<desc id="ch08-timeline-desc">Four annual payments at times 21, 22, 23, 24. The immediate anchor is 20, one period before the first payment. The due anchor is 21, at the first payment. Both values discount to time 0.</desc>
+<g fill="none" stroke="currentColor" stroke-width="2"><path d="M55 105H710"/><path d="M55 98V112M400 98V112M470 98V112M540 98V112M610 98V112M680 98V112"/><path d="M470 85V40M540 85V40M610 85V40M680 85V40"/><path d="M400 155H55M470 180H55"/></g>
+<g fill="currentColor" font-size="17"><text x="45" y="135">0</text><text x="387" y="135">20</text><text x="457" y="135">21</text><text x="527" y="135">22</text><text x="597" y="135">23</text><text x="667" y="135">24</text><text x="720" y="111">t</text><text x="437" y="25">Four equal annual payments</text><text x="85" y="150">Immediate anchor: value at 20</text><text x="85" y="175">Due anchor: value at 21</text></g>
+</svg>
+<figcaption>Figure 8.1. The birthday trust has the same four payment dates under either convention. An immediate value at 20 discounts by \(v^{20}\); a due value at 21 discounts by \(v^{21}\). The gap between 0 and 20 is compressed; the last five ticks are one year apart.</figcaption>
+</figure>
+<p>The first-payment date decides the anchor. If the first annual payment is at \(t=10\), an immediate block has \(m=9\), while a due block has \(m=10\). The word “deferred” by itself does not decide which. Write the dates before selecting a factor; moving the anchor by one year without moving the whole block changes the value.</p>
+
+<h2 id="trust-pension">The birthday trust and the pension counting trap <a class="timestamp" href="https://www.youtube.com/watch?v=S5uCUQzS7lQ&amp;t=491s">L23 8:11</a></h2>
+<p>The lecture's trust pays 10,000 dollars on the 21st, 22nd, 23rd and 24th birthdays, with birth as \(t=0\) and \(i=5\%\). Its immediate anchor is \(t=20\):</p>
+\[
+\mathrm{PV}_{20}=10{,}000a_{\overline4|0.05}=35{,}459.5050416,\qquad
+\mathrm{PV}_{0}=10{,}000v^{20}a_{\overline4|0.05}=13{,}364.31. \tag{8.14}
+\]
+<p>The due anchor is at 21. Its local value is \(10{,}000\ddot a_{\overline4|0.05}=(1.05)\mathrm{PV}_{20}\), and discounting it by \(v^{21}\) cancels that extra factor. Both methods therefore give exactly the same value, as does the direct sum \(10{,}000(v^{21}+v^{22}+v^{23}+v^{24})\). The slide's manual line gives 13,364.50 after rounding the local value to 35,460; its calculator line gives 13,364.31, the full-precision result. Mixing these lines would create a discrepancy in identical schedules.</p>
+<p>In the pension example, a person aged 40 will receive 50,000 dollars annually for 20 payments, first on the 65th birthday, at an effective annual 6%. The dates are \(t=25,26,\ldots,44\), corresponding to ages 65 through 84. The immediate anchor is age 64, \(t=24\), not 25. Thus</p>
+\[
+\mathrm{PV}_{64}=50{,}000a_{\overline{20}|0.06}=573{,}496.06,\qquad
+\mathrm{PV}_{40}=50{,}000(1.06)^{-24}a_{\overline{20}|0.06}=141{,}641.22. \tag{8.15}
+\]
+<p>The lecture's whole-dollar answer is 141,641. This is the value of 20 <em>certain</em> payments on those dates. A lifetime pension paid only while someone is alive is a different stream; age labels alone introduce no survival probabilities into (8.15).</p>
+
+<h2 id="deferred-infinite-continuous">Deferred perpetual and continuous streams <a class="timestamp" href="https://www.youtube.com/watch?v=S5uCUQzS7lQ&amp;t=976s">L23 16:16</a></h2>
+<p>For \(i\gt0\), a deferred immediate perpetuity beginning at \(m+1\) has value \(v^m/i\) per unit payment. The waiting interval shifts the whole convergent sum; it does not alter its convergence requirement:</p>
+\[
+{}_{m|}a_{\overline{\infty}|}=\frac{v^m}{i},\qquad
+\mathrm{PV}=\frac{\mathrm{PMT}}i v^m. \tag{8.16}
+\]
+<p>The lecture's scholarship of 5000 dollars, first at \(t=5\), therefore uses \(m=4\) and value \(5000v^4/i\); no numerical rate is specified in that example. For the running scholarship first at year 6, \(m=5\), the deposit is \(300{,}000(1.04)^{-5}=246{,}578.13\) dollars. By time 5 it has grown to 300,000; the first year's interest then funds the award at 6. Discounting by \(v^6\) instead would omit one year's funding.</p>
+<p>A level continuous intensity \(R\) starting at time \(m\) and ending at \(m+n\) is valued by its interval, rather than by a first discrete payment. Substitute \(u=t-m\) into the integral:</p>
+\[
+\mathrm{PV}=R\int_m^{m+n}e^{-\delta t}\,dt
+=R e^{-\delta m}\int_0^n e^{-\delta u}\,du
+=R v^m\bar a_{\overline{n}|}. \tag{8.17}
+\]
+<p>Here both \(m,n\ge0\) may be real durations. The beginning endpoint contains no isolated lump sum: including or excluding a single endpoint has no effect on the integral. For \(n\to\infty\) and \(\delta\gt0\), the result becomes \(Rv^m/\delta\); for \(\delta=0\) and finite \(n\), it becomes \(Rn\). The lab's royalty intensity of 50,000 dollars per year from \(t=5\) through \(t=20\), at a force of 5%, has local value \(50{,}000(1-e^{-0.05\times15})/0.05=527{,}633.45\) at 5. Its value today is \(527{,}633.447259e^{-0.25}=410{,}921.34\) dollars. The lab truncates the local value to 527,633.44 and displays the value today as 410,921.3, rounded to one decimal place. Rounding both full-precision values to cents gives the amounts above.</p>
+
+<h2 id="lab">A complex stream is a sum of correctly anchored blocks <a class="timestamp" href="https://www.youtube.com/watch?v=ZXgVaHagW34&amp;t=77s">L25 1:17</a></h2>
+<p>The lab begins with 100 dollars at every year end forever. The effective rate is 6% for the first 10 years and 8% for all years thereafter. At time 10 the later stream's first payment is at 11, so its value there is \(100/0.08\). The first 10 payments discount at 6%, and the later block discounts from 10 to 0 at 6%:</p>
+\[
+\mathrm{PV}_0=100a_{\overline{10}|0.06}
++(1.06)^{-10}\frac{100}{0.08}=1434.00. \tag{8.18}
+\]
+<p>The lab gives 1434.01 from rounded components. There is no one constant rate for the complete timeline: a payment after 10 discounts through the later 8% years, then through the first 10 years at 6%. Using a single perpetuity formula at either rate would erase part of the contract. For a check, set both rates equal to \(i\). Then \(100a_{\overline{10}|i}+100v^{10}/i=100/i\), by (8.2), recovering the unbroken perpetuity.</p>
+<p>The next construction pays 20,000 dollars at each of the first 5 year ends and 10,000 at every year end thereafter, at 5%. Split it into a base payment of 10,000 forever plus an extra 10,000 for the first 5 years. Linearity gives \(10{,}000/0.05+10{,}000a_{\overline5|0.05}=243{,}294.77\) dollars today. The slide's 243,295 is a whole-dollar rounding. The extra stream stops at 5, so it must use a finite factor; turning it into another perpetuity overvalues the stream by all the later bonus payments.</p>
+<p>The final lab problem starts with 50,000 dollars at 6%, postponing withdrawals until it can support 8000 dollars at each year end forever. The needed balance at the immediate anchor is \(8000/0.06=133{,}333.333333\). If no payments occur while the fund grows, the time \(m\) to reach that balance solves \(50{,}000(1.06)^m=133{,}333.333333\), giving</p>
+\[
+m=\frac{\ln[(8000/0.06)/50{,}000]}{\ln1.06}=16.83280646\text{ years}. \tag{8.19}
+\]
+<p>If valuation and payment dates must be whole years, the first acceptable anchor is 17, and the first 8000-dollar payment is at 18. An anchor of 16 cannot support the payment from interest alone. Under the fractional-time compound model, the exact anchor 16.83280646 and annual payments one year later are also coherent, but that is a different calendar. The running fund similarly needs \(m=\ln(300{,}000/200{,}000)/\ln1.04=10.33803507\); rounding up gives anchor 11 and first payment 12. At 11 it holds 307,890.81 dollars, so the sustainable annual payment at 4% is 12,315.63, leaving some margin over the desired 12,000.</p>
+
+<h2 id="unknown-term">An unknown term: feasibility before taking logarithms <a class="timestamp" href="https://www.youtube.com/watch?v=iMyv1yex8VA&amp;t=259s">L24 4:19</a></h2>
+<p>Let \(L\gt0\) be a loan received today, repaid by positive year-end payments \(\mathrm{PMT}\). Treat \(n\) temporarily as a real unknown in the closed form \(L=\mathrm{PMT}(1-(1+i)^{-n})/i\). Rearranging first gives \((1+i)^{-n}=1-Li/\mathrm{PMT}\). A logarithm requires a positive right-hand side. When it is positive and \(i\ne0\),</p>
+\[
+n=-\frac{\ln(1-Li/\mathrm{PMT})}{\ln(1+i)}. \tag{8.20}
+\]
+<p>For \(i\gt0\), the condition is \(\mathrm{PMT}\gt Li\): the payment must exceed one year's interest on the initial balance. If \(\mathrm{PMT}=Li\), the balance stays equal to \(L\) forever and no finite term repays principal. If \(\mathrm{PMT}\lt Li\), the balance initially grows and the level payment cannot amortize it. Equivalently, finite annuity values rise from zero to the limiting ceiling \(\mathrm{PMT}/i\), which \(L\) must fall below. For \(i=0\), the term is \(n=L/\mathrm{PMT}\). For \(-1\lt i\lt0\), the logarithm's argument is greater than 1 and its denominator negative, giving a positive term for every \(L,\mathrm{PMT}\gt0\); finite annuity values then grow without a ceiling. These conclusions concern the mathematical model, before an integer payment schedule is chosen.</p>
+<p>The lecture's loan has \(L=10{,}000\), \(i=5\%\), and \(\mathrm{PMT}=1000\). Its real root is \(n=\ln2/\ln1.05=14.20669908\). No contract makes 14.20669908 discrete payments. The root lies between 14 and 15, so 14 full payments leave a positive balance that a smaller payment at 15 can extinguish. It does not prescribe a payment at time 14.20669908, and its fractional part is not a fraction of 1000 that settles the loan on a specified date.</p>
+<p>The donor's 200,000-dollar fund, if withdrawals of 12,000 begin at year 1 rather than waiting, has the same inverse equation: \(200{,}000=12{,}000a_{\overline n|0.04}\). Formula (8.20) gives \(n=28.01102276\). It supports 28 full end-year awards and a smaller final amount at 29, rather than the desired award forever. Extending a finite term and postponing a perpetuity are different ways of weakening or delaying the promise.</p>
+
+<h2 id="final-payment">A real term becomes an actual final-payment schedule <a class="timestamp" href="https://www.youtube.com/watch?v=iMyv1yex8VA&amp;t=556s">L24 9:16</a></h2>
+<p>Let \(K=\lfloor n\rfloor\), the largest integer no greater than the real term. The balance \(B_K\) immediately after \(K\) full payments is obtained by accumulating the original loan and subtracting each payment's accumulated value. Write \(s_{\overline K|i}=\sum_{\ell=0}^{K-1}(1+i)^\ell=((1+i)^K-1)/i\), with \(s_{\overline K|0}=K\). Then</p>
+\[
+B_K=L(1+i)^K-\mathrm{PMT}\,s_{\overline K|i}.
+\tag{8.21}
+\]
+<p>With no further payment until \(K+1\), the smaller <em>drop payment</em> is \(B_K(1+i)\). When \(K\ge1\), an alternative is to add \(B_K\) to the payment already scheduled at \(K\), producing a final <em>balloon payment</em> of \(\mathrm{PMT}+B_K\) at \(K\), and omit all later payments. These are two different settlement dates. If \(0\lt n\lt1\), there are no full payments and the drop payment \(L(1+i)\) is at 1; there is no regular payment at 0 to enlarge. If the real term is exactly an integer, its ordinary final full payment already extinguishes the balance; no extra payment is required.</p>
+<p>For the 10,000-dollar loan, (8.21) gives \(B_{14}=200.684005606\). Thus the drop payment at 15 is 210.72 dollars, or the final payment at 14 is 1200.68 dollars. The slide's 210.74 uses 200.70 from rounded growth and annuity factors; retaining precision produces 210.72. The fractional-term shortcut \(0.20669908\times1000=206.70\) produces neither settlement amount. A direct present-value check of the drop schedule is \(1000a_{\overline{14}|0.05}+210.718205886v^{15}=10{,}000\). The SOA syllabus explicitly names both drop and balloon payments in its loan outcomes (<a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">Exam FM syllabus, October 2026</a>, p. 3). This chapter rounds only the final displayed amount; a contract that rounds interest and balance after every instalment requires its own recurrence and rounding rule.</p>
+
+<h2 id="unknown-rate">An unknown yield: prove a root exists and is unique <a class="timestamp" href="https://www.youtube.com/watch?v=iMyv1yex8VA&amp;t=794s">L24 13:14</a></h2>
+<p>Now fix a positive integer \(n\), a positive initial price \(L\), and a positive level amount \(\mathrm{PMT}\) at dates 1 through \(n\). Set \(f(i)=\mathrm{PMT}\sum_{k=1}^{n}(1+i)^{-k}-L\). Solving \(f(i)=0\) finds the effective rate per payment period. The finite sum remains well defined at zero, avoiding the apparent \(0/0\) in a closed formula. For \(i\gt-1\),</p>
+\[
+f'(i)=-\mathrm{PMT}\sum_{k=1}^{n}k(1+i)^{-k-1}\lt0. \tag{8.22}
+\]
+<p>Thus \(f\) is continuous and strictly decreasing. As \(i\to-1^+\), at least one term tends to infinity, so \(f\to\infty\); as \(i\to\infty\), all terms tend to zero, so \(f\to-L\lt0\). The intermediate-value theorem gives a root, and strict decrease makes it unique on \((-1,\infty)\). Its sign follows by testing \(f(0)=n\mathrm{PMT}-L\): positive if total payments exceed the price, zero if they equal it, and negative if they fall below it. A solver restricted to positive rates should reject the last two cases rather than report an arbitrary answer.</p>
+<p>The lecture's warning that algebra cannot isolate the rate concerns practical solution of the annuity equation. Writing \(v+v^2+\cdots+v^n=L/\mathrm{PMT}\) produces a polynomial of degree \(n\); short special cases do have elementary solutions. In general a numerical method is appropriate. The monotonic proof above is specific to one initial amount followed by positive future receipts. A mixed-sign future stream need not be monotone and can have multiple yields; this proof must not be transferred to it.</p>
+<p>For the lecture's investment of 5000 dollars followed by 1200 at each of 5 year ends, \(f(0)=1000\gt0\), so the unique rate is positive. At 6%, the receipts have value 5054.83654268; at 7%, 4920.23692314. Linear interpolation between these two points estimates</p>
+\[
+i_{\mathrm{sec}}=0.06+(0.07-0.06)
+\frac{5054.83654268-5000}{5054.83654268-4920.23692314}
+=0.064074048862. \tag{8.23}
+\]
+<p>The numerical root is \(i=0.064022407643\), or 6.4022407643%. The lecture's 6.40% is correct to two percentage decimals. The interpolated rate is 6.4074048862%, and substituting it gives 4999.30213630 dollars, a residual of −0.69786370. Interpolation is an approximation, not an exact algebraic solution. The present-value function is strictly convex, because its second derivative is a sum of positive terms \(\mathrm{PMT}\,k(k+1)(1+i)^{-k-2}\); its chord lies above it. Consequently the interpolated root lies to the right of the actual root, agreeing with the sign of that residual.</p>
+<p>For a positive level perpetuity, the inverse problem is simpler: (8.3) gives \(i=\mathrm{PMT}/L\) directly. The donor's 300,000-dollar capital and 12,000-dollar annual award require 4%; capital of only 200,000 with the same award forever requires 6%. This identifies a rate assumption that would balance the promise. It supplies no evidence that a fund can earn that rate every year.</p>
+
+<h2 id="root-calculator">Stopping rules, calculator signs and a monthly savings yield <a class="timestamp" href="https://www.youtube.com/watch?v=iMyv1yex8VA&amp;t=849s">L24 14:09</a></h2>
+<p>Bisection starts with \(f(i_{\mathrm{lo}})\gt0\gt f(i_{\mathrm{hi}})\), evaluates the midpoint, and keeps the half containing the sign change. Continuity preserves a root inside the interval, and monotonicity selects the unique one. Starting with width \(W\), after \(b\) halvings the width is \(W/2^b\); the midpoint's rate error is at most half that width. A stopping rule based on bracket width therefore bounds the rate error. A second rule checks the currency residual \(|f(i)|\), because a tiny rate error can still matter for a large amount or a long stream. The program below requires width at most \(10^{-12}\) in decimal rate and residual at most \(10^{-7}\) dollars. It has a finite iteration limit and raises an error if either criterion cannot be achieved. Floating-point tolerances are numerical checks; they do not remove a model assumption.</p>
+<p>Calculator cash flows carry signs from one participant's viewpoint. A borrower receives \(L\), so PV is positive and PMT negative. An investor pays \(L\), so PV is negative and the later receipts positive. The TI guidebook states this convention (pp. 21–22). For the five-payment investment, use N = 5, PV = −5000, PMT = 1200, FV = 0, END, P/Y = C/Y = 1. The lecture associates same-sign PV and PMT with Error 5; the mathematical reason in this zero-terminal-value example is that all terms in the signed equation have the same sign and cannot sum to zero. Opposite signs make a solution possible here; signs alone do not guarantee a positive rate, as \(f(0)\) shows.</p>
+<p>The savings example asks for 500,000 dollars at the end of 20 years from 1000 deposited at each month end, starting with no balance. The unknown \(j\) is monthly, and there are 240 deposits:</p>
+\[
+1000s_{\overline{240}|j}=500{,}000,\qquad
+s_{\overline{240}|j}=\sum_{\ell=0}^{239}(1+j)^\ell. \tag{8.24}
+\]
+<p>The left side is strictly increasing for \(j\gt-1\), since the terms with \(\ell\ge1\) have positive derivatives. At zero it is 240,000, below the target; it tends to infinity as \(j\to\infty\). Therefore exactly one positive monthly root exists. Bisection gives \(j=0.005550781904\), or 0.5550781904% a month. The effective annual yield is \((1+j)^{12}-1=0.068681020581\), or 6.8681020581%. The slide prints monthly 0.5636% and annual 6.99%; these do not solve (8.24). Substituting the computed monthly root reproduces 500,000.00. For calculator evaluation with one month treated as the period, P/Y = C/Y = 1 makes the I/Y result a rate per month; converting it by the twelfth power then expresses an annual effective rate. In an annual worksheet with P/Y = C/Y = 12, I/Y instead represents the nominal annual rate \(12j\), not the monthly percentage.</p>
+
+<h2 id="running-case">The donor's decision on one table</h2>
+<p>All variants of the scholarship assume the same invented annual effective 4%, certain payments and no expenses. The payment pattern changes the required capital. The finite alternative exhausts its fund, while each perpetual alternative maintains a positive balance in its own timing model.</p>
+<div class="table-wrap"><table><caption>Table 8.1. Scholarship capital today. Dollars rounded to cents; the continuous row has a payment intensity, the other rows discrete awards.</caption><thead><tr><th>Promise</th><th>Schedule</th><th>Value</th><th>Anchor or check</th></tr></thead><tbody>
+<tr><td>20 annual awards</td><td>12,000 at 1 through 20</td><td>163,083.92</td><td>\(12{,}000a_{\overline{20}|0.04}\)</td></tr>
+<tr><td>Immediate perpetuity</td><td>12,000 at 1, 2, …</td><td>300,000.00</td><td>Interest is 12,000 per year</td></tr>
+<tr><td>Due perpetuity</td><td>12,000 at 0, 1, …</td><td>312,000.00</td><td>First award leaves 300,000</td></tr>
+<tr><td>Continuous perpetuity</td><td>12,000 dollars/year from 0</td><td>305,960.78</td><td>\(R/\delta\), with \(\delta=\ln1.04\)</td></tr>
+<tr><td>Deferred immediate perpetuity</td><td>12,000 at 6, 7, …</td><td>246,578.13</td><td>Value 300,000 at 5</td></tr>
+</tbody></table></div>
+<p>If 200,000 is the available capital, the desired perpetual plan cannot start with an annual payment at 1. Waiting until the first payment at 12 permits the fund to grow for 11 years, to 307,890.81 at its immediate anchor. A 20-payment plan could start at 1 using 163,083.92, but it makes a weaker promise. A choice between them is a choice of duration and timing, not an error in valuation. What generalizes is the procedure: specify the exact dates, fix the rate's time unit, value each block at its local anchor, and then move every block to the same focal date.</p>
+
+<h2 id="code">Executable checks of convergence, timing and numerical roots</h2>
+<p>The program reads no files and writes only to standard output. Inputs are the stated scholarship and lecture examples. It uses the Python standard library: <code>Fraction</code> checks finite sums, due shifts and deferred subtraction exactly at 4%; floating-point <code>log1p</code> and <code>expm1</code> evaluate \(\ln(1+i)\) and \(e^x-1\) accurately near zero. It checks roots against currency residuals, checks the loan's balance by an independent year-by-year recurrence, and compares the toll integral with a 20000-interval midpoint sum. The integral check uses tolerance \(2\times10^{-9}\) years; its actual error is about \(1.67\times10^{-9}\) years, within the midpoint bound \(20h^2\delta^2/24\lt2.9\times10^{-9}\) years, with \(h=0.001\). The bound follows from the composite midpoint rule and \(|(e^{-\delta t})''|\le\delta^2\) on this interval. The integral derivation, rather than the finite grid, establishes exactness.</p>
+<p>The functions accept numeric inputs. The finite factor requires a positive integer number of payments and a finite rate greater than −1. Inputs outside the stated domains raise <code>ValueError</code>. The root solver requires a positive price and payment, positive integer term, and total receipts greater than price; it deliberately solves only positive rates. Zero or negative roots are identified by the proof above and rejected by this function. Failure to bracket a root, or failure to achieve both stopping criteria within 100 iterations, raises <code>RuntimeError</code>. An exponential exceeding floating-point range raises <code>OverflowError</code>; no finite output is then claimed. Amounts round to cents only in printed output; rate calculations and balances remain unrounded. Binary floating point is not a contract's cent-by-cent amortization ledger.</p>
+<pre><code class="language-python">from fractions import Fraction
+from math import exp, expm1, fsum, isfinite, log1p
+
+
+def a(n, i):
+    if type(n) is not int or n &lt; 1 or not isfinite(i) or i &lt;= -1:
+        raise ValueError("need positive integer n and finite i &gt; -1")
+    return float(n) if i == 0 else -expm1(-n * log1p(i)) / i
+
+
+def abar(n, delta):
+    if not isfinite(n) or n &lt; 0 or not isfinite(delta):
+        raise ValueError("need finite duration n &gt;= 0 and finite force")
+    return n if delta == 0 else -expm1(-n * delta) / delta
+
+
+def yield_rate(n, payment, price):
+    if (type(n) is not int or n &lt; 1 or
+            not all(isfinite(x) and x &gt; 0 for x in (payment, price))):
+        raise ValueError("need positive integer term and positive amounts")
+    if n * payment &lt;= price:
+        raise ValueError("this solver requires a strictly positive yield")
+    lo, hi = 0.0, 1.0
+    for _ in range(100):
+        if payment * a(n, hi) &lt; price:
+            break
+        hi *= 2
+    else:
+        raise RuntimeError("could not bracket the yield")
+    for _ in range(100):
+        mid = (lo + hi) / 2
+        residual = payment * a(n, mid) - price
+        if hi - lo &lt;= 1e-12 and abs(residual) &lt;= 1e-7:
+            return mid, residual
+        if residual &gt; 0:
+            lo = mid
+        else:
+            hi = mid
+    raise RuntimeError("rate width and currency residual did not converge")
+
+
+v = Fraction(25, 26)
+i_exact = Fraction(1, 25)
+for n in (1, 4, 20):
+    direct = sum(v ** k for k in range(1, n + 1))
+    assert direct == (1 - v ** n) / i_exact
+    assert direct / v == sum(v ** k for k in range(n))
+    deferred = sum(v ** k for k in range(6, n + 6))
+    assert deferred == v ** 5 * direct
+    whole = sum(v ** k for k in range(1, n + 6))
+    missing = sum(v ** k for k in range(1, 6))
+    assert deferred == whole - missing
+print("Exact finite, due and deferred identities: passed")
+
+R, i = 12000, 0.04
+delta = log1p(i)
+print(f"Scholarship immediate: {R / i:.2f}")
+print(f"Scholarship due: {R / i * (1 + i):.2f}")
+print(f"Scholarship continuous: {R / delta:.2f}")
+print(f"Scholarship first at 6: {R / i * (1 + i) ** -5:.2f}")
+assert a(3, 0) == 3
+assert abar(3, 0) == 3
+assert a(3, -0.02) &gt; 3
+assert R / i &lt; R / delta &lt; R / i * (1 + i)
+
+force = log1p(0.06)
+closed = abar(20, force)
+h = 20 / 20000
+midpoint = fsum(h * exp(-force * (k + 0.5) * h)
+                for k in range(20000))
+assert abs(midpoint - closed) &lt; 2e-9
+print(f"Toll at effective 6 percent: {1e6 * closed:.2f}")
+print(f"Toll at force 6 percent: {1e6 * abar(20, 0.06):.2f}")
+print("Independent midpoint integration: passed")
+
+term = -log1p(-10000 * 0.05 / 1000) / log1p(0.05)
+balance = Fraction(10000)
+for _ in range(14):
+    balance = balance * Fraction(21, 20) - 1000
+drop = float(balance * Fraction(21, 20))
+assert abs(1000 * a(14, 0.05) + drop * 1.05 ** -15 - 10000) &lt; 1e-9
+print(f"Loan real term: {term:.8f}")
+print(f"Drop payment at 15: {drop:.2f}")
+rate, residual = yield_rate(5, 1200, 5000)
+print(f"Five-payment yield percent: {100 * rate:.10f}")
+print(f"Yield currency residual: {abs(residual):.2e}")
+
+failures = 0
+for call in (lambda: a(3, -1), lambda: a(3.5, 0.04),
+             lambda: abar(-1, 0.04), lambda: yield_rate(5, 1000, 6000)):
+    try:
+        call()
+    except ValueError:
+        failures += 1
+assert failures == 4
+print("Four invalid-input checks: passed")</code></pre>
+<p>Output from a fresh Python process:</p>
+<pre><code class="language-text" id="ch08-output">Exact finite, due and deferred identities: passed
+Scholarship immediate: 300000.00
+Scholarship due: 312000.00
+Scholarship continuous: 305960.78
+Scholarship first at 6: 246578.13
+Toll at effective 6 percent: 11810677.35
+Toll at force 6 percent: 11646763.13
+Independent midpoint integration: passed
+Loan real term: 14.20669908
+Drop payment at 15: 210.72
+Five-payment yield percent: 6.4022407643
+Yield currency residual: 3.74e-09
+Four invalid-input checks: passed
+</code></pre>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>1. Derive a tail and choose a horizon.</strong> A perpetuity pays 900 dollars at each year end at effective annual 3%. Derive its value and the exact tail beyond year \(N\). Find the least integer \(N\) that makes the omitted value at most 1% of the perpetuity's value. Keep the logarithms unrounded, then round \(N\) up.</p>
+<details><summary>Solution</summary><p>The geometric partial sum is \(900(1-v^N)/0.03\), with \(v=1/1.03\). Since \(v\lt1\), its limit is 30,000 dollars. The omitted tail is \(30{,}000v^N\). A 1% relative error needs \(v^N\le0.01\), or \(N\ge\ln100/\ln1.03=155.797\ldots\), so 156 payments suffice and 155 do not. The condition concerns the sum of every later payment, not just the 156th payment. Checking \(1.03^{-156}\le0.01\lt1.03^{-155}\) verifies the minimal integer.</p></details>
+<p><strong>2. An exam-style timing question.</strong> A trust pays 2000 dollars on birthdays 10 through 15, six payments. At effective annual 3%, which deposit at birth is closest: 8050, 8304, 8553, 9900 or 12000 dollars? Show both immediate and due valuations. Round the final deposit to cents.</p>
+<details><summary>Solution</summary><p>The dates are 10, 11, 12, 13, 14, 15. The immediate anchor is 9, so the deposit is \(2000(1.03)^{-9}a_{\overline6|0.03}=8303.65\) dollars, making 8304 the closest choice. With a due anchor at 10 it is \(2000(1.03)^{-10}\ddot a_{\overline6|0.03}\). Since \(\ddot a=(1.03)a\), this is exactly the first expression. Using immediate with deferral 10 incorrectly reduces the result by a factor 1.03; using due with deferral 9 increases it by 1.03. The total 12,000 ignores all discounting.</p></details>
+<p><strong>3. Check the convergence assumption.</strong> A proposed valuation uses \(1/i\) for positive annual payments at \(i=-2\%\). Explain why it fails, calculate the value of three unit payments at year ends, and determine the ordering of immediate, continuous and due values over three years at the same effective annual rate. Round the finite immediate factor to six decimals.</p>
+<details><summary>Solution</summary><p>Here \(v=1/0.98\gt1\), so the perpetual terms \(v^k\) grow; their sum diverges. The formula \(1/i=-50\) cannot be the value of positive receipts. The finite sum remains valid: \(v+v^2+v^3=(1-0.98^{-3})/(-0.02)=3.124123\). Its numerator and denominator have the same negative sign. The force \(\ln0.98\lt0\), so \(e^{-\delta t}\) increases through every year. Its left endpoint is below its interval average, which is below its right endpoint. Summing gives \(\ddot a_{\overline3|}\lt\bar a_{\overline3|}\lt a_{\overline3|}\), reversing the positive-rate hierarchy. The finite integral is meaningful; its infinite limit is not finite.</p></details>
+<p><strong>4. Refute the fractional-payment shortcut.</strong> An 8000-dollar loan at 4%, repaid by 1000 at year ends, gives a real term 9.83313280. A borrower offers 833.13 dollars at 10 after making 9 full payments. Decide whether that settles the loan. Give a corrected payment at 10 and an alternative settlement at 9. Round settlement amounts to cents only at the end.</p>
+<details><summary>Solution</summary><p>The balance immediately after payment 9 is \(8000(1.04)^9-1000s_{\overline9|0.04}=803.699188835\). It grows for another year to 835.847156388, so the offered 833.13 leaves about 2.717156388 dollars unpaid at 10. The corrected drop payment is 835.85. To settle instead at 9, add the 803.699188835 balance to the 9th regular payment, making 1803.70, and make no payment at 10. The real term solves a continuous extension of an annuity factor; it does not allocate the last payment proportionally to its fractional part.</p></details>
+<p><strong>5. Design a stream from two blocks.</strong> A fund must pay 500 dollars at years 1 through 5, then 1000 at years 6, 7, … forever. The effective rate is 4% in the first 5 years and 6% thereafter. Design the initial deposit. Explain why using \(1000/0.06\) today is inappropriate. Round the answer to cents.</p>
+<details><summary>Solution</summary><p>The first block needs \(500a_{\overline5|0.04}\) at 0. The later block has its immediate anchor at 5, with value \(1000/0.06\) there; that balance discounts through 5 years at 4%. Thus the deposit is \(500a_{\overline5|0.04}+(1.04)^{-5}(1000/0.06)=15{,}924.70\) dollars. A deposit of \(1000/0.06\) at 0 uses the wrong anchor and applies 6% across the early interval, while also valuing 1000 instead of 500 in the first 5 years. A direct check values the early payments as \(500(1.04)^{-k}\) for \(1\le k\le5\), and later payments as \(1000(1.04)^{-5}(1.06)^{-(k-5)}\) for \(k\ge6\); the two sums give the same blocks.</p></details>
+<p><strong>6. Find a yield and judge a stopping rule.</strong> An investment costs 12000 dollars today and pays 2000 at each of 8 year ends. Prove that exactly one positive annual effective yield exists, bracket it between 6% and 8%, and compute it with the chapter's solver. Is a residual within one cent alone a bound of \(10^{-6}\) on the decimal rate? Report the yield to six percentage decimals, without rounding intermediate values.</p>
+<details><summary>Solution</summary><p>Set \(f(i)=2000\sum_{k=1}^{8}(1+i)^{-k}-12000\). It decreases strictly by (8.22), with \(f(0)=4000\gt0\) and limit −12000 as \(i\to\infty\), so the positive root exists and is unique. Evaluating at 6% gives a positive residual, at 8% a negative one, providing the bracket. Bisection gives \(i=0.068764257562\), or 6.876426%. A currency residual alone supplies no universal rate error: the mean-value theorem gives \(|f(i)|=|f'(\xi)||i-i_*|\), with \(\xi\) between the estimate and root, and a lower bound on \(|f'|\) is required. For this bracket, \(|f'(i)|\ge2000\sum_{k=1}^{8}k(1.08)^{-k-1}\); this sum exceeds 40000 dollars per unit decimal rate, so a one-cent residual actually implies an error below \(0.01/40000=2.5\times10^{-7}\) here. For an arbitrary price or term the slope can be much smaller. The solver's bracket-width criterion directly bounds rate error and its residual criterion separately checks the equation of value.</p></details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<p>The <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA Financial Mathematics Exam syllabus, October 2026</a>, p. 3, names perpetuities, payments payable continuously, unknown annuity quantities, and final drop and balloon payments. The <a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf">Texas Instruments BA II PLUS guidebook</a>, pp. 21–22 (PDF pp. 26–27), states the nominal I/Y interpretation, P/Y and C/Y setting relationship, END/BGN timing and cash-flow signs; p. 69 (PDF p. 74) gives the per-payment rate formula. These primary sources support the examination scope and the calculator conventions. The valuation identities and numerical conclusions are derived and checked above.</p>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html">Previous available chapter</a><a href="index.html">Lecture index</a><span>Further chapters pending</span></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>
