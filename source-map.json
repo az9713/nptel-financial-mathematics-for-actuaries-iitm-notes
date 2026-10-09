@@ -1438,6 +1438,193 @@
       "teaching_construction": "Six complete solutions: derive a perpetuity tail; original birthday-trust exam question; negative-rate convergence/timing assumption; original8000-at4% fractional-payment counterexample; original split-rate stream design; original8-payment yield and mean-value slope bound.",
       "evidence_class": "numerical check",
       "chapter": "chapter-08-perpetuities-continuous-and-deferred-annuities.html"
+    },
+    {
+      "section": "The model: payments, periods and one valuation date",
+      "video_id": "ZN_DAzG_1KI",
+      "start": 29,
+      "end": 248,
+      "lecture_material": "Non-level payments, salary and pension motivations, fixed amount versus percentage changes.",
+      "research_extension": "None.",
+      "teaching_construction": "Certain-payment model, i>-1, v and d, equation of value (9.1), level/due factors derived in (9.2), the education fund and rounding rule.",
+      "evidence_class": "definition",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Increasing unit payments: the shifted subtraction",
+      "video_id": "ZN_DAzG_1KI",
+      "start": 248,
+      "end": 570,
+      "lecture_material": "Unit payments 1..n, sum t v^t, multiply by 1+i and subtract, due-annuity numerator (Ia)=(due-a-nv^n)/i.",
+      "research_extension": "None.",
+      "teaching_construction": "Interior coefficient explanation; one-payment, zero-interest and finite negative-rate checks.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "A first payment and an increment: why the extra payment starts at zero",
+      "video_id": "ZN_DAzG_1KI",
+      "start": 570,
+      "end": 1400,
+      "lecture_material": "P first payment, Q fixed increment, zero first extra amount; general formula; delayed increasing-annuity reading; 50000+2000 annual salary for twenty years at 5%; calculator memory precision advice.",
+      "research_extension": "None.",
+      "teaching_construction": "Linearity proof, the off-by-one error Qa, education PV 106082.44, nonnegative-payment conditions for both signs of Q, exact salary 820087.34.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Accumulated values and payments shifted into advance",
+      "video_id": "ZN_DAzG_1KI",
+      "start": 1400,
+      "end": 1470,
+      "lecture_material": "Increasing accumulated value, multiply by (1+i)^n, (Is)=(due-s-n)/i.",
+      "research_extension": "None.",
+      "teaching_construction": "General accumulated formula, same amounts shifted to due timing, distinction between last-payment date and one period later, education FV 189977.49 and due PV 112447.38.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Arithmetic perpetuities and a capped increase",
+      "video_id": "ZN_DAzG_1KI",
+      "start": 1470,
+      "end": 1956.32,
+      "lecture_material": "Increasing perpetuity 1/(id), scholarship increase for ten years followed by a level tail.",
+      "research_extension": "None.",
+      "teaching_construction": "Ratio-bound proof of nv^n->0; P/i+Q/i^2 with nonnegative infinite stream and i>0; zero/negative discount divergence; no indefinite fixed negative increment; tail dated one period before first tail payment; exact scholarship 130028.20.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Decreasing annuities: the rectangle identity",
+      "video_id": "u8EUCQvpxKA",
+      "start": 148,
+      "end": 850,
+      "lecture_material": "Pair increasing/decreasing to (n+1)a; (Da)=(n-a)/i; negative Q and machine cash flows.",
+      "research_extension": "None.",
+      "teaching_construction": "Full algebra from rectangle identity, zero/one-payment checks, pairwise proof of timing ordering and its negative-rate reversal, education declining alternative and absence of one fixed Da perpetuity.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Monthly decreasing payments: convert the rate before valuing the stream",
+      "video_id": "u8EUCQvpxKA",
+      "start": 850,
+      "end": 1139.12,
+      "lecture_material": "Loan 600,590,...,10 at sixty month ends; nominal 12% convertible monthly gives 1% per month.",
+      "research_extension": "None.",
+      "teaching_construction": "Restated effective/nominal conversion (9.10), actual nominal and effective 12% values 15044.96/15188.66, annual growth versus anniversary-step payment frequency distinction.",
+      "evidence_class": "convention",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Percentage growth: discount the first payment only once",
+      "video_id": "iIMAS4uB47Q",
+      "start": 353,
+      "end": 1280,
+      "lecture_material": "First P at 1, percentage growth k, geometric sum and adjusted rate; pension example 50000, 3%, twenty payments,6%.",
+      "research_extension": "None.",
+      "teaching_construction": "Ratio q and shifted-geometric-series proof, first-payment exponent, finite k>i and negative interest checks, j_* naming, education 5% alternative 108520.50.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Equal rates, infinite terms and the growth boundary",
+      "video_id": "iIMAS4uB47Q",
+      "start": 1280,
+      "end": 1851.44,
+      "lecture_material": "Equal-rate finite formula nP/(1+i), growing perpetuity condition and dividend 2 next year at 10% growth/12% required return.",
+      "research_extension": "Damodaran pp. 2\u20134: next-period expected dividend, sustainable steady growth, and sensitivity near the required-return/growth boundary.",
+      "teaching_construction": "Continuity of the finite sum at q=1, separate equality/strict-growth divergence proofs, negative-interest convergent shrinking example, zero first-payment exception, derivative-based proportional sensitivity, invalid negative Gordon continuation.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Continuous payments: an intensity has units of money per year",
+      "video_id": "nUw77BsMz00",
+      "start": 240,
+      "end": 280,
+      "lecture_material": "Continuous payment intensity and contrast with annual discrete payments.",
+      "research_extension": "None.",
+      "teaching_construction": "Riemann-sum derivation (9.14), intensity and force units, real nonnegative continuous term, bounded finite intensity/any force, variable-force restatement, continuous level factor derived here and rate conversion.",
+      "evidence_class": "model",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "A smoothly increasing intensity and integration by parts",
+      "video_id": "nUw77BsMz00",
+      "start": 280,
+      "end": 970,
+      "lecture_material": "Smooth unit ramp, integration by parts, (bar I bar a)=(bar-a-nv^n)/delta, increasing continuous perpetuity, project 10000t over five years at force 0.06.",
+      "research_extension": "None.",
+      "teaching_construction": "Product-rule hinge, B+Ht and units, uniform convergence at delta = 0, derivative check, positive-force infinite convergence and other-sign divergence, exact project 102600.87.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "An intensity that jumps annually is a different continuous annuity",
+      "video_id": "nUw77BsMz00",
+      "start": 970,
+      "end": 1277.68,
+      "lecture_material": "Hybrid I bar a, yearly stepped intensity, comparison of numerator/denominator patterns, intensity 100..1000 for ten years at force 0.05. Lecture 30 f0051 bar-combination review also informs the closing interpretation paragraph.",
+      "research_extension": "None.",
+      "teaching_construction": "Year-by-year integral proof (9.16), zero-force total and distinction from smooth ramp, exact 4004.91, two education intensities with matched yearly totals and 22.08 timing difference, Figure 9.2, limits of a fourth unspecified bar combination.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Exponential intensity: growth and discounting subtract as forces",
+      "video_id": "HSrxblFzIsE",
+      "start": 1580,
+      "end": 1872,
+      "lecture_material": "Review exponential intensity e^(0.02t), ten years and force 0.05, net force 0.03 and 8.639.",
+      "research_extension": "None.",
+      "teaching_construction": "General B exp(gamma t), finite unequal/equal force values (9.17), infinite discount-growth condition including negative forces, conversion gamma=ln(1+k), education exponential intensity 114488.27 distinguished from discrete payment totals.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "The education fund resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 9.1 of seven timing/growth alternatives against 110000, consequences and empirical limitations of invented inputs.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Executable checks: exact sums, boundary cases and continuous integration",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library listing, exact arithmetic sums and rectangle identity, stable geometric equality/growth-above-discount/negative-rate comparisons, continuous quadrature checks, exact stdout, explicit input/failure/rounding contract and two deliberately detected errors. Simpson weights checked on the polynomial basis through degree three; quadrature remains a numerical approximation for the exponentials. Supported numeric types are exactly int, float and Fraction, excluding bool and Decimal; geometric dated-sum and continuous zero-net-force fallbacks handle rate or force gaps whose floating magnitude is below 1e-300, including subtraction collapse, rational underflow and subnormal precision loss. These fallbacks are computational approximations for unequal inputs.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "What has been proved, and what remains a modelling choice",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "SOA October 2026 FM syllabus p. 3: arithmetic/geometric varying and continuous annuities, finite/perpetual non-level cash flows.",
+      "teaching_construction": "Classify definitions, model assumptions, rate conventions, nonnegativity and infinite idealization; limits of between-year discount assumptions and inputs.",
+      "evidence_class": "model",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Original tasks inspired by unit/due patterns, monthly declining loan, convergence review, capped scholarship and continuous intensity interpretation.",
+      "research_extension": "None.",
+      "teaching_construction": "Six fully reasoned original exercises: derive/timing/FV; inverse budget design with cent feasibility; closest-of-five monthly-rate convention and attributable distractors; negative-rate convergence counterexample/equality divergence; finite high growth with capped tail; matched-total continuous comparison proved by midpoint pairing and numerical-check design.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html"
     }
   ]
 }

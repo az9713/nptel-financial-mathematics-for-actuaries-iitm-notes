@@ -72,10 +72,10 @@
     },
     {
       "order": 9,
-      "title": "Varying annuities: arithmetic, decreasing, geometric and continuous",
+      "title": "Varying annuities: arithmetic, decreasing, geometric and continuous payments",
       "lectures": "26, 27, 28, 29",
       "practice_lectures": "",
-      "chapter_status": "pending"
+      "chapter_status": "reviewed and locally validated"
     },
     {
       "order": 10,
@@ -95,14 +95,14 @@
       "order": 12,
       "title": "Bond valuation, premium and discount, and the bond amortization schedule",
       "lectures": "39, 40, 41",
-      "practice_lectures": "57",
+      "practice_lectures": "",
       "chapter_status": "pending"
     },
     {
       "order": 13,
       "title": "Behaviour of interest rates, and the risk structure of bonds",
       "lectures": "42, 43, 44",
-      "practice_lectures": "",
+      "practice_lectures": "57",
       "chapter_status": "pending"
     },
     {
@@ -897,7 +897,7 @@
       "duration": 1546,
       "url": "https://www.youtube.com/watch?v=HIiybva-FN4",
       "practice_for": [
-        12
+        13
       ],
       "transcript_status": "publisher-uploaded English captions (non-automatic track)",
       "frames_status": "one frame per 30 s, private"

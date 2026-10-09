@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="1341fe1007c0078ca86f03daf4b0eec9ec231a0aca647e04af6c6f70b7a98668"><title>Varying annuities: arithmetic, decreasing, geometric and continuous payments · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Varying annuities: arithmetic, decreasing, geometric and continuous payments</h1>
+<p class="lead">An education fund promises 12,000 dollars at the end of year 1, increasing by 600 dollars each year for ten years. At an invented effective annual rate of 6%, it needs 106,082.44 dollars today. Paying the same amounts at the start of each year raises the requirement to 112,447.38. Increasing the payments by 5% a year instead needs 108,520.50; increasing them by 6%, exactly the discount rate, needs 113,207.55. A budget of 110,000 therefore supports some of these promises and fails others. This chapter derives the values from their cash flows, explains why equal growth and discount rates require a separate finite formula, and distinguishes a continuous flow that rises smoothly from one that changes its rate once a year. Infinite promises add a further condition: discounting must eventually defeat the growth of the payments.</p>
+<p class="source-note">Grounded in <a href="https://www.youtube.com/watch?v=ZN_DAzG_1KI">Lecture 26</a>, <a href="https://www.youtube.com/watch?v=u8EUCQvpxKA">Lecture 27</a>, <a href="https://www.youtube.com/watch?v=iIMAS4uB47Q">Lecture 28</a>, <a href="https://www.youtube.com/watch?v=nUw77BsMz00">Lecture 29</a> and the <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Module 1 review, Lecture 30</a> of NPTEL <em>Financial Mathematics for Actuaries</em>, Prof. Neelesh S. Upadhye, IIT Madras, week 6. <strong>Lecture material:</strong> the increasing unit annuity, the shifted-subtraction proof, general arithmetic payments, salary, accumulated value and scholarship examples; decreasing payments and their rectangle identity, the machine and monthly-loan examples; percentage growth, its adjusted-rate interpretation, the pension, equal-rate and perpetuity cases, and the dividend-discount application; smooth and stepped continuous intensities, integration by parts, continuous perpetuities and two flow examples; the review's pairing, convergence, bar notation and exponential-intensity question. <strong>Research extensions:</strong> Damodaran's dividend-discount treatment on the meaning and sensitivity of the Gordon growth model; the Society of Actuaries October 2026 Exam FM syllabus on varying and continuous cash flows. <strong>Original teaching constructions:</strong> the education fund and its alternatives; explicit hypotheses, zero and negative rate cases, limit proofs, a matched-total continuous comparison, Figures 9.1 and 9.2, the numerical checks, the program and six exercises. All monetary examples are mathematical illustrations; the chapter's rates and education-fund promises are invented.</p>
+
+<h2 id="model">The model: payments, periods and one valuation date <a class="timestamp" href="https://www.youtube.com/watch?v=ZN_DAzG_1KI&amp;t=29s">L26 0:29</a></h2>
+<p>Level payments describe only one kind of annuity. A salary might rise by a fixed amount, a pension by a fixed percentage, or a project's receipts continuously with time. The lecture uses these as motivations. The mathematical object is a specified stream of certain cash flows: the amounts and dates are known in advance. We first use annual payments; the monthly section changes the period explicitly. Payments contingent on survival or another event are outside this model.</p>
+<p><strong>Tools restated.</strong> Take a constant effective rate of interest \(i\gt-1\) per payment period. One unit grows to \(1+i\) in one period. The discount factor is \(v=(1+i)^{-1}\), and the effective rate of discount is \(d=i/(1+i)=1-v\). These are the tools of Chapters 1–3 and 7, taken as given here. With \(C_t\) dollars paid at times \(t=1,\ldots,n\), where \(n\) is a positive integer, their present value \(V_0\) at time 0 and accumulated value \(V_n\) at time \(n\) are</p>
+\[
+V_0=\sum_{t=1}^{n}C_t v^t,\qquad V_n=(1+i)^nV_0=\sum_{t=1}^{n}C_t(1+i)^{n-t}. \tag{9.1}
+\]
+<p>The focal date is the date at which all payments are compared. Multiplying every term by the same accumulation factor moves an equation of value to another focal date without changing whether it balances. Formula (9.1) values an <em>annuity-immediate</em>: the first payment is at 1, after the first period, and the last is at \(n\). “Immediate” does not mean a payment now.</p>
+<p><strong>Basic factors.</strong> The level unit annuity and its due counterpart are</p>
+\[
+a_{\overline{n}|}=\sum_{t=1}^{n}v^t=\frac{1-v^n}{i},\qquad
+\ddot a_{\overline{n}|}=\sum_{t=1}^{n}v^{t-1}=(1+i)a_{\overline{n}|}. \tag{9.2}
+\]
+<p>The fraction in (9.2) is used when \(i\ne0\); both sums equal \(n\) at zero interest. To recall its derivation, subtract \(v(v+\cdots+v^n)\) from \(v+\cdots+v^n\). Only \(v-v^{n+1}\) remains, so the sum is \(v(1-v^n)/(1-v)=(1-v^n)/i\), using \(1-v=iv\). The accumulated factors are \(s_{\overline{n}|}=(1+i)^na_{\overline{n}|}\) and \(\ddot s_{\overline{n}|}=(1+i)s_{\overline{n}|}\). The continuous level factor used later is derived in this chapter.</p>
+<p><strong>The running case.</strong> The fund has 110,000 dollars at \(t=0\), earns 6% effective annually, and considers ten end-of-year payments \(C_t=12{,}000+600(t-1)\). The first is 12,000, the tenth 17,400; their undiscounted total is 147,000. We will compare this arithmetic promise with a declining sequence, a percentage-growth promise, and continuous spending with the same yearly totals. These are alternatives, not payments to be added together.</p>
+<p><strong>Rounding.</strong> Keep intermediate values unrounded. Round monetary results to cents and factors to six decimals only for display. A displayed factor beside a final amount is therefore not an instruction to recompute using just its six printed digits. In particular, the monthly loan's printed factor 1504.496159 multiplied by 10 rounds to the same 15,044.96, while the lecture's factor 1504.5 gives 15,045.00. The program preserves the input rates and computes before printing.</p>
+
+<h2 id="increasing">Increasing unit payments: the shifted subtraction <a class="timestamp" href="https://www.youtube.com/watch?v=ZN_DAzG_1KI&amp;t=248s">L26 4:08</a></h2>
+<p>The symbol \( (Ia)_{\overline{n}|}\), read “increasing a angle n,” is the present value of payments \(1,2,\ldots,n\) at times \(1,2,\ldots,n\). The capital \(I\) labels this payment pattern; it is not multiplication by a separate variable. Its definition is a sum:</p>
+\[
+(Ia)_{\overline{n}|}=v+2v^2+\cdots+nv^n=\sum_{t=1}^{n}t v^t. \tag{9.3}
+\]
+<p><strong>Derivation.</strong> Write the sum as \(S\). Multiplication by \(1+i=1/v\) shifts every exponent left by one, while leaving each payment amount attached to its old coefficient:</p>
+\[
+\begin{aligned}
+(1+i)S&amp;=1+2v+3v^2+\cdots+nv^{n-1},\\
+S&amp;=\phantom{1+{}}v+2v^2+\cdots+(n-1)v^{n-1}+nv^n.
+\end{aligned}
+\]
+<p>Subtract the second row from the first. The coefficient of every interior power falls from the next integer to the preceding one, leaving 1; the last term has no partner and leaves \(-nv^n\). Thus \(iS=1+v+\cdots+v^{n-1}-nv^n=\ddot a_{\overline{n}|}-nv^n\). For \(i\ne0\),</p>
+\[
+\boxed{(Ia)_{\overline{n}|}=\frac{\ddot a_{\overline{n}|}-nv^n}{i}.} \tag{9.4}
+\]
+<p>The due factor in the numerator comes from the shifted row, not from paying this annuity in advance. The stream being valued still starts at \(t=1\). Substituting \(a_{\overline{n}|}\) for \(\ddot a_{\overline{n}|}\) would discard the constant 1 and change every remaining term.</p>
+<p><strong>Checks and boundary.</strong> With \(n=1\), (9.4) is \((1-v)/i=v\), the value of one payment of 1 next year. At \(i=0\), use (9.3), rather than divide by zero: the value is \(1+\cdots+n=n(n+1)/2\), obtained by pairing the first and last terms. For fixed finite \(n\), each summand is continuous for \(i\gt-1\), so this is also the limit as \(i\to0\). Negative rates cause no algebraic problem: then \(v\gt1\), future payments have larger present values, and both the original sum and (9.4) remain valid. Only the infinite-term result will need positive interest.</p>
+
+<h2 id="arithmetic">A first payment and an increment: why the extra payment starts at zero <a class="timestamp" href="https://www.youtube.com/watch?v=ZN_DAzG_1KI&amp;t=570s">L26 9:30</a></h2>
+<p>Let \(P\) be the first payment, and \(Q\) the fixed increment per successive payment. The amount at time \(t\) is \(C_t=P+(t-1)Q\). The lecture splits it into a level stream \(P\) and extra amounts \(0,Q,2Q,\ldots,(n-1)Q\). The first extra amount is zero because \(P\) already includes everything paid at \(t=1\). Linearity of the sum gives</p>
+\[
+\begin{aligned}
+V_0&amp;=P a_{\overline{n}|}+Q\bigl[(Ia)_{\overline{n}|}-a_{\overline{n}|}\bigr]\\
+&amp;=P a_{\overline{n}|}+Q\frac{a_{\overline{n}|}-nv^n}{i}
+=(P-Q)a_{\overline{n}|}+Q(Ia)_{\overline{n}|}. \end{aligned}
+\tag{9.5}
+\]
+<p>The second line uses \(\ddot a=(1+i)a\), so \((Ia)-a=[(1+i)a-nv^n-ia]/i=(a-nv^n)/i\). The incorrect expression \(Pa+Q(Ia)\) would pay \(P+Q\) in the first year and overvalue the whole stream by \(Qa\).</p>
+<p><strong>The delayed-stream reading.</strong> The extra pattern \(0,1,\ldots,n-1\) at times \(1,2,\ldots,n\) is an increasing annuity of \(n-1\) payments starting one period later. At time 1, one period before its first nonzero payment at 2, its value is \((Ia)_{\overline{n-1}|}\). Discounting to 0 gives \(v(Ia)_{\overline{n-1}|}\). The direct sum is \(\sum_{t=2}^{n}(t-1)v^t=(Ia)_{\overline{n}|}-a_{\overline{n}|}\), proving that both readings give the factor in (9.5). For \(n=1\), the extra stream is empty and this factor is zero.</p>
+<figure>
+<svg viewBox="0 0 700 225" role="img" aria-labelledby="ch09-timeline-title ch09-timeline-desc" font-family="Georgia, serif" fill="currentColor" font-size="14">
+<title id="ch09-timeline-title">Arithmetic payments and the zero first increment</title>
+<desc id="ch09-timeline-desc">Time zero has a fund but no payment. At years one, two, three and ten the payments are 12000, 12600, 13200 and 17400 dollars. The level portion is 12000 at each date; the extra portions are zero, 600, 1200 and 5400.</desc>
+<path d="M50 105 H665 M140 96 V114 M270 96 V114 M400 96 V114 M625 96 V114" stroke="currentColor" fill="none"/>
+<path d="M140 105 V58 M270 105 V55 M400 105 V52 M625 105 V31" stroke="#75c1e5" stroke-width="3" fill="none"/>
+<text x="50" y="128" text-anchor="middle">0</text><text x="140" y="128" text-anchor="middle">1</text><text x="270" y="128" text-anchor="middle">2</text><text x="400" y="128" text-anchor="middle">3</text><text x="520" y="108" text-anchor="middle">…</text><text x="625" y="128" text-anchor="middle">10 years</text>
+<text x="140" y="45" text-anchor="middle">12,000</text><text x="270" y="42" text-anchor="middle">12,600</text><text x="400" y="39" text-anchor="middle">13,200</text><text x="625" y="18" text-anchor="middle">17,400</text>
+<text x="50" y="155" text-anchor="middle">fund</text><text x="140" y="166" text-anchor="middle">12,000 + 0</text><text x="270" y="166" text-anchor="middle">12,000 + 600</text><text x="400" y="166" text-anchor="middle">12,000 + 1,200</text><text x="625" y="166" text-anchor="middle">12,000 + 5,400</text>
+<text x="350" y="205" text-anchor="middle">Each amount is discounted to the fund's date, t = 0.</text>
+</svg>
+<figcaption>Figure 9.1. The education fund's ten end-of-year payments. The extra stream starts with zero, so its present-value factor is \( (Ia)_{\overline{10}|}-a_{\overline{10}|}\). The vertical strokes mark payment dates and their relative amounts; the horizontal axis marks years.</figcaption>
+</figure>
+<p><strong>The running case.</strong> At \(i=0.06\), \(a_{\overline{10}|}=7.360087\) and \((Ia)_{\overline{10}|}-a_{\overline{10}|}=29.602321\). Formula (9.5) gives \(12{,}000a+600[(Ia)-a]=106{,}082.44\). The budget has 3,917.56 left. With zero interest the value would be \(nP+Qn(n-1)/2=147{,}000\); with \(Q=0\), (9.5) returns the level value 88,321.04. These checks test the first-payment convention.</p>
+<p><strong>The lecture's salary.</strong> Lecture 26 pays 50,000 at the end of year 1, increasing by 2,000 each year for 20 years at 5%. The same formula gives 820,087.34. The slide reports 820,086 after rounding its annuity and increment factors, a difference of 1.34. The lecturer's advice to retain intermediate values in calculator memory addresses this precision problem; it does not change the equation of value.</p>
+<p>The general formula permits negative \(Q\) as well as positive \(Q\). If the stream is intended to consist only of receipts, require every \(P+(t-1)Q\ge0\). For \(Q\lt0\), it suffices to check the last payment \(P+(n-1)Q\ge0\); for \(Q\ge0\), check \(P\ge0\). Without that sign restriction, (9.5) still values signed cash flows, but it is no longer a stream consisting only of positive benefits.</p>
+
+<h2 id="timing">Accumulated values and payments shifted into advance <a class="timestamp" href="https://www.youtube.com/watch?v=ZN_DAzG_1KI&amp;t=1400s">L26 23:20</a></h2>
+<p>The payment amounts do not decide the valuation date. By (9.1), the accumulated value at the date of the final payment is the present value multiplied by \((1+i)^n\). Write \((Is)_{\overline{n}|}\) for the value at \(n\) of the unit payments \(1,2,\ldots,n\) at times \(1,2,\ldots,n\). Multiplying (9.4) by \((1+i)^n\) gives</p>
+\[
+(Is)_{\overline{n}|}=(1+i)^n(Ia)_{\overline{n}|}
+=\frac{\ddot s_{\overline{n}|}-n}{i},\qquad
+V_n=(P-Q)s_{\overline{n}|}+Q(Is)_{\overline{n}|}. \tag{9.6}
+\]
+<p>Here \((1+i)^n\ddot a=\ddot s\) and \((1+i)^nv^n=1\), which explain each term. At \(i=0\), \((Is)=n(n+1)/2\) again. The education-fund payments, interpreted instead as deposits, accumulate to 189,977.49 at year 10, including the tenth deposit. Its undiscounted deposits are 147,000; the difference 42,977.49 is interest in this invented model.</p>
+<p>For an annuity-due with the <em>same ten amounts</em>, shift each amount one period earlier: \(P\) at 0, \(P+Q\) at 1, through \(P+(n-1)Q\) at \(n-1\). Its present value at 0 is \((1+i)V_0\), because every exponent in (9.1) falls by one. Its accumulated value at \(n\), one period after its last payment, is \((1+i)V_n\). At the last payment date \(n-1\), the accumulated value is \(V_n\), because the whole shifted stream has also been valued one period earlier. These two dates must not be confused.</p>
+<p>The education fund's advance-payment alternative requires \(1.06\times106{,}082.44=112{,}447.38\), using the unrounded present value. It exceeds the budget by 2,447.38. A formula for increasing payments “from time zero” is therefore incomplete until it specifies whether its first amount is 0, 1, or \(P\). The shift above preserves the original first amount \(P\); it does not create a zero payment at time 0.</p>
+
+<h2 id="arithmetic-infinite">Arithmetic perpetuities and a capped increase <a class="timestamp" href="https://www.youtube.com/watch?v=ZN_DAzG_1KI&amp;t=1470s">L26 24:30</a></h2>
+<p>An infinite stream is defined by its sequence of partial present values. Consider nonnegative payments \(P+(t-1)Q\), with \(P,Q\ge0\) and at least one positive. For \(i\gt0\), \(0\lt v\lt1\). We must justify both \(v^n\to0\) and \(nv^n\to0\) before removing the final term in (9.4). The latter is the important step: for \(b_n=nv^n\), \(b_{n+1}/b_n=v(1+1/n)\to v\lt1\). Choose a constant \(c\) between \(v\) and 1. Beyond some index the ratio is at most \(c\), so \(b_n\) is bounded by a constant times a decaying geometric sequence \(c^n\); hence it tends to zero.</p>
+<p>Now \(a_{\overline{n}|}\to1/i\) and \(\ddot a_{\overline{n}|}\to(1+i)/i=1/d\). Therefore</p>
+\[
+(Ia)_\infty=\frac1{id}=\frac1i+\frac1{i^2},\qquad
+V_0=\frac{P}{i}+\frac{Q}{i^2}\quad(i\gt0). \tag{9.7}
+\]
+<p>The \(Q/i^2\) term belongs to increments \(0,Q,2Q,\ldots\), not \(Q,2Q,3Q,\ldots\). The education promise extended forever would cost \(12{,}000/0.06+600/0.06^2=366{,}666.67\). The ten-year requirement is much smaller because it includes no payment after year 10.</p>
+<p><strong>Failure outside the hypotheses.</strong> At \(i=0\), a positive constant or rising stream has unbounded partial sums. For \(-1\lt i\lt0\), \(v\gt1\), so a nonzero nonnegative arithmetic stream's discounted terms do not tend to zero and its partial sums diverge to infinity. A fixed negative increment cannot describe nonnegative payments forever: eventually the amounts cross below zero. Consequently there is no positive decreasing arithmetic perpetuity obtained by extending a fixed first payment \(P\) and increment \(Q\lt0\) without a stopping or floor rule.</p>
+<p><strong>An increase that stops.</strong> Lecture 26's scholarship pays \(1000t\) at years \(t=1,\ldots,10\), then 10,000 at every year end from year 11 onward. At 6%, the first block costs \(1000(Ia)_{\overline{10}|}\). At time 10, one period before the tail's first payment, the level tail costs \(10{,}000/i\); discount it by \(v^{10}\). Thus the total is \(1000(Ia)_{\overline{10}|}+10{,}000v^{10}/0.06=130{,}028.20\). The year-10 payment belongs only to the increasing block, so there is no double counting.</p>
+<p>The same method caps the education fund at 17,400 after year 10: value its first ten payments with (9.5), then add \(17{,}400v^{10}/i\) for the tail beginning at 11. A cap changes the infinite problem; it does not justify substituting an arbitrary \(n\) into the uncapped perpetuity formula. Exercise 5 values a capped percentage-growth promise by exactly this separation.</p>
+
+<h2 id="decreasing">Decreasing annuities: the rectangle identity <a class="timestamp" href="https://www.youtube.com/watch?v=u8EUCQvpxKA&amp;t=148s">L27 2:28</a></h2>
+<p>The unit decreasing annuity \( (Da)_{\overline{n}|}\) pays \(n,n-1,\ldots,1\) at times \(1,2,\ldots,n\). Pair it with the increasing annuity of the same term. At time \(t\), their amounts add to \(t+(n+1-t)=n+1\), a constant. The lecture pictures the two staircases fitting into a rectangle; discounting equal-date payments preserves this addition:</p>
+\[
+(Da)_{\overline{n}|}=\sum_{t=1}^{n}(n+1-t)v^t,\qquad
+(Ia)_{\overline{n}|}+(Da)_{\overline{n}|}=(n+1)a_{\overline{n}|}. \tag{9.8}
+\]
+<p><strong>Derivation of the closed form.</strong> Substitute (9.4) and use \(\ddot a=(1+i)a\):</p>
+\[
+\begin{aligned}
+i(Da)_{\overline{n}|}
+&amp;=i(n+1)a_{\overline{n}|}-\bigl[(1+i)a_{\overline{n}|}-nv^n\bigr]\\
+&amp;=(in-1)a_{\overline{n}|}+nv^n
+=n(ia_{\overline{n}|}+v^n)-a_{\overline{n}|}
+=n-a_{\overline{n}|},\\
+\boxed{(Da)_{\overline{n}|}}&amp;=\boxed{\frac{n-a_{\overline{n}|}}{i}}\qquad(i\ne0). \end{aligned}
+\tag{9.9}
+\]
+<p>The hinge in the penultimate step is \(ia+v^n=1\), already proved in (9.2). At \(i=0\), the sum is \(n(n+1)/2\), the same total as the increasing stream. At \(n=1\), it is \(v\). For positive interest and \(n\ge2\), \((Da)\gt(Ia)\): group dates \(t\) and \(n+1-t\) for \(t\lt(n+1)/2\). Their contribution to \((Da)-(Ia)\) is \((n+1-2t)[v^t-v^{n+1-t}]\gt0\). Decreasing payments bring the larger amounts earlier. For negative interest this comparison reverses, because \(v\gt1\); at zero it becomes equality.</p>
+<p>A decreasing stream with first payment \(P\) and decrement \(H\gt0\) is (9.5) with \(Q=-H\), stopped before its amounts become negative. If \(P=nH\), the amounts are \(Hn,H(n-1),\ldots,H\), so its value is \(H(Da)_{\overline{n}|}\). Lecture 27's machine receipts are 5,000, 4,500, …, 500 over ten years at 6%: \(500(Da)_{\overline{10}|}=21{,}999.27\). The spoken result 21,999.16 is not reproduced from these inputs; the derivation and direct sum agree on 21,999.27.</p>
+<p>The education fund's declining alternative pays 12,000 first and reduces each later payment by 600. Its last payment is 6,600, so the nonnegativity check passes. Formula (9.5) gives 70,559.65. This stream is not \(600(Da)_{\overline{10}|}\), whose first amount would be only 6,000. Finally, sending \(n\to\infty\) in (9.9) changes the first payment from \(n\) to \(n+1\) each time; it is not a limit of one fixed decreasing payment schedule. Perpetuity statements must specify a single infinite sequence.</p>
+
+<h2 id="frequency">Monthly decreasing payments: convert the rate before valuing the stream <a class="timestamp" href="https://www.youtube.com/watch?v=u8EUCQvpxKA&amp;t=850s">L27 14:10</a></h2>
+<p>Lecture 27 repays a loan with 600 dollars at the end of month 1, 590 at the end of month 2, down to 10 at the end of month 60. The interest quote is 12% <em>nominal annually convertible monthly</em>. Its definition is a monthly effective rate \(0.12/12=0.01\), so the period in (9.9) is a month and \(n=60\), not five years. The loan amount at time 0 is \(10(Da)_{\overline{60}|0.01}=15{,}044.96\). The slide rounds it to 15,045.</p>
+<p>The quotation matters. An effective annual rate \(i\) must be converted to the effective monthly rate \(j=(1+i)^{1/12}-1\), because twelve monthly accumulation factors must multiply to \(1+i\). A nominal annual rate \(i^{(12)}\) supplies \(j=i^{(12)}/12\) by definition. More generally, with \(m\) conversion periods per year,</p>
+\[
+j=(1+i)^{1/m}-1=\frac{i^{(m)}}m,\qquad (1+j)^m=1+i. \tag{9.10}
+\]
+<p>The superscript \((m)\) is a frequency label, not a power. The lecture's nominal 12% corresponds to effective annual interest \(1.01^{12}-1=12.6825\%\). If its 12% were effective annually instead, the monthly rate would be \(1.12^{1/12}-1=0.948879\%\) and the same 60 amounts would support 15,188.66, 143.70 more. Dividing every annual rate by 12 silently chooses the nominal reading.</p>
+<p>Payment growth also needs its own frequency. A 5% annual growth factor, applied smoothly across months, gives a monthly factor \(1.05^{1/12}\). A promise that changes only on each anniversary is a different schedule: the monthly amounts stay level within each year, then jump. Draw or specify the actual amounts before putting a monthly growth rate into the geometric formula. The decreasing loan changes by 10 each month, so it requires no annual growth conversion.</p>
+
+<h2 id="geometric">Percentage growth: discount the first payment only once <a class="timestamp" href="https://www.youtube.com/watch?v=iIMAS4uB47Q&amp;t=353s">L28 5:53</a></h2>
+<p>Let the first payment at \(t=1\) be \(P\gt0\), and let \(k\gt-1\) be the effective growth rate of the payment amount per period. The payments are \(P,P(1+k),\ldots,P(1+k)^{n-1}\); the amount at time \(t\) is \(P(1+k)^{t-1}\). Growth starts after the first payment. The letter \(k\) denotes growth throughout this section; \(t\) is the payment index.</p>
+<p><strong>Derivation.</strong> Define the ratio \(q=(1+k)/(1+i)\gt0\) of consecutive <em>discounted</em> payments. Then</p>
+\[
+V_0=\sum_{t=1}^{n}P(1+k)^{t-1}v^t
+=Pv\sum_{t=1}^{n}q^{t-1}
+=\frac{P}{1+i}\frac{1-q^n}{1-q}
+=P\frac{1-q^n}{i-k}\quad(i\ne k). \tag{9.11}
+\]
+<p>The geometric-series hinge is the same subtraction as in (9.2): if \(T=1+q+\cdots+q^{n-1}\), then \(T-qT=1-q^n\). In the last step, \(1-q=(i-k)/(1+i)\), cancelling \(1+i\). No factor \(1+k\) belongs in front when \(P\) is already next period's first payment. A dividend amount paid today would first have to be grown to the next payment date.</p>
+<p><strong>Checks.</strong> With \(n=1\), the answer is \(Pv\), independent of \(k\). With \(k=0\), it is \(Pa_{\overline{n}|}\). Formula (9.11) is valid for finite \(n\) even when \(k\gt i\): then \(q\gt1\), and both \(1-q^n\) and \(i-k\) are negative, giving a positive value. For example, 100 first, 8% growth, 5% discounting and five payments gives 504.19. A negative discount rate is also allowed for finite streams as long as \(i\gt-1\). These observations prevent a perpetuity condition from being imposed on a finite annuity.</p>
+<p><strong>The lecture's adjusted rate.</strong> The slide defines an adjusted rate, here written \(j_*\) to distinguish it from the actual monthly rate \(j\) of (9.10): \(1+j_*=(1+i)/(1+k)\), so \(j_*=(i-k)/(1+k)\) and \(q=(1+j_*)^{-1}\). Consequently \(V_0=Pv\ddot a_{\overline{n}|j_*}\), where the subscript \(j_*\) means that the annuity factor is evaluated at that adjusted rate. It is a computational rewriting of the same discounted geometric series; the stream has not moved to the start of the year. In particular, \(j_*\lt0\) when growth exceeds discounting. The direct formula or the original sum avoids treating this adjusted rate as an actual investment yield.</p>
+<p><strong>The running case and pension.</strong> Growing the education payment of 12,000 by 5% instead of adding 600 gives \(q=1.05/1.06=0.990566\) and \(V_0=108{,}520.50\), within the budget by 1,479.50. The year-2 payments agree at 12,600, but from year 3 the percentage increase compounds: 13,230 instead of 13,200. Lecture 28's pension starts at 50,000, grows 3% for 20 payments and is discounted at 6%. Formula (9.11) gives 728,076.63, agreeing with the full-precision slide; rounding its ratio and factor early produces about 728,000. The annual increase here is a contractual growth assumption, not an independently established inflation forecast.</p>
+
+<h2 id="geometric-boundaries">Equal rates, infinite terms and the growth boundary <a class="timestamp" href="https://www.youtube.com/watch?v=iIMAS4uB47Q&amp;t=1280s">L28 21:20</a></h2>
+<p>When \(i=k\), \(q=1\) and (9.11) displays \(0/0\). The original sum resolves the case immediately: every discounted payment equals \(P/(1+i)\). For a finite positive integer \(n\),</p>
+\[
+\boxed{V_0=\frac{nP}{1+i}\quad(i=k).} \tag{9.12}
+\]
+<p>This is also the limit as \(k\to i\) of (9.11), because the finite sum of \(q^{t-1}\) is continuous at \(q=1\) and tends to \(n\). The education fund with 6% payment growth therefore needs \(10\times12{,}000/1.06=113{,}207.55\), exceeding the budget by 3,207.55. Matching the rates neutralizes <em>relative growth of successive discounted payments</em>; it does not remove the one-period discount on the first payment.</p>
+<p><strong>Infinite geometric stream.</strong> Fix \(P\gt0\), \(i\gt-1\), \(k\gt-1\), and let the number of payments grow. If \(k\lt i\), then \(0\lt q\lt1\), \(q^n\to0\), and the finite values tend to</p>
+\[
+V_0=\frac{P}{i-k}\quad(k\lt i). \tag{9.13}
+\]
+<p>If \(k=i\), each term remains \(P/(1+i)\gt0\) and the partial sums increase linearly as in (9.12), without bound. If \(k\gt i\), the terms themselves grow geometrically and again the positive partial sums diverge to infinity. Thus the criterion is \(k\lt i\), not simply “positive interest.” A stream shrinking 5% per year at a discount rate of \(-2\%\) has \(q=0.95/0.98\lt1\): 100 as the first payment costs \(100/(-0.02+0.05)=3{,}333.33\), even though interest is negative. At \(i=0\) a shrinking geometric stream with \(k\lt0\) still converges. At \(P=0\), all values are zero and the nonzero-stream divergence conclusion does not apply.</p>
+<p><strong>A dividend model and its limits.</strong> Lecture 28 applies (9.13) to dividends: 2 paid next year, growing 10% forever, discounted at a required return of 12%, gives a model value of \(2/(0.12-0.10)=100\). Damodaran's <a href="https://pages.stern.nyu.edu/~adamodar/pdfiles/valn2ed/ch13.pdf">dividend-discount chapter</a> (pp. 2–4) identifies the numerator as the expected dividend next period and emphasizes sustainable steady growth and sensitivity as growth approaches the required return. In this application the discount rate represents a required return for risky equity, rather than an assured account yield. A negative value obtained by mechanically using \(P/(i-k)\) when \(k\gt i\) is not the value of the positive infinite stream: that stream diverges, and the formula's convergence hypothesis has failed.</p>
+<p>The sensitivity follows directly from (9.13). With \(P,i\) fixed, \(\partial V_0/\partial k=P/(i-k)^2\), and the proportional sensitivity is \((\partial V_0/\partial k)/V_0=1/(i-k)\). A small growth error \(\Delta k\) changes value by approximately \(\Delta k/(i-k)\) of its level, only when \(\lvert\Delta k\rvert\) is small relative to the gap. At a gap of 0.02, an increase of 0.001 predicts 5%; the exact change is \(0.02/0.019-1=5.2632\%\). The formula identifies a fragile assumption, not a stock-price forecast.</p>
+
+<h2 id="continuous-model">Continuous payments: an intensity has units of money per year <a class="timestamp" href="https://www.youtube.com/watch?v=nUw77BsMz00&amp;t=240s">L29 4:00</a></h2>
+<p>A continuous cash flow is specified by its payment intensity \(\rho(t)\), in dollars per year. A short interval of length \(dt\) years pays approximately \(\rho(t)dt\) dollars; there is no lump payment of \(\rho(t)\) dollars “at an instant.” Use time in years and a constant force of interest \(\delta\), in inverse years. Under the continuous compound model restated from Chapter 3, the discount factor to 0 is \(e^{-\delta t}\). If the equivalent annual effective rate is \(i\gt-1\), then \(\delta=\ln(1+i)\) and \(v=e^{-\delta}\).</p>
+<p>In the continuous model, the term \(n\) may be any nonnegative real number of years; it need not count whole payments. To derive the valuation rule, divide the finite interval \([0,n]\) into small pieces of width \(\Delta t\). Approximate a piece by paying \(\rho(t_j)\Delta t\) at a chosen date \(t_j\) in it, and sum its discounted value. For a piecewise continuous intensity, the Riemann sums tend to the integral:</p>
+\[
+V_0=\int_0^n\rho(t)e^{-\delta t}\,dt,\qquad V_n=e^{\delta n}V_0. \tag{9.14}
+\]
+<p>The product \(\delta t\) is dimensionless, and the integrand has units dollars per year times years, yielding dollars. With a finite term, piecewise continuous bounded intensity and any finite real force, this value exists; negative or zero \(\delta\) presents no convergence issue. An infinite interval needs an additional integrability condition, proved separately below. A variable force would replace \(e^{-\delta t}\) by \(\exp(-\int_0^t\delta_u\,du)\), the tool from Chapter 3; its value depends on calendar dates and the closed forms of this chapter need not survive.</p>
+<p><strong>Continuous level factor derived here.</strong> Define \(\bar a_{\overline{n}|}=\int_0^ne^{-\delta t}dt\), the present-value factor for one currency unit per year paid continuously. Integration gives \(\bar a=(1-e^{-\delta n})/\delta=(1-v^n)/\delta\) for \(\delta\ne0\), and \(\bar a=n\) at zero force. It has units of years before the unit annual intensity is multiplied in. Calling payments continuous specifies the cash-flow timing; it does not authorize replacing an effective annual 6% by a force of 0.06. For the running case the equivalent force is \(\ln1.06=0.058269\). A force of 0.06 would instead mean an effective rate \(e^{0.06}-1=6.1837\%\).</p>
+
+<h2 id="continuous-ramp">A smoothly increasing intensity and integration by parts <a class="timestamp" href="https://www.youtube.com/watch?v=nUw77BsMz00&amp;t=280s">L29 4:40</a></h2>
+<p>Lecture 29 first considers an intensity proportional to time: \(\rho(t)=Ht\), with \(H\) measured in dollars per year squared. For the unit ramp, the lecture writes \( (\bar I\bar a)_{\overline{n}|}=\int_0^n t e^{-\delta t}dt\). The bar over \(I\) marks smooth increase of the intensity; the bar over \(a\) marks continuous payment. This factor has units of years squared when time retains its unit.</p>
+<p><strong>Derivation.</strong> The product rule supplies the integration-by-parts hinge:</p>
+\[
+\frac{d}{dt}\bigl(t e^{-\delta t}\bigr)=e^{-\delta t}-\delta t e^{-\delta t}.
+\]
+<p>Integrate from 0 to \(n\). The left side gives \(ne^{-\delta n}\); the first term on the right gives \(\bar a_{\overline{n}|}\). Solving for the ramp integral gives</p>
+\[
+\boxed{(\bar I\bar a)_{\overline{n}|}=\frac{\bar a_{\overline{n}|}-nv^n}{\delta}
+=\frac{1-(1+\delta n)e^{-\delta n}}{\delta^2}}\quad(\delta\ne0). \tag{9.15}
+\]
+<p>This product-rule proof is precisely integration by parts with the linear factor differentiated and the exponential integrated. The boundary term \(nv^n\) comes from the terminal date, while the term at 0 vanishes because it contains \(t=0\). For a linear intensity \(\rho(t)=B+Ht\), where \(B\) is in dollars per year, linearity gives \(V_0=B\bar a+H(\bar I\bar a)\). The intensity must be nonnegative over the interval if it represents receipts only; a negative slope is allowed until the intensity reaches zero.</p>
+<p><strong>Checks.</strong> At \(\delta=0\), use the defining integral: \((\bar I\bar a)=\int_0^n tdt=n^2/2\). Continuity follows because on a finite interval \(te^{-\delta t}\) tends uniformly to \(t\) as \(\delta\to0\): its maximum difference is bounded by \(n(e^{|\delta|n}-1)\), which tends to zero. Negative forces still give a positive finite integral for \(n\gt0\). Differentiating the final expression in (9.15) with respect to \(n\) returns \(ne^{-\delta n}\), the last infinitesimal payment's discounted intensity, an independent check on its sign.</p>
+<p><strong>The lecture's project.</strong> A project has intensity \(10{,}000t\) dollars per year over five years at a force of 0.06. Formula (9.15) gives 102,600.87. The slide obtains 102,670 by using \(\bar a_5=4.320\) and \(v^5=0.7408\) inside the subtraction; the exact factor is 10.260087. A subtraction of nearby rounded values can amplify their errors. The force really is 0.06 in this example, so no logarithmic rate conversion is required.</p>
+<p><strong>Infinite ramp.</strong> For \(\delta\gt0\), \(ne^{-\delta n}\to0\) by the same exponential-versus-linear argument used in the arithmetic perpetuity, and \(\bar a\to1/\delta\). Thus the unit ramp costs \(1/\delta^2\) over an infinite term. A linear nonnegative intensity \(B+Ht\), \(B,H\ge0\), not both zero, has value \(B/\delta+H/\delta^2\). At \(\delta=0\) its integral diverges; at \(\delta\lt0\) discounting grows exponentially and again the value is infinite. A fixed decreasing linear intensity must stop or be floored before it becomes negative, just as the decreasing discrete sequence must.</p>
+
+<h2 id="continuous-step">An intensity that jumps annually is a different continuous annuity <a class="timestamp" href="https://www.youtube.com/watch?v=nUw77BsMz00&amp;t=970s">L29 16:10</a></h2>
+<p>The hybrid \( (I\bar a)_{\overline{n}|}\) pays continuously, but its intensity rises in annual steps: 1 per year throughout year 1, 2 throughout year 2, through \(n\) throughout year \(n\). There are no bars over the increase symbol \(I\), because the increase occurs only at anniversaries. Its intensity is \(\ell\) on \((\ell-1,\ell]\), where \(\ell=1,\ldots,n\) is a year index. Choosing the other endpoint convention changes no integral, because finitely many single points have zero width.</p>
+<p><strong>Derivation.</strong> Integrate each year separately. For \(\delta\ne0\), \(\int_{\ell-1}^{\ell}e^{-\delta t}dt=v^{\ell-1}(1-v)/\delta\). Therefore</p>
+\[
+\begin{aligned}
+(I\bar a)_{\overline{n}|}
+&amp;=\frac{1-v}{\delta}\sum_{\ell=1}^{n}\ell v^{\ell-1}
+=\frac{i}{\delta}(Ia)_{\overline{n}|}
+=\frac{\ddot a_{\overline{n}|}-nv^n}{\delta}. \end{aligned}
+\tag{9.16}
+\]
+<p>The middle step uses \(\sum\ell v^{\ell-1}=(Ia)/v\) and \(1-v=iv\). This derivation explains why replacing \(i\) by \(\delta\) in the denominator of (9.4) works <em>for this particular stepped intensity</em>. It is not a rule for arbitrary continuous payments. At zero force, the value is the total yearly amounts \(1+2+\cdots+n=n(n+1)/2\), whereas the smooth unit ramp has total \(n^2/2\). For every force, the stepped intensity exceeds the ramp almost everywhere within each year, so (9.16) exceeds (9.15). That comparison includes an extra total amount of \(n/2\), and does not by itself measure timing alone.</p>
+<p>The lecture's intensity is 100 in the first year, 200 in the second, through 1,000 in the tenth, at a force of 0.05. Its value is \(100(I\bar a)_{\overline{10}|}=4{,}004.91\). The slide reports 4,006 using rounded \(\ddot a_{10}=8.068\) and \(v^{10}=0.6065\). The annual effective rate corresponding to this force is \(e^{0.05}-1\), which must be used when evaluating the discrete factor in the middle expression of (9.16).</p>
+<p><strong>A comparison with equal annual totals.</strong> For the education fund, let the step intensity throughout year \(\ell\) be \(12{,}000+600(\ell-1)\) dollars per year. Each year's total equals its original lump payment. Its continuous value is \([i/\delta]V_0=109{,}234.01\), using \(i=0.06\), \(\delta=\ln1.06\) and the arithmetic \(V_0\). Alternatively, let the smooth intensity be \(11{,}700+600t\). Its year-\(\ell\) total is</p>
+\[
+\int_{\ell-1}^{\ell}(11{,}700+600t)dt
+=11{,}700+600(\ell-\tfrac12)
+=12{,}000+600(\ell-1).
+\]
+<p>The two intensities now have the same ten annual totals and the same 147,000 overall. Formula (9.15) gives 109,211.93 for the smooth stream, 22.08 less than the stepped stream. The smooth intensity moves some of each year's spending from its first half to its second half. With positive discounting, those later dollars cost less at time 0. This small difference is distinct from the 3,151.57 increase from paying the same yearly totals continuously instead of entirely at year ends.</p>
+<figure>
+<svg viewBox="0 0 700 270" role="img" aria-labelledby="ch09-flow-title ch09-flow-desc" font-family="Georgia, serif" fill="currentColor" font-size="13">
+<title id="ch09-flow-title">Smooth and stepped intensities with equal yearly totals</title>
+<desc id="ch09-flow-desc">For the first three years of the education fund, a staircase has intensities 12000, 12600 and 13200 dollars per year. A straight line rises from 11700 at time zero to 13500 at time three. In every year the line crosses the step at the midpoint and has the same area over that year, moving spending later within the year.</desc>
+<path d="M75 210 H640 M75 210 V30" stroke="currentColor" fill="none"/>
+<path d="M245 210 V30 M415 210 V30 M585 210 V30" stroke="currentColor" stroke-opacity="0.25" stroke-dasharray="4 4" fill="none"/>
+<path d="M75 174 H245 V126 H415 V78 H585" stroke="#75c1e5" stroke-width="3" fill="none"/>
+<path d="M75 198 L585 54" stroke="#e6b86b" stroke-width="3" fill="none"/>
+<text x="65" y="178" text-anchor="end">12,000</text><text x="65" y="130" text-anchor="end">12,600</text><text x="65" y="82" text-anchor="end">13,200</text>
+<text x="75" y="230" text-anchor="middle">0</text><text x="245" y="230" text-anchor="middle">1</text><text x="415" y="230" text-anchor="middle">2</text><text x="585" y="230" text-anchor="middle">3 years</text>
+<text x="90" y="20">Intensity (dollars per year)</text><text x="110" y="55" fill="#75c1e5">Annual step</text><text x="350" y="180" fill="#e6b86b">Smooth: 11,700 + 600t</text>
+<text x="350" y="257" text-anchor="middle">Equal area in each year; the smooth stream spends later within the year.</text>
+</svg>
+<figcaption>Figure 9.2. First three years of two continuous versions of the fund. The step heights and straight-line endpoints are calculated from their intensity functions. Matching yearly areas isolates timing: at a positive force, the smooth version has the lower present value. Exercise 6 proves this ordering without relying on the drawing.</figcaption>
+</figure>
+<p>Lecture 30 also displays a bar over \(I\) with an unbarred \(a\), intended to indicate continuous increase with discrete payments. The bars are labels for a specified pattern, not sufficient data to determine it: sampling a smooth intensity at each year end gives amounts \(t\), whereas collecting its entire yearly flow and paying that at year end gives amounts \(t-1/2\) for a unit ramp. Those two discrete schedules differ. This chapter uses the three explicitly defined objects (9.3), (9.15) and (9.16); any fourth combination must first state its actual payment amounts.</p>
+
+<h2 id="continuous-growth">Exponential intensity: growth and discounting subtract as forces <a class="timestamp" href="https://www.youtube.com/watch?v=HSrxblFzIsE&amp;t=1580s">L30 26:20</a></h2>
+<p>The Module 1 review asks for the present value of intensity \(e^{0.02t}\) over ten years at a force of 0.05. Its intensity growth force is 0.02 per year. More generally, take \(\rho(t)=B e^{\gamma t}\), where \(B\gt0\) is the intensity at time 0 in money per year, and \(\gamma\) is its constant growth force per year. The product in (9.14) is \(B e^{-(\delta-\gamma)t}\). Integrating gives</p>
+\[
+V_0=
+\begin{cases}
+\displaystyle B\frac{1-e^{-(\delta-\gamma)n}}{\delta-\gamma},&amp;\delta\ne\gamma,\\
+Bn,&amp;\delta=\gamma.
+\end{cases} \tag{9.17}
+\]
+<p>The equality case is the integral of the constant discounted intensity \(B\). It is finite for every finite \(n\), including when both forces are zero or negative. An infinite stream costs \(B/(\delta-\gamma)\) if \(\delta\gt\gamma\). At equality its partial integral is \(Bn\) and grows linearly without bound; if growth is larger it grows exponentially. A negative discount force can still give a finite infinite value when the intensity shrinks faster, exactly as negative discount rates can in (9.13).</p>
+<p>The review's value is \((1-e^{-0.03\times10})/0.03=8.639393\), the slide's 8.639. The numerator is an intensity rather than next year's lump payment, so this expression does not have the one-period \(1/(1+i)\) factor of the discrete equal-rate case. At time 0 the review's intensity is 1 per year, and continuous payments start across intervals arbitrarily close to 0.</p>
+<p>For annual effective growth \(k\), the equivalent force is \(\gamma=\ln(1+k)\); for effective discounting \(i\), \(\delta=\ln(1+i)\). Since the logarithm is strictly increasing, \(\delta\gt\gamma\) is equivalent to \(i\gt k\), but the gaps \(\delta-\gamma\) and \(i-k\) are different numbers. An education intensity \(12{,}000e^{t\ln1.05}\) at the fund's 6% effective rate costs 114,488.27 over ten years. It begins with intensity 12,000 at \(t=0\) and has different yearly totals from the discrete 5% promise; it is not an alternative way of computing 108,520.50 for those same payments.</p>
+
+<h2 id="resolved">The education fund resolved</h2>
+<p>The 110,000 budget must be compared with a precisely described promise at one date. Table 9.1 collects the alternatives, all valued at time 0 at 6% effective annually, or its equivalent force \(\ln1.06\). The two matched-total continuous alternatives use the same annual totals as the arithmetic end-of-year promise. The percentage-growth alternatives have their own payment amounts.</p>
+<div class="table-wrap"><table>
+<caption>Table 9.1. Present requirements in dollars, rounded only at the end. The last column compares each alternative separately with 110,000.</caption>
+<thead><tr><th>Promise</th><th>Timing and growth</th><th>Present value</th><th>Budget result</th></tr></thead>
+<tbody>
+<tr><td>Arithmetic original</td><td>12,000 first at year 1; +600 annually, ten payments</td><td>106,082.44</td><td>3,917.56 left</td></tr>
+<tr><td>Arithmetic in advance</td><td>Same ten amounts at years 0–9</td><td>112,447.38</td><td>2,447.38 short</td></tr>
+<tr><td>Decreasing alternative</td><td>12,000 first at year 1; −600 annually</td><td>70,559.65</td><td>39,440.35 left</td></tr>
+<tr><td>Geometric alternative</td><td>12,000 first at year 1; 5% annual growth</td><td>108,520.50</td><td>1,479.50 left</td></tr>
+<tr><td>Equal-rate alternative</td><td>12,000 first at year 1; 6% annual growth</td><td>113,207.55</td><td>3,207.55 short</td></tr>
+<tr><td>Stepped continuous</td><td>Each original year's amount spent uniformly within that year</td><td>109,234.01</td><td>765.99 left</td></tr>
+<tr><td>Smooth continuous</td><td>Intensity 11,700 + 600t; same original yearly totals</td><td>109,211.93</td><td>788.07 left</td></tr>
+</tbody></table></div>
+<p>Receiving money earlier has the larger value at a positive rate; when these streams describe withdrawals, that means a larger initial fund. Fixed percentage growth eventually outpaces a fixed increment, but a finite decision depends on the amounts and term: here the 5% geometric alternative costs 2,438.06 more than the arithmetic original, and both fit the budget. Equal payment growth and discounting is a removable singularity for ten payments, but a divergence boundary for an infinite promise. These are general deductions from the model. Whether 6% can actually be earned, whether educational costs follow either growth pattern, and whether every payment can be made are separate empirical questions that the invented case does not answer.</p>
+
+<h2 id="code">Executable checks: exact sums, boundary cases and continuous integration</h2>
+<p>The standard-library program below values the original streams and tests the closed forms against methods that do not reuse them. Arithmetic checks use exact rational inputs and <code>fractions.Fraction</code>; increasing and decreasing payments are summed directly, then compared with the shifted and rectangle formulas at negative, zero and positive rates. Geometric checks compare the stable finite formula with direct discounted amounts, including growth larger than interest and equal rates. Continuous checks compare (9.15) and (9.17) with composite Simpson integration of the discounted intensities.</p>
+<p>For equally spaced sample dates separated by \(h\), Simpson's rule replaces the integral over a pair of subintervals by \(h[f_0+4f_1+f_2]/3\). To check the weights, centre the pair at zero: the odd powers \(t\) and \(t^3\) integrate to zero and their sampled contributions cancel; for 1 the rule gives \(2h\), and for \(t^2\) it gives \(2h^3/3\). These are the exact integrals, so the rule is exact for any cubic polynomial by linearity. Joining such pairs gives the composite rule used below. Exponentials are not cubic, so these integrals are approximations; the assertions compare them with separately derived closed values at the stated tolerances. Agreement is a numerical check, while the integral derivations establish the identities.</p>
+<p><strong>Contract.</strong> The discrete term must be a built-in integer from 1 through 1,000, excluding booleans. Every rate, force and payment parameter must have type <code>int</code>, <code>float</code> or <code>fractions.Fraction</code>; booleans and other numeric types are unsupported. Interest and growth inputs must be finite and between −0.2 and 0.2, and payment parameters finite with absolute value at most \(10^9\); arithmetic endpoints and geometric first payments must be nonnegative. These bounds are an implementation contract for this teaching program, narrower than the mathematical hypotheses \(i,k\gt-1\). Invalid arguments raise <code>ValueError</code>. The continuous exponential function uses an integer term in the same range, finite forces within the same bounds and nonnegative initial intensity within the amount bound. The integration helper is used here only on the stated smooth intervals, with 2,000 even subintervals; it is an approximation, and an intensity with jumps must be integrated piece by piece. The program reads no files and writes only its printed results. Monetary values are rounded only in the output.</p>
+<p>Near \(i=k\), forming \(1-q^n\) by subtracting two nearly equal floating-point numbers loses precision. The program instead computes it as <code>-expm1(n*log1p((k-i)/(1+i)))</code>; <code>log1p(x)</code> evaluates \(\ln(1+x)\) accurately near zero and <code>expm1(x)</code> evaluates \(e^x-1\). At exact equality it uses (9.12). The arithmetic formula is evaluated with fractions, so its cancellations are exact even near zero interest; a floating-point implementation would need its own treatment of that cancellation.</p>
+<p>A mixed-type subtraction can produce zero for unequal inputs. A nonzero rational gap can also round to zero or retain too little floating-point precision for the divided difference. For <code>abs(float(gap)) &lt; 1e-300</code>, with <code>gap</code> computed as \(i-k\), the geometric calculation evaluates the original finite dated sum in (9.11) with floating-point inputs. The continuous exponential calculation uses the zero-net-force limit when its computed gap \(\delta-\gamma\) meets the same bound. Since \(n\le1000\), the magnitude of the floating-point force gap times the term is then below \(10^{-297}\). For unequal input rates or forces these fallbacks are computational approximations, separate from exact mathematical equality. This guard applies only to the program's bounded finite term. An infinite positive-payment stream still requires \(k\lt i\) or \(\gamma\lt\delta\), respectively, for convergence, using the exact mathematical rates or forces.</p>
+<pre><code class="language-python">from fractions import Fraction as Fr
+from math import exp, expm1, fsum, isfinite, log1p
+
+
+def term(n):
+    if type(n) is not int or not 1 &lt;= n &lt;= 1000:
+        raise ValueError("integer term must be in 1..1000")
+
+
+def bounded(*values, bound):
+    if any(type(x) not in (int, float, Fr) for x in values):
+        raise ValueError("inputs must be int, float or Fraction")
+    try:
+        invalid = any(not isfinite(x) or abs(x) &gt; bound for x in values)
+    except (TypeError, ValueError, OverflowError) as error:
+        raise ValueError("finite numeric input required") from error
+    if invalid:
+        raise ValueError("non-finite or out-of-range input")
+
+
+def arithmetic(p, q, n, i):
+    term(n)
+    bounded(p, q, bound=10**9)
+    bounded(i, bound=.2)
+    if min(p, p + (n - 1)*q) &lt; 0:
+        raise ValueError("negative arithmetic payment")
+    p, q, i = Fr(p), Fr(q), Fr(i)
+    if i == 0:
+        return n*p + q*n*(n - 1)/2
+    v = 1/(1 + i)
+    a = (1 - v**n)/i
+    return p*a + q*(a - n*v**n)/i
+
+
+def geometric(p, k, n, i):
+    term(n)
+    bounded(p, bound=10**9)
+    bounded(i, k, bound=.2)
+    if p &lt; 0:
+        raise ValueError("negative first payment")
+    if i == k:
+        return n*p/(1 + i)
+    gap = i - k
+    if abs(float(gap)) &lt; 1e-300:
+        return fsum(float(p)*(1 + float(k))**(t - 1)
+                    /(1 + float(i))**t for t in range(1, n + 1))
+    return -p*expm1(n*log1p((k - i)/(1 + i)))/gap
+
+
+def continuous_exp(b, gamma, n, delta):
+    term(n)
+    bounded(b, bound=10**9)
+    bounded(gamma, delta, bound=.2)
+    if b &lt; 0:
+        raise ValueError("negative intensity")
+    gap = delta - gamma
+    return b*n if abs(float(gap)) &lt; 1e-300 else -b*expm1(-gap*n)/gap
+
+
+def simpson(f, end, panels=2000):
+    if type(panels) is not int or panels &lt;= 0 or panels % 2:
+        raise ValueError("positive even number of subintervals required")
+    h = end/panels
+    inner = fsum((4 if t % 2 else 2)*f(t*h)
+                 for t in range(1, panels))
+    return h/3*(f(0) + inner + f(end))
+
+
+for i in (Fr(-1, 10), Fr(0), Fr(3, 50), Fr(1, 10**6)):
+    n, v = 10, 1/(1 + i)
+    inc = sum(t*v**t for t in range(1, n + 1))
+    dec = sum((n + 1 - t)*v**t for t in range(1, n + 1))
+    a = sum(v**t for t in range(1, n + 1))
+    assert inc + dec == (n + 1)*a
+    assert arithmetic(1, 1, n, i) == inc
+    assert arithmetic(n, -1, n, i) == dec
+    if i:
+        assert inc == ((1 + i)*a - n*v**n)/i
+        assert dec == (n - a)/i
+for i, k in ((.06, .05), (.06, .06), (.05, .08),
+             (-.02, -.05), (0, 0), (.06, .060000000001)):
+    direct = fsum(12000*(1 + k)**(t - 1)/(1 + i)**t
+                  for t in range(1, 11))
+    assert abs(direct - geometric(12000, k, 10, i)) &lt; 1e-7
+print("exact arithmetic identities and geometric boundary sums: pass")
+base = float(arithmetic(12000, 600, 10, Fr(3, 50)))
+print(f"education arithmetic: PV {base:,.2f}; due {1.06*base:,.2f}")
+print(f"education at year 10: {1.06**10*base:,.2f}")
+print(f"education geometric: 5% {geometric(12000, .05, 10, .06):,.2f}; "
+      f"equal rates {geometric(12000, .06, 10, .06):,.2f}")
+delta = log1p(.06)
+abar = -expm1(-10*delta)/delta
+ramp = (abar - 10*exp(-10*delta))/delta
+smooth = simpson(lambda t: (11700 + 600*t)*exp(-delta*t), 10)
+assert abs(smooth - (11700*abar + 600*ramp)) &lt; 1e-7
+print(f"matched continuous totals: smooth {smooth:,.2f}; "
+      f"step {base*.06/delta:,.2f}")
+for delta, gamma in ((.05, .02), (.02, .02), (-.02, -.05), (0, 0)):
+    direct = simpson(lambda t: exp((gamma - delta)*t), 10)
+    assert abs(direct - continuous_exp(1, gamma, 10, delta)) &lt; 1e-10
+print("continuous integrals (negative, zero, equal, positive forces): pass")
+print(f"review exponential intensity: {continuous_exp(1, .02, 10, .05):.6f}")
+monthly = float(arithmetic(600, -10, 60, Fr(1, 100)))
+effective = float(arithmetic(600, -10, 60, 1.12**(1/12) - 1))
+print(f"lecture loan: nominal 12% {monthly:,.2f}; effective 12% {effective:,.2f}")
+slope = float(arithmetic(0, 1, 10, Fr(3, 50)))
+level = float(arithmetic(12000, 0, 10, Fr(3, 50)))
+print(f"largest education increment at budget 110000: {(110000-level)/slope:.6f}")
+</code></pre>
+<p>Run in a fresh interpreter with <code>python -I</code>, the program prints:</p>
+<pre><code class="language-text">exact arithmetic identities and geometric boundary sums: pass
+education arithmetic: PV 106,082.44; due 112,447.38
+education at year 10: 189,977.49
+education geometric: 5% 108,520.50; equal rates 113,207.55
+matched continuous totals: smooth 109,211.93; step 109,234.01
+continuous integrals (negative, zero, equal, positive forces): pass
+review exponential intensity: 8.639393
+lecture loan: nominal 12% 15,044.96; effective 12% 15,188.66
+largest education increment at budget 110000: 732.339708
+</code></pre>
+<p>The assertions check a sum representation against a closed expression or a numerical integral against an antiderivative. They do not establish that the inputs describe an actual contract. Two deliberate errors illustrate this distinction: replacing the arithmetic extra factor \((Ia)-a\) by \((Ia)\) fails the increasing direct-sum test, and changing the geometric exponent from \(t-1\) to \(t\) fails its direct-sum comparison. In contrast, interpreting the loan's nominal 12% as effective 12% yields a correctly evaluated different stream; the final loan line exposes the difference, but algebraic assertions cannot choose the intended quotation.</p>
+
+<h2 id="limits">What has been proved, and what remains a modelling choice</h2>
+<p>The finite discrete results are exact sums at a constant effective rate per payment period. The finite continuous results are exact integrals at a constant force with specified intensities. Their zero-rate and equal-rate values come from the definitions, so they are valid values rather than errors hidden behind a singular fraction. Nonnegative infinite arithmetic or linear-ramp streams require positive discounting; infinite geometric or exponential streams require discounting faster than their payment growth. Negative interest is compatible with a finite present value for some shrinking infinite streams, because convergence depends on relative growth.</p>
+<p>The assumptions have separate roles. Timing and the definition of \(P\) identify the cash flows; certainty and the constant rate are model assumptions; nominal versus effective is a quotation convention; nonnegativity identifies benefit streams rather than signed cash flows; an infinite horizon is an idealization that needs a convergence test. A stepped continuous intensity and a smooth one may share annual totals yet have different values. Likewise, a continuous discount model between annual dates is an additional choice, even when the effective annual rate fixes growth at year ends.</p>
+<p>The <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">October 2026 Exam FM syllabus</a> (p. 3) names arithmetic and geometric increasing and decreasing annuities, finite and perpetual non-level cash flows, and continuous payments within its annuity topic. This supports the examination relevance of the methods; it supplies no evidence that one of the chapter's invented rates or promises is realistic. The program provides reproducible arithmetic and boundary checks, while the proofs identify precisely when each result applies.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive and check timing).</strong> A five-payment annuity pays 2, 4, 6, 8 and 10 at the ends of years 1–5. At 4% effective annually, (a) derive its present value from the shifted-subtraction argument, (b) give the present value if the same five amounts are paid at years 0–4, and (c) give the accumulated value at year 5 under both timings. Explain the relation between the two accumulated values. Round final values to six decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) The payments are \(2t\), so \(V_0=2\sum_{t=1}^{5}tv^t=2(Ia)_{\overline{5}|}\), where \(v=1/1.04\). Multiplying \(S=\sum tv^t\) by 1.04 and subtracting \(S\) leaves \(1+v+v^2+v^3+v^4-5v^5\); hence \(0.04S=\ddot a_5-5v^5\). Thus \(V_0=2(\ddot a_5-5v^5)/0.04=26.012985\). The first payment is at 1, so the due factor inside the expression is an algebraic consequence of the shift, not the stream's timing.</p>
+<p>(b) Every date moves left by one year, so the value is \(1.04V_0=27.053504\). (c) At year 5, the original stream is worth \(1.04^5V_0=31.648773\), including the last amount 10 with no further interest. The due stream is worth \(1.04\times31.648773=32.914724\) at year 5: its last amount was paid at year 4 and earns one year. If the due stream were valued at its own last payment date, year 4, it would instead be worth 31.648773. A common multiplier relates values only after the valuation date is fixed.</p>
+</details>
+
+<p><strong>Exercise 2 (inverse design under a budget).</strong> Keep the education fund's first payment 12,000, ten end-of-year payments and 6% effective interest. Its fixed annual increment \(Q\ge0\) is negotiable. (a) Find the largest real increment that a budget of 110,000 supports. (b) If increments must be whole cents and the budget must not be exceeded, choose the largest allowed increment and determine the tenth payment. (c) Explain why rounding to the nearest cent can violate the budget. Keep intermediate values unrounded, display the real boundary to nine decimals, and round final monetary amounts to cents; choose the allowed increment by feasibility.</p>
+<details><summary>Solution</summary>
+<p>The equation of value is \(V_0=12{,}000a_{10}+Q[(Ia)_{10}-a_{10}]\). The coefficient of \(Q\) is the direct sum \(\sum_{t=1}^{10}(t-1)v^t=29.602321\gt0\), so value strictly increases with \(Q\). Its level part costs 88,321.04, leaving 21,678.96 from unrounded values. Dividing the unrounded remainder by the unrounded coefficient gives \(Q_{\max}=732.339707798\). This is the unique boundary of the feasible interval \(0\le Q\le Q_{\max}\).</p>
+<p>A whole-cent increment must be rounded <em>down</em>: \(Q=732.33\), giving the tenth payment \(12{,}000+9\times732.33=18{,}590.97\). Its present value is 109,999.71, leaving 0.29. Nearest-cent rounding would choose 732.34, slightly above the boundary, and costs 110,000.01. The sign and monotonicity of the increment coefficient justify the rounding decision; ordinary display rounding alone does not ensure feasibility.</p>
+</details>
+
+<p><strong>Exercise 3 (exam-style rate convention).</strong> A loan is repaid by 360 at the end of month 1, then 354, 348, …, 6 at the end of month 60. The rate is 9% nominal annually convertible monthly. Find the loan amount today, using no intermediate rounding and rounding final amounts to cents. Choose the closest answer: (A) 9,172.26; (B) 9,461.30; (C) 9,514.29; (D) 9,532.26; (E) 10,980.00. Then state how the value changes if “9%” is instead an effective annual quotation.</p>
+<details><summary>Solution</summary>
+<p>The amounts are \(6(60,59,\ldots,1)\), so the loan is \(6(Da)_{\overline{60}|}\). The monthly rate is \(0.09/12=0.0075\) by the nominal convention. With \(a_{60}=(1-1.0075^{-60})/0.0075\), (9.9) gives \(6(60-a_{60})/0.0075=9{,}461.30\): answer (B). The effective 9% quotation instead uses \(1.09^{1/12}-1\) per month and gives 9,514.29, 52.99 more.</p>
+<p>Choice (C) is that effective-rate reading. Choice (D) moves all payments to the start of their months, multiplying the correct unrounded value by 1.0075. Choice (E) ignores discounting and adds all payments, \(6\times60\times61/2=10{,}980\). Choice (A) subtracts the decrement before the first payment, using 354, 348, …, 0; it is the correct value less \(6a_{\overline{60}|}\). Only (B) uses both the stated amounts and dates and the nominal rate. A rate quote must name its conversion frequency before a numerical answer can be unique.</p>
+</details>
+
+<p><strong>Exercise 4 (counterexample and convergence proof).</strong> A student claims that an infinite positive annuity can have a finite present value only when interest is positive, and that equal growth and interest imply no discounting. Use a first payment of 100 at year 1. (a) Value a perpetuity shrinking 5% per year at interest \(-2\%\). (b) Value five payments when growth and interest both equal \(-2\%\). (c) Determine the infinite value in the equal-rate case and identify exactly which part of each claim fails. Keep intermediate values unrounded and round monetary answers to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) The discounted ratio is \(q=0.95/0.98=0.969388\lt1\). Its positive geometric sum converges, even though the undiscounted account accumulation factor 0.98 is below 1. Formula (9.13) gives \(100/(-0.02-(-0.05))=3{,}333.33\). The decreasing payments defeat the increase in discount factors.</p>
+<p>(b) At equality, each discounted payment is \(100/0.98=102.040816\). The sum of five is \(500/0.98=510.20\), whereas the five nominal amounts \(100(0.98)^{t-1}\) add to 480.40. Their discounted amounts are constant but exceed their nominal amounts; equality of growth and interest has not removed the first-period discount factor. (c) The infinite partial sums are \(100n/0.98\), which grow linearly to infinity. The first claim fails because convergence depends on \(k\lt i\); the second confuses neutralization of successive growth with absence of any discounting.</p>
+</details>
+
+<p><strong>Exercise 5 (finite high growth followed by a cap).</strong> A fund pays 2,000 at year 1, growing 8% annually for five payments, then pays the fifth amount unchanged at every year end from year 6 forever. Discount at 5% effective annually. (a) Derive its present value by separating the finite block from the tail and compute it. (b) Explain why both the finite geometric formula with growth above interest and the level perpetuity formula are valid. (c) What happens if growth remains 8% forever? Use unrounded amounts for both blocks and their sum, then round final monetary answers to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) The first five payments have value \(2000[1-(1.08/1.05)^5]/(0.05-0.08)=10{,}083.80\). The fifth amount is \(A=2000(1.08)^4=2{,}720.98\), using its unrounded value for the tail. At time 5, one year before the next payment, the constant tail has value \(A/0.05\); its present value is \(A v^5/0.05=42{,}639.15\). Adding the two blocks gives 52,722.95. The fifth payment appears once, in the finite block, and the tail starts at 6.</p>
+<p>(b) The finite block is a five-term positive sum. Although its ratio exceeds 1, its numerator and denominator in (9.11) are both negative, so its value is positive and finite. The tail has zero growth and positive interest, so its discounted ratio \(v\lt1\) and it converges. (c) An uncapped infinite stream has ratio \(1.08/1.05\gt1\); its discounted payments increase, fail to tend to zero, and its value diverges. Substituting in \(2000/(0.05-0.08)\) would give a negative number from a formula whose convergence hypothesis is false.</p>
+</details>
+
+<p><strong>Exercise 6 (continuous design, proof and numerical check).</strong> Over five years compare smooth intensity \(\rho(t)=1000t\) with stepped intensity \(\rho(t)=1000(\ell-1/2)\) throughout year \(\ell=1,\ldots,5\). Both pay the same amount in every year. (a) Find that amount and the total. (b) At a force of 0.04, derive and compute each present value. (c) Prove that the stepped value is larger for any positive force, that the ordering reverses for a negative force, and that the values agree at zero force. (d) Describe an independent numerical check that distinguishes a wrong intensity from a wrong integration rule. Keep intermediate integrals and the difference unrounded, then round final monetary answers to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) In year \(\ell\), the smooth stream pays \(1000\int_{\ell-1}^{\ell}t dt=1000(\ell-1/2)\), equal to the stepped stream's constant rate times one year. The annual totals are 500, 1,500, 2,500, 3,500 and 4,500, totalling 12,500.</p>
+<p>(b) The smooth value is \(1000(\bar I\bar a)_{\overline5|}=1000[1-(1+0.04\times5)e^{-0.2}]/0.04^2=10{,}951.94\). The step value follows by integrating each year, or treating its annual amounts as \(P=500,Q=1000\): set \(i=e^{0.04}-1\), then \(V_{\text{step}}=(i/0.04)\{500a_{\overline5|}+1000[(Ia)_{\overline5|}-a_{\overline5|}]\}=10{,}967.04\). The difference from unrounded values is 15.11.</p>
+<p>(c) Put \(c=\ell-1/2\), the midpoint of year \(\ell\), and \(w(t)=e^{-\delta t}\). The year's step-minus-smooth value, divided by 1,000, is \(\int_{c-1/2}^{c+1/2}(c-t)w(t)dt\). Pair \(t=c-u\) and \(t=c+u\), with \(0\lt u\le1/2\). It becomes \(\int_0^{1/2}u[w(c-u)-w(c+u)]du\). For \(\delta\gt0\), \(w\) is strictly decreasing, so the integrand is positive except at \(u=0\); each year's difference is positive. For \(\delta\lt0\), \(w\) increases and the sign reverses. For \(\delta=0\), it is zero and both values are 12,500. This proves the timing comparison without requiring one intensity to exceed the other pointwise.</p>
+<p>(d) Integrate the smooth discounted function with composite Simpson rules using, for example, 1,000 and 2,000 subintervals, and compare their stable results with (9.15). Integrate each of the five stepped pieces separately, using a constant intensity on that piece, and compare with its explicit integral. Applying a single smooth rule across discontinuities can be inaccurate despite a correct intensity. Using \(1000\ell\) instead of \(1000(\ell-1/2)\) is a different model: it raises each annual total by 500 and the undiscounted total to 15,000. Checking yearly totals at zero force catches that input error before testing the discount integral.</p>
+</details>
+
+<h2 id="sources">Primary sources</h2>
+<ul>
+<li>NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras, week 6: <a href="https://www.youtube.com/watch?v=ZN_DAzG_1KI">Lecture 26, Arithmetically Increasing Annuities</a>; <a href="https://www.youtube.com/watch?v=u8EUCQvpxKA">Lecture 27, Decreasing Annuities</a>; <a href="https://www.youtube.com/watch?v=iIMAS4uB47Q">Lecture 28, Geometrically Increasing Annuities</a>; <a href="https://www.youtube.com/watch?v=nUw77BsMz00">Lecture 29, Varying Continuous Annuities</a>; <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30, Module 1 Review</a>.</li>
+<li>Aswath Damodaran, <a href="https://pages.stern.nyu.edu/~adamodar/pdfiles/valn2ed/ch13.pdf">Dividend Discount Models, Chapter 13</a>, pp. 2–4. Next-period dividend in the numerator, sustainable steady growth, and the sensitivity near the growth/discount boundary. The archived chapter includes historical examples; this chapter uses its model discussion only.</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">Financial Mathematics Exam, October 2026 syllabus</a>, p. 3. Arithmetic and geometric varying annuities, finite and perpetual non-level cash flows, and continuously payable annuities.</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-08-perpetuities-continuous-and-deferred-annuities.html">Previous available chapter</a><a href="index.html">Lecture index</a><span>Further chapters pending</span></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>

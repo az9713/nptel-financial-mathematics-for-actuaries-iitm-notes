@@ -1,12 +1,12 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-09T18:34:58.433267+00:00",
+  "checked_at_utc": "2026-10-09T20:50:11.132299+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
-    "html_files": 15,
-    "local_links_checked": 164,
-    "timestamps_checked": 121,
+    "html_files": 17,
+    "local_links_checked": 183,
+    "timestamps_checked": 143,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
     "warnings": []
@@ -156,6 +156,24 @@
         "controls": true,
         "emptyToc": false,
         "file": "chapter-08-perpetuities-continuous-and-deferred-annuities.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 471,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 471,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html",
         "viewport": 390
       },
       {

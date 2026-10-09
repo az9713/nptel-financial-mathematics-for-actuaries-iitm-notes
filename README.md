@@ -10,13 +10,12 @@ recordings supply exercises. Around the spine, each chapter adds original explan
 derivations, runnable Python checks and worked problems. Source maps separate lecture
 material, research extensions and original teaching constructions.
 
-**Status: in progress.** Chapters 1–8 are complete, with 48 worked exercises.
+**Status: in progress.** Chapters 1–9 are complete, with 54 worked exercises.
 Each chapter is added after independent mathematical review and local validation.
 [Read the notes online](https://az9713.github.io/nptel-financial-mathematics-for-actuaries-iitm-notes/),
 or open `index.html` offline. The numerical laboratory links
 to the reviewed Python checks and exercises.
 
-```sh
-python build_book.py
-python validate_books.py --browser
-```
+To run a numerical check, copy the complete program from its chapter into a Python
+file and run it with Python 3. Each program uses the standard library and includes
+its expected output. The numerical laboratory explains how to vary the inputs.
