@@ -1,11 +1,11 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-09T16:22:07.384457+00:00",
+  "checked_at_utc": "2026-10-09T16:28:43.025809+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
     "html_files": 12,
-    "local_links_checked": 105,
+    "local_links_checked": 118,
     "timestamps_checked": 83,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
@@ -84,6 +84,24 @@
         "controls": true,
         "emptyToc": false,
         "file": "chapter-05-unknown-time-and-unknown-rate.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 523,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-06-dollar-weighted-and-time-weighted-rates-of-return.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 523,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-06-dollar-weighted-and-time-weighted-rates-of-return.html",
         "viewport": 390
       },
       {

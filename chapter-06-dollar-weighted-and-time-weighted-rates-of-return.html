@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="4638e5bcc7fe53f3bcc966fce03bb596e131466609d3255977025c9fd480ee41"><title>Dollar-weighted and time-weighted rates of return · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Dollar-weighted and time-weighted rates of return</h1>
+<p class="lead">An investor puts 10,000 dollars into a fund on 1 January, adds 15,000 dollars on 1 April, takes out 6,000 dollars on 1 October, and holds 18,270 dollars on 31 December. The investor paid in 19,000 dollars net and ends the year 730 dollars below that amount. The fund's report for the same year shows a return of +3.95%. Both statements are correct, and the numbers do not contradict each other: the investor's own rate of return, the dollar-weighted rate, is −3.69% a year, and the fund's rate, the time-weighted rate, is +3.95%. The difference of 7.64 percentage points comes from the timing of the investor's two cash flows, not from an error in either figure. This chapter defines both rates, derives when one is larger than the other, derives the simple-interest approximation that gives −3.70% without solving an equation, and shows which question each rate answers. The amounts and fund values are invented for this chapter.</p>
+<p class="source-note">Grounded in two recordings of the NPTEL course <em>Financial Mathematics for Actuaries</em> (Prof. Neelesh S. Upadhye, IIT Madras): <a href="https://www.youtube.com/watch?v=b9iovZzyDH4">Lecture 14</a> (dollar-weighted and time-weighted rates) and problem 4 of the week 3 problem-solving lab, <a href="https://www.youtube.com/watch?v=dkKCOiAnc4A">Lecture 15</a>. <strong>Lecture material:</strong> the mutual fund paradox (a fund that doubles and then halves, with a deposit between) and the two answers to it; the dollar-weighted rate as the internal rate of return of the investor's cash flows, sensitive to their timing and size, from an equation of value at the end of the year or at its start; the solution of the paradox's equation by the substitution \(x=\sqrt{1+i}\), with the result −46.4%; the time-weighted rate as the product of sub-period growth factors, with the fund valued before each new cash flow, and its value 0% for the paradox; the verdict table and the rule of thumb on deposits before a crash or a boom; the simple-interest exposure approximation, net interest divided by exposure, its example (7.27%) and the warning that a withdrawal reduces the exposure; the linked internal rate of return; the remark that the time-weighted rate is the industry standard under GIPS; the lab's time-weighted example (8%). <strong>Research extensions:</strong> the CFA Institute's Global Investment Performance Standards (GIPS) for Firms, 2020, on the definitions of the two returns, the valuation and linking requirements, and the conditions under which a money-weighted return may be presented; the Society of Actuaries Exam FM syllabus on the term rate of return. <strong>Original teaching constructions:</strong> the running case (an investor's year with one deposit and one withdrawal, invented values); the restatement of the earlier tools; the proof that the dollar-weighted equation has exactly one root when every deposit precedes every withdrawal; the unit-value reading of the time-weighted rate; the exact condition under which the dollar-weighted rate is below the time-weighted rate for one cash flow, with counterexamples to the rule of thumb; the derivation of the exposure method from simple interest, its error term and its one-sided bound; the linked rate of the running case with an invented mid-year valuation; Figure 6.1; Table 6.1; the code and the six exercises.</p>
+
+<h2 id="model">The running case and the tools from earlier in the course <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=36s">L14 0:36</a></h2>
+<p>Earlier weeks of the course valued single sums of money at different dates and compared them with an equation of value. This chapter uses those tools to measure how well money has grown when the owner adds and removes money during the year. This section restates the tools the chapter uses. Each is taken as given from earlier in the course; none is derived again here.</p>
+<p><strong>Time and compound interest.</strong> Time \(t\) is measured in years from the start of the year being measured, so \(t=0\) is 1 January and \(t=1\) is 31 December. Dates inside the year are converted by whole months, as the lecture does: 1 April is \(t=1/4\), 1 July is \(t=1/2\), 1 October is \(t=3/4\). This convention ignores the different lengths of the months; a day count would give slightly different fractions. The effective annual rate of interest \(i\) is the growth of one unit over one year, so one unit becomes \(1+i\). Under compound interest at a constant rate \(i\gt-1\), an amount \(X\) at time \(s\) has the value</p>
+\[
+X(1+i)^{t-s}\quad\text{at time }t, \tag{6.1}
+\]
+<p>for any real \(t\) and \(s\), including fractions of a year. For \(t\gt s\) this is accumulation; for \(t\lt s\) it is discounting. The discount factor is \(v=1/(1+i)\), so (6.1) with \(t\lt s\) is \(Xv^{s-t}\). Rates in this chapter can be negative, because funds lose money; the condition \(i\gt-1\) keeps \(1+i\) positive, so that fractional powers of it exist.</p>
+<p><strong>Equation of value.</strong> To compare amounts paid at different dates, move each amount with (6.1) to one chosen date, the focal date, and add. With one constant rate the comparison does not depend on the focal date: moving every term from focal date \(t\) to focal date \(t'\) multiplies both sides of the equation by the same positive factor \((1+i)^{t'-t}\). An unknown rate in an equation of value is found as a root of the equation; it has no algebraic formula in general.</p>
+<p><strong>Bisection.</strong> To find a root of a continuous function on an interval at whose ends the function has opposite signs, evaluate it at the midpoint and keep the half on which the sign still changes. The root stays inside the interval, and the width halves at each step. The method stops when the width is below a tolerance, here \(10^{-12}\). It needs only the sign of the function, so it works for the fractional powers of this chapter.</p>
+<p><strong>Rounding.</strong> Every computation carries its intermediate values unrounded. Amounts are rounded to cents, growth factors are printed to six decimals, and rates are printed as percentages to four decimals, only where they are displayed. The lecture's own figures are quoted as its slides print them (−46.4%, 7.27%). A sum, difference or product of printed numbers can therefore differ from the printed result in the last digit: for example, the corrected estimate of the slide's example below adds 0.0180 percentage points to 7.2727% and is printed as 7.2908%, because the unrounded terms are 7.27273% and 0.01803%.</p>
+<p><strong>The running case.</strong> One investor holds an account in a fund. The external cash flows, the money that the investor adds or removes, and the account values are as follows; all are invented for this chapter.</p>
+<ul>
+<li>\(t=0\) (1 January): the investor deposits 10,000 dollars, so the account holds 10,000.</li>
+<li>\(t=1/4\) (1 April): the account is worth 11,000 just before the investor deposits 15,000, and 26,000 just after.</li>
+<li>\(t=3/4\) (1 October): the account is worth 23,400 just before the investor withdraws 6,000, and 17,400 just after.</li>
+<li>\(t=1\) (31 December): the account is worth 18,270.</li>
+</ul>
+<p>Between the cash-flow dates the account grows by the factors \(11{,}000/10{,}000=1.10\), \(23{,}400/26{,}000=0.90\) and \(18{,}270/17{,}400=1.05\). Figure 6.1 places these facts on one timeline. Two questions run through the chapter: at what annual rate did the investor's money grow, and how well did the fund perform? The formal model of the chapter is this timeline: an opening value, external cash flows at known dates, account values just before each cash flow, and a closing value. Every rate below is a different function of these quantities.</p>
+<figure>
+<svg viewBox="0 0 640 200" role="img" aria-labelledby="fig-case-title fig-case-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-case-title">The running case on one timeline</title>
+<desc id="fig-case-desc">A timeline from 1 January to 31 December. Deposits of 10,000 at t = 0 and 15,000 at t = 0.25 are drawn as arrows into the account; a withdrawal of 6,000 at t = 0.75 is drawn as an arrow out of the account; the closing value 18,270 is at t = 1. The growth factors 1.10, 0.90 and 1.05 are written over the three sub-periods. Under each cash-flow date the account value just before and just after the flow is written: 11,000 to 26,000 at t = 0.25 and 23,400 to 17,400 at t = 0.75. A dashed tick at t = 0.5 carries the value 24,700, used only for the linked rate.</desc>
+<g text-anchor="middle">
+<text x="80" y="24">deposit 10,000</text><text x="200" y="24">deposit 15,000</text><text x="440" y="24">withdraw 6,000</text><text x="560" y="24">value 18,270</text>
+<text x="140" y="74">× 1.10</text><text x="320" y="74">× 0.90</text><text x="500" y="74">× 1.05</text>
+</g>
+<g stroke="currentColor" stroke-width="1.5">
+<line x1="80" y1="32" x2="80" y2="104"/><line x1="200" y1="32" x2="200" y2="104"/><line x1="440" y1="46" x2="440" y2="114"/>
+<line x1="560" y1="32" x2="560" y2="104" stroke-dasharray="4 3"/>
+</g>
+<g fill="currentColor">
+<polygon points="75,100 85,100 80,110"/><polygon points="195,100 205,100 200,110"/><polygon points="435,46 445,46 440,36"/>
+</g>
+<line x1="40" y1="120" x2="610" y2="120" stroke="currentColor" stroke-width="1.5"/>
+<polygon points="610,116 620,120 610,124" fill="currentColor"/>
+<g stroke="currentColor"><line x1="80" y1="115" x2="80" y2="125"/><line x1="200" y1="115" x2="200" y2="125"/><line x1="440" y1="115" x2="440" y2="125"/><line x1="560" y1="115" x2="560" y2="125"/>
+<line x1="320" y1="112" x2="320" y2="128" stroke-dasharray="3 3"/></g>
+<g text-anchor="middle">
+<text x="80" y="142">1 Jan</text><text x="200" y="142">1 Apr</text><text x="320" y="142">1 Jul</text><text x="440" y="142">1 Oct</text><text x="560" y="142">31 Dec</text>
+<text x="80" y="160">t = 0</text><text x="200" y="160">t = 0.25</text><text x="320" y="160">t = 0.5</text><text x="440" y="160">t = 0.75</text><text x="560" y="160">t = 1</text>
+<text x="80" y="184">10,000</text><text x="200" y="184">11,000 → 26,000</text><text x="320" y="184">(24,700)</text><text x="440" y="184">23,400 → 17,400</text><text x="560" y="184">18,270</text>
+</g>
+</svg>
+<figcaption>Figure 6.1. The running case. Arrows into the timeline are deposits and the arrow out of it is the withdrawal. The bottom row gives the account value just before and just after each cash flow. The factors over the three sub-periods are the growth of the account between cash flows. The value at 1 July, in parentheses, is used only in the section on the linked rate; no cash flow occurs on that date.</figcaption>
+</figure>
+
+<h2 id="paradox">The mutual fund paradox <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=121s">L14 2:01</a></h2>
+<p>The lecture opens with a smaller version of the same conflict, which it calls the mutual fund paradox. A mutual fund pools the money of many investors; each investor's account rises and falls with the fund's investments. On 1 January an investor deposits 100 dollars, so the account holds 100. By 30 June the fund has doubled, and the account holds 200; the investor then deposits another 200, so the account holds 400. By 31 December the market has fallen by 50%, and the account holds 200.</p>
+<p>The slide gives two verdicts. The manager reasons from the fund's growth factors: the money doubled and then halved, \(2.0\times0.5=1.0\), so the fund broke even, 0%. The investor reasons from the cash: 300 dollars went in and 200 remain, so money was lost. The slide asks which of the two is right.</p>
+<p>The two statements measure different things, and each is a correct statement of what it measures. The manager's product of growth factors is the same for every account in the fund, whatever its deposits. The investor's loss of 100 dollars depends on the deposits: 200 of the 300 dollars paid in were in the fund only during the half-year in which it fell. Neither statement is yet a rate per year. The loss of 100 on 300 paid in, −33.33%, divides by money that was not all invested for the whole year, so it is not an annual rate. The next sections turn each verdict into a rate: the dollar-weighted rate for the investor and the time-weighted rate for the fund.</p>
+
+<h2 id="dwr">The dollar-weighted rate: an internal rate of return <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=255s">L14 4:15</a></h2>
+<p><strong>Question.</strong> At what constant annual rate would the investor's actual deposits and withdrawals, made on their actual dates, grow to the actual closing value? The answer is the <em>dollar-weighted rate</em> (DWR), which the slide also calls the internal rate of return (IRR) of the investor's cash flows. The slide's two properties follow from the question: the rate measures the investor's own experience, and it changes when the timing or the size of a deposit or withdrawal changes.</p>
+<p><strong>Notation.</strong> The account holds \(F_0\gt0\) at \(t=0\) and \(F_1\gt0\) at \(t=1\); the slide calls them the initial fund and the final fund. Between them the investor makes \(n\) external cash flows \(C_1,\dots,C_n\) at times \(0\lt t_1\lt\dots\lt t_n\lt1\). A deposit is positive, \(C_k\gt0\), and a withdrawal is negative, \(C_k\lt0\), as the lecture states. An external cash flow is money that the owner moves into or out of the account. Interest and dividends earned inside the account are not external cash flows; the GIPS standards use the same definition (<a href="https://www.gipsstandards.org/wp-content/uploads/2021/03/2020_gips_standards_firms.pdf">CFA Institute, GIPS for Firms 2020</a>, glossary, p. 75 (PDF p. 93)). The net contribution is \(C=C_1+\dots+C_n\).</p>
+<p><strong>Equation of value.</strong> Take the end of the year as the focal date. By (6.1), the opening value grows to \(F_0(1+i)\), and the cash flow \(C_k\) grows to \(C_k(1+i)^{1-t_k}\), because it is invested for the remaining \(1-t_k\) of the year. The dollar-weighted rate \(i_{\mathrm{DWR}}\) is the rate \(i\) for which these values add to the closing value:</p>
+\[
+F_0(1+i)+\sum_{k=1}^{n}C_k(1+i)^{1-t_k}=F_1 . \tag{6.2}
+\]
+<p>A withdrawal enters with its negative sign: it is money that no longer grows in the account. The slide writes the same equation as "present value of inflows equals present value of outflows", where the inflows to the fund are the opening value and the deposits and the outflows are the withdrawals and the closing value. Dividing (6.2) by \(1+i\) moves the focal date to \(t=0\), where the slide's second form reads</p>
+\[
+F_0+\sum_{k=1}^{n}C_kv^{t_k}=F_1v . \tag{6.3}
+\]
+<p>Equations (6.2) and (6.3) have the same roots, by the focal-date argument of the first section.</p>
+<p><strong>Exactly one root.</strong> Equation (6.2) always has at least one root: its left side minus \(F_1\) tends to \(-F_1\lt0\) as \(i\to-1\), because every exponent \(1-t_k\) is positive, and to \(+\infty\) as \(i\to\infty\), because the term \(F_0(1+i)\) grows fastest. It can have several. The following condition, satisfied by the running case and the lecture examples, guarantees exactly one. Count the opening value \(F_0\) as a deposit at \(t=0\) and the closing value \(F_1\) as a withdrawal at \(t=1\). <em>If every deposit is made before every withdrawal, then (6.2) has exactly one root \(i\gt-1\).</em></p>
+<p><em>Proof.</em> Let \(g(i)\) be the left side of (6.2) minus \(F_1\), so a root of (6.2) is a zero of \(g\). Choose a time \(\tau\) strictly after the last deposit and strictly before the first withdrawal; then \(0\lt\tau\lt1\), because \(F_0\) is a deposit at 0 and \(F_1\) a withdrawal at 1. Divide \(g\) by the positive number \((1+i)^{1-\tau}\):</p>
+\[
+h(i)=\frac{g(i)}{(1+i)^{1-\tau}}=F_0(1+i)^{\tau}+\sum_{k=1}^{n}C_k(1+i)^{\tau-t_k}-F_1(1+i)^{\tau-1}. \tag{6.4}
+\]
+<p>The functions \(g\) and \(h\) have the same zeros. Each term of \(h\) is increasing in \(i\) on \(i\gt-1\). A deposit made at \(t_k\lt\tau\) has \(C_k\gt0\) and a positive exponent \(\tau-t_k\), so its term increases; the term \(F_0(1+i)^\tau\) is of this kind. A withdrawal made at \(t_k\gt\tau\) has \(C_k\lt0\) and a negative exponent, so \((1+i)^{\tau-t_k}\) decreases and \(C_k(1+i)^{\tau-t_k}\) increases; the term \(-F_1(1+i)^{\tau-1}\) is of the same kind. So \(h\) is continuous and strictly increasing. As \(i\to-1\), the deposit terms tend to 0 and the withdrawal terms, including the closing-value term, tend to \(-\infty\), so \(h\to-\infty\). As \(i\to\infty\), the withdrawal terms tend to 0 and the deposit terms tend to \(\infty\), so \(h\to\infty\). A continuous, strictly increasing function that takes negative and positive values has exactly one zero. \(\blacksquare\)</p>
+<p>If a deposit follows a withdrawal, the argument fails, and (6.2) can have several roots even when \(F_0,F_1\gt0\). Take \(F_0=100\), a withdrawal of 280 at \(t=1/3\), a deposit of 247 at \(t=2/3\) and \(F_1=66\). With \(x=(1+i)^{1/3}\), equation (6.2) is \(100x^3-280x^2+247x-66=0\), and \(2\bigl(100x^3-280x^2+247x-66\bigr)=(2x-1)(10x-11)(10x-12)\), as expanding the right side shows. The roots are \(x=0.5\), \(1.1\) and \(1.2\), that is \(1+i=0.125\), \(1.331\) and \(1.728\): three rates, \(-87.5\%\), \(33.1\%\) and \(72.8\%\), each of which reproduces the closing value from the same cash flows. The number of roots counted with multiplicity is odd here because the left side of (6.2) minus \(F_1\) tends to \(-F_1\lt0\) as \(i\to-1\) and to \(+\infty\) as \(i\to\infty\). Under every root the account holds \(100x\), at most 120, on the date the 280 is withdrawn: the equation of value does not forbid a withdrawal larger than the balance, so this stream describes a borrower or a business, not a fund account. A rate is then not defined by the equation alone. The program at the end of the chapter tests the condition before it solves (6.2) and raises an error if it fails.</p>
+<p><strong>The running case.</strong> The deposits are at \(t=0\) and \(t=1/4\); the withdrawals are at \(t=3/4\) and \(t=1\). Every deposit precedes every withdrawal, so the rate is unique. Equation (6.2) reads</p>
+\[
+10{,}000(1+i)+15{,}000(1+i)^{3/4}-6{,}000(1+i)^{1/4}=18{,}270 .
+\]
+<p>With \(y=(1+i)^{1/4}\) it is the polynomial equation \(10{,}000y^4+15{,}000y^3-6{,}000y-18{,}270=0\), of degree 4 with no algebraic shortcut. Bisection on (6.4) with \(\tau=1/2\) gives \(i_{\mathrm{DWR}}=-3.6903\%\). Check: at \(i=0\) the left side is \(19{,}000\gt18{,}270\), and \(h\) is increasing, so the root is negative, as found. The investor's money shrank at 3.69% a year, measured on the dates the money was actually in the account.</p>
+<p><strong>Horizons other than one year.</strong> For a measurement period of \(T\) years, with cash flows at \(0\lt t_k\lt T\), the exponents in (6.2) become \(T\) and \(T-t_k\). The root is still an effective annual rate. Exercise 6 uses \(T=2\).</p>
+
+<h2 id="dwr-solve">Solving the paradox's equation of value <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=414s">L14 6:54</a></h2>
+<p>In the paradox, \(F_0=100\), one deposit \(C_1=200\) at \(t_1=1/2\), and \(F_1=200\). Equation (6.2) is</p>
+\[
+100(1+i)+200(1+i)^{1/2}=200 . \tag{6.5}
+\]
+<p>The half power suggests the slide's substitution \(x=\sqrt{1+i}\), with \(x\gt0\) because \(1+i\gt0\). Then \(1+i=x^2\), and (6.5) becomes \(100x^2+200x-200=0\), or after division by 100,</p>
+\[
+x^2+2x-2=0,\qquad x=\frac{-2\pm\sqrt{4+8}}{2}=-1\pm\sqrt3 .
+\]
+<p>Only \(x=\sqrt3-1=0.732051\) is positive; the other root, \(-1-\sqrt3\), cannot be a square root. Hence \(1+i=(\sqrt3-1)^2=4-2\sqrt3=0.535898\) and</p>
+\[
+i_{\mathrm{DWR}}=3-2\sqrt3=-46.4102\% .
+\]
+<p>The slide rounds \(x\) to 0.732 and prints \((0.732)^2=0.5358\) and \(i=-46.4\%\); the exact value is 0.535898, and the rounding does not change the three printed figures of the rate. Uniqueness also follows from the general condition: the one deposit precedes the one withdrawal (the closing value).</p>
+<p><strong>Interpretation.</strong> A constant rate of −46.41% a year, applied to 100 dollars for a year and to 200 dollars for half a year, produces the closing 200 dollars: \(100\times0.535898+200\times0.732051=53.59+146.41=200.00\). This is the investor's verdict as a rate. It is more negative than the loss on the money paid in, −33.33%, because the 200-dollar deposit was invested for only half the year: losing 100 dollars on money that averaged less than 300 dollars over the year is a larger loss per dollar-year. The lecture states the result as the investor having lost about 46.4% of the capital.</p>
+<p><strong>Check.</strong> The substitution works because the only fractional exponent is \(1/2\). Equation (6.2) is a quadratic in \(\sqrt{1+i}\) whenever every \(t_k\) is 0 or \(1/2\), and a polynomial in \((1+i)^{1/m}\) whenever every \(t_k\) is a multiple of \(1/m\), as in the running case with \(m=4\). Beyond degree 2 a numerical method such as bisection is the practical route.</p>
+
+<h2 id="twr">The time-weighted rate: linking sub-period returns <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=591s">L14 9:51</a></h2>
+<p><strong>Question.</strong> How much did the fund's investments grow, whatever the investor chose to add or remove? The lecture's reason for asking: the timing of deposits is the investor's decision, and a measure of the manager's work should not change with it. The slide defines the <em>time-weighted rate</em> (TWR) as the geometric mean of sub-period returns, a measure of the manager's performance that ignores the timing of external cash flows.</p>
+<p><strong>Procedure.</strong> The slide's two steps are: break the year into sub-periods at every cash flow, and compute the holding-period return of each sub-period from the fund value just before the next cash flow. With the notation of the previous section, the cash-flow dates \(t_1,\dots,t_n\) cut the year into \(n+1\) sub-periods. Let \(V_k\) be the account value just before the cash flow \(C_k\), for \(k=1,\dots,n\), and let \(V_{n+1}=F_1\). The account at the start of sub-period \(k\) holds \(S_1=F_0\) for the first sub-period and \(S_k=V_{k-1}+C_{k-1}\) for \(k\ge2\), the value just after the previous cash flow. The growth factor of sub-period \(k\) is</p>
+\[
+1+j_k=\frac{\text{value just before the next cash flow}}{\text{value at the start of the sub-period}}=\frac{V_k}{S_k},\qquad k=1,\dots,n+1. \tag{6.6}
+\]
+<p>The letter \(j_k\) is the slide's; in this chapter it always denotes the return of sub-period \(k\), not a rate per payment period. The time-weighted rate links the sub-periods by multiplication:</p>
+\[
+1+i_{\mathrm{TWR}}=(1+j_1)(1+j_2)\cdots(1+j_{n+1}). \tag{6.7}
+\]
+<p>The product is the growth over the year because the sub-periods follow one another and together cover exactly one year: one dollar invested at the start of the year and left in the fund grows by \(1+j_1\) in the first sub-period, by \(1+j_2\) in the second, and so on.</p>
+<p><strong>The paradox.</strong> The first sub-period runs from 1 January to 30 June: \(1+j_1=200/100=2\), with 200 the value before the deposit. The second runs from 1 July to 31 December and starts with the old 200 plus the new 200: \(1+j_2=200/400=0.5\). So \(1+i_{\mathrm{TWR}}=2\times0.5=1\) and \(i_{\mathrm{TWR}}=0\%\). The slide reads this as the manager having done the job neutrally. The lecture also draws the general case, a year cut into four sub-periods with factors \(1+j_1,\dots,1+j_4\) multiplied together.</p>
+<p><strong>Before the cash flow, not after.</strong> The numerator of (6.6) must be the value <em>before</em> the new money arrives, and the denominator the value <em>after</em> the previous cash flow. If the value after a deposit were used as the numerator, the deposit itself would count as growth: in the paradox, \(400/100=4\) would replace 2, and the product would be \(4\times0.5=2\), a "return" of 100% for a fund that broke even. Exercise 3 shows the same error on an account statement that lists values after each cash flow.</p>
+<p><strong>The running case.</strong> The three factors are \(11{,}000/10{,}000=1.10\), \(23{,}400/26{,}000=0.90\) and \(18{,}270/17{,}400=1.05\), so</p>
+\[
+1+i_{\mathrm{TWR}}=1.10\times0.90\times1.05=1.0395,\qquad i_{\mathrm{TWR}}=3.95\% .
+\]
+<p><strong>Why the cash flows drop out: unit values.</strong> A mutual fund is divided into units of equal value. An investor who deposits money buys units at the current unit value, and one who withdraws sells units at it. Let \(U(t)\) be the unit value and \(N(t)\) the number of units in the account, so the account is worth \(N(t)U(t)\). The number of units changes only at the cash-flow dates, so it is constant within each sub-period, and (6.6) becomes \(1+j_k=N\,U(t_k)/(N\,U(t_{k-1}))=U(t_k)/U(t_{k-1})\), with \(t_0=0\) and \(t_{n+1}=1\). The product (6.7) telescopes:</p>
+\[
+1+i_{\mathrm{TWR}}=\frac{U(t_1)}{U(0)}\cdot\frac{U(t_2)}{U(t_1)}\cdots\frac{U(1)}{U(t_n)}=\frac{U(1)}{U(0)} . \tag{6.8}
+\]
+<p>The time-weighted rate is the growth of one unit held for the whole year. It depends only on the unit values at the start and the end, so every account in the fund has the same time-weighted rate, whatever its deposits and withdrawals. In the running case, take \(U(0)=10\): the unit value is 11 on 1 April, 9.90 on 1 October and 10.395 on 31 December, and \(10.395/10=1.0395\). The investor buys 1,000 units, then \(15{,}000/11=1{,}363.64\) units, sells \(6{,}000/9.9=606.06\) units, and ends with 1,757.58 units, worth \(1{,}757.58\times10.395=18{,}270\) dollars. Formula (6.8) also shows that a valuation on a date without a cash flow leaves the time-weighted rate unchanged: it splits one ratio \(U(b)/U(a)\) into \(U(c)/U(a)\cdot U(b)/U(c)\). The program checks this with the 1 July value of Figure 6.1.</p>
+<p><strong>The geometric-mean reading.</strong> The slide calls the time-weighted rate a geometric mean of sub-period returns. The precise statement is this. The annual growth factor is the product (6.7); if the \(n+1\) sub-periods all have the same length \(1/(n+1)\) year, the growth factor per sub-period that would give the same annual growth is \(\bigl[\prod_k(1+j_k)\bigr]^{1/(n+1)}\), the geometric mean of the factors. For a measurement period of \(T\) years, the product of all the factors is the growth over \(T\) years, and the annual time-weighted rate is that product to the power \(1/T\), minus 1. Dividing a multi-year return by \(T\) instead is an error; Exercise 6 measures it.</p>
+<p><strong>Data needed.</strong> The two rates need different data. The dollar-weighted rate needs only the cash flows, their dates and the opening and closing values. The time-weighted rate also needs the account value at every cash-flow date; without it, (6.6) cannot be evaluated. The GIPS standards turn this contrast into requirements on valuation; the last section of the chapter gives them.</p>
+<p><strong>The lab's example.</strong> Problem 4 of the week 3 lab (<a href="https://www.youtube.com/watch?v=dkKCOiAnc4A&amp;t=637s">L15 10:37</a>) gives a fund of 100 on 1 January, a value of 120 on 1 July before a deposit of 80, and a value of 180 on 31 December. The slide's solution is \(1+j_1=120/100=1.20\), \(1+j_2=180/200=0.90\) and \(1+i_{\mathrm{TWR}}=1.08\), a time-weighted rate of 8%. The lab adds that this is the fund's performance, not the investor's. The investor's rate for the same account is computed in the next section.</p>
+
+<h2 id="verdict">Which rate answers which question <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=1059s">L14 17:39</a></h2>
+<p>The lecture's verdict table for the paradox sets the two rates side by side. The dollar-weighted rate, −46.4%, is the investor's measure: the logic is that the investor bought at a high level, the rate is sensitive to the timing of the cash flows, and it penalizes bad timing. The time-weighted rate, 0%, is the manager's measure: the fund broke even, the rate is sensitive only to market movements, and it is neutral to timing. This chapter states the same conclusion as two questions with two answers. The dollar-weighted rate answers "how did this investor's money grow?", and the time-weighted rate answers "how did the fund's investments grow?". The investor's closing balance is reproduced by the first rate, not by the second: \(100\times1.00+200\times1.00^{1/2}=300\ne200\).</p>
+<p><strong>The rule of thumb, and an exact rule.</strong> The slide adds a rule of thumb: if large deposits are made just before a crash, the dollar-weighted rate is below the time-weighted rate; if they are made just before a boom, it is above. For one cash flow the exact condition can be derived, and it shows what the words "crash" and "boom" must mean.</p>
+<p>Take one external cash flow \(C\ne0\) at time \(s\), \(0\lt s\lt1\), with sub-period growth factors \(1+j_1\) on \([0,s]\) and \(1+j_2\) on \([s,1]\), both positive. Then \(V_1=F_0(1+j_1)\), the account after the cash flow holds \(V_1+C\), assumed positive, and \(F_1=(V_1+C)(1+j_2)\). Write \(1+i_{\mathrm{TWR}}=(1+j_1)(1+j_2)\), and evaluate the function \(g\) of the uniqueness proof at \(i=i_{\mathrm{TWR}}\):</p>
+\[
+g(i_{\mathrm{TWR}})=F_0(1+j_1)(1+j_2)+C(1+i_{\mathrm{TWR}})^{1-s}-\bigl(F_0(1+j_1)+C\bigr)(1+j_2)=C\Bigl[(1+i_{\mathrm{TWR}})^{1-s}-(1+j_2)\Bigr]. \tag{6.9}
+\]
+<p>The terms in \(F_0\) cancel. A deposit precedes the closing value, and a withdrawal at \(s\) follows the opening value, so in both cases every deposit precedes every withdrawal, and \(h\) in (6.4) is strictly increasing with exactly one zero, \(i_{\mathrm{DWR}}\). Since \(g\) and \(h\) have the same sign, \(i_{\mathrm{DWR}}\lt i_{\mathrm{TWR}}\) exactly when \(g(i_{\mathrm{TWR}})\gt0\), and \(i_{\mathrm{DWR}}\gt i_{\mathrm{TWR}}\) exactly when \(g(i_{\mathrm{TWR}})\lt0\). The sign of the bracket in (6.9) is found with logarithms. Let \(\bar\delta_1=\ln(1+j_1)/s\) and \(\bar\delta_2=\ln(1+j_2)/(1-s)\) be the continuously compounded annual rates of the two sub-periods, the average forces of interest over them in the sense of Chapter 3 (section "From the force to the accumulation function"). Then \(\ln(1+i_{\mathrm{TWR}})=s\bar\delta_1+(1-s)\bar\delta_2\), and</p>
+\[
+\ln\bigl[(1+i_{\mathrm{TWR}})^{1-s}\bigr]-\ln(1+j_2)=(1-s)\bigl[s\bar\delta_1+(1-s)\bar\delta_2\bigr]-(1-s)\bar\delta_2=s(1-s)\bigl(\bar\delta_1-\bar\delta_2\bigr).
+\]
+<p>The bracket in (6.9) is therefore positive exactly when \(\bar\delta_1\gt\bar\delta_2\). The result, for one cash flow:</p>
+<ul>
+<li>for a deposit (\(C\gt0\)): \(i_{\mathrm{DWR}}\lt i_{\mathrm{TWR}}\) if and only if \(\bar\delta_2\lt\bar\delta_1\), that is, the sub-period after the deposit grows at a lower annual rate than the sub-period before it;</li>
+<li>for a withdrawal (\(C\lt0\)): \(i_{\mathrm{DWR}}\lt i_{\mathrm{TWR}}\) if and only if \(\bar\delta_2\gt\bar\delta_1\);</li>
+<li>in both cases \(i_{\mathrm{DWR}}=i_{\mathrm{TWR}}\) if and only if \(\bar\delta_1=\bar\delta_2\).</li>
+</ul>
+<p>The size of the cash flow does not affect the direction, only the size of the gap. The comparison is between the two sub-periods' annual rates, not between a sub-period's return and zero. A deposit before a fall of 10% in the second half of the year raises the dollar-weighted rate above the time-weighted rate if the first half fell by 30%: then \(\bar\delta_1=-0.7133\) is lower than \(\bar\delta_2=-0.2107\). A deposit before a rise of 10% lowers it if the first half rose by 30%. Exercise 4 computes both cases. The rule of thumb is correct when "crash" and "boom" mean a lower or a higher annual rate after the deposit than before it.</p>
+<p><strong>Checks.</strong> In the paradox, \(s=1/2\), \(\bar\delta_1=2\ln2=1.3863\) and \(\bar\delta_2=2\ln0.5=-1.3863\): a deposit before the weaker sub-period, so \(i_{\mathrm{DWR}}=-46.41\%\lt i_{\mathrm{TWR}}=0\%\), as computed. In the lab's example, \(\bar\delta_1=2\ln1.2=0.3646\) and \(\bar\delta_2=2\ln0.9=-0.2107\), so the deposit of 80 also lowers the dollar-weighted rate below 8%. Its value is exactly 0%: the closing value 180 equals the opening 100 plus the deposit 80, so \(i=0\) satisfies (6.2), \(100+80=180\), and by uniqueness it is the only root. The investor earned nothing on the account in a year in which the fund returned 8%. The program checks the rule on 88 combinations of two sub-period returns, three dates and a deposit or a withdrawal.</p>
+<p><strong>Equal rates.</strong> The equality case has a useful general form, for any number of cash flows. If the unit value grows at one constant rate \(r\) all year, \(U(t)=U(0)(1+r)^t\), then every amount in the account grows by \((1+r)^{1-t}\) from its date to the end of the year, so \(F_1=F_0(1+r)+\sum_kC_k(1+r)^{1-t_k}\), and \(i=r\) solves (6.2). When every deposit precedes every withdrawal, it is the only root, so \(i_{\mathrm{DWR}}=r\). By (6.8), \(i_{\mathrm{TWR}}=r\) as well. When the fund's growth does not vary within the year, the timing of the cash flows cannot matter, and the two rates agree. They differ only when the cash flows and the variation of the returns occur together.</p>
+<p><strong>The running case.</strong> With two cash flows, the exact rule above does not apply directly, but the same mechanism shows. The deposit of 15,000 came just before the sub-period with factor 0.90, and the withdrawal of 6,000 just before the sub-period with factor 1.05; both cash flows were followed by a sub-period that suited them less than the one before. The dollar-weighted rate, −3.69%, is 7.64 percentage points below the time-weighted rate, +3.95%.</p>
+
+<h2 id="exposure">Approximating the dollar-weighted rate: the simple-interest exposure method <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=1208s">L14 20:08</a></h2>
+<p><strong>Question.</strong> Finding the dollar-weighted rate exactly means solving a polynomial equation, as the slide says, by a numerical method or a calculator's IRR function. Is there a formula that gives the rate approximately, with no iteration? The lecture's answer is the simple-interest exposure method:</p>
+\[
+i_{\mathrm{DWR}}\approx i_{\mathrm{SI}}=\frac{I}{E},\qquad I=F_1-F_0-C,\qquad E=F_0+\sum_{k=1}^{n}C_k(1-t_k). \tag{6.10}
+\]
+<p>The net interest earned \(I\) is the closing value minus the opening value minus the net contributions: the part of the change in the account that the investor did not pay in. The exposure \(E\) counts the opening value for the whole year and each cash flow for the fraction of the year it is in the account; the slide's description is the weighted average amount of capital working in the fund during the year. Its unit is dollar-years. The letters \(I\) and \(E\) are the slide's; in this chapter they mean only the net interest and the exposure.</p>
+<p><strong>Derivation.</strong> The approximation is (6.2) with simple interest within the year in place of compound interest. Replace each factor \((1+i)^{1-t_k}\) by \(1+(1-t_k)i\), the growth of one unit over \(1-t_k\) of a year at the simple-interest rate \(i\). The factor \(1+i\) of the opening value is unchanged, because it covers exactly one year. Equation (6.2) becomes linear in \(i\):</p>
+\[
+F_0(1+i)+\sum_kC_k\bigl[1+(1-t_k)i\bigr]=F_1\quad\Longleftrightarrow\quad i\Bigl[F_0+\sum_kC_k(1-t_k)\Bigr]=F_1-F_0-\sum_kC_k ,
+\]
+<p>which is \(iE=I\), so \(i=I/E\) whenever \(E\ne0\); the exposure interpretation as a rate on invested capital requires \(E\gt0\). The exposure method is therefore exact for an account that credits simple interest within the year, and an approximation for a fund that compounds.</p>
+<p><strong>The slide's example.</strong> An account holds 1,000 dollars on 1 January, the investor deposits 500 on 1 April (\(t=1/4\)), and the account holds 1,600 on 31 December. Then \(I=1600-1000-500=100\), \(E=1000\times1+500\times(1-0.25)=1375\), and \(i_{\mathrm{SI}}=100/1375=7.2727\%\), which the slide prints as 7.27%. The exact dollar-weighted rate, the root of \(1000(1+i)+500(1+i)^{3/4}=1600\), is 7.2903%. The approximation is low by 0.0176 percentage points.</p>
+<p><strong>Size of the error.</strong> For a fraction \(u\) of a year, \(0\lt u\lt1\), the Taylor expansion of \((1+i)^u\) about \(i=0\) is \(1+ui+\tfrac12u(u-1)i^2+O(i^3)\). The simple-interest factor \(1+ui\) keeps the first two terms, so it exceeds the compound factor by \(\tfrac12u(1-u)i^2+O(i^3)\). With \(u=1-t_k\), \(u(1-u)=t_k(1-t_k)\). Let \(g\) be the left side of (6.2) minus \(F_1\), as before. At the approximate root, the simple-interest equation holds exactly, so</p>
+\[
+g(i_{\mathrm{SI}})=-\tfrac12Q\,i_{\mathrm{SI}}^2+O(i_{\mathrm{SI}}^3),\qquad Q=\sum_kC_kt_k(1-t_k).
+\]
+<p>The slope of \(g\) at \(i=0\) is \(g'(0)=F_0+\sum_kC_k(1-t_k)=E\), and for small rates the slope at \(i_{\mathrm{SI}}\) is close to it. Replace \(g\) near \(i_{\mathrm{SI}}\) by the straight line through \((i_{\mathrm{SI}},g(i_{\mathrm{SI}}))\) with slope \(E\) (one step of Newton's method). Its zero, \(i_{\mathrm{SI}}-g(i_{\mathrm{SI}})/E\), is the corrected estimate</p>
+\[
+i_{\mathrm{DWR}}\approx i_{\mathrm{SI}}+\frac{Q\,i_{\mathrm{SI}}^2}{2E}. \tag{6.11}
+\]
+<p>The error of the exposure method is of second order in the rate: it is proportional to \(i^2\), and it is largest for cash flows near the middle of the year, where \(t_k(1-t_k)\) reaches its maximum \(1/4\). For the slide's example, \(Q=500\times0.25\times0.75=93.75\), and (6.11) adds 0.0180 percentage points and gives 7.2908%, against the exact 7.2903%. For the paradox, \(I=200-100-200=-100\) and \(E=100+200\times0.5=200\), so \(i_{\mathrm{SI}}=-50\%\), against the exact −46.4102%: an error of 3.59 percentage points. The correction (6.11), with \(Q=200\times0.25=50\), gives −46.8750%, still 0.46 points away, because at \(|i|=50\%\) the omitted third-order terms are not small. The summary slide calls the approximation fast and robust. It is fast: it needs two sums and one division. Its accuracy depends on the size of the rate: 0.02 percentage points at 7%, 3.6 percentage points at −46%.</p>
+<p><strong>A one-sided bound.</strong> If every cash flow is a deposit and there is at least one, the exposure method never overstates the rate: \(i_{\mathrm{SI}}\le i_{\mathrm{DWR}}\), with equality only when the rate is 0. (With no cash flow inside the year, \(E=F_0\) and \(I=F_1-F_0\), and the two rates are equal at every rate.) The reason is that \((1+i)^u\le1+ui\) for \(0\lt u\lt1\) and \(i\gt-1\), with equality only at \(i=0\): the function \((1+i)^u\) is concave, since its second derivative \(u(u-1)(1+i)^{u-2}\) is negative, and a concave function lies below its tangent line at \(i=0\), which is \(1+ui\). With every \(C_k\gt0\), the simple-interest left side is therefore at least the compound one at every \(i\gt-1\). If \(i_{\mathrm{SI}}\le-1\), the bound holds because \(i_{\mathrm{DWR}}\gt-1\). Otherwise, at \(i_{\mathrm{SI}}\) the simple-interest equation holds, so \(g(i_{\mathrm{SI}})\le0\); and \(g\) itself is strictly increasing when every term is a deposit, so its zero \(i_{\mathrm{DWR}}\) is at or above \(i_{\mathrm{SI}}\). Both lecture examples obey the bound: \(7.2727\%\lt7.2903\%\) and \(-50\%\lt-46.41\%\). With withdrawals the bound need not hold.</p>
+<p><strong>The running case.</strong> \(I=18{,}270-10{,}000-(15{,}000-6{,}000)=-730\), and \(E=10{,}000+15{,}000\times0.75-6{,}000\times0.25=10{,}000+11{,}250-1{,}500=19{,}750\) dollar-years. So \(i_{\mathrm{SI}}=-730/19{,}750=-3.6962\%\), against the exact −3.6903%; the correction (6.11), with \(Q=15{,}000\times0.1875-6{,}000\times0.1875=1{,}687.5\), gives −3.6904%. At a rate near 4% in size the exposure method is within 0.006 percentage points.</p>
+
+<h2 id="withdrawals">Withdrawals in the exposure method <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=1485s">L14 24:45</a></h2>
+<p>The slide's trap alert is that a withdrawal reduces the exposure. A withdrawal of 200 dollars at \(t=0.6\) enters (6.10) as \(C_k=-200\), and its term in the exposure is \(-200\times(1-0.6)=-80\): the 200 dollars are not working in the fund for the last 0.4 of the year. The slide warns the reader to be careful with the signs in the denominator.</p>
+<p>The withdrawal changes the numerator as well, a point that follows from (6.10) but is not on the slide. The net contribution \(C\) includes the withdrawal, so \(I=F_1-F_0-C\) increases by 200 for a given closing value. To see both effects, add the slide's withdrawal to the slide's example and keep the closing value at 1,600; this combination is invented here. Then \(C=500-200=300\), \(I=1600-1000-300=300\), \(E=1375-80=1295\), and \(i_{\mathrm{SI}}=300/1295=23.1660\%\), against the exact 23.2556% from \(1000(1+i)+500(1+i)^{3/4}-200(1+i)^{0.4}=1600\). An account that reaches the same 1,600 after paying out 200 has earned much more than one that did not, and both the numerator and the denominator record that.</p>
+<p>In the running case the withdrawal of 6,000 at \(t=3/4\) enters \(C\) as \(-6{,}000\) and \(E\) as \(-1{,}500\), as computed in the previous section. The exposure stays positive whenever the withdrawals are not too large or too early; if \(E\le0\), \(I/E\) is not a rate on positive capital exposure, and the exact equation (6.2) must be used subject to its stated uniqueness condition.</p>
+
+<h2 id="linked">The linked internal rate of return <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=1568s">L14 26:08</a></h2>
+<p>The lecture's exam tip is that examinations occasionally ask for a "linked internal rate of return", a hybrid of the two rates. The year is divided into sub-periods at dates where the account is valued; within each sub-period the dollar-weighted rate \(i_k\) of that sub-period is computed, from its opening value, its cash flows and its closing value; and the sub-periods are linked as in (6.7):</p>
+\[
+1+i_{\mathrm{LIRR}}=(1+i_1)(1+i_2)\cdots . \tag{6.12}
+\]
+<p>Here \(i_k\) is the growth rate for the whole sub-period, not an annual rate. The slide's description is that the method accounts for the timing of cash flows within each sub-period and links the sub-periods fairly.</p>
+<p>Two limits locate the linked rate. If the valuation dates include every cash-flow date, each sub-period starts just after a cash flow and contains no other, so its equation of value is \(S_k(1+i_k)=V_k\), and \(i_k=j_k\): the linked rate is the time-weighted rate. If the only valuation dates are the start and the end of the year, there is one sub-period, and the linked rate is the dollar-weighted rate. With valuations at some dates and cash flows between them, the linked rate lies between the two extremes in what it measures: it removes the effect of cash flows across sub-periods, but not within them.</p>
+<p><strong>The running case.</strong> Suppose the fund reports values only at 30 June and 31 December, and the account is worth 24,700 dollars on 30 June (the value in parentheses in Figure 6.1, invented). In the first half-year, with time measured in half-years, the equation \(10{,}000(1+i_1)+15{,}000(1+i_1)^{1/2}=24{,}700\) gives \(i_1=-1.7111\%\). In the second half-year, \(24{,}700(1+i_2)-6{,}000(1+i_2)^{1/2}=18{,}270\) gives \(i_2=-1.9829\%\). By (6.12), \(1+i_{\mathrm{LIRR}}=0.982889\times0.980171\), so \(i_{\mathrm{LIRR}}=-3.6601\%\). Here the linked rate is close to the dollar-weighted rate, because both cash flows fall inside the sub-periods, where their timing still counts.</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The running case asked at what rate the investor's money grew and how well the fund performed. Table 6.1 collects the rates computed in the sections above for the same account.</p>
+<div class="table-wrap"><table>
+<caption>Table 6.1. The running case: one account, five measures. Rates per year, in percent to four decimals; intermediate values unrounded.</caption>
+<thead><tr><th scope="col">Measure</th><th scope="col">Data used</th><th scope="col">Formula</th><th scope="col">Value</th></tr></thead>
+<tbody>
+<tr><td>Loss on net money paid in (not a rate per year)</td><td>cash flows, closing value</td><td>\(I/(F_0+C)\)</td><td>−3.8421</td></tr>
+<tr><td>Dollar-weighted rate</td><td>cash flows, dates, closing value</td><td>root of (6.2)</td><td>−3.6903</td></tr>
+<tr><td>Exposure approximation</td><td>cash flows, dates, closing value</td><td>(6.10)</td><td>−3.6962</td></tr>
+<tr><td>Linked rate, valuations at 30 June and 31 December</td><td>as above, plus one valuation</td><td>(6.12)</td><td>−3.6601</td></tr>
+<tr><td>Time-weighted rate</td><td>values at every cash-flow date</td><td>(6.7)</td><td>+3.9500</td></tr>
+</tbody></table></div>
+<p>The investor's money shrank at 3.69% a year, and the fund's investments grew by 3.95% over the year. The first line of the table, \(-730/19{,}000=-3.8421\%\), divides by the net amount paid in as if all of it had been invested for the whole year; the 15,000 dollars deposited in April were in the account for 9 months, and the 6,000 withdrawn in October were not in it for the last 3, so that ratio is not a rate per year. The approximation differs from the exact dollar-weighted rate by 0.006 points; the linked rate differs from it by 0.03 points and from the time-weighted rate by 7.61 points.</p>
+<p>What generalizes is the procedure: list the external cash flows with their dates and signs; check that every deposit precedes every withdrawal before treating the dollar-weighted rate as unique; use the values just before each cash flow for the time-weighted rate; and state which rate answers which question. What is specific to the case is the sign of the gap, explained in the section on which rate answers which question: the investor's rate is below the fund's. Exercise 5 gives an account in the same fund whose withdrawal before a fall puts its dollar-weighted rate above the fund's.</p>
+
+<h2 id="implementation">Executable check of the rates and the running case</h2>
+<p>The program below implements (6.2) with the uniqueness condition and bisection on (6.4), the time-weighted rate (6.6)–(6.7), the exposure method (6.10), the corrected estimate (6.11) and the linked rate (6.12). Its inputs are set in the code: the paradox, the slide's exposure example, the same example with the slide's withdrawal added, the lab's problem 4 and the running case. It prints the rates used in the text and makes three checks that do not reuse the closed forms. (1) The paradox's dollar-weighted rate from bisection equals the exact \(3-2\sqrt3\) to the four printed decimals. (2) The running case's time-weighted rate is computed twice, without and with the 1 July valuation of Figure 6.1, as an exact fraction; the two results are equal, as (6.8) requires. (3) For one cash flow, the sign rule derived from (6.9) is asserted on a grid of 96 cases (sub-period returns of −40%, −10%, +10% and +50%, dates 1/4, 1/2 and 3/4, a deposit of 60 or a withdrawal of 40 on an opening value of 100); the 8 cases with \(\bar\delta_1=\bar\delta_2\) are skipped, and the other 88 pass.</p>
+<p>The functions raise <code>ValueError</code> if \(F_0\) or \(F_1\) is not positive, if the cash-flow times are not distinct, increasing and strictly inside \((0,1)\), if a deposit follows a withdrawal (the uniqueness condition fails), or if the function (6.4) does not change sign on the starting interval. The last line of output shows the error for a withdrawal followed by a deposit. The function <code>linked</code> assumes that no cash flow falls exactly on the extra valuation date; such a flow belongs to neither sub-period, and the function would omit it without an error. The time-weighted rate and the exposure method use <code>fractions.Fraction</code> and are exact; the bisection and the logarithms use floating point. The bisection starts from \([-1+10^{-9},100]\) and stops when the interval is shorter than \(10^{-12}\), after 47 halvings. Rates are printed to four decimals in percent. The program reads no files, writes only to standard output and uses the standard library only. The checks test the algebra and the arithmetic; they do not test whether the cash flows and values in a problem are recorded before or after each flow, which is a question about the data.</p>
+<pre><code class="language-python">from fractions import Fraction as Fr
+from math import log, sqrt
+
+
+def check(F0, flows, F1):
+    """Reject non-positive F0 or F1 and flow times outside (0, 1)."""
+    times = [t for t, _ in flows]
+    if F0 &lt;= 0 or F1 &lt;= 0 or times != sorted(set(times)):
+        raise ValueError("need F0, F1 &gt; 0 and distinct increasing times")
+    if any(not 0 &lt; t &lt; 1 for t in times):
+        raise ValueError("need flow times strictly inside (0, 1)")
+
+
+def exposure(F0, flows, F1):
+    """Net interest I, exposure E and the estimate I/E of (6.10)."""
+    check(F0, flows, F1)
+    net = F1 - F0 - sum(c for _, c in flows)
+    E = F0 + sum(c*(1 - t) for t, c in flows)
+    return net, E, net/E
+
+
+def second_order(F0, flows, F1):
+    """Estimate (6.11): I/E + Q (I/E)^2 / (2E)."""
+    _, E, i = exposure(F0, flows, F1)
+    Q = sum(c*t*(1 - t) for t, c in flows)
+    return i + Q*i*i/(2*E)
+
+
+def dwr(F0, flows, F1, tol=1e-12):
+    """Root of (6.2) by bisection on h(i) = g(i)/(1+i)^(1-tau)."""
+    check(F0, flows, F1)
+    flows = [(t, c) for t, c in flows if c != 0]
+    sg = [1] + [1 if c &gt; 0 else -1 for _, c in flows] + [-1]
+    if sum(a != b for a, b in zip(sg, sg[1:])) != 1:
+        raise ValueError("a deposit follows a withdrawal")
+    dep = [0] + [t for t, c in flows if c &gt; 0]
+    tau = (max(dep) + min([t for t, c in flows if c &lt; 0] + [1]))/2
+
+    def h(i):
+        x = 1 + i
+        return (F0*x**tau + sum(c*x**(tau - t) for t, c in flows)
+                - F1*x**(tau - 1))
+    lo, hi = -1 + 1e-9, 100.0
+    if h(lo) &gt;= 0 or h(hi) &lt;= 0:
+        raise ValueError("no sign change on [lo, hi]")
+    while hi - lo &gt; tol:
+        mid = (lo + hi)/2
+        lo, hi = (lo, mid) if h(mid) &gt; 0 else (mid, hi)
+    return (lo + hi)/2
+
+
+def twr(F0, before, flows, F1):
+    """(6.7): product over sub-periods of end value / start value."""
+    check(F0, flows, F1)
+    starts = [F0] + [v + c for v, (_, c) in zip(before, flows)]
+    g = Fr(1)
+    for a, b in zip(starts, list(before) + [F1]):
+        g *= Fr(b)/Fr(a)
+    return g - 1
+
+
+def linked(F0, flows, F1, tm, Vm):
+    """(6.12): DWR of [0, tm] and of [tm, 1], chained; Vm is F(tm)."""
+    a = [(t/tm, c) for t, c in flows if t &lt; tm]
+    b = [((t - tm)/(1 - tm), c) for t, c in flows if t &gt; tm]
+    return (1 + dwr(F0, a, Vm))*(1 + dwr(Vm, b, F1)) - 1
+
+
+def pct(x):
+    return f"{round(100*float(x), 4) + 0.0:.4f}%"
+
+
+def show(name, F0, flows, F1):
+    net, E, i = exposure(F0, flows, F1)
+    print(f"{name}: I = {net}, E = {E}, I/E = {pct(i)},"
+          f" (6.11) {pct(second_order(F0, flows, F1))},"
+          f" DWR {pct(dwr(F0, flows, F1))}")
+
+
+# 1. Lecture 14: the paradox, the exposure example, a withdrawal.
+p = [(Fr(1, 2), 200)]
+print("paradox: TWR", twr(100, [200], p, 200),
+      " exact DWR 3 - 2*sqrt(3) =", pct(3 - 2*sqrt(3)))
+show("paradox", 100, p, 200)
+show("slide", 1000, [(Fr(1, 4), 500)], 1600)
+show("withdrawal", 1000, [(Fr(1, 4), 500), (Fr(3, 5), -200)], 1600)
+# 2. Lecture 15, problem 4: 100, then 120 before a deposit of 80; 180.
+print("lab: TWR", twr(100, [120], [(Fr(1, 2), 80)], 180))
+show("lab", 100, [(Fr(1, 2), 80)], 180)
+# 3. Running case: values before each flow, then the end value.
+F0, F1 = 10000, 18270
+flows = [(Fr(1, 4), 15000), (Fr(3, 4), -6000)]
+T = twr(F0, [11000, 23400], flows, F1)
+T2 = twr(F0, [11000, 24700, 23400],
+         [flows[0], (Fr(1, 2), 0), flows[1]], F1)
+print(f"case: TWR {T} = {pct(T)}; with a 30 June valuation {pct(T2)}")
+show("case", F0, flows, F1)
+print("case: linked IRR", pct(linked(F0, flows, F1, Fr(1, 2), 24700)))
+# 4. Rule (6.9) for one flow, on a grid of sub-period returns.
+n = 0
+for j1 in (-0.4, -0.1, 0.1, 0.5):
+    for j2 in (-0.4, -0.1, 0.1, 0.5):
+        for s in (0.25, 0.5, 0.75):
+            for C in (60, -40):
+                d1, d2 = log(1 + j1)/s, log(1 + j2)/(1 - s)
+                if abs(d1 - d2) &lt; 1e-9:
+                    continue
+                F = (100*(1 + j1) + C)*(1 + j2)
+                gap = dwr(100, [(s, C)], F) - ((1 + j1)*(1 + j2) - 1)
+                assert (gap &lt; 0) == ((d1 &gt; d2) == (C &gt; 0))
+                n += 1
+print("rule (6.9) holds in", n, "cases")
+try:
+    dwr(100, [(0.3, -50), (0.6, 50)], 120)
+except ValueError as e:
+    print("ValueError:", e)
+</code></pre>
+<p>Run in a fresh interpreter (<code>python -I</code>, Python 3.13), the program prints:</p>
+<pre><code>paradox: TWR 0  exact DWR 3 - 2*sqrt(3) = -46.4102%
+paradox: I = -100, E = 200, I/E = -50.0000%, (6.11) -46.8750%, DWR -46.4102%
+slide: I = 100, E = 1375, I/E = 7.2727%, (6.11) 7.2908%, DWR 7.2903%
+withdrawal: I = 300, E = 1295, I/E = 23.1660%, (6.11) 23.2608%, DWR 23.2556%
+lab: TWR 2/25
+lab: I = 0, E = 140, I/E = 0.0000%, (6.11) 0.0000%, DWR 0.0000%
+case: TWR 79/2000 = 3.9500%; with a 30 June valuation 3.9500%
+case: I = -730, E = 19750, I/E = -3.6962%, (6.11) -3.6904%, DWR -3.6903%
+case: linked IRR -3.6601%
+rule (6.9) holds in 88 cases
+ValueError: a deposit follows a withdrawal
+</code></pre>
+<p>The first two lines confirm the paradox: a time-weighted rate of exactly 0 and a dollar-weighted rate equal to \(3-2\sqrt3\). The next lines give the exposure estimate, the corrected estimate (6.11) and the exact rate for each example; in the example with a withdrawal the correction overshoots the exact rate by 0.005 points, because the correction omits higher-order terms, whose effect is visible at this rate of about 23%. The lab's account has \(I=0\), so all three rates are 0, and its time-weighted rate is the exact fraction \(2/25=8\%\). The running case's time-weighted rate is the exact fraction \(79/2000\) with and without the 1 July valuation. Two failure tests show what the checks detect. If the numerator of (6.6) is taken after the cash flow (replace <code>list(before)</code> by the values after each flow), the paradox's time-weighted rate becomes 1, that is 100%, instead of 0. If the sign rule is written with the inequality between \(\bar\delta_1\) and \(\bar\delta_2\) reversed, the assertion fails at the first grid case.</p>
+
+<h2 id="limits">What these rates establish and what they do not <a class="timestamp" href="https://www.youtube.com/watch?v=b9iovZzyDH4&amp;t=1646s">L14 27:26</a></h2>
+<p>The lecture's summary assigns each rate a purpose: the dollar-weighted rate, from an equation of value, for assessing the growth of the investor's wealth; the time-weighted rate, from linking sub-periods, for assessing the manager's skill; the exposure method as a fast approximation. The results of this chapter make those assignments precise. The dollar-weighted rate (6.2) is a definition: the constant compound rate that reproduces the investor's closing value from the actual dated cash flows; it is unique when every deposit precedes every withdrawal. The time-weighted rate (6.7) is a definition as well; by (6.8) it is the growth of one fund unit, the same for every account. The comparison (6.9) is a theorem for one cash flow. The exposure method (6.10) is exact for simple interest within the year and an approximation, with error of order \(i^2\) given by (6.11), for compound interest.</p>
+<p>The summary slide also states that the time-weighted rate is the industry standard for mutual funds under GIPS. The standards confirm this as a default with exceptions. A firm that claims compliance must present time-weighted returns; it may present money-weighted returns, the standards' term for a return of the dollar-weighted kind, only if it controls the external cash flows into the portfolios and the fund is closed-end, has a fixed life or a fixed commitment, or holds illiquid investments as a significant part of its strategy (GIPS for Firms 2020, provision 1.A.35, pp. 5–6 (PDF pp. 23–24)).</p>
+<p>A <em>pooled fund</em> is a fund whose ownership interests may be held by more than one investor (glossary, p. 79 (PDF p. 97)); a mutual fund is one. The subscriptions and redemptions of a pooled fund are the deposits and withdrawals of its investors. In the glossary an <em>open-end fund</em> is a pooled fund in which the number of investors is not fixed and the fund is open for subscriptions and/or redemptions (p. 78 (PDF p. 96)), and a <em>closed-end</em> fund is a pooled fund that is not open for subscriptions and/or redemptions (p. 73 (PDF p. 91)). A <em>fixed life</em> is a predetermined, finite investment time horizon; a <em>fixed commitment</em> is a predetermined amount of committed capital, that is, of capital pledged by investors and typically drawn down over a period of time; <em>illiquid investments</em> are investments that may be difficult to sell without a price reduction or that cannot be sold quickly for lack of a market or of willing investors (pp. 73 and 76 (PDF pp. 91 and 94)). A <em>composite</em> is an aggregation of portfolios managed according to a similar investment mandate, objective or strategy (p. 73 (PDF p. 91)). The glossary defines the time-weighted return as a period-by-period return that reflects the change in value and removes the effect of external cash flows (p. 83 (PDF p. 101)), and the money-weighted return as a return that reflects the change in value and the timing and size of external cash flows (p. 78 (PDF p. 96)).</p>
+<p>The condition on control matches the reasoning of the lecture: a rate that responds to the timing of cash flows measures the manager only when the manager chooses that timing. In an open-end mutual fund investors choose their subscriptions and redemptions. For the fund in Exercise 5(d), the manager chooses when to draw the pledged capital; this explicit assumption supplies the control condition. A fund's closed-end structure and committed capital alone do not establish who chooses those dates.</p>
+<p>The rates stop answering their questions in identifiable places. The time-weighted rate needs a valuation at every cash-flow date; with valuations at only some of those dates, the linked rate (6.12) retains the timing effect of flows inside each sub-period.</p>
+<p>For time-weighted returns of portfolios in composites other than private market investment portfolios, GIPS requires valuation at least monthly, as of calendar month end or the last business day of the month, and at every large cash flow. If daily returns are not calculated, sub-period returns are calculated at large flows and returns adjust for daily-weighted flows that are not large (provisions 2.A.23 and 2.A.24, p. 11 (PDF p. 29)). The excluded category includes illiquid, non-publicly traded investments such as direct property and infrastructure (glossary, p. 80 (PDF p. 98)); its separate valuation rules are outside this chapter's scope.</p>
+<p>For a pooled fund that is not included in a composite and presents time-weighted returns, the standards require valuation whenever there are subscriptions or redemptions, sub-period returns at those dates, and geometric linking of the periodic and sub-period returns (provisions 2.A.25 c and 2.A.26 c and d, pp. 11–12 (PDF pp. 29–30)); for money-weighted returns they require valuation at least annually and at the end of every period for which performance is calculated (provision 2.A.28, p. 12 (PDF p. 30)).</p>
+<p>The dollar-weighted equation always has at least one root, and it can have several when a deposit follows a withdrawal; the uniqueness condition must be checked. Both rates assume that every cash flow and every value is known exactly at its date; the month-fraction convention of this chapter ignores day counts. Neither rate says why the fund grew: the time-weighted rate measures the fund's growth over the year, which includes the market's movement as well as the manager's decisions, and a judgment about skill needs a comparison with a benchmark, which this chapter does not treat. The Society of Actuaries Exam FM syllabus of October 2026 lists the yield rate or rate of return among the terms of its topic on general cash flows and portfolios (p. 5); it does not name the dollar-weighted or the time-weighted method.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive).</strong> (a) Derive the exposure formula (6.10) from (6.2) by replacing compound interest within the year by simple interest, and state the condition under which the formula is defined. (b) Derive the corrected estimate (6.11). (c) An account holds 5,000 dollars on 1 January, the owner deposits 2,000 on 1 May (\(t=1/3\)), and the account holds 7,600 on 31 December. Compute \(i_{\mathrm{SI}}\), the estimate (6.11) and the exact dollar-weighted rate, and say whether the bound \(i_{\mathrm{SI}}\le i_{\mathrm{DWR}}\) applies. Give rates in percent to four decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) In (6.2), replace \((1+i)^{1-t_k}\) by \(1+(1-t_k)i\). The equation \(F_0(1+i)+\sum_kC_k[1+(1-t_k)i]=F_1\) collects to \(i[F_0+\sum_kC_k(1-t_k)]=F_1-F_0-\sum_kC_k\), that is \(iE=I\). It has the solution \(i=I/E\) when \(E\ne0\); it is meaningful as a rate when \(E\gt0\), since \(E\) is the amount of capital in the account weighted by time.</p>
+<p>(b) Let \(g(i)=F_0(1+i)+\sum_kC_k(1+i)^{1-t_k}-F_1\). For \(u=1-t_k\), \((1+i)^u=1+ui-\tfrac12u(1-u)i^2+O(i^3)\), so \(g(i)=[iE-I]-\tfrac12Qi^2+O(i^3)\) with \(Q=\sum_kC_kt_k(1-t_k)\), since \(u(1-u)=t_k(1-t_k)\). At \(i_{\mathrm{SI}}\) the bracket is 0, so \(g(i_{\mathrm{SI}})\approx-\tfrac12Qi_{\mathrm{SI}}^2\). With \(g'(0)=E\), one Newton step gives \(i_{\mathrm{SI}}-g(i_{\mathrm{SI}})/E\approx i_{\mathrm{SI}}+Qi_{\mathrm{SI}}^2/(2E)\).</p>
+<p>(c) \(I=7600-5000-2000=600\); \(E=5000+2000\times\tfrac23=6{,}333.33\); \(i_{\mathrm{SI}}=600/6{,}333.33=9.4737\%\). \(Q=2000\times\tfrac13\times\tfrac23=444.44\), and (6.11) gives \(9.4737\%+444.44\times0.094737^2/(2\times6{,}333.33)=9.4737\%+0.0315\%=9.5052\%\). The exact rate, the root of \(5000(1+i)+2000(1+i)^{2/3}=7600\) by bisection, is 9.5041%. The only cash flow is a deposit, so the bound applies, and indeed \(9.4737\%\lt9.5041\%\).</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> An account holds 200 on 1 January. On 1 July, just before a deposit of 100, it holds 230. On 31 December it holds 312. Let \(X\) be the time-weighted rate for the year and \(Y\) the dollar-weighted rate computed by the simple-interest exposure method. Calculate \(X-Y\), in percentage points, rounded to two decimals, with no intermediate rounding. Choose the closest answer: (A) 0.00 (B) 3.93 (C) 4.73 (D) 8.73 (E) 51.20.</p>
+<details><summary>Solution</summary>
+<p>Time-weighted: \(1+j_1=230/200=1.15\); the second sub-period starts with \(230+100=330\), so \(1+j_2=312/330=0.945455\); \(1+X=1.15\times0.945455=1.087273\), \(X=8.7273\%\). Exposure: \(I=312-200-100=12\), \(E=200+100\times0.5=250\), \(Y=12/250=4.80\%\). So \(X-Y=3.93\) points: answer (B). (The exact dollar-weighted rate is 4.8113%, which gives 3.92; the question names the exposure method.) The deposit came before the weaker sub-period, so \(Y\lt X\), as the rule of the verdict section predicts.</p>
+<p>Each wrong choice comes from a specific error. (A) assumes the two rates are always equal. (C) divides \(I\) by the 300 paid in, without weighting the deposit by its half year: \(8.73-4.00\). (D) is \(X\) alone: \(Y\) is forgotten. (E) starts the second sub-period at 230 instead of 330, so that \(1+X=1.15\times312/230=1.56\) and \(56.00-4.80=51.20\).</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> An account statement lists: 1 January, value 20,000; 1 May (\(t=1/3\)), deposit 4,000, value 26,000; 1 September (\(t=2/3\)), withdrawal 5,000, value 19,800; 31 December, value 20,592. The statement does not say whether each value is recorded before or after the cash flow on its date. (a) Compute the growth of the account in each third of the year under each reading, and say which reading is plausible. (b) Compute the time-weighted rate correctly, and the value a student gets by treating the listed values as values before the cash flows. (c) Compute the dollar-weighted rate, and say whether it depends on the before-or-after question. Give rates in percent to four decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) If 26,000 were the value before the deposit, the account would have grown by 30% in four months and then held 30,000; if 19,800 were the value before the withdrawal, it would then have fallen from 30,000 to 19,800, by 34%, in four months, and risen to 20,592 from 14,800, by 39%, in the last four. Read as values after the cash flows, the values before them are \(26{,}000-4{,}000=22{,}000\) and \(19{,}800+5{,}000=24{,}800\), and the sub-period changes are +10%, −4.6% and +4%. The statement's own data do not prove which reading is intended; the realistic sizes of the second reading suggest it, and the statement should be checked against the fund's records before the rate is computed. Assume the second reading.</p>
+<p>(b) Correct: \(1+j_1=22{,}000/20{,}000=1.10\), \(1+j_2=24{,}800/26{,}000=0.953846\), \(1+j_3=20{,}592/19{,}800=1.04\); the product is 1.091200, so \(i_{\mathrm{TWR}}=9.1200\%\). Student: \(26{,}000/20{,}000=1.30\), \(19{,}800/30{,}000=0.66\), \(20{,}592/14{,}800=1.391351\); the product is 1.193779, a "rate" of 19.3779%, more than twice the correct value, because the deposit is counted as growth and the withdrawal as a loss that is then recovered.</p>
+<p>(c) The dollar-weighted rate uses only the cash flows, their dates and the opening and closing values, which the statement gives without ambiguity. Equation (6.2) is \(20{,}000(1+i)+4{,}000(1+i)^{2/3}-5{,}000(1+i)^{1/3}=20{,}592\); every deposit precedes every withdrawal, so the root is unique; bisection gives \(i_{\mathrm{DWR}}=7.5781\%\). It does not depend on the before-or-after question. The exposure method gives \(I=20{,}592-20{,}000+1{,}000=1{,}592\), \(E=20{,}000+4{,}000\times\tfrac23-5{,}000\times\tfrac13=21{,}000\), and \(7.5810\%\).</p>
+</details>
+<p><strong>Exercise 4 (counterexample and proof).</strong> (a) An account holds 1,000 on 1 January; the fund falls by 30% by 30 June; the owner deposits 1,000 on 1 July; the fund falls by 10% in the second half-year. The deposit is made just before a fall. Compute both rates and compare with the rule of thumb. (b) Repeat with a rise of 30% and then a rise of 10%. (c) Prove the withdrawal case of the rule derived from (6.9): for one withdrawal, \(i_{\mathrm{DWR}}\lt i_{\mathrm{TWR}}\) if and only if \(\bar\delta_2\gt\bar\delta_1\). Give rates in percent to four decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) \(V_1=700\), the account holds 1,700 after the deposit, and \(F_1=1{,}530\). \(1+i_{\mathrm{TWR}}=0.70\times0.90=0.63\), so \(i_{\mathrm{TWR}}=-37.0000\%\). The dollar-weighted rate solves \(1000(1+i)+1000(1+i)^{1/2}=1530\); with \(x=\sqrt{1+i}\), \(x^2+x-1.53=0\), \(x=(-1+\sqrt{7.12})/2=0.834166\), \(1+i=0.695834\), \(i_{\mathrm{DWR}}=-30.4166\%\). The deposit was made before a fall, yet \(i_{\mathrm{DWR}}\gt i_{\mathrm{TWR}}\). The exact rule explains it: \(\bar\delta_1=2\ln0.7=-0.7133\lt\bar\delta_2=2\ln0.9=-0.2107\); the sub-period after the deposit was better than the one before.</p>
+<p>(b) \(V_1=1{,}300\), \(F_1=2{,}300\times1.10=2{,}530\). \(i_{\mathrm{TWR}}=1.3\times1.1-1=43.0000\%\). With \(x=\sqrt{1+i}\), \(x^2+x-2.53=0\), \(x=(-1+\sqrt{11.12})/2=1.167333\), \(i_{\mathrm{DWR}}=36.2667\%\). The deposit was made before a rise, yet \(i_{\mathrm{DWR}}\lt i_{\mathrm{TWR}}\), because \(\bar\delta_1=2\ln1.3=0.5247\gt\bar\delta_2=2\ln1.1=0.1906\).</p>
+<p>(c) With \(C\lt0\), the uniqueness condition holds (the opening value precedes the withdrawal and the closing value), so \(h\) in (6.4) is strictly increasing with the single zero \(i_{\mathrm{DWR}}\), and \(i_{\mathrm{DWR}}\lt i_{\mathrm{TWR}}\) exactly when \(g(i_{\mathrm{TWR}})\gt0\). By (6.9), \(g(i_{\mathrm{TWR}})=C[(1+i_{\mathrm{TWR}})^{1-s}-(1+j_2)]\). Since \(C\lt0\), this is positive exactly when the bracket is negative, and the logarithm computation of the verdict section shows that the bracket has the sign of \(s(1-s)(\bar\delta_1-\bar\delta_2)\). So \(g(i_{\mathrm{TWR}})\gt0\) if and only if \(\bar\delta_1\lt\bar\delta_2\).</p>
+</details>
+<p><strong>Exercise 5 (judgment).</strong> A fund's unit value is 1.00 on 1 January, 1.20 on 1 July and 1.08 on 31 December. Investor A buys 1,000 dollars of units on 1 January and does nothing else. Investor B buys 1,000 on 1 January and another 1,000 on 1 July. Investor C buys 1,000 on 1 January and sells 600 on 1 July. (a) Compute each investor's time-weighted and dollar-weighted rates. (b) Which rate should the fund publish as its performance, and why? (c) Investor B asks whether adding money in July was a good decision. Which rate answers that, and what is the answer? (d) A fund's investors pledge fixed amounts (committed capital, in the GIPS sense of the last section), and the manager draws the money on dates it chooses; the fund takes no other subscriptions or redemptions. Under the GIPS provision 1.A.35, may it present a money-weighted return, and why does that fit the reasoning of this chapter? Give rates in percent to four decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) By (6.8), all three time-weighted rates equal \(1.08/1.00-1=8.0000\%\). A: no cash flow, \(1000(1+i)=1080\), \(i_{\mathrm{DWR}}=8.0000\%\). B: units \(1000+1000/1.2=1{,}833.33\), closing value \(1{,}833.33\times1.08=1{,}980\); \(1000(1+i)+1000(1+i)^{1/2}=1980\) gives \(i_{\mathrm{DWR}}=-1.3318\%\). C: units \(1000-600/1.2=500\), closing value 540; \(1000(1+i)-600(1+i)^{1/2}=540\) gives \(i_{\mathrm{DWR}}=19.6235\%\). The unit value grew at \(\bar\delta_1=2\ln1.2=0.3646\) in the first half and \(\bar\delta_2=2\ln0.9=-0.2107\) in the second, so B's deposit lowers B's rate and C's withdrawal raises C's, as the rule derived from (6.9) predicts.</p>
+<p>(b) The time-weighted rate, 8%. It is the growth of one unit, the same for every investor, and it does not change with decisions the fund does not make: A, B and C hold the same fund and get three different dollar-weighted rates. This is also the GIPS default (provision 1.A.35).</p>
+<p>(c) The dollar-weighted rate, compared with a benchmark of no action. B's rate is −1.3318%, against 8% for A, who did not add money. Measured by the dollar-weighted rate, the July deposit lowered B's rate by 9.33 percentage points; in dollars, B's second 1,000 became 900.</p>
+<p>(d) Yes, if the firm claims compliance: the firm controls the external cash flows (it chooses the draw dates), and the fund has a fixed commitment and is closed-end in the glossary's sense, which are two of the four characteristics of which 1.A.35 requires one. A rate that responds to the timing of cash flows then measures a decision the manager made, which is the condition under which this chapter's reasoning assigns the dollar-weighted rate to the manager.</p>
+</details>
+<p><strong>Exercise 6 (two years, and a trap).</strong> An account holds 50,000 dollars at \(t=0\). At \(t=1\) it holds 54,000 just before the owner deposits 10,000. At \(t=2\) it holds 66,560. (a) Compute the annual time-weighted rate over the two years. (b) A student divides the two-year time-weighted return by 2. What does the student get, and why is it wrong? (c) Compute the annual dollar-weighted rate over the two years exactly. (d) Compute the simple-interest estimate with exposure measured in dollar-years, and compare. Give rates in percent to four decimals.</p>
+<details><summary>Solution</summary>
+<p>(a) \(1+j_1=54{,}000/50{,}000=1.08\) and \(1+j_2=66{,}560/64{,}000=1.04\). The two-year growth factor is \(1.1232\), and the annual rate is \(\sqrt{1.1232}-1=5.9811\%\): one dollar growing at 5.9811% a year for two years grows by the same factor as the fund.</p>
+<p>(b) \(12.32\%/2=6.1600\%\). It treats the two-year growth as simple interest: \(1.0616^2=1.1270\), not 1.1232. The annual rate must be the square root of the growth factor, the geometric mean of the two annual factors.</p>
+<p>(c) With \(T=2\), (6.2) reads \(50{,}000(1+i)^2+10{,}000(1+i)=66{,}560\). The equation is \(5(1+i)^2+(1+i)-6.656=0\), so \(1+i=(-1+\sqrt{1+133.12})/10=1.058102\) (the other root is negative), and \(i_{\mathrm{DWR}}=5.8102\%\). It is below the time-weighted rate because the deposit preceded the weaker year (4% after 8%).</p>
+<p>(d) \(I=66{,}560-50{,}000-10{,}000=6{,}560\), and \(E=50{,}000\times2+10{,}000\times1=110{,}000\) dollar-years, so the estimate is \(6{,}560/110{,}000=5.9636\%\) a year, 0.15 points above the exact rate. Over two years the opening value's factor \((1+i)^2\) is also replaced by the simple factor \(1+2i\), which is below it for \(i\ne0\); the one-sided bound of the exposure section, which assumed a horizon of one year, does not apply, and here the estimate is too high.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Recordings: <a href="https://www.youtube.com/watch?v=b9iovZzyDH4">Lecture 14, Dollar-Weighted vs. Time-Weighted Rates</a>; <a href="https://www.youtube.com/watch?v=dkKCOiAnc4A">Lecture 15, Week 3 Problem Solving Lab</a> (problem 4); NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras.</li>
+<li>CFA Institute, <a href="https://www.gipsstandards.org/wp-content/uploads/2021/03/2020_gips_standards_firms.pdf"><em>Global Investment Performance Standards (GIPS) for Firms</em>, 2020</a>. Time-weighted returns required unless the firm controls the external cash flows and the fund is closed-end, fixed-life, fixed-commitment or illiquid (provision 1.A.35, pp. 5–6, PDF pp. 23–24); for time-weighted returns of portfolios in composites excluding private market investment portfolios, valuation at least monthly as of month end or the last business day and at large cash flows; sub-period returns at large flows and daily-weighted adjustment for non-large flows if daily returns are not calculated (2.A.23–2.A.24, p. 11, PDF p. 29); valuation at subscriptions and redemptions for pooled funds not included in a composite (2.A.25, p. 11, PDF p. 29); sub-period returns at subscriptions and redemptions and geometric linking for those pooled funds, valuation for money-weighted returns (2.A.26, 2.A.28, p. 12, PDF p. 30); glossary entries closed-end, committed capital and composite (p. 73, PDF p. 91), external cash flow (p. 75, PDF p. 93), fixed commitment, fixed life and illiquid investments (p. 76, PDF p. 94), money-weighted return and open-end fund (p. 78, PDF p. 96), pooled fund (p. 79, PDF p. 97), private market investments (p. 80, PDF p. 98) and time-weighted return (p. 83, PDF p. 101).</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam, October 2026</em> syllabus</a>. Topic 5, general cash flows, portfolios and asset liability management: yield rate/rate of return among the terms to define (p. 5).</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-05-unknown-time-and-unknown-rate.html">Previous available chapter</a><a href="index.html">Lecture index</a><a rel="next" href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html">Next available chapter</a></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>

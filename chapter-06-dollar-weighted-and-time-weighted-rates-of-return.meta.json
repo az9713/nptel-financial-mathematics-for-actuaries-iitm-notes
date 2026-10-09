@@ -1,0 +1,316 @@
+{
+  "chapter": 6,
+  "title": "Dollar-weighted and time-weighted rates of return",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 3 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "b9iovZzyDH4",
+      "lecture": "Lecture 14",
+      "media_sha256": "b3a407833029bbc7d0ab8b612ad1de9e3669d4b5732fa072c043c02364a89f1e",
+      "duration_seconds": 1736,
+      "transcript_first_start_seconds": 11.84,
+      "transcript_last_end_seconds": 1732.56
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "dkKCOiAnc4A",
+      "lecture": "Lecture 15",
+      "kind": "lab",
+      "media_sha256": "308f0a34745b54f50dc32441be4c2b7c903b610de96a19dc10b7b7bb5e2f1fbe",
+      "duration_seconds": 1056,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1051.6,
+      "used_for": "Problem 4 (performance measurement; slides f0023 question, f0026 solution; transcript 637-772 s): fund 100 on 1 January, 120 on 1 July before a deposit of 80, 180 on 31 December, TWR (1.20)(0.90) = 1.08, 8%. Reported in the section on the time-weighted rate with an L15 10:37 link; the chapter adds the dollar-weighted rate of the same account (exactly 0%) in the verdict section and checks both in the code. Exercise 2 is original and was inspired by the problem's form (one mid-year deposit), with different numbers. Problems 1 (d to i(12)), 2 (drop payment), 3 (variable force) and 5 (interpolation for i) belong to chapters 2, 5, 3 and 5 and are not used. Read: the full transcript (0-1052 s)."
+    }
+  ],
+  "frames_viewed": {
+    "b9iovZzyDH4": [
+      "f0001",
+      "f0004",
+      "f0008",
+      "f0013",
+      "f0020",
+      "f0025",
+      "f0030",
+      "f0034",
+      "f0040",
+      "f0046",
+      "f0050",
+      "f0052",
+      "f0055",
+      "f0057",
+      "f0058"
+    ],
+    "dkKCOiAnc4A": [
+      "f0001",
+      "f0023",
+      "f0026"
+    ]
+  },
+  "source_uncertainties": [
+    "Contact sheets scanned in full: L14 s01-s03 (58 frames, f0001-f0058), L15 s02 (f0021-f0034). Full frames listed in frames_viewed. No slide was unreadable; no frame was extracted with ffmpeg.",
+    "Durations: transcript.json media_duration gives 1736 s (Lecture 14) and 1056 s (Lecture 15); source-manifest.json gives 1736 s and 1057 s. This file uses the transcript.json values. Every timestamp in the chapter (largest L14 27:26 = 1646 s; L15 10:37 = 637 s) lies inside both.",
+    "Instructor: the title slides of Lectures 14 and 15 (f0001 of each, viewed at full size) name Prof. Neelesh S. Upadhye, IIT Madras; the footers repeat the name. No other presenter is named in the frames viewed. Lecture 14 has 14 slides (footer 'n / 14'), Lecture 15 has 16.",
+    "Reference-mapping box on the Lecture 14 roadmap slide (f0004): Broverman section 5.2, Chan & Tse section 4.2. Slide fact; the books are not open and are not cited.",
+    "Caption errors corrected from the slides (paraphrased): the substitution is spoken once as setting 1 + i equal to the square root of v, where the slide (f0020) has x = sqrt(1 + i); 'Groverman' is the caption spelling of Broverman. The captions call the two methods DWR and TWR, as the slides do.",
+    "Slide f0020 rounds x = sqrt(3) - 1 to 0.732 and prints (0.732)^2 = 0.5358 and i = -46.4%; the exact value of 1 + i is 4 - 2 sqrt(3) = 0.535898 and i = -46.4102%. The chapter states both.",
+    "Slide f0013 writes the equation of value as PV(Inflows) = PV(Outflows) without saying which party's inflows; the chapter reads it from the fund's side (opening value and deposits in, withdrawals and closing value out), which is the reading that matches the slide's formula Initial Fund (1+i) + sum C_k (1+i)^(1-t_k) = Final Fund.",
+    "Slide f0025 defines the TWR as 'the geometric mean of sub-period returns' and computes it as the product (1+j1)(1+j2)...; the chapter states the precise relation (the product is the annual growth because the sub-periods tile one year; the geometric mean is the equivalent factor per sub-period when the sub-periods have equal length; for T years the annual rate is the product to the power 1/T).",
+    "Slide f0040 rule of thumb (large deposits before a crash -> DWR < TWR; before a boom -> DWR > TWR) is imprecise. The chapter derives the exact condition for one cash flow (6.9): the comparison is between the continuously compounded annual rates of the two sub-periods, not between a sub-period return and zero; Exercise 4 gives a deposit before a fall with DWR > TWR and a deposit before a rise with DWR < TWR.",
+    "Slide f0052 (withdrawals) gives only the denominator term -200(1 - 0.6) = -80 and no closing value; the chapter's combination with the slide's example (closing value 1,600 kept, I = 300, E = 1,295, 23.1660%) is invented and labelled so, and points out that the withdrawal also changes the numerator.",
+    "Speaker's judgments, attributed and graded or not used: the exposure approximation is 'fast and robust' (f0057; graded with its errors 0.02 points at 7% and 3.6 points at -46%); the manager 'did their job neutrally' (f0030; attributed); examinations 'occasionally' ask for a linked IRR (f0055; attributed as the lecture's exam tip); 'TWR is the industry standard (GIPS) for mutual funds' (f0057; checked against GIPS 2020 provision 1.A.35 and stated as a default with exceptions); the investor 'paying the price for greediness' (transcript about 1100-1108 s; not used); 'mutual funds are subject to market risk' (about 184-190 s; not used).",
+    "Time convention: the slides convert dates by month fractions (f0050: Apr 1 is t = 0.25); the chapter follows them and says that day counts are ignored.",
+    "Lecture 14's closing slide (f0058) announces that the lab will compute TWR versus DWR 'for a complex fund'; Lecture 15 problem 4 has one deposit and asks for the TWR only.",
+    "Manifest: Lecture 30 (Module 1 review, HSrxblFzIsE) lists chapter 6 in practice_for. Its transcript was searched for weighted, exposure, TWR, DWR, rate of return, internal, IRR, mutual and fund; the only hit is a statement about a constant force of interest (about 626 s). No DWR or TWR material was found; Lecture 30 is not used, and the manifest was not edited (shared file).",
+    "The Society of Actuaries Exam FM sample-question PDF was not found at three probed soa.org URLs (HTTP 404, 2026-10-08); no sample question is used or cited. The October 2026 syllabus does not contain the word 'weighted'; the chapter cites only its p. 5 term 'yield rate/rate of return'.",
+    "GIPS 2020 page numbers: the printed page is the PDF page minus 18 for the pages used (p. 5 = PDF 23, p. 11 = PDF 29, p. 73 = PDF 91, p. 75 = PDF 93, p. 76 = PDF 94, p. 78 = PDF 96, p. 79 = PDF 97, p. 80 = PDF 98, p. 83 = PDF 101). The reading that 2.A.24 d's 'daily-weighted external cash flows' is a weighting of the same kind as the exposure E is not stated in the chapter; the chapter reports the provision only."
+  ],
+  "sections": [
+    {
+      "section": "The running case and the tools from earlier in the course",
+      "video_id": "b9iovZzyDH4",
+      "start": 36.64,
+      "end": 121.84,
+      "lecture_material": "Agenda: a paradox in mutual fund cash flows; dollar-weighted rate (internal rate of return) against time-weighted rate; the simple-interest exposure approximation; reference mapping (slide fact only).",
+      "research_extension": "None.",
+      "teaching_construction": "Restatement, taken as given from earlier in the course, of time in years with month fractions, compound interest (6.1) for fractional t and i > -1, the discount factor, the equation of value and focal-date independence, and bisection with a stopping rule; the rounding convention; the running case (deposit 10,000 at 0, value 11,000 before a deposit of 15,000 at 1/4, value 23,400 before a withdrawal of 6,000 at 3/4, closing 18,270; factors 1.10, 0.90, 1.05; invented); the formal model (opening value, dated external cash flows, values just before each flow, closing value); Figure 6.1.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The mutual fund paradox",
+      "video_id": "b9iovZzyDH4",
+      "start": 121.84,
+      "end": 248.56,
+      "lecture_material": "Deposit 100 on 1 January; fund doubles to 200 by 30 June; deposit 200, total 400; market falls 50%, value 200 on 31 December; manager: doubled then halved, 2.0 x 0.5 = 1.0, broke even 0%; investor: put in 300, 200 left, lost money; who is right (f0008).",
+      "research_extension": "None.",
+      "teaching_construction": "The two statements measure different things; the manager's product is the same for every account; the loss of 100 on 300 (-33.33%) is not an annual rate because the money was not all invested for the year.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The dollar-weighted rate: an internal rate of return",
+      "video_id": "b9iovZzyDH4",
+      "start": 255.44,
+      "end": 414.08,
+      "lecture_material": "DWR = internal rate of return of the investor's cash flows; measures the investor's actual experience; sensitive to timing and size of deposits and withdrawals; equation of value at t = 1: Initial Fund (1+i) + sum C_k (1+i)^(1-t_k) = Final Fund; with discount factors: Initial Fund + sum C_k v^(t_k) = Final Fund v; deposits positive, withdrawals negative (f0013; transcript 255-414 s).",
+      "research_extension": "GIPS 2020 glossary p. 75 (PDF p. 93): external cash flow defined; dividend and interest income are not external cash flows.",
+      "teaching_construction": "Notation F0, F1, C_k, t_k, C; existence of at least one root (limits -F1 and +infinity); theorem: if every deposit precedes every withdrawal (F0 a deposit at 0, F1 a withdrawal at 1), (6.2) has exactly one root i > -1, proof via h(i) = g(i)/(1+i)^(1-tau) (6.4) strictly increasing with limits -infinity and +infinity; three-root example inside the hypotheses (F0 = 100, withdraw 280 at 1/3, deposit 247 at 2/3, F1 = 66; (2x-1)(10x-11)(10x-12) = 0 with x = (1+i)^(1/3); rates -87.5%, 33.1%, 72.8%; the account is overdrawn at the withdrawal under every root, stated); running case as a quartic in (1+i)^(1/4), root -3.6903% by bisection with tau = 1/2, sign check at i = 0; horizons of T years.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Solving the paradox's equation of value",
+      "video_id": "b9iovZzyDH4",
+      "start": 414.08,
+      "end": 569.44,
+      "lecture_material": "100(1+i) + 200(1+i)^0.5 = 200; let x = sqrt(1+i); 100x^2 + 200x - 200 = 0, x^2 + 2x - 2 = 0; roots (-2 +- sqrt 12)/2 = -1 +- sqrt 3; x = 0.732; 1 + i = 0.5358; i = -46.4%; the investor lost about 46.4% of the capital (f0020; transcript 414-569 s).",
+      "research_extension": "None.",
+      "teaching_construction": "Exact i = 3 - 2 sqrt 3 = -46.4102% and 1 + i = 0.535898 against the slide's rounded 0.5358; uniqueness from the general condition; interpretation (100 x 0.535898 + 200 x 0.732051 = 200) and comparison with -33.33%; when the substitution works (flows at multiples of 1/m give a polynomial in (1+i)^(1/m)).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The time-weighted rate: linking sub-period returns",
+      "video_id": "b9iovZzyDH4",
+      "start": 591.28,
+      "end": 1059.36,
+      "lecture_material": "TWR = geometric mean of sub-period returns; measures the manager's performance; ignores the timing of external cash flows; procedure: break the year at every cash flow, 1 + j_k = fund before new cash flow / fund at start of period, link 1 + i_TWR = (1 + j1)(1 + j2)...; paradox: 200/100 = 2, 200/400 = 0.5, product 1, 0%, 'manager did their job neutrally'; timeline with two periods; general picture with four sub-periods (f0025, f0030, f0034; transcript 591-1059 s). Lab problem 4 (L15 f0023, f0026): 1.20 x 0.90 = 1.08, 8%, the fund's performance, not the investor's.",
+      "research_extension": "None.",
+      "teaching_construction": "Notation V_k, S_k and (6.6); the before-not-after trap quantified on the paradox (4 x 0.5 = 2, a false 100%); running case 1.10 x 0.90 x 1.05 = 1.0395, 3.95%; unit values U(t) and the telescoping product (6.8), the same TWR for every account, running case units (1,000; 1,363.64; 606.06; 1,757.58 x 10.395 = 18,270); a valuation without a cash flow leaves the TWR unchanged; precise geometric-mean reading and the T-year annualization; data requirements of the two rates.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Which rate answers which question",
+      "video_id": "b9iovZzyDH4",
+      "start": 1059.36,
+      "end": 1208.4,
+      "lecture_material": "Verdict table: DWR (investor) -46.4%, 'I bought high', sensitive to cash-flow timing, penalizes bad timing; TWR (manager) 0%, 'I broke even', sensitive to market movements, neutral to timing; rule of thumb: large deposits just before a crash give DWR < TWR, just before a boom DWR > TWR (f0040; transcript 1059-1194 s).",
+      "research_extension": "None.",
+      "teaching_construction": "The two questions; the investor's balance is not reproduced by the TWR (300 not 200); theorem (6.9) for one cash flow: g(i_TWR) = C[(1+i_TWR)^(1-s) - (1+j2)], sign through s(1-s)(delta1 - delta2) with the average forces of Chapter 3; rule for deposits and withdrawals; counterexamples to the rule of thumb (-30% then -10%; +30% then +10%); checks on the paradox (1.3863 against -1.3863) and the lab (0.3646 against -0.2107; DWR exactly 0% because 100 + 80 = 180); equality for constant growth (U(t) = U(0)(1+r)^t); the running case's 7.64-point gap.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Approximating the dollar-weighted rate: the simple-interest exposure method",
+      "video_id": "b9iovZzyDH4",
+      "start": 1208.4,
+      "end": 1485.76,
+      "lecture_material": "Exact DWR needs polynomials (interpolation or the calculator's IRR); approximation by simple interest: i = net interest earned I / exposure E; I = End - Start - Net Contributions; E = Start x 1 + sum C_k (1 - t_k); intuition: weighted average amount of capital working in the fund for the year; example: 1,000 on 1 January, 500 on 1 April (t = 0.25), 1,600 on 31 December, I = 100, E = 1,375, i = 7.27% (f0046, f0050; transcript 1208-1485 s).",
+      "research_extension": "None.",
+      "teaching_construction": "Derivation of (6.10) by replacing (1+i)^(1-t_k) with 1 + (1-t_k) i (algebraically defined for E != 0; interpretation as a rate on invested capital requires E > 0; exact for simple interest); exact DWR of the slide example 7.2903%; error term from the Taylor expansion and the Newton-corrected estimate (6.11) with Q = sum C_k t_k (1-t_k) (7.2908%; paradox -50% and -46.8750% against -46.4102%); grading of 'fast and robust'; one-sided bound i_SI <= i_DWR for deposits only (at least one deposit; with no interior flow the two rates are equal), from concavity of (1+i)^u; running case I = -730, E = 19,750, -3.6962%, corrected -3.6904%.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Withdrawals in the exposure method",
+      "video_id": "b9iovZzyDH4",
+      "start": 1485.76,
+      "end": 1568.88,
+      "lecture_material": "Trap alert: withdrawals reduce exposure; withdrawal of 200 at t = 0.6: C = -200, term in the denominator -200(1 - 0.6) = -80; be careful with signs in the denominator (f0052; transcript 1485-1568 s).",
+      "research_extension": "None.",
+      "teaching_construction": "The withdrawal also changes the numerator through C; invented combination with the slide's example (closing value 1,600 kept): C = 300, I = 300, E = 1,295, 23.1660% against the exact 23.2556%; the running case's withdrawal; E <= 0 prevents interpreting I/E as a rate on positive capital exposure; use the exact equation subject to its stated uniqueness condition.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "The linked internal rate of return",
+      "video_id": "b9iovZzyDH4",
+      "start": 1568.88,
+      "end": 1637.84,
+      "lecture_material": "Exam tip: examinations occasionally ask for the linked IRR, a hybrid: compute the DWR (IRR) for each sub-period and link them geometrically, 1 + i = (1 + i1)(1 + i2)...; accounts for cash-flow timing within periods and links them fairly (f0055; transcript 1568-1631 s).",
+      "research_extension": "None.",
+      "teaching_construction": "Sub-period rates as rates for the whole sub-period; the two limits (valuations at every cash flow give the TWR; no interior valuation gives the DWR); running case with an invented 30 June value of 24,700: i1 = -1.7111%, i2 = -1.9829%, linked -3.6601%.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "The running case resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 6.1 with five measures (loss on net money paid in -3.8421%, DWR -3.6903%, exposure -3.6962%, linked -3.6601%, TWR +3.9500%); why the first is not an annual rate; differences 0.006, 0.03 and 7.61 points; what generalizes (the procedure) and what is case-specific (the sign of the gap).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable check of the rates and the running case",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library program: DWR by bisection on (6.4) after testing the uniqueness condition; TWR (6.6)-(6.7) and the exposure method (6.10) in exact Fractions; corrected estimate (6.11); linked rate (6.12); outputs for the paradox (TWR 0, DWR = 3 - 2 sqrt 3), the slide's example, the withdrawal combination, the lab problem and the running case (TWR 79/2000 with and without the 1 July valuation); assertion of the one-flow rule on 96 grid cases, 8 ties skipped, 88 pass; ValueError for invalid inputs and for a deposit after a withdrawal; two failure tests (numerator after the flow gives TWR 1 for the paradox; reversed rule fails the assertion).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What these rates establish and what they do not",
+      "video_id": "b9iovZzyDH4",
+      "start": 1646.64,
+      "end": 1732.56,
+      "lecture_material": "Summary: DWR from the equation of value, best for assessing wealth growth; TWR from sub-period linking, best for assessing skill; approximation interest / exposure, fast and robust; TWR is the industry standard (GIPS) for mutual funds (f0057; transcript 1646-1697 s).",
+      "research_extension": "GIPS 2020 provision 1.A.35 (pp. 5-6, PDF pp. 23-24): TWR required unless the firm controls external cash flows and the fund is closed-end, fixed-life, fixed-commitment or illiquid; glossary p. 83 (PDF p. 101) TWR and p. 78 (PDF p. 96) MWR definitions; glossary definitions of closed-end, committed capital and composite (p. 73, PDF p. 91), fixed commitment, fixed life and illiquid investments (p. 76, PDF p. 94), open-end fund (p. 78, PDF p. 96) and pooled fund (p. 79, PDF p. 97); 2.A.23 and 2.A.24 (p. 11, PDF p. 29): for time-weighted returns of portfolios in composites excluding private market investment portfolios, at least monthly valuation as of calendar month end or the last business day of the month and valuation at large cash flows; if daily returns are not calculated, sub-period returns at large flows and adjustment for daily-weighted flows that are not large. Glossary p. 80 (PDF p. 98) identifies the excluded private-market category.  2.A.25 c and 2.A.26 c, d (pp. 11-12, PDF pp. 29-30): pooled funds not in a composite valued at subscriptions and redemptions, sub-period returns at those dates, geometric linking; 2.A.28 (p. 12, PDF p. 30): money-weighted returns need valuation at least annually and at period ends. SOA Exam FM syllabus, October 2026, p. 5: yield rate/rate of return among the terms of topic 5.",
+      "teaching_construction": "Classification of the results (two definitions, a theorem for one flow, an approximation exact for simple interest); the GIPS control condition linked to the lecture's reasoning, with the glossary terms (open-end, closed-end, pooled fund, composite, fixed life, fixed commitment, illiquid investments) defined where they are first used; where the rates stop answering their questions (missing valuations, several roots, exact dates, no benchmark, no attribution of skill). Control over capital-call dates is an explicit assumption in Exercise 5(d); closed-end structure and committed capital alone do not establish it. The rule, glossary definitions and control interpretation are separate paragraphs.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercise 2's form (one mid-year deposit, values before and after) follows Lecture 15 problem 4 with different numbers.",
+      "research_extension": "Exercise 5(d) applies GIPS 2020 provision 1.A.35 and the glossary entries closed-end and fixed commitment.",
+      "teaching_construction": "Six original exercises with full solutions: derive (exposure formula and its correction; account with a deposit at t = 1/3, 9.4737%, 9.5052%, exact 9.5041%); exam-style closest-of-five (TWR minus exposure DWR, 3.93, each distractor tied to an error); check an assumption (statement values before or after the flows: 9.1200% against 19.3779%; DWR 7.5781% unaffected); counterexample and proof (deposits before a fall and before a rise reversing the rule of thumb; proof of the withdrawal case); judgment (three investors in one fund: TWR 8% for all, DWR 8%, -1.3318%, 19.6235%; which rate to publish; GIPS for a capital-calling fund); two-year horizon (annual TWR 5.9811%, the divide-by-two trap 6.16%, exact DWR 5.8102% from a quadratic, exposure estimate 5.9636% above it).",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "The closing h2 'Primary sources' is a reference list with no lecture material, research claim or construction of its own; as in the pilot chapter, it has no entry in 'sections'. Every other h2 has exactly one entry, with the same title text. All source-grounded sections follow recording order; each h2 timestamp equals the start of its entry to the second.",
+  "references": [
+    {
+      "title": "Lecture 14 recording, Dollar-Weighted vs. Time-Weighted Rates",
+      "url": "https://www.youtube.com/watch?v=b9iovZzyDH4",
+      "supports": "The paradox, the DWR definition and equation of value, the solution -46.4%, the TWR definition, procedure and 0%, the verdict and rule of thumb, the exposure method and its example 7.27%, the withdrawal trap, the linked IRR, the summary and the GIPS remark.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 15 recording, Week 3 Problem Solving Lab",
+      "url": "https://www.youtube.com/watch?v=dkKCOiAnc4A",
+      "supports": "Problem 4: TWR of a fund with one mid-year deposit, 8%.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "CFA Institute, Global Investment Performance Standards (GIPS) for Firms, 2020",
+      "url": "https://www.gipsstandards.org/wp-content/uploads/2021/03/2020_gips_standards_firms.pdf",
+      "supports": "1.A.35: firms must present time-weighted returns; money-weighted returns only with control over external cash flows and one of four fund characteristics. 2.A.23 and 2.A.24 (p. 11, PDF p. 29): for time-weighted returns of portfolios in composites excluding private market investment portfolios, at least monthly valuation as of calendar month end or the last business day of the month and valuation at large cash flows; if daily returns are not calculated, sub-period returns at large flows and adjustment for daily-weighted flows that are not large. Glossary p. 80 (PDF p. 98) identifies the excluded private-market category. 2.A.25-2.A.26: subscription/redemption valuations, sub-period returns and geometric linking for pooled funds not included in composites. 2.A.28: valuation at least annually and at period ends for money-weighted returns. Glossary: external cash flow (dividends and interest excluded), money-weighted return, time-weighted return; closed-end, committed capital, composite, fixed commitment, fixed life, illiquid investments, open-end fund, pooled fund, private market investments.",
+      "page_checked": "pp. 5-6 (PDF pp. 23-24); p. 11 (PDF p. 29); p. 12 (PDF p. 30); p. 73 (PDF p. 91); p. 75 (PDF p. 93); p. 76 (PDF p. 94); p. 78 (PDF p. 96); p. 79 (PDF p. 97); p. 80 (PDF p. 98); p. 83 (PDF p. 101)"
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam -- October 2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "Topic 5, outcome a): yield rate/rate of return among the terms to define; the dollar-weighted and time-weighted methods are not named.",
+      "page_checked": "p. 5 (same as PDF page)"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "t, i, v",
+      "first_section": "model",
+      "definition": "Time in years from 1 January (month fractions); effective annual rate of interest, i > -1 (rates may be negative); discount factor 1/(1+i)."
+    },
+    {
+      "symbol": "X, s (in (6.1))",
+      "first_section": "model",
+      "definition": "An amount and its date in the accumulation rule (6.1); s is reused as the date of the single cash flow in the verdict section, defined there."
+    },
+    {
+      "symbol": "F0, F1",
+      "first_section": "dwr",
+      "definition": "Account value at t = 0 and at t = 1 (the slide's initial fund and final fund), both positive."
+    },
+    {
+      "symbol": "C_k, t_k, n, C",
+      "first_section": "dwr",
+      "definition": "External cash flow k (deposit positive, withdrawal negative) at time t_k, 0 < t_1 < ... < t_n < 1; number of flows; net contribution C = sum C_k."
+    },
+    {
+      "symbol": "i_DWR",
+      "first_section": "dwr",
+      "definition": "Dollar-weighted rate: the root of (6.2)."
+    },
+    {
+      "symbol": "g(i), h(i), tau",
+      "first_section": "dwr",
+      "definition": "g = left side of (6.2) minus F1; h = g/(1+i)^(1-tau) (6.4); tau a time strictly between the last deposit and the first withdrawal."
+    },
+    {
+      "symbol": "T",
+      "first_section": "dwr",
+      "definition": "Length of a measurement period in years when it is not one year; in the code, T is also the name of the running case's TWR value (a separate variable)."
+    },
+    {
+      "symbol": "x, y",
+      "first_section": "dwr",
+      "definition": "x = (1+i)^(1/3), local to the three-root counterexample in dwr; x = sqrt(1+i), local to the paradox and Exercise 4; y = (1+i)^(1/4) in the running case's quartic. Exercise 6 uses 1+i explicitly without introducing x."
+    },
+    {
+      "symbol": "V_k, S_k, j_k",
+      "first_section": "twr",
+      "definition": "Account value just before C_k (V_{n+1} = F1); value at the start of sub-period k (S_1 = F0, S_k = V_{k-1} + C_{k-1}); return of sub-period k, 1 + j_k = V_k/S_k (6.6). j_k is the slide's symbol; not the per-period rate j of chapters 2 and 7."
+    },
+    {
+      "symbol": "i_TWR",
+      "first_section": "twr",
+      "definition": "Time-weighted rate, 1 + i_TWR = product of (1 + j_k) (6.7)."
+    },
+    {
+      "symbol": "U(t), N(t)",
+      "first_section": "twr",
+      "definition": "Unit value of the fund and number of units in the account; 1 + i_TWR = U(1)/U(0) (6.8)."
+    },
+    {
+      "symbol": "s, j1, j2, delta-bar_1, delta-bar_2",
+      "first_section": "verdict",
+      "definition": "Date of the single cash flow; returns of the two sub-periods; their continuously compounded annual rates ln(1+j1)/s and ln(1+j2)/(1-s) (average forces, Chapter 3)."
+    },
+    {
+      "symbol": "r",
+      "first_section": "verdict",
+      "definition": "Constant annual growth rate of the unit value in the equal-rates paragraph; used only there."
+    },
+    {
+      "symbol": "I, E, i_SI",
+      "first_section": "exposure",
+      "definition": "Net interest earned F1 - F0 - C; exposure F0 + sum C_k (1 - t_k) in dollar-years; exposure estimate I/E (6.10). Slide symbols I and E."
+    },
+    {
+      "symbol": "u, Q",
+      "first_section": "exposure",
+      "definition": "u: a fraction of a year in the Taylor expansion and the concavity bound; Q = sum C_k t_k (1 - t_k) in (6.11)."
+    },
+    {
+      "symbol": "i_k, i_LIRR",
+      "first_section": "linked",
+      "definition": "Dollar-weighted rate of sub-period k (for the whole sub-period); linked internal rate of return (6.12)."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch06_verify_code.py (extracts the chapter listing, checks it equals ch06_code.py, runs it with python -I in a fresh process from a temporary directory, Python 3.13, standard library only; exit 0, no stderr; 11 stdout lines, 586 bytes, compared byte for byte with the printed block after converting CRLF to LF; pycodestyle exit 0). Failure tests: python -I _editorial/tmp/ch06_failtests.py (numerator after the flow: paradox TWR 1; reversed sign rule: AssertionError).",
+    "stdout_matches_printed": true
+  }
+}
