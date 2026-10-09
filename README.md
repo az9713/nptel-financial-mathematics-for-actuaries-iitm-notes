@@ -12,7 +12,8 @@ material, research extensions and original teaching constructions.
 
 **Status: in progress.** Chapters 1–8 are complete, with 48 worked exercises.
 Each chapter is added after independent mathematical review and local validation.
-Open `index.html` to read; the reader works offline. The numerical laboratory links
+[Read the notes online](https://az9713.github.io/nptel-financial-mathematics-for-actuaries-iitm-notes/),
+or open `index.html` offline. The numerical laboratory links
 to the reviewed Python checks and exercises.
 
 ```sh
