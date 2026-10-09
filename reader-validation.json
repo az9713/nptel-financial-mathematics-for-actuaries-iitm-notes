@@ -1,11 +1,11 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-09T16:49:32.449540+00:00",
+  "checked_at_utc": "2026-10-09T17:14:52.419603+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
     "html_files": 13,
-    "local_links_checked": 131,
+    "local_links_checked": 145,
     "timestamps_checked": 98,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
