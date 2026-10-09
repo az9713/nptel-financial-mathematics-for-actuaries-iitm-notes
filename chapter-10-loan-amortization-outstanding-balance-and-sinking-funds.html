@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="f367007753ac5a6702fe58093c4bf416d6c533b609ddaf69ec3708a0f3739083"><title>Loan repayment: amortization, outstanding balance and sinking funds · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Loan repayment: amortization, outstanding balance and sinking funds</h1>
+<p class="lead">A borrower receives 120,000 dollars today and must clear the debt in six years at an effective annual interest rate of 6%. One plan pays the lender 24,403.52 dollars at the end of each year. Another pays interest to the lender and builds a separate fund to repay the principal at maturity. If that fund earns 6%, the annual cash outflow is again 24,403.52 dollars; if it earns 3%, the outflow rises to 25,751.70 dollars. Yet after three years the lender's claim is 65,230.89 dollars under the first plan and still 120,000 dollars under the second. What is being repaid, what is being accumulated, and which balance does an outstanding-balance formula measure? This chapter derives the answers and uses them to handle irregular payments, a rate reset and a final payment adjusted for rounding.</p>
+<p class="source-note">Grounded in the NPTEL IIT Madras course <em>Financial Mathematics for Actuaries</em>, presented here by Prof. Pramod Kumar Naik: <a href="https://www.youtube.com/watch?v=LgrcQWuysCI">Lecture 31</a>, <a href="https://www.youtube.com/watch?v=XUxnlhIZI7k">Lecture 32</a>, <a href="https://www.youtube.com/watch?v=VExPn6Ofang">Lecture 33</a> and <a href="https://www.youtube.com/watch?v=nJRpWdGCDfo">Lecture 35</a>, with the <a href="https://www.youtube.com/watch?v=GybCJ7mpe8w">Lecture 34 problem lab</a> and <a href="https://www.youtube.com/watch?v=FzJwEVr0qbc">Lecture 55 integrated review</a>. <strong>Lecture material:</strong> amortization schedules, prospective and retrospective balances, the changing interest and principal portions, spreadsheet construction, irregular payments, changed loan rates and the sinking fund method. <strong>Research extensions:</strong> the Society of Actuaries' October 2026 Exam FM syllabus identifies the corresponding loan calculations; the Texas Instruments guidebook explains calculator timing, rate entries and payment rounding. <strong>Original teaching constructions:</strong> the six-year running case, the timing diagram, explicit proofs and boundary checks, recalculated lab answers using unrounded rates, the executable checks and six exercises.</p>
+
+<h2 id="model">The running case and a dated debt state</h2>
+<p>A loan begins with a transfer from lender to borrower. The <em>principal</em> \(L\) is the amount advanced at time \(t=0\); interest is the charge for leaving an amount outstanding over a period. We measure \(t\) in payment periods. In the running case one period is one year, \(L=120{,}000\) dollars, the effective rate per period is \(i=0.06\), and the term is \(n=6\) periods. The invented rates are constant and certain. Payments occur at \(t=1,\ldots,n\), after interest for that period has accrued. No fees, taxes or penalties enter this model.</p>
+<p>Let \(C_t\) be the payment to the lender at time \(t\), counted as a positive amount paid by the borrower. Let \(B_t\) be the <em>outstanding balance immediately after</em> that payment. Thus \(B_0=L\). Write \(B_t^{-}\) for the balance immediately before the payment, after the period's interest has been added. The superscript minus marks the earlier side of a payment event; it does not mean a negative amount. These two balances answer different questions: the amount needed to clear the debt just before the scheduled payment is \(B_t^{-}\); the amount needed just after it is \(B_t\).</p>
+<p>A level schedule has \(C_t=A\) for every payment, where \(A\) is a positive installment amount. This is the slides' notation. Here \(A\) is a constant cash payment, distinct from the amount function \(A(t)\) used for accumulated capital in earlier chapters. The time-dependent accumulation factor needed here is simply \((1+i)^t\). The discount factor is \(v=(1+i)^{-1}\). We take \(i\ge0\) for the loan examples, and define the zero-rate cases by sums rather than by division by \(i\).</p>
+<p>The annuity tools from <a href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html#pv-immediate">Chapter 7, present value of an annuity-immediate</a> can be stated in the current unit of time. For \(r\) nonnegative whole periods, with \(k\) indexing the terms of each sum, the present-value factor \(a_{\overline{r}|i}\) and accumulated-value factor \(s_{\overline{r}|i}\) are</p>
+\[
+a_{\overline{r}|i}=\sum_{k=1}^{r}v^k
+=\frac{1-(1+i)^{-r}}{i},\qquad
+s_{\overline{r}|i}=\sum_{k=0}^{r-1}(1+i)^k
+=\frac{(1+i)^r-1}{i}. \tag{10.1}
+\]
+<p>The quotients apply when \(i\ne0\); at \(i=0\), both factors equal \(r\). Empty sums give \(a_{\overline{0}|i}=s_{\overline{0}|i}=0\). The first factor values payments of 1 one through \(r\) periods from now. The second values deposits of 1 made at the end of each period, at the time of the last deposit. Moving each of the first stream's cash flows forward \(r\) periods proves \(s_{\overline{r}|i}=(1+i)^r a_{\overline{r}|i}\). These definitions will keep the time attached to every balance.</p>
+
+<h2 id="amortization">Amortization starts with interest on the preceding balance <a class="timestamp" href="https://www.youtube.com/watch?v=LgrcQWuysCI&amp;t=269s">L31 4:29</a></h2>
+<p><em>Amortization</em> is the reduction of a debt through payments that meet interest and repay principal. Define \(I_t=iB_{t-1}\) as the interest accrued during period \(t\), and \(P_t=C_t-I_t\) as the principal repaid by the payment at its end. The opening balance, rather than the closing balance, earns that interest. A borrower owes \(B_{t-1}\) for the whole interval from \(t-1\) to \(t\); the payment at \(t\) cannot reduce interest already earned during that interval. Figure 10.1 places the interest and the payment in their order.</p>
+<figure>
+<svg viewBox="0 0 720 230" role="img" aria-labelledby="ch10-timing-title ch10-timing-desc" font-family="Georgia, serif" font-size="15" fill="currentColor">
+<title id="ch10-timing-title">One loan period, with balances before and after the payment</title>
+<desc id="ch10-timing-desc">The after-payment balance at the start grows by interest to the before-payment balance at the end. The payment is then subtracted, leaving the new after-payment balance. Interest and principal are the two components of that payment.</desc>
+<rect x="20" y="70" width="170" height="70" rx="8" fill="none" stroke="currentColor"/>
+<rect x="275" y="70" width="170" height="70" rx="8" fill="none" stroke="currentColor"/>
+<rect x="530" y="70" width="170" height="70" rx="8" fill="none" stroke="currentColor"/>
+<text x="105" y="36" text-anchor="middle">Time t − 1: after payment</text>
+<text x="360" y="36" text-anchor="middle">Time t: before payment</text>
+<text x="615" y="36" text-anchor="middle">Time t: after payment</text>
+<text x="90" y="110">B<tspan dy="4" font-size="12">t−1</tspan></text>
+<text x="351" y="110">B<tspan x="361" dy="-8" font-size="12">−</tspan><tspan x="361" dy="12" font-size="12">t</tspan></text>
+<text x="609" y="110">B<tspan dy="4" font-size="12">t</tspan></text>
+<line x1="195" y1="100" x2="268" y2="100" stroke="currentColor"/>
+<path d="M260 94 L268 100 L260 106 Z"/>
+<line x1="450" y1="100" x2="523" y2="100" stroke="currentColor"/>
+<path d="M515 94 L523 100 L515 106 Z"/>
+<text x="208" y="63">Add I<tspan dy="4" font-size="12">t</tspan></text>
+<text x="448" y="63">Subtract C<tspan dy="4" font-size="12">t</tspan></text>
+<text x="248" y="180">Interest first: I<tspan dy="4" font-size="12">t</tspan><tspan dy="-4"> = i B</tspan><tspan dy="4" font-size="12">t−1</tspan></text>
+<text x="249" y="211">Payment split: C<tspan dy="4" font-size="12">t</tspan><tspan dy="-4"> = I</tspan><tspan dy="4" font-size="12">t</tspan><tspan dy="-4"> + P</tspan><tspan dy="4" font-size="12">t</tspan></text>
+</svg>
+<figcaption>Figure 10.1. The debt state on the two sides of a payment. The passage of one period multiplies the opening balance by \(1+i\); the payment is a separate event at its end. A scheduled payment may contain less principal than interest, more principal than interest, or no principal at all.</figcaption>
+</figure>
+<p>The accounting identities now follow from two additions and subtractions, without any annuity formula:</p>
+\[
+\begin{aligned}
+B_t^{-}&amp;=B_{t-1}+I_t=(1+i)B_{t-1},\\
+P_t&amp;=C_t-iB_{t-1},\\
+B_t&amp;=B_t^{-}-C_t=(1+i)B_{t-1}-C_t
+=B_{t-1}-P_t.
+\end{aligned} \tag{10.2}
+\]
+<p>A payment amortizes the debt precisely when \(C_t\gt iB_{t-1}\). Equality pays only interest and leaves the principal unchanged. A smaller payment leaves some interest unpaid, which is added to the balance here; this is <em>negative amortization</em>. That name describes the sign of principal repayment, \(P_t\lt0\). It requires the stated rule that unpaid interest remains part of the debt. A particular contract could impose a different rule.</p>
+<p><strong>The lecture's unequal-payment example.</strong> Lecture 31 lends 1,000 rupees at 10% effective annually, with 200 rupees at the end of year 1 and 500 rupees at the end of year 2. At year 1 the before-payment balance is \(1000(1.10)=1100\), so the payment leaves \(B_1=900\). Its interest portion is 100 and its principal portion is only 100. At year 2 the before-payment balance is \(900(1.10)=990\), so \(B_2=490\); the interest and principal portions are 90 and 410. To clear the debt at year 3 the borrower pays \(490(1.10)=539\), containing 49 of interest and 490 of principal.</p>
+<p>The three principal portions sum to \(100+410+490=1000\), while the interest portions sum to \(100+90+49=239\). The payments sum to \(200+500+539=1239\), agreeing with principal plus interest. Calling 490 the final payment would omit the third year's interest. Calling 990 the outstanding balance <em>after</em> the second payment would omit that payment. This short example is also a check on the balance convention in (10.2).</p>
+
+<h2 id="level-payment">Choosing the level installment and building the schedule <a class="timestamp" href="https://www.youtube.com/watch?v=LgrcQWuysCI&amp;t=1036s">L31 17:16</a></h2>
+<p>A completely amortized level loan has \(n\) equal payments \(A\), no extra terminal amount, and \(B_n=0\). The lender advances \(L\) at time 0 in exchange for those payments. The equation of value at the same loan rate is \(L=Av+Av^2+\cdots+Av^n\). Factoring out \(A\) gives</p>
+\[
+L=Aa_{\overline{n}|i},\qquad
+A=\frac{L}{a_{\overline{n}|i}}
+=\frac{Li}{1-(1+i)^{-n}}. \tag{10.3}
+\]
+<p>The last quotient is for \(i\ne0\); \(A=L/n\) when \(i=0\). The equation of value presumes the entire promised schedule. It does not imply that a missed payment leaves the loan fully repaid, or that rounding all \(n\) payments to cents leaves exactly zero. Those are different schedules, to be checked with (10.2).</p>
+<p>For positive \(i\), \(i a_{\overline{n}|i}=1-v^n\lt1\), so (10.3) implies \(A\gt iL\). The first payment exceeds its interest charge. As the balance falls, the interest charge falls too, so every later installment also repays positive principal. This proves monotone amortization for the level, completely repaid loan; it is not an assumption valid for arbitrary chosen payments.</p>
+<p>In the running case, \(a_{\overline{6}|0.06}=4.917324\) to six decimal places, and the unrounded installment is 24,403.515416987455 dollars. Table 10.1 applies (10.2) six times, carrying full precision and displaying only the final entries to cents. The displayed first-row balance is \(120{,}000-17{,}203.52=102{,}796.48\), and the exact underlying balance rather than that rounded display enters the next row.</p>
+<div class="table-wrap"><table>
+<caption>Table 10.1. The running loan amortized by six equal annual payments. Amounts in dollars; calculations use unrounded values, displayed to cents.</caption>
+<thead><tr><th>Year \(t\)</th><th>Installment \(A\)</th><th>Interest \(I_t\)</th><th>Principal \(P_t\)</th><th>After-payment balance \(B_t\)</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>—</td><td>—</td><td>—</td><td>120,000.00</td></tr>
+<tr><td>1</td><td>24,403.52</td><td>7,200.00</td><td>17,203.52</td><td>102,796.48</td></tr>
+<tr><td>2</td><td>24,403.52</td><td>6,167.79</td><td>18,235.73</td><td>84,560.76</td></tr>
+<tr><td>3</td><td>24,403.52</td><td>5,073.65</td><td>19,329.87</td><td>65,230.89</td></tr>
+<tr><td>4</td><td>24,403.52</td><td>3,913.85</td><td>20,489.66</td><td>44,741.23</td></tr>
+<tr><td>5</td><td>24,403.52</td><td>2,684.47</td><td>21,719.04</td><td>23,022.18</td></tr>
+<tr><td>6</td><td>24,403.52</td><td>1,381.33</td><td>23,022.18</td><td>0.00</td></tr>
+<tr><th>Total, from unrounded entries</th><td>146,421.09</td><td>26,421.09</td><td>120,000.00</td><td>—</td></tr>
+</tbody></table></div>
+<p>The total is six times the unrounded installment. Adding six displayed installments instead gives 146,421.12 dollars; that three-cent difference is display rounding, not extra interest in this ideal schedule. When payments actually occur in cents, the last payment needs a separate calculation in the <a href="#implementation">implementation section</a>.</p>
+<p>For the lecture's 1,000-rupee loan at 10%, equal payments over three years are \(1000/a_{\overline{3}|0.10}=402.1148036\) rupees, or 402.11 displayed. Total interest is 206.34 rupees from unrounded installments, below the 239 rupees under the earlier unequal schedule. Both schedules have the same original principal, rate and maturity, but the earlier schedule repays only 100 rupees of principal in year 1; equal installments repay 302.11. Earlier principal repayment reduces the amount that can earn later interest. The comparison explains this pair of schedules and does not prove that every level schedule has the least possible interest.</p>
+
+<h2 id="balances">Prospective and retrospective balances are the same dated value <a class="timestamp" href="https://www.youtube.com/watch?v=XUxnlhIZI7k&amp;t=45s">L32 0:45</a></h2>
+<p>A schedule can be long, while a question asks for only one balance. Let \(m\) count the payments already made, \(0\le m\le n\), and value the debt immediately after payment \(m\). A <em>prospective</em> calculation looks forward from that date. There are \(n-m\) installments left, with the next one a full period away. Therefore</p>
+\[
+B_m=Aa_{\overline{n-m}|i}
+=L\frac{a_{\overline{n-m}|i}}{a_{\overline{n}|i}}.
+\tag{10.4}
+\]
+<p>The original \(m\)-th payment is excluded because it has just occurred. For \(1\le m\le n\), before that payment the remaining stream includes it at time zero, so \(B_m^{-}=A+Aa_{\overline{n-m}|i}\). This also equals \((1+i)Aa_{\overline{n-m+1}|i}\), by shifting the remaining payments one period. A question that says only “at year \(m\)” is incomplete unless it fixes which side of the payment is meant.</p>
+<p>A <em>retrospective</em> calculation looks backward. First accumulate the loan to time \(m\). Then subtract each payment already made, accumulated to that same date. The first payment earns \(m-1\) periods before this comparison, the \(m\)-th earns none. This gives</p>
+\[
+B_m=L(1+i)^m-A\bigl[(1+i)^{m-1}+\cdots+1\bigr]
+=L(1+i)^m-As_{\overline{m}|i}. \tag{10.5}
+\]
+<p>It is tempting to subtract \(mA\), but that would treat a payment made several periods earlier as though it were made today. Repeated substitution into (10.2) confirms the exponents: \(B_1=L(1+i)-A\), and \(B_2=L(1+i)^2-A(1+i)-A\). Induction appends the next payment with exponent zero and raises every preceding exponent by one. This independently derives (10.5) from the debt ledger.</p>
+<p><strong>The equivalence hinges on the original equation of value.</strong> For \(i\ne0\), substitute \(L=A(1-v^n)/i\) into (10.5). Division by \(A\) leaves</p>
+\[
+\begin{aligned}
+\frac{B_m}{A}
+&amp;=\frac{(1-v^n)(1+i)^m-\bigl((1+i)^m-1\bigr)}{i}\\
+&amp;=\frac{1-v^n(1+i)^m}{i}
+=\frac{1-v^{n-m}}{i}
+=a_{\overline{n-m}|i}.
+\end{aligned} \tag{10.6}
+\]
+<p>The cancellation uses the same \(i\) on past accumulation and future discounting, and \(L=Aa_{\overline{n}|i}\) for the complete repayment schedule. At zero interest, both sides instead give \(L-mA=A(n-m)\). At \(m=0\), (10.4) returns \(L\); at \(m=n\), it returns zero. The running case at \(m=3\) gives \(Aa_{\overline{3}|0.06}=65{,}230.89\) dollars, equal to \(120{,}000(1.06)^3-As_{\overline{3}|0.06}\) and to the third recurrence row. Before the third payment the amount due is \(B_3^-=A+B_3=(1.06)B_2=89{,}634.40\) dollars, calculated from unrounded amounts. A three-year halfway date does not imply that half the original principal remains: the later installments contain more principal.</p>
+<p>The same argument extends to unequal known payments. With actual payments \(C_k\) and no terminal balance, the time-0 equation is \(L=\sum_{k=1}^n C_kv^k\). Multiply by \((1+i)^m\), then move the first \(m\) terms to the left. Each remaining term becomes \(C_kv^{k-m}\), proving</p>
+\[
+B_m=L(1+i)^m-\sum_{k=1}^m C_k(1+i)^{m-k}
+=\sum_{k=m+1}^n C_kv^{k-m}. \tag{10.7}
+\]
+<p>If a terminal amount \(K\) remains due at \(n\), the prospective side needs the extra term \(Kv^{n-m}\). If a scheduled payment was missed, the retrospective side must use what was actually paid, and the prospective side must include the eventual arrears payment. A changed discount rate alone changes the value of future receipts, not the debt already recorded under the contract. The two calculations then value different objects until their rate and cash-flow assumptions are reconciled.</p>
+
+<h2 id="portions">Why principal portions grow while interest portions fall <a class="timestamp" href="https://www.youtube.com/watch?v=XUxnlhIZI7k&amp;t=607s">L32 10:07</a></h2>
+<p>Lecture 32 normalizes the level loan to a unit installment, \(A=1\), with original principal \(L=a_{\overline{n}|i}\). Multiplication by any positive installment later restores currency units. At the start of period \(t\), immediately after installment \(t-1\) (or at origination when \(t=1\)), the opening balance is \(B_{t-1}=Aa_{\overline{n-t+1}|i}\). Define \(r=n-t+1\) for the number of installments still unpaid at that opening date. Interest accrues on this balance during the period; immediately before installment \(t\), the debt is \(B_t^-=(1+i)B_{t-1}\). Then \(i a_{\overline{r}|i}=1-v^r\) separates the payment into</p>
+\[
+I_t=iB_{t-1}=A(1-v^{n-t+1}),\qquad
+P_t=A-I_t=Av^{n-t+1},\qquad
+B_t=Aa_{\overline{n-t}|i}. \tag{10.8}
+\]
+<p>Subtracting interest \(A(1-v^r)\) from the installment \(A\) leaves the principal portion \(Av^r\). For the unit loan, first-period interest is \(1-v^n\) and first-period principal is \(v^n\), not \(v\). The last principal portion is \(Av\), with the remaining \(A(1-v)\) paying the last period's interest.</p>
+<p>Taking consecutive principal portions in (10.8) gives \(P_{t+1}/P_t=v^{-1}=1+i\). The principal repaid grows geometrically at the loan rate; because \(I_t=A-P_t\), interest falls by \(iP_t\) between periods. Summing the principal portions gives \(A(v^n+\cdots+v)=Aa_{\overline{n}|i}=L\). Hence total interest is \(nA-L\). These are identities for the level schedule, not observations about a typical borrower.</p>
+<p>The running case checks the growth directly: first principal 17,203.5154 dollars times 1.06 gives second principal 18,235.7263 dollars. The six portions sum to 120,000 dollars. Interest is already less than principal in the first installment, 7,200 against 17,203.52. Thus early payments need not consist mostly of interest. From (10.8), interest exceeds half the installment precisely when \(v^r\lt1/2\), or \((1+i)^r\gt2\). A sufficiently long loan or a sufficiently large rate can satisfy it; six years at 6% does not.</p>
+<p>At \(i=0\), every installment repays \(L/n\) of principal, every interest portion is zero, and the growth ratio is one. For \(n=1\), principal is \(L\), interest is \(iL\), and \(A=L(1+i)\), reproducing one-period lending. A schedule with rising chosen payments can have growing interest if its preceding balances rise; the declining-interest proof here depends on the positive principal reduction already proved for (10.3).</p>
+
+<h2 id="implementation">A spreadsheet, a calculator and a monetary ledger <a class="timestamp" href="https://www.youtube.com/watch?v=VExPn6Ofang&amp;t=46s">L33 0:46</a></h2>
+<p>Lecture 33 implements the schedule in a spreadsheet. Its logic is one row's dependence on the preceding balance: store \(L,n,i\); calculate \(A\) once; calculate current interest as \(i\) times the preceding row's balance; subtract that interest from \(A\) to obtain principal; subtract principal from the preceding balance. A spreadsheet reference to the rate and installment must stay fixed while the reference to the preceding balance moves down the rows. A payment function is an evaluator of (10.3), while the rows implement (10.2); agreement between those two routes is a useful check.</p>
+<p>The loan of 5,000 dollars over six years at 6% has an unrounded installment of 1,016.8131424 dollars. Its third after-payment balance is 2,717.95 dollars under unrounded calculations. The early schedule displays a misplaced decimal, 271.96; the <a href="https://www.youtube.com/watch?v=FzJwEVr0qbc&amp;t=925s">integrated review at L55 15:25</a> corrects that entry to 2,717.96 in the displayed rounded schedule. Recomputing from the rate and full-precision installment gives 2,717.95; the one-cent difference between those values is separate from the factor-of-ten typo. A printed table should be checked through its row equation, not accepted because its final row happens to show zero.</p>
+<p><strong>Monthly payments need a monthly effective rate.</strong> Lecture 33's car example uses a principal of 1,000,000 rupees, 60 monthly installments and 8% per annum, implemented as \(i=0.08/12\) per month. This corresponds to a <em>nominal annual rate convertible monthly</em>, \(i^{(12)}=0.08\), in the convention of <a href="chapter-02-nominal-rates-of-interest-and-discount.html">Chapter 2, nominal rates of interest and discount</a>. With that interpretation, (10.3) gives 20,276.39 rupees a month and 216,583.66 rupees total interest, carrying the payment unrounded. If 8% instead denotes an effective annual rate, the monthly effective rate is \((1.08)^{1/12}-1=0.00643403011\), giving 20,143.05 rupees and total interest 208,583.28. The 133.34-rupee payment difference is a change of rate convention, not a change of amortization method.</p>
+<p>A quoted annual percentage without its effective or nominal convention does not determine a unique monthly schedule. In a calculator, the timing and frequency entries are part of the model too. The <a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf">TI BA II PLUS guidebook, p. 21</a>, specifies nominal \(I/Y\), converted through payments per year \(P/Y\) and compounding periods per year \(C/Y\), and says that entering \(P/Y\) also sets \(C/Y\) unless it is changed. It distinguishes END payments from BGN payments and takes borrower outflows as negative entries. Our \(A\) is their positive magnitude. On p. 22, BAL means the balance after the last payment in the selected range. A correct numeric output with the wrong timing setting answers a different loan question.</p>
+<p><strong>Display rounding and actual monetary rounding are different operations.</strong> Table 10.1 displays exact-model quantities to cents but does not feed those rounded displays into the next row. An actual monetary ledger may round each interest charge to cents and charge a fixed cent installment. Specify the rule rather than mixing it silently with (10.3). For the running loan, take a regular payment of 24,403.52 dollars and round each year's interest to cents using round-half-up. The balances after the first five payments become 102,796.48, 84,560.75, 65,230.88, 44,741.21 and 23,022.16 dollars. The final interest charge is 1,381.33 dollars, so the clearing payment is 24,403.49 dollars.</p>
+<p>Six payments of 24,403.52 under this ledger would overpay by three cents. Adjusting the final installment clears the amount actually recorded, instead of replacing a computed nonzero balance with zero. The guidebook's p. 21 explicitly explains a related calculator distinction: its amortization values BAL, PRN and INT use the payment rounded to the display precision, while its future-value calculation uses the unrounded payment. These outputs can differ because they represent different payment amounts. The ledger rule above is an original, explicit monetary convention, not a claim about every lender or every calculator's internal rounding.</p>
+
+<h2 id="irregular">Irregular payments require a cash-flow equation <a class="timestamp" href="https://www.youtube.com/watch?v=GybCJ7mpe8w&amp;t=381s">L34 6:21</a></h2>
+<p>The problem lab asks for four monthly payments on 100,000 rupees at 8% nominal annually convertible monthly. The first two payments are \(X\); the last two are \(2X\). Here \(X\) is an unknown positive amount and one period is one month. There is no single level payment to substitute into (10.3). With \(i=0.08/12=1/150\) exactly and \(v=(1+i)^{-1}\), the time-0 equation is</p>
+\[
+100{,}000=X(v+v^2+2v^3+2v^4)
+=X\left(a_{\overline{2}|i}+2v^2a_{\overline{2}|i}\right).
+\tag{10.9}
+\]
+<p>The factor \(v^2\) places the second pair two months later. Solving the scalar equation gives \(X=16{,}982.98\) rupees, displayed to cents with the unrounded amount retained. Applying (10.2) to \(X,X,2X,2X\) yields Table 10.2. The after-second-payment balance is also the prospective value \(2X(v+v^2)\); both routes give 67,258.60 rupees.</p>
+<div class="table-wrap"><table>
+<caption>Table 10.2. The lab's irregular loan, recomputed at the exact monthly rate 1/150. Rupees; unrounded calculations, final displays to cents.</caption>
+<thead><tr><th>Month</th><th>Payment</th><th>Interest</th><th>Principal repaid</th><th>After-payment balance</th></tr></thead>
+<tbody><tr><td>1</td><td>16,982.98</td><td>666.67</td><td>16,316.31</td><td>83,683.69</td></tr>
+<tr><td>2</td><td>16,982.98</td><td>557.89</td><td>16,425.09</td><td>67,258.60</td></tr>
+<tr><td>3</td><td>33,965.96</td><td>448.39</td><td>33,517.57</td><td>33,741.02</td></tr>
+<tr><td>4</td><td>33,965.96</td><td>224.94</td><td>33,741.02</td><td>0.00</td></tr></tbody>
+</table></div>
+<p>The lab rounds \(0.08/12\) to 0.0066 and obtains \(X=16{,}980.24\) using rounded factors. Its handwritten last balance is about −2.64 rupees. That residual is evidence to investigate the arithmetic; it does not license inserting zero. Retaining the exact monthly rate and solving (10.9) makes the terminal balance exactly zero before display rounding. Charging cent payments instead would require the cent-ledger convention and a final adjustment.</p>
+<p>There is an independent zero-rate check: with no interest, four payments total \(6X\), so \(X=100{,}000/6=16{,}666.67\) rupees displayed. Positive interest requires the slightly larger \(X\) in Table 10.2. For the lab's preceding level example, 500,000 rupees over five years at 7%, the full-precision annuity factor gives 121,945.35 rupees, whereas its rounded-factor calculation displays 121,945.27. The formulas do not require intermediate rounding, and even small factor errors can be visible in a large monetary amount.</p>
+
+<h2 id="reset">A rate reset changes the future schedule from today's balance <a class="timestamp" href="https://www.youtube.com/watch?v=GybCJ7mpe8w&amp;t=1697s">L34 28:17</a></h2>
+<p>The next lab loan is 4,000,000 rupees over 20 years, with monthly payments at 5% nominal annually convertible monthly. Immediately after the 24th payment, the rate rises to 5.5% nominal convertible monthly. The initial monthly effective rate is \(i_0=0.05/12\); the new one is \(i_1=0.055/12\). These subscripts label the old and new regimes, not successive month numbers. There are \(240-24=216\) scheduled payments remaining at the reset date.</p>
+<p>First calculate the installment under the old agreement: \(A_0=4{,}000{,}000/a_{\overline{240}|i_0}=26{,}398.23\) rupees displayed. The balance after 24 payments is \(B_{24}=A_0a_{\overline{216}|i_0}=3{,}754{,}901.63\) rupees. The retrospective calculation \(4{,}000{,}000(1+i_0)^{24}-A_0s_{\overline{24}|i_0}\) gives the same amount. Applying the new rate to the original loan over the original 240 months would charge the new regime to dates before it began; the correct new calculation starts with \(B_{24}\).</p>
+<p>To retain the original maturity date, spread that balance over the remaining 216 months at the new rate:</p>
+\[
+A_1=\frac{B_{24}}{a_{\overline{216}|i_1}}.
+\tag{10.10}
+\]
+<p>This gives 27,422.66 rupees, an increase of 1,024.43 from the unrounded \(A_0\). A rise in the rate makes each future unit payment worth less at the reset date, so a larger payment is needed to equal the same balance. The lab's early truncations to 0.00416 and 0.00458, together with rounded factors, give different values, including a revised payment of 27,413.06. Its prospective and retrospective figures also differ by about 257 rupees. Under one consistent old rate and installment they must agree by (10.6); the discrepancy is a numerical inconsistency, not a financial distinction between the methods.</p>
+<p><strong>Keeping the payment instead of the maturity.</strong> Suppose the borrower keeps the unrounded \(A_0\) and the new rate \(i_1\) continues. The remaining term \(N\), initially treated as a real number in the annuity expression, solves \(B_{24}=A_0(1-(1+i_1)^{-N})/i_1\). Isolate the power before taking logarithms:</p>
+\[
+(1+i_1)^{-N}=1-\frac{i_1B_{24}}{A_0},\qquad
+N=\frac{-\log\left(1-i_1B_{24}/A_0\right)}{\log(1+i_1)}.
+\tag{10.11}
+\]
+<p>A finite positive solution at \(i_1\gt0\) requires \(A_0\gt i_1B_{24}\). At equality, every payment meets only interest; below it, the balance grows. These are boundary cases of (10.2), not merely errors of a logarithm. At zero interest, the real term is \(B_{24}/A_0\).</p>
+<p>Here \(N=230.789818\) remaining months. A contractual schedule pays on whole months, so there are 230 full installments followed by a smaller <em>drop payment</em> in remaining month 231, which is month 255 of the loan. Its amount is the balance after the 230th new-regime payment, grown one more month:</p>
+\[
+\text{drop}=\left[B_{24}(1+i_1)^{230}
+-A_0s_{\overline{230}|i_1}\right](1+i_1)
+=20{,}859.82\text{ rupees}. \tag{10.12}
+\]
+<p>The final payment occurs 15 months later than the original month 240. The fractional part 0.789818 is not by itself a payment fraction: interest still accrues during the last whole month. An alternative <em>balloon payment</em> clears the balance at an earlier specified payment date by adding the remaining balance to the normal installment. Either convention must name a date and value the amount due on that date. The unknown-term discussion in <a href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html#unknowns">Chapter 7</a> makes the same distinction. The figures here retain full precision; a lender's cent ledger would give a slightly different clearing amount.</p>
+
+<h2 id="sinking-fund">A sinking fund builds an asset while the principal remains due <a class="timestamp" href="https://www.youtube.com/watch?v=nJRpWdGCDfo&amp;t=54s">L35 0:54</a></h2>
+<p>In the <em>sinking fund method</em>, the borrower pays the lender interest on the full original principal and separately deposits money into a fund. The fund is an asset used to pay off the principal at maturity. Paying into it does not by itself reduce the lender's claim. There are two accounts: the lender's principal claim remains \(L\) until maturity, while the fund grows toward \(L\); the borrower pays the accruing loan interest separately each period. At the maturity date the fund is transferred to repay the principal.</p>
+<p>Let \(j\) be the fund's effective interest rate <em>per loan-payment period</em>, and let \(D\) be its constant end-of-period deposit. Let \(F_t\) denote the fund value immediately after deposit \(t\), before any maturity transfer, with \(F_0=0\). Thus the annual running case uses annual \(i\) and annual \(j\). The symbol \(j\) has this local role here; the monthly-rate symbol in Chapter 7 did not denote a sinking fund return. If a fund compounds at a different frequency, its quoted rate must be converted to the effective rate over the loan-payment interval before it can be used as \(j\). The formulas below assume deposits and interest payments on the same dates.</p>
+<p>The lender's periodic interest is \(Li\). The fund earns \(jF_{t-1}\) before the deposit, so its recurrence is \(F_t=(1+j)F_{t-1}+D\). Starting at zero, \(F_1=D\) and \(F_2=D(1+j)+D\). Iteration gives \(F_t=Ds_{\overline{t}|j}\). Requiring the fund to hold exactly \(L\) at time \(n\) determines the deposit and total periodic cash outflow \(C_{\mathrm{sf}}\):</p>
+\[
+F_n=Ds_{\overline{n}|j}=L,\qquad
+D=\frac{L}{s_{\overline{n}|j}},\qquad
+C_{\mathrm{sf}}=Li+D
+=L\left(i+\frac{1}{s_{\overline{n}|j}}\right).
+\tag{10.13}
+\]
+<p>The last deposit at \(n\) earns no interest before valuation at \(n\); the first earns \(n-1\) periods. At \(j=0\), \(D=L/n\). The fund grows to its target through \(nD\) of deposits plus \(L-nD\) of fund interest. These are fund quantities, while \(nLi\) is interest paid to the lender. They should not be placed in one undifferentiated interest column.</p>
+<p><strong>The slide's normalized loan.</strong> Lecture 35 first takes \(L=a_{\overline{n}|i}\) and assumes that the fund earns the <em>same</em> effective rate \(j=i\). Since \(s_{\overline{n}|i}=(1+i)^n a_{\overline{n}|i}\), its deposit is \(D=a_{\overline{n}|i}/s_{\overline{n}|i}=v^n\). The interest-only payment is \(iL=i a_{\overline{n}|i}=1-v^n\). Thus the borrower pays \(1-v^n\) to the lender and \(v^n\) to the fund, totaling 1 each period. This reproduces the unit installment of the amortized normalized loan. The derivation depends on the equal rates; replacing the fund rate by another \(j\) leaves \(D=a_{\overline{n}|i}/s_{\overline{n}|j}\), which is generally not \(v^n\).</p>
+<p>For the running principal of 120,000 dollars with \(j=i=0.06\), the interest-only payment is 7,200 dollars, the unrounded fund deposit is 17,203.515416987455 dollars, and total cash outflow is 24,403.515416987455 dollars. Table 10.3 shows the separate fund account. Its first deposit earns no interest at the moment it is made; its second-year interest is \(0.06D=1032.21\) dollars displayed. The increasing fund interest lets the same deposit produce a progressively larger increase in the asset.</p>
+<div class="table-wrap"><table>
+<caption>Table 10.3. The running sinking fund at an effective annual rate of 6%. Dollars; full-precision calculations displayed to cents. The lender receives 7,200 each year and its principal claim stays at 120,000 until the maturity transfer.</caption>
+<thead><tr><th>Year</th><th>Fund deposit \(D\)</th><th>Fund interest \(jF_{t-1}\)</th><th>Fund after deposit \(F_t\)</th><th>Principal less fund \(L-F_t\)</th></tr></thead>
+<tbody><tr><td>1</td><td>17,203.52</td><td>0.00</td><td>17,203.52</td><td>102,796.48</td></tr>
+<tr><td>2</td><td>17,203.52</td><td>1,032.21</td><td>35,439.24</td><td>84,560.76</td></tr>
+<tr><td>3</td><td>17,203.52</td><td>2,126.35</td><td>54,769.11</td><td>65,230.89</td></tr>
+<tr><td>4</td><td>17,203.52</td><td>3,286.15</td><td>75,258.77</td><td>44,741.23</td></tr>
+<tr><td>5</td><td>17,203.52</td><td>4,515.53</td><td>96,977.82</td><td>23,022.18</td></tr>
+<tr><td>6</td><td>17,203.52</td><td>5,818.67</td><td>120,000.00</td><td>0.00</td></tr>
+<tr><th>Total, from unrounded entries</th><td>103,221.09</td><td>16,778.91</td><td>—</td><td>—</td></tr></tbody>
+</table></div>
+<p>Immediately after the sixth deposit the fund holds 120,000 dollars and the principal is still due. Transfer the fund to the lender, and both the fund and the principal claim become zero. The transfer is a real payment to the lender, financed by the accumulated fund; it is not an additional 120,000 dollars that the borrower must contribute on top of the deposits already counted. Counting both the periodic deposits and a new external principal contribution would count the same financing twice.</p>
+
+<h2 id="comparison">Equal rates give equal outflows and a net-debt identity <a class="timestamp" href="https://www.youtube.com/watch?v=nJRpWdGCDfo&amp;t=991s">L35 16:31</a></h2>
+<p>When does the sinking fund cost the same periodic amount as direct amortization? Compare the level installment \(A=L/a_{\overline{n}|i}\) with (10.13). At \(j=i\) and \(i\ne0\), write \(q=(1+i)^n\). Here \(q\) is a temporary accumulation factor for the full term. Then</p>
+\[
+\frac{1}{a_{\overline{n}|i}}
+=\frac{iq}{q-1}
+=i+\frac{i}{q-1}
+=i+\frac{1}{s_{\overline{n}|i}},
+\qquad C_{\mathrm{sf}}=A. \tag{10.14}
+\]
+<p>At \(i=j=0\), both periodic amounts equal \(L/n\), so the identity survives the boundary where the quotients above divide by zero. Algebra explains the equality of cash outflows, but it does not identify the lender's outstanding balances: in one method installments reduce principal, and in the other the lender receives only interest until maturity.</p>
+<p>There is a second, stronger identity for the borrower. Define <em>net debt</em> here as the principal claim less the separately accumulated fund, \(L-F_t\), immediately after the interest payment and fund deposit. This subtraction measures the borrower's debt offset by this asset; it does not assume that the lender has already accepted the asset in settlement. If \(j=i\), put \(D=A-Li\), which is justified by (10.14), and subtract the fund recurrence from \(L\):</p>
+\[
+\begin{aligned}
+L-F_t
+&amp;=L-(1+i)F_{t-1}-D\\
+&amp;=(1+i)(L-F_{t-1})-(Li+D)\\
+&amp;=(1+i)(L-F_{t-1})-A.
+\end{aligned} \tag{10.15}
+\]
+<p>The initial net debt is \(L-F_0=L=B_0\), and (10.15) is exactly the amortized-loan recurrence. Induction therefore proves \(L-F_t=B_t\) at every payment date, up to the maturity transfer. Table 10.3's last column consequently agrees with Table 10.1, including the 65,230.89-dollar year-3 balance. With unequal rates, the recurrence contains \(j\) on fund growth instead of \(i\), so the induction no longer applies.</p>
+<p>The equal-rate comparison also explains why the lender's larger interest receipts do not alone measure the borrower's extra cost. Under the sinking fund the running borrower pays \(6Li=43{,}200\) dollars in loan interest but earns 16,778.91 dollars in fund interest. Their difference is 26,421.09 dollars, equal to the amortized schedule's total interest. More generally, \(n(Li+D)-L=nLi-(L-nD)\): the external cash outflow above the original principal equals loan interest paid less fund interest earned. This comparison assumes no fees or taxes and identical dated external outflows, as well as the stated certain returns.</p>
+<p><strong>Unequal rates.</strong> Subtract (10.14) from (10.13) while retaining the loan rate \(i\):</p>
+\[
+C_{\mathrm{sf}}-A
+=L\left(\frac{1}{s_{\overline{n}|j}}
+-\frac{1}{s_{\overline{n}|i}}\right). \tag{10.16}
+\]
+<p>For \(n\ge2\) and rates above −1, \(s_{\overline{n}|j}=1+(1+j)+\cdots+(1+j)^{n-1}\) is strictly increasing in \(j\): its derivative is \(\sum_{k=1}^{n-1}k(1+j)^{k-1}\gt0\). The factor is positive, so its reciprocal strictly decreases. It follows that the sinking fund's outflow exceeds \(A\) when \(j\lt i\), equals \(A\) when \(j=i\), and falls below \(A\) when \(j\gt i\). Within this deterministic model, for positive \(L\) and \(n\ge2\), equal outflows require equal effective rates per common payment period. The one-period exception matters: \(s_{\overline{1}|j}=1\) for every \(j\), because the only deposit is made at maturity and earns no interest. Both methods then require \(L(1+i)\) regardless of the fund rate.</p>
+<p>For the running loan with annual \(j=3\%\), \(s_{\overline{6}|0.03}=6.468410\) to six decimals, \(D=18{,}551.70\) dollars displayed, and \(C_{\mathrm{sf}}=7200+D=25{,}751.70\) dollars. The additional annual outflow is 1,348.18 dollars from unrounded values. At zero fund interest the deposit is 20,000 dollars and the outflow is 27,200 dollars. These checks agree with the monotonicity proof. An expected investment return of 6% does not supply a certain 6% each year; a random fund balance need not meet the maturity target. The rate comparison is a comparison of promised deterministic accumulations.</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The borrower can now compare three fully specified plans. In Table 10.4, all cash flows occur annually in arrears for six years. The loan rate is fixed at 6%, and the fund rates are effective annual rates. Values use full precision with displays to cents. The fund column at year 3 is measured after the third deposit; the lender's claim at that date is measured after the third interest payment.</p>
+<div class="table-wrap"><table>
+<caption>Table 10.4. The running case under direct amortization and two sinking fund rates. Dollars; unrounded calculations, final displays to cents.</caption>
+<thead><tr><th>Quantity</th><th>Amortization</th><th>Sinking fund, \(j=6\%\)</th><th>Sinking fund, \(j=3\%\)</th></tr></thead>
+<tbody><tr><th>Annual external cash outflow</th><td>24,403.52</td><td>24,403.52</td><td>25,751.70</td></tr>
+<tr><th>Annual payment of loan interest</th><td>Declines: Table 10.1</td><td>7,200.00</td><td>7,200.00</td></tr>
+<tr><th>Annual fund deposit</th><td>—</td><td>17,203.52</td><td>18,551.70</td></tr>
+<tr><th>Lender's claim after year 3</th><td>65,230.89</td><td>120,000.00</td><td>120,000.00</td></tr>
+<tr><th>Separate fund after year 3</th><td>—</td><td>54,769.11</td><td>57,341.45</td></tr>
+<tr><th>Principal claim less fund after year 3</th><td>65,230.89</td><td>65,230.89</td><td>62,658.55</td></tr>
+<tr><th>Six external outflows, total</th><td>146,421.09</td><td>146,421.09</td><td>154,510.20</td></tr>
+<tr><th>Fund interest earned, total</th><td>—</td><td>16,778.91</td><td>8,689.80</td></tr></tbody>
+</table></div>
+<p>The lower-return fund has a larger year-3 balance than the 6% fund because the borrower makes larger deposits from the outset. It has less interest earned over the full term and requires 8,089.11 dollars more in total external outflows. Thus a larger intermediate asset balance does not establish that a plan is cheaper; the deposits that bought it also enter the comparison. At maturity both funds hold the required 120,000 dollars, and both repay the lender in full by the transfer specified earlier.</p>
+<p>The original question has two different answers depending on the object measured. Direct amortization reduces the lender's claim throughout the term. A sinking fund offsets an unchanged principal claim with a growing borrower asset. When fund and loan rates coincide, both the dated external outflows and the net-debt path agree. When the rates differ, (10.16) measures the outflow difference, and the fund recurrence measures the asset path. The method generalizes to another principal by multiplication, but the chosen rates, six-year term and cent convention belong to this example.</p>
+
+<h2 id="executable">Executable checks of the debt and fund ledgers</h2>
+<p>The program implements the annuity factors as closed forms and checks them against direct sums, then checks the running loan's prospective, retrospective and recurrence balances at all seven dates from 0 to 6. With the annual rate \(i=3/50\) represented by an exact fraction, it also checks the equal-rate net-debt identity, the sum and geometric growth of principal portions, and the zero-rate and one-payment boundaries. The irregular-payment loan has an exact terminal-balance check. For the lab's rate reset, the old balance is checked by both methods before the new payment and term are computed.</p>
+<p>Inputs are the amounts, rates and counts explicitly set in the listing. Outputs are the balances, periodic amounts, final clearing payment, real term and selected numerical comparisons printed below. The factor functions accept nonnegative whole counts and finite nonnegative effective rates; the payment function additionally requires positive principal and at least one payment. The recurrence accepts finite nonnegative payments, including a missed payment of zero, and retains any resulting signed residual instead of forcing it to zero. The term function requires a positive finite balance and payment, and raises <code>ValueError</code> when a positive-rate payment does not exceed interest. Four rejection cases are run at the end. Assertions stop execution if the algebraic or numerical checks fail.</p>
+<p>The listing reads no files and uses the Python standard library. <code>Fraction</code> supplies exact rational arithmetic for the loan and fund identities and lab balances. <code>Decimal</code>, with 50-digit working precision and round-half-up to cents, supplies the monetary ledger and displayed amounts. Monthly effective-rate conversion by a fractional power, logarithms for the real term, and the fund-rate bisection use floating point. Their reported money values are rounded only at the end. The cent ledger explicitly rounds each interest charge and the fixed payment; it is the sole part that feeds monetary rounding into later rows. Run the listing in a fresh interpreter, for example <code>python -I loan_checks.py</code>.</p>
+<pre><code class="language-python">from decimal import Decimal, ROUND_HALF_UP, getcontext
+from fractions import Fraction as Q
+from math import ceil, isfinite, log1p
+
+getcontext().prec = 50
+
+
+def validate(n, rate):
+    if type(n) is not int or n &lt; 0 or not isfinite(rate) or rate &lt; 0:
+        raise ValueError(&quot;need a whole count &gt;= 0 and a finite rate &gt;= 0&quot;)
+
+
+def a(n, rate):
+    validate(n, rate)
+    return n if rate == 0 else (1 - (1 + rate)**(-n)) / rate
+
+
+def s(n, rate):
+    validate(n, rate)
+    return n if rate == 0 else ((1 + rate)**n - 1) / rate
+
+
+def payment(principal, n, rate):
+    validate(n, rate)
+    if not isfinite(principal) or principal &lt;= 0 or n == 0:
+        raise ValueError(&quot;need positive principal and at least one payment&quot;)
+    return principal / a(n, rate)
+
+
+def balances(principal, payments, rate):
+    validate(len(payments), rate)
+    if not isfinite(principal) or principal &lt;= 0:
+        raise ValueError(&quot;need positive principal&quot;)
+    result = [principal]
+    for paid in payments:
+        if not isfinite(paid) or paid &lt; 0:
+            raise ValueError(&quot;need finite nonnegative payments&quot;)
+        result.append((1 + rate) * result[-1] - paid)
+    return result
+
+
+def real_term(balance, paid, rate):
+    validate(0, rate)
+    if not all(isfinite(x) and x &gt; 0 for x in (balance, paid)):
+        raise ValueError(&quot;need positive finite balance and payment&quot;)
+    if rate == 0:
+        return float(balance / paid)
+    if paid &lt;= rate * balance:
+        raise ValueError(&quot;payment does not exceed interest&quot;)
+    return -log1p(-float(rate * balance / paid)) / log1p(float(rate))
+
+
+def dec(value):
+    if isinstance(value, Q):
+        return Decimal(value.numerator) / Decimal(value.denominator)
+    return Decimal(str(value))
+
+
+def cents(value):
+    return dec(value).quantize(Decimal(&quot;0.01&quot;), rounding=ROUND_HALF_UP)
+
+
+def money(value):
+    return f&quot;{cents(value):,.2f}&quot;
+
+
+L, n, i = Q(120000), 6, Q(3, 50)
+A = payment(L, n, i)
+D = L / s(n, i)
+B = balances(L, [A] * n, i)
+for m in range(n + 1):
+    direct_a = sum((1 + i)**(-k) for k in range(1, m + 1))
+    direct_s = sum((1 + i)**k for k in range(m))
+    future = sum(A * (1 + i)**(-k) for k in range(1, n - m + 1))
+    past = L * (1 + i)**m - A * s(m, i)
+    assert a(m, i) == direct_a and s(m, i) == direct_s
+    assert B[m] == future == past == L - D * s(m, i)
+principal_parts = [A - i * B[t - 1] for t in range(1, n + 1)]
+assert sum(principal_parts) == L and B[-1] == 0
+assert all(principal_parts[t] == (1 + i) * principal_parts[t - 1]
+           for t in range(1, n))
+assert A == i * L + D
+assert a(6, Q(0)) == s(6, Q(0)) == 6
+assert payment(Q(100), 1, i) == Q(100) * (1 + i)
+assert L / s(n, Q(3, 100)) &gt; D
+
+print(f&quot;Exact balance and equal-rate fund identities: {n + 1} dates&quot;)
+print(&quot;Running installment:&quot;, money(A))
+print(&quot;Running after-payment B3:&quot;, money(B[3]))
+print(&quot;Fund outflow at 6%:&quot;, money(i * L + D))
+print(&quot;Fund outflow at 3%:&quot;, money(i * L + L / s(n, Q(3, 100))))
+
+rounded_balance = Decimal(120000)
+fixed = cents(A)
+for t in range(1, n + 1):
+    interest = cents(rounded_balance * Decimal(&quot;0.06&quot;))
+    paid = fixed if t &lt; n else rounded_balance + interest
+    rounded_balance += interest - paid
+assert rounded_balance == 0
+print(&quot;Cent ledger final payment:&quot;, money(paid))
+
+r = Q(8, 1200)
+X = Q(100000) / (a(2, r) + 2 * (1 + r)**(-2) * a(2, r))
+assert balances(Q(100000), [X, X, 2 * X, 2 * X], r)[-1] == 0
+print(&quot;Irregular first payment X:&quot;, money(X))
+
+old, new = Q(5, 1200), Q(55, 12000)
+A0 = payment(Q(4000000), 240, old)
+B24 = A0 * a(216, old)
+assert B24 == Q(4000000) * (1 + old)**24 - A0 * s(24, old)
+N = real_term(B24, A0, new)
+k = ceil(N)
+drop = (B24 * (1 + new)**(k - 1) - A0 * s(k - 1, new)) * (1 + new)
+assert 0 &lt; drop &lt;= A0
+print(&quot;Lab reset balance:&quot;, money(B24))
+print(&quot;Lab new installment:&quot;, money(B24 / a(216, new)))
+print(f&quot;Lab unchanged-payment term: {N:.6f} remaining months&quot;)
+print(f&quot;Lab final month and drop: {24 + k}, {money(drop)}&quot;)
+
+nominal = payment(1000000, 60, 0.08 / 12)
+effective = payment(1000000, 60, 1.08**(1 / 12) - 1)
+print(&quot;Car payment, nominal/effective 8%:&quot;, money(nominal), money(effective))
+
+lo, hi = 0.0, 0.2
+for _ in range(60):
+    mid = (lo + hi) / 2
+    outflow = 80000 * 0.07 + 80000 / s(5, mid)
+    if outflow &gt; 20000:
+        lo = mid
+    else:
+        hi = mid
+root = (lo + hi) / 2
+assert abs(80000 * 0.07 + 80000 / s(5, root) - 20000) &lt; 1e-8
+print(f&quot;Exercise 6 minimum fund rate: {100 * root:.6f}% annually&quot;)
+
+rejections = 0
+for fn, args in [(a, (1.5, i)), (s, (2, Q(-1, 100))),
+                 (payment, (0, 6, i)), (real_term, (100, 6, i))]:
+    try:
+        fn(*args)
+    except ValueError:
+        rejections += 1
+assert rejections == 4
+print(&quot;Input and interest-only boundary rejections:&quot;, rejections)
+</code></pre>
+<p>The program prints:</p>
+<pre><code>Exact balance and equal-rate fund identities: 7 dates
+Running installment: 24,403.52
+Running after-payment B3: 65,230.89
+Fund outflow at 6%: 24,403.52
+Fund outflow at 3%: 25,751.70
+Cent ledger final payment: 24,403.49
+Irregular first payment X: 16,982.98
+Lab reset balance: 3,754,901.63
+Lab new installment: 27,422.66
+Lab unchanged-payment term: 230.789818 remaining months
+Lab final month and drop: 255, 20,859.82
+Car payment, nominal/effective 8%: 20,276.39 20,143.05
+Exercise 6 minimum fund rate: 5.270389% annually
+Input and interest-only boundary rejections: 4
+</code></pre>
+<p>The checks are independent within the chosen financial model: direct cash-flow sums test the closed forms, and recurrence balances test their valuation timing. They do not establish a real contract's interest convention or a fund's future return. A sign error that adds each installment instead of subtracting it breaks the recurrence-to-prospective assertion; using a 3% fund in the equal-rate assertion breaks the net-debt identity. The actual cent ledger deliberately differs by a few cents from the unrounded model, so comparing those two objects for exact equality would be an inappropriate test.</p>
+
+<h2 id="limits">What the model captures and what changes the calculation</h2>
+<p>The equations capture dated transfers, deterministic accumulation and principal reduction. The key invariant is one value at one date: the retrospective amount of debt still recorded equals the prospective value of the complete remaining repayments at the same accumulation law. The <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">October 2026 Exam FM syllabus, p. 3</a>, assigns loans a 15–25% topic range and explicitly includes outstanding balances, the interest and principal in payments, final drop and balloon payments, and calculations involving refinancing. Those objectives motivate the calculations here; they do not certify the assumptions of any particular borrowing arrangement.</p>
+<p>A changing contractual rate can still be handled, as the reset example shows. With a known effective rate \(\rho_t\) for each period \(t\), the recurrence becomes \(B_t=(1+\rho_t)B_{t-1}-C_t\), and past or future values use products of the corresponding period factors rather than a constant-rate annuity. A fee paid at inception changes the borrower's net amount received; a fee added to the debt changes the opening balance; a recurring fee changes the payment stream. Each must appear as its own amount on its own date before a cost or yield is calculated. The annual rate convention and the actual rounding policy remain separate inputs.</p>
+<p>Default or uncertain payments prevent the promised future schedule from being the certain asset assumed by the equation of value. A fund with uncertain returns has a random maturity balance, so a deposit chosen from one assumed \(j\) does not guarantee repayment. Taxes or costs on fund earnings alter the accumulation available to repay principal; restrictions on withdrawing the fund matter if the borrower wants to settle early. None of those effects follows from the accounting identity \(L-F_t\). That identity is a net position under the specified account model, not a statement about access to cash or contractual setoff.</p>
+<p>Finally, interest charges are monetary quantities, not inflation-adjusted consumption costs. Every number here is in the stated currency units on its stated payment date. A comparison in purchasing-power units would require an additional price-level model. The procedure remains to specify the cash flows and rate convention, calculate the dated states, then interpret precisely the object calculated.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p>Unless a problem specifies a monetary ledger, retain all intermediate values unrounded and round monetary answers to cents only at the end. All payments are in arrears. Each problem uses a deterministic effective rate per stated payment period, with no fees or penalties.</p>
+
+<p><strong>1. Derive a prepayment rule.</strong> A level loan has installment \(A\) and balance \(B_m\) immediately after its \(m\)-th installment, with \(r=n-m\ge1\) payments left. At that same date the borrower pays an additional amount \(E\), where \(0\lt E\lt B_m\). Keep the rate and final maturity unchanged and replace the remaining installments by a new level amount. Derive that amount and the resulting reduction in total future interest. Explain why the extra payment cannot be discounted one more period.</p>
+<details><summary>Solution</summary>
+<p>The extra amount is paid at the valuation date, so the new debt is \(B_m-E\). Its remaining payments begin one period later. Since \(B_m=Aa_{\overline{r}|i}\), the new installment is \(A_{\mathrm{new}}=(B_m-E)/a_{\overline{r}|i}=A-E/a_{\overline{r}|i}\). The assumptions on \(E\) make this amount positive. Using \(Ev\) instead of \(E\) would move an immediate repayment to the wrong date.</p>
+<p>Old future interest is \(rA-B_m\). New future interest, after the extra repayment, is \(rA_{\mathrm{new}}-(B_m-E)\). Subtracting gives an interest saving of \(r(A-A_{\mathrm{new}})-E=E(r/a_{\overline{r}|i}-1)\). For \(i\gt0\), each discounted unit is less than one, so \(a_{\overline{r}|i}\lt r\) and the saving is positive. At zero interest the factor is \(r\) and the saving is zero, as it must be. The reduction in installments includes repayment of principal, which is why the extra \(E\) must be subtracted to isolate interest saved.</p>
+</details>
+
+<p><strong>2. Exam-style interest in a specific installment.</strong> A loan of 180,000 dollars is repaid by ten equal annual installments at 9% effective annually. Which is closest to the interest portion of the seventh installment: (A) 6,390; (B) 8,178; (C) 9,000; (D) 16,200; (E) 19,870 dollars? Also calculate the principal portion and the balances immediately before and after that installment. Retain intermediate precision; round answers to cents.</p>
+<details><summary>Solution</summary>
+<p>The installment is \(A=180{,}000/a_{\overline{10}|0.09}=28{,}047.62\) dollars displayed. Immediately after payment 6 there are four payments left, so \(B_6=Aa_{\overline{4}|0.09}=90{,}866.42\). The seventh period's interest is \(0.09B_6=8{,}177.98\), making choice B correct. Its principal portion is \(A-I_7=19{,}869.64\), also equal to \(A(1.09)^{-4}\). The before-payment balance is \(1.09B_6=99{,}044.40\), and the after-payment balance is \(B_7=Aa_{\overline{3}|0.09}=70{,}996.78\).</p>
+<p>The check is \(B_6-B_7=P_7\), with unrounded quantities: principal is the change between after-payment balances, while interest is earned on the earlier balance. Choice A approximately charges interest on \(B_7\), a balance that exists only after payment 7; choice D charges it on the original principal; choice E confuses principal with interest. A balance immediately before installment 7 must include that installment, so it exceeds \(B_7\) by the full \(A\), not by its principal portion.</p>
+</details>
+
+<p><strong>3. Check a quoted rate.</strong> A three-year loan of 36,000 dollars has 36 end-of-month installments and is advertised in this hypothetical problem as “9% annually,” without a compounding convention. Calculate the payment under (a) a nominal annual rate convertible monthly and (b) an effective annual rate. Compare the full-precision total interest under the two readings. Can a payment function determine which reading is intended? Retain intermediate precision; round money to cents.</p>
+<details><summary>Solution</summary>
+<p>Under reading (a), the monthly effective rate is \(i=0.09/12=0.0075\), giving \(A=36{,}000/a_{\overline{36}|i}=1144.79\) dollars. Under reading (b), it is \(i=(1.09)^{1/12}-1=0.007207323316\), giving 1,138.91 dollars. The nominal reading has the larger monthly rate and hence the larger installment: its 12-month accumulation exceeds 1.09, whereas the effective reading accumulates to exactly 1.09.</p>
+<p>Total interest, computed as \(36A-36{,}000\) before rounding \(A\), is 5,212.45 dollars in (a) and 5,000.94 in (b). Subtracting the unrounded totals and then rounding gives a difference of 211.52 dollars; subtracting the displayed totals would instead give 211.51. The payment difference is 5.88 dollars displayed. The function evaluates the convention it is given; it cannot infer missing contractual information. Reading an annual effective rate directly as a nominal entry would answer (a) even if (b) was intended.</p>
+</details>
+
+<p><strong>4. A counterexample from a missed payment.</strong> A loan of 10,000 dollars has four equal annual installments at 8% effective annually. Payment 1 is made, payment 2 is missed, and payments 3 and 4 are made as originally scheduled. Unpaid amounts remain in the debt and earn 8%. Immediately after the date of payment 2, a calculation uses \(Aa_{\overline{2}|0.08}\) as the outstanding balance. Explain the error, calculate the actual balance then, and find the additional amount needed at date 4 to clear the loan. Retain intermediate precision; round money to cents.</p>
+<details><summary>Solution</summary>
+<p>The original installment is \(A=10{,}000/a_{\overline{4}|0.08}=3{,}019.21\) dollars displayed. Under the complete original schedule, \(B_2=Aa_{\overline{2}|0.08}=5{,}384.05\). But the actual second payment is zero. The recurrence therefore leaves the balance larger by exactly \(A\) at date 2, namely 8,403.26 dollars. The prospective expression used in the question values only the two original remaining installments; it omits repayment of the missed amount.</p>
+<p>Both paths have the same later scheduled payments, so their balance difference grows by 1.08 each year. At date 4 the extra balance is \(A(1.08)^2=3{,}521.60\) dollars. This is the additional clearing payment, over and above the original fourth installment. Adding it to the final cash flow makes its value at date 2 equal to the missing \(A\); the prospective and retrospective balances then agree again. The accounting identity did not fail. The calculation used an incomplete future schedule for a debt whose actual past cash flows had changed.</p>
+</details>
+
+<p><strong>5. Design a response to a rate reset.</strong> A 300,000-dollar loan starts with 120 monthly installments at 6% nominal annually convertible monthly. Immediately after payment 24, the rate changes to 7.2% nominal convertible monthly and remains there. Find the revised installment that keeps the original final date. If the unrounded original installment is kept instead, find the final whole month of the loan and its drop payment. Retain intermediate precision; round money to cents.</p>
+<details><summary>Solution</summary>
+<p>The old monthly rate is 0.005, and the new rate is 0.006. The old installment is \(A_0=300{,}000/a_{\overline{120}|0.005}=3330.62\) dollars displayed. At the reset date \(B_{24}=A_0a_{\overline{96}|0.005}=253{,}443.88\). The new installment for the remaining 96 months is \(B_{24}/a_{\overline{96}|0.006}=3480.66\) dollars, an increase of 150.05 calculated from unrounded amounts. The new rate applies to this remaining balance, rather than retrospectively to the original 300,000.</p>
+<p>If \(A_0\) is kept, it exceeds the new monthly interest on the reset balance, \(0.006B_{24}=1520.66\), so a finite remaining term exists. Formula (10.11) gives \(N=101.947422\) remaining months. There are 101 full original installments followed by a drop at remaining month 102, or loan month \(24+102=126\). Substituting 101 for the count of full new-regime payments in (10.12) gives a drop of 3,155.99 dollars. It is positive and smaller than the regular installment, checking the chosen convention. The original final month was 120, so keeping the old payment extends repayment by six months. Cent payments with rounded monthly interest would require a recalculated final amount.</p>
+</details>
+
+<p><strong>6. Judge a sinking fund budget and solve an inverse problem.</strong> A borrower owes 80,000 dollars in five years and pays annual interest at 7% effective on the full principal. A sinking fund receives equal deposits at each year-end. The annual budget for interest plus the deposit is 20,000 dollars. Does a fund earning 3% effective annually meet that budget while repaying the principal in full? If not, find the minimum constant effective annual fund rate that does. Justify uniqueness. Retain intermediate precision; round money to cents and report the rate to six decimal places in percent.</p>
+<details><summary>Solution</summary>
+<p>The lender receives \(80{,}000(0.07)=5600\) dollars each year. At \(j=0.03\), the deposit is \(80{,}000/s_{\overline{5}|0.03}\), making total annual outflow 20,668.37 dollars. It exceeds the budget by 668.37. Paying only the allowed deposit \(20{,}000-5600=14{,}400\) at this rate would produce less than 80,000 at maturity; the target cannot be made true by assigning a zero terminal loan balance.</p>
+<p>For the permitted deposit, the required factor is \(s_{\overline{5}|j}=80{,}000/14{,}400=50/9\). The function \(s_{\overline{5}|j}=1+(1+j)+(1+j)^2+(1+j)^3+(1+j)^4\) is continuous and strictly increasing for \(j\ge0\). At zero it is 5, below \(50/9\); at \(j=0.2\) it is 7.4416, above \(50/9\). There is exactly one root in that interval. Bisection, retaining the half-interval according to which side of the required factor its midpoint gives, yields \(j=0.052703886552\), or 5.270389% annually. The program performs 60 iterations and checks the annual outflow against 20,000 to within \(10^{-8}\) dollars.</p>
+<p>Rates above this root permit the same maturity target within the budget; smaller rates do not. The equality is a funding calculation for a constant certain return. Treating that numerical threshold as an expected risky return would not ensure that the fund is sufficient on the repayment date.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>NPTEL IIT Madras, <em>Financial Mathematics for Actuaries</em>: <a href="https://www.youtube.com/watch?v=LgrcQWuysCI">Lecture 31</a>, <a href="https://www.youtube.com/watch?v=XUxnlhIZI7k">Lecture 32</a>, <a href="https://www.youtube.com/watch?v=VExPn6Ofang">Lecture 33</a>, <a href="https://www.youtube.com/watch?v=nJRpWdGCDfo">Lecture 35</a>, <a href="https://www.youtube.com/watch?v=GybCJ7mpe8w">Lecture 34 problem lab</a> and <a href="https://www.youtube.com/watch?v=FzJwEVr0qbc">Lecture 55 integrated review</a>. These recordings supply the topic sequence, slide notation and worked-problem data.</li>
+<li>Texas Instruments, <a href="https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf"><em>BA II PLUS Calculator guidebook</em></a>, pp. 21–22 (PDF pp. 26–27): nominal interest entry and frequency settings, END/BGN timing, inflow/outflow signs, rounded payment in amortization calculations and the meaning of BAL after a selected payment.</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam—October 2026 syllabus</em></a>, p. 3: loan topic range and objectives for principal, interest, outstanding balance, drop and balloon payments, amortization and refinancing. The reference is to this dated syllabus.</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-09-varying-annuities-arithmetic-decreasing-geometric-and-continuous.html">Previous available chapter</a><a href="index.html">Lecture index</a><span>Further chapters pending</span></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>

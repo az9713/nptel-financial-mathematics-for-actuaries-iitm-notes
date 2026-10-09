@@ -79,10 +79,10 @@
     },
     {
       "order": 10,
-      "title": "Loan repayment: amortization, outstanding balance and the sinking fund method",
+      "title": "Loan repayment: amortization, outstanding balance and sinking funds",
       "lectures": "31, 32, 33, 35",
       "practice_lectures": "34, 55",
-      "chapter_status": "pending"
+      "chapter_status": "reviewed and locally validated"
     },
     {
       "order": 11,

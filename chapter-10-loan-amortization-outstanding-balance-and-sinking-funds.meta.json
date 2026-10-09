@@ -1,0 +1,407 @@
+{
+  "chapter": 10,
+  "title": "Loan repayment: amortization, outstanding balance and sinking funds",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 2 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "LgrcQWuysCI",
+      "lecture": "Lecture 31",
+      "media_sha256": "6177f54893c1d5eb3dd9213cd457e57e70041d20aa2144e115650eeca7607dbe",
+      "duration_seconds": 1470,
+      "transcript_first_start_seconds": 15.12,
+      "transcript_last_end_seconds": 1466.08
+    },
+    {
+      "video_id": "XUxnlhIZI7k",
+      "lecture": "Lecture 32",
+      "media_sha256": "87497b63d3fe5a193fc44f7022d69cdefa0aceac4febc3e0f9e46fcfc5953fc8",
+      "duration_seconds": 1222,
+      "transcript_first_start_seconds": 15.04,
+      "transcript_last_end_seconds": 1218.48
+    },
+    {
+      "video_id": "VExPn6Ofang",
+      "lecture": "Lecture 33",
+      "media_sha256": "1ee582eb2016d687130e643fb451291bbbbc833ffd84ea34734e98a5ba57a8ec",
+      "duration_seconds": 1296,
+      "transcript_first_start_seconds": 15.12,
+      "transcript_last_end_seconds": 1293.2
+    },
+    {
+      "video_id": "nJRpWdGCDfo",
+      "lecture": "Lecture 35",
+      "media_sha256": "a7ce92ca1c093b78cf1ea8ae387573cb7fd9eebcb67b28dfbe415a90efae1292",
+      "duration_seconds": 1219,
+      "transcript_first_start_seconds": 15.04,
+      "transcript_last_end_seconds": 1216.0
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "GybCJ7mpe8w",
+      "lecture": "Lecture 34",
+      "media_sha256": "35d98f02e841a77185f66a9c73f32eb734382dc03aec3a310ab55d6b9d2eb8ef",
+      "duration_seconds": 3081,
+      "transcript_first_start_seconds": 15.04,
+      "transcript_last_end_seconds": 3077.6,
+      "kind": "lab",
+      "used_for": "Irregular-payment and rate-reset sections, arithmetic consistency discussion; inspiration for original Exercise5."
+    },
+    {
+      "video_id": "FzJwEVr0qbc",
+      "lecture": "Lecture 55",
+      "media_sha256": "02d936fd70b712104149c3cfecd484e8d8cb1deb698c4a79133a4bc1b84ec465",
+      "duration_seconds": 1542,
+      "transcript_first_start_seconds": 15.28,
+      "transcript_last_end_seconds": 1534.6,
+      "kind": "review",
+      "used_for": "Correction of third six-year balance and confirmation of separate sinking fund and interest-only ledgers."
+    }
+  ],
+  "frames_viewed": {
+    "LgrcQWuysCI": [
+      "f0001",
+      "f0016",
+      "f0022",
+      "f0033",
+      "f0040",
+      "f0045"
+    ],
+    "XUxnlhIZI7k": [
+      "f0001",
+      "f0007",
+      "f0012",
+      "f0015",
+      "f0020",
+      "f0023",
+      "f0030",
+      "f0036"
+    ],
+    "VExPn6Ofang": [
+      "f0001",
+      "f0003",
+      "f0029",
+      "f0033",
+      "f0042"
+    ],
+    "nJRpWdGCDfo": [
+      "f0001",
+      "f0009",
+      "f0011",
+      "f0013",
+      "f0015",
+      "f0033",
+      "f0039"
+    ],
+    "GybCJ7mpe8w": [
+      "f0001",
+      "f0009",
+      "f0013",
+      "f0021",
+      "f0033",
+      "f0054",
+      "f0062",
+      "f0068",
+      "f0073",
+      "f0080",
+      "f0099"
+    ],
+    "FzJwEVr0qbc": [
+      "f0001",
+      "f0033",
+      "f0044",
+      "f0049"
+    ]
+  },
+  "source_uncertainties": [
+    "All full publisher captions read sequentially for Lectures31,32,33,35,34,55; all21 contact sheets viewed: L31s01-s03,L32s01-s03,L33s01-s03,L35s01-s03,L34s01-s06,L55s01-s03. Full-size frames listed above. No media, captions or quotations copied to the public chapter.",
+    "L31,L35,L34,L55 title slidesf0001 name Prof.Pramod Kumar Naik. L32,L33 title slidesf0001 say Loan Balance and do not name an instructor; the series attribution is based on named title slides, not an invented name from these unnamed cards.",
+    "Duration source: transcript.json used. L33 media_duration1296 versus manifest1297; L35 media_duration1219 versus manifest1220; L55 media_duration1542 versus manifest1543. Endpoints and all timestamp links fit the media bounds.",
+    "A is the slides installment symbol, not the earlier amount function A(t). L32f0012 accompanying prose incorrectly calls B_m an installment; formula and preceding definition make it the outstanding after-payment balance.",
+    "L31f0045 and L33f0003 print third balance271.96 for5000 over6years at6%; L55f0033 corrects it to2717.96. Full-precision recomputation gives2717.95; cent-ledger rounded installment/interest gives2717.96. The chapter distinguishes the decimal error from rounding.",
+    "L33 spreadsheet cell text is small at native recording resolution. Full framesf0029,f0033,f0042 viewed; monthly example parameters confirmed in sequential lecture narration, payment results independently recomputed under both explicit annual-rate conventions. No unreadable cell formula is quoted or guessed; formula comes from legible L31/L32 slides and derivation.",
+    "L34f0009 uses rounded factor4.1002 and prints121945.27 for500000/5years/7%; unrounded factor gives121945.35.",
+    "L34f0021,f0033 truncate0.08/12 to0.0066, then round annuity factors, yieldingX16980.24; f0054 shows final residual about-2.64. Exact nominal-to-monthly rate1/150 givesX16982.98 and exact zero with unrounded payments.",
+    "L34f0062,f0068,f0073,f0080,f0099 use truncated monthly rates0.00416/0.00458 and rounded factors, with different prospective and retrospective old balances and revised27413.06. Chapter recomputes26398.23,3754901.63,27422.66 and real remaining230.789818 at exact monthly conversions, then whole-month drop.",
+    "L35f0009 uses rounded s6=6.975 and gives71684.58 on a500000 loan. At full precision deposit is71681.31; this duplicate numerical example is not reproduced in reader text. L35f0033/L55f0044,f0049 give rounded5000 schedule totals6100.86 and fund deposits4300.86, interest699.14; exact unrounded values differ slightly. Original running tables are recomputed independently.",
+    "Captions flatten angle-annuity symbols, superscripts and informal installment/balance wording. Mathematical notation is based on full slide frames and explicitly derived equations; there is no unresolved symbol guess.",
+    "TI live web fetch timed out. Saved official PDF was rechecked at pp21-22 as extracted text and rendered images, and supports every TI claim. SOA official dated PDF opened live and saved p3 rechecked as text and rendered image. No inaccessible textbook is cited.",
+    "No empirical borrowing, fund-return, tax or contract-law claims are made. Rates and original monetary inputs are hypothetical. Negative fund-rate monotonicity statement is an algebraic extension for rates>-1; executable validation intentionally restricts to nonnegative rates."
+  ],
+  "sections": [
+    {
+      "section": "The running case and a dated debt state",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Original loan 120000 dollars, six years, 6% effective annual loan rate; dated before/after balances, positive borrower-payment convention, A installment distinct from A(t) amount function; restated annuity factors with empty-sum and zero-rate cases, indexing and time units.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Amortization starts with interest on the preceding balance",
+      "video_id": "LgrcQWuysCI",
+      "start": 269,
+      "end": 1036,
+      "lecture_material": "Interest on preceding balance, interest-first payment decomposition, amortization; lecture 1000-rupee 10% example with payments 200, 500 and 539.",
+      "research_extension": "None.",
+      "teaching_construction": "Recurrence derived from before/after timing; original Figure 10.1; positive/zero/negative principal repayment boundary, principal and interest total checks.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Choosing the level installment and building the schedule",
+      "video_id": "LgrcQWuysCI",
+      "start": 1036,
+      "end": 1466.08,
+      "lecture_material": "Level installment L/a-angle-n, three-year 1000-rupee schedule and six-year 5000 example.",
+      "research_extension": "None.",
+      "teaching_construction": "Equation of value derivation, positive-amortization proof, exact running schedule Table 10.1 with totals and display-rounding distinction, early principal repayment mechanism; duplicate six-year lecture values discussed in implementation.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Prospective and retrospective balances are the same dated value",
+      "video_id": "XUxnlhIZI7k",
+      "start": 45,
+      "end": 607,
+      "lecture_material": "Prospective B_m=A*a-angle-(n-m), retrospective L*(1+i)^m-A*s-angle-m; equality by substitution.",
+      "research_extension": "None.",
+      "teaching_construction": "Full cancellation proof and independent recurrence induction; original before-payment formula, general unequal-payment cash-flow split, terminal residual and missed-payment completeness conditions, same-rate restriction, endpoints and running B3 check.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Why principal portions grow while interest portions fall",
+      "video_id": "XUxnlhIZI7k",
+      "start": 607,
+      "end": 1178.48,
+      "lecture_material": "Normalized principal a-angle-n with installment 1; interest 1-v^(n-t+1), principal v^(n-t+1), outstanding a-angle-(n-t), decreasing interest and increasing principal.",
+      "research_extension": "None.",
+      "teaching_construction": "Scaling by A, geometric principal ratio, total-principal proof, total-interest identity, numerical running-case check and the exact threshold for interest to exceed principal; zero-rate and one-payment boundaries.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A spreadsheet, a calculator and a monetary ledger",
+      "video_id": "VExPn6Ofang",
+      "start": 46,
+      "end": 1241,
+      "lecture_material": "Spreadsheet schedule with fixed rate/installment cells and preceding-row balance; monthly car-loan example with 1000000 rupees, 60 installments and annual 8% divided by 12; 5000 six-year table.",
+      "research_extension": "TI guidebook pp21-22: I/Y nominal, P/Y and C/Y, END/BGN, inflow/outflow signs, BAL after selected payment and rounded PMT in amortization calculations.",
+      "teaching_construction": "Exact-model versus cent-ledger distinction; original half-up cent ledger and final payment 24403.49; two 8% conventions; L55 correction of misplaced decimal distinguished from recalculated full-precision value.",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "Irregular payments require a cash-flow equation",
+      "video_id": "GybCJ7mpe8w",
+      "start": 381,
+      "end": 1697,
+      "lecture_material": "Four-month 100000-rupee loan at nominal 8% with payments X,X,2X,2X; lab truncation of monthly rate to 0.0066; preceding 500000 five-year 7% example.",
+      "research_extension": "None.",
+      "teaching_construction": "Full discounted equation and shifted two-payment block; exact 1/150 rate gives X16982.98 and Table 10.2, exact zero terminal balance; prospective intermediate check and zero-rate limit; discrepancy of rounded-factor lecture values explained.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A rate reset changes the future schedule from today's balance",
+      "video_id": "GybCJ7mpe8w",
+      "start": 1697,
+      "end": 3077.6,
+      "lecture_material": "4000000-rupee twenty-year loan, nominal monthly 5% rising to 5.5% after payment24; revised installment or unchanged installment with extended term; early rate/factor truncations.",
+      "research_extension": "None.",
+      "teaching_construction": "Exact old rate balance by both methods, new remaining-216-period equation, monotonic-payment argument, logarithmic remaining-term derivation with interest-only boundary, whole-month drop amount and explicit dates; no forced-zero residual.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "A sinking fund builds an asset while the principal remains due",
+      "video_id": "nJRpWdGCDfo",
+      "start": 54,
+      "end": 991,
+      "lecture_material": "Interest-only lender payments plus sinking fund deposits, original loan normalized to a-angle-n; equal-rate interest1-v^n plus depositv^n; 5000-dollar fund table.",
+      "research_extension": "None.",
+      "teaching_construction": "Separate principal and fund ledgers; j defined as effective fund rate per same loan-payment period with local scope and frequency conversion; fund recurrence, deposit derivation, original Table 10.3, zero-return case and no double counting of maturity transfer.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Equal rates give equal outflows and a net-debt identity",
+      "video_id": "nJRpWdGCDfo",
+      "start": 991,
+      "end": 1169,
+      "lecture_material": "Different loan and fund rates, total outflow L*(i+1/s-angle-n at j).",
+      "research_extension": "None.",
+      "teaching_construction": "Equal-rate cash-outflow algebra, original net-debt recurrence proof, loan interest less fund interest cost identity, unequal-rate difference, monotonicity proof with n=1 exception and zero-rate checks, deterministic versus expected return boundary.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The running case resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 10.4 compares amortization with annual fund rates6% and3%; gross principal, fund and net positions at year3, totals, explanation that larger deposits can give a larger intermediate fund at a lower return; answers opening decision with model scope.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable checks of the debt and fund ledgers",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library program: exact fraction direct sums versus factors, recurrence/prospective/retrospective/net fund at seven dates, principal sums and ratios, zero/one-payment checks, exact irregular terminal balance and reset balance; Decimal cent ledger; float monthly conversion/log term/bisection; four ValueError cases; tested sign and unequal-rate mutations.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What the model captures and what changes the calculation",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "SOA October2026 syllabus p3: Loans15-25%, balance, interest/principal, final-payment and refinancing objectives.",
+      "teaching_construction": "Captures/misses audit: variable contractual rates as period products, fees as dated flows, default and uncertain fund returns, tax/cost/access effects and inflation; no claims about actual contract law or current borrowing offers.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Lab inspired the reset problem; lecture formulas supply the concepts. All six questions use original constructions or original numerical inputs.",
+      "research_extension": "None.",
+      "teaching_construction": "Six complete solutions: derive prepayment and interest saving; exam-style seventh-payment interest and dated balances; nominal/effective monthly convention; missed-payment counterexample and arrears balloon; rate-reset design with whole-month drop; budget judgment and unique inverse fund-rate root.",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "Every h2 except Primary sources has one entry with exact title text. Primary sources is a reference list and adds no independent claim. Review55 support is recorded in practice_sources and implementation uncertainties. The early L34 level example is revisited after the irregular problem to isolate intermediate-factor rounding.",
+  "references": [
+    {
+      "title": "Lecture 31 recording",
+      "url": "https://www.youtube.com/watch?v=LgrcQWuysCI",
+      "supports": "Loan repayment methods, unequal-payment example and level installment schedule.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 32 recording",
+      "url": "https://www.youtube.com/watch?v=XUxnlhIZI7k",
+      "supports": "After-payment balances, prospective/retrospective identities, normalized interest/principal decomposition.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 33 recording",
+      "url": "https://www.youtube.com/watch?v=VExPn6Ofang",
+      "supports": "Spreadsheet dependencies, monthly payment construction and the early six-year table.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 35 recording",
+      "url": "https://www.youtube.com/watch?v=nJRpWdGCDfo",
+      "supports": "Interest-only plus separate fund, normalized equal-rate construction and differing fund rate formula.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 34 recording",
+      "url": "https://www.youtube.com/watch?v=GybCJ7mpe8w",
+      "supports": "Irregular X,X,2X,2X loan; level example and monthly rate-reset questions with lecture rounded values.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 55 recording",
+      "url": "https://www.youtube.com/watch?v=FzJwEVr0qbc",
+      "supports": "Integrated recap; correction of third balance to2717.96 in displayed schedule and fund recap.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Texas Instruments, BA II PLUS Calculator guidebook (English)",
+      "url": "https://education.ti.com/html/eguides/financials/baiiplus/en/Content/Resources/PDF/BAIIPlus_Guidebook_EN.pdf",
+      "supports": "Nominal I/Y conversion through P/Y,C/Y; changing P/Y sets C/Y; END/BGN; signed cash flows; rounded PMT for BAL,PRN,INT versus unrounded for FV; BAL after the last selected payment.",
+      "page_checked": "pp. 21-22 (PDF pp. 26-27), text and rendered page images checked"
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam—October 2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "Loans topic15-25%; principal, interest, term, outstanding balance, drop/balloon final payments and amortization; balance, interest/principal and refinancing calculations.",
+      "page_checked": "p. 3 (PDF p. 3), text and rendered page image checked"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "L,t,i,n",
+      "first_section": "model",
+      "definition": "Principal advanced at0; time in stated payment periods; effective loan rate per period; number of repayment periods."
+    },
+    {
+      "symbol": "C_t,B_t,B_t^-",
+      "first_section": "model",
+      "definition": "Positive lender payment; balance immediately after paymentt; immediately before it after interest accrues."
+    },
+    {
+      "symbol": "A,A(t)",
+      "first_section": "model",
+      "definition": "A is constant installment; explicit contrast to earlier amount function A(t), which is not used to calculate this loan."
+    },
+    {
+      "symbol": "v,r,k,a-angle-r at i,s-angle-r at i",
+      "first_section": "model",
+      "definition": "Discount factor(1+i)^-1; nonnegative whole count; sum index; immediate PV and AV factors in stated period units."
+    },
+    {
+      "symbol": "I_t,P_t",
+      "first_section": "amortization",
+      "definition": "InterestiB_(t-1) and principal repaymentC_t-I_t during installmentt."
+    },
+    {
+      "symbol": "m,K",
+      "first_section": "balances",
+      "definition": "Number of installments made; residual terminal amount due atn when present."
+    },
+    {
+      "symbol": "r",
+      "first_section": "portions",
+      "definition": "Here r=n-t+1, the remaining payment count at the start of periodt."
+    },
+    {
+      "symbol": "i^(12),I/Y,P/Y,C/Y,END,BGN,BAL,PRN,INT,FV",
+      "first_section": "implementation",
+      "definition": "Nominal annual rate convertible monthly; calculator labels and modes as defined in text and TI source."
+    },
+    {
+      "symbol": "X",
+      "first_section": "irregular",
+      "definition": "Unknown first two installments; final two equal2X."
+    },
+    {
+      "symbol": "i_0,i_1,A_0,A_1,N",
+      "first_section": "reset",
+      "definition": "Old/new effective monthly rates, old/new installments and real number of remaining new-regime periods; whole-count timing separately specified."
+    },
+    {
+      "symbol": "j,D,F_t,C_sf",
+      "first_section": "sinking-fund",
+      "definition": "j effective fund rate per same loan-payment period, local to this chapter; constant end-period deposit, fund immediately after deposit before maturity transfer, interest plus fund deposit external outflow."
+    },
+    {
+      "symbol": "q,L-F_t",
+      "first_section": "comparison",
+      "definition": "Temporary full-term accumulation factor(1+i)^n; net debt defined as principal claim less fund, distinct from gross lender debt."
+    },
+    {
+      "symbol": "rho_t",
+      "first_section": "limits",
+      "definition": "Known effective contractual rate for periodt in variable-rate recurrence."
+    },
+    {
+      "symbol": "E,A_new,r",
+      "first_section": "exercises",
+      "definition": "Extra same-date principal payment, revised installment, remaining countn-m in Exercise1; restated local meanings."
+    },
+    {
+      "symbol": "lo,hi,mid,root",
+      "first_section": "executable",
+      "definition": "Floating-point bisection bracket and midpoint for Exercise6 fund-rate root; defined by initialization and updates in code."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/fix_ch10_r1_checks.py (extracts and runs the unchanged 144-line embedded listing in a fresh python -I process; standard library only; exit0, no stderr, 14 stdout lines,566 bytes; byte-identical after normalizing Windows CRLF to LF)",
+    "stdout_matches_printed": true
+  }
+}
