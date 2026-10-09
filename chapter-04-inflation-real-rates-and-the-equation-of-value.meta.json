@@ -1,0 +1,384 @@
+{
+  "chapter": 4,
+  "title": "Inflation, real rates, and the equation of value",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 3 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "fOwVbMKW1_0",
+      "lecture": "Lecture 10",
+      "media_sha256": "b42a49b78e621403fd2b3c01c84331a41b89c236970a05deab72f14f6401e242",
+      "duration_seconds": 2059,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 2055.84
+    },
+    {
+      "video_id": "M9N7Jj4zfvw",
+      "lecture": "Lecture 11",
+      "media_sha256": "ea51375975f2f27c05ec909f1205b1f99533ed0146f655ee58b7454fe107a4d0",
+      "duration_seconds": 2278,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 2274.0
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "HSrxblFzIsE",
+      "lecture": "Lecture 30",
+      "kind": "review",
+      "media_sha256": "2e5ea1674490e9912da2b7ec1a4d0027180b5683995cb7dddd66d690c7ec524c",
+      "duration_seconds": 1878,
+      "transcript_first_start_seconds": 11.92,
+      "transcript_last_end_seconds": 1872.0,
+      "used_for": "Exercise 1(d): the format of the Q1 concept check (f0022, 'which statement is false for i > 0', each distractor eliminated by a principle), restated with the chapter's own real-rate statements and no annuity symbols. Section 'The Fisher equation and its additive approximation': the symbol delta' for a force net of growth, taken from the Q5 solution slide (f0061, 'net force' 0.05 - 0.02 = 3%), used for the real force of interest ln(1 + i') in (4.10); the continuous annuity of that question is not used. Q3 (growing perpetuity, f0041) was viewed and not used."
+    }
+  ],
+  "frames_viewed": {
+    "fOwVbMKW1_0": [
+      "f0001",
+      "f0005",
+      "f0008",
+      "f0011",
+      "f0015",
+      "f0026",
+      "f0032",
+      "f0042",
+      "f0045",
+      "f0049",
+      "f0054",
+      "f0057",
+      "f0063",
+      "f0067",
+      "f0068"
+    ],
+    "M9N7Jj4zfvw": [
+      "f0001",
+      "f0005",
+      "f0009",
+      "f0010",
+      "f0033",
+      "f0035",
+      "f0040",
+      "f0050",
+      "f0054",
+      "f0058",
+      "f0064",
+      "f0066",
+      "f0069",
+      "f0075"
+    ],
+    "HSrxblFzIsE": [
+      "f0022",
+      "f0041",
+      "f0061"
+    ]
+  },
+  "source_uncertainties": [
+    "Durations: transcript.json media_duration gives 2059 s (Lecture 10), 2278 s (Lecture 11) and 1878 s (Lecture 30); source-manifest.json gives 2060, 2278 and 1878 s. This file uses the transcript.json values; every timestamp in the chapter (largest: L10 22:08 = 1328 s; L11 32:07 = 1927 s) lies inside both.",
+    "Instructor: the title slides of Lectures 10 and 11 (f0001, viewed at full size) name Prof. Neelesh S. Upadhye, IIT Madras; the slide footers repeat the name. The Lecture 30 title slide was seen only on contact sheet s01 (same name, 'NPTEL - IIT Madras', Week 6). Lecture 30 speech (about 1843-1851 s) says that Pramod Naik takes over in module 2; no other presenter appears in the frames viewed.",
+    "Reference-mapping boxes on the roadmap slides (slide facts, not cited, books not open): Lecture 10 (f0005) Broverman section 1.7, Chan and Tse section 9.1 (the captions spell the first name 'Brauerman'); Lecture 11 (f0005) Broverman section 1.3, Chan and Tse section 1.8.",
+    "Notation: the Lecture 10 slides (f0011, f0015, f0032, f0042, f0045, f0054, f0067) write the inflation rate as r and the real rate as i'. The lead's original table listed r as the real rate; after this chapter's proposal the table's r row and the 'Decisions from chapter 4' section give r = inflation rate and i' = real rate. The chapter follows the slides and says so at first use; proposal in _editorial/notation-proposals/ch04.md.",
+    "Two meanings of 'nominal': the Lecture 10 slides call the money rate i the 'nominal rate' (as against real); Chapter 2 and the Lecture 10 rate map (f0049) use 'nominal' for i(m) (as against effective). The chapter names i the 'money rate' after its first section and states that every money rate is effective annual unless a frequency is given; the lecture's examples assume an effective rate (Lecture 10 speech about 966-972 s).",
+    "Rounding on slides: L10 f0026 writes 1 + i' = 1.047 and 4.7% (exact 1.047619 and 4.7619%; the slide truncates); f0042 prints 2.86% (exact 2.8571%; the caption says 2.85 at about 1155-1170 s and 2.86 at 1187 s); f0045 prints 0.962 and -3.8% (exact 0.962264 and -3.7736%); f0063 prints 0.9753 and d(4) = 9.88% (exact 0.975310 and 9.8760%). L11 f0050 prints 0.8900, 0.7473, 2.3846 and X = 419.36, and f0054 prints 1338.23, 3.1910 and 419.36 (exact factors 0.889996, 0.747258, 2.384513, 3.191016 and X = 419.37); f0033 prints 95.35 (exact 95.3463). The chapter states its rule (no intermediate rounding) and the exact values.",
+    "Caption errors corrected from the slides (paraphrased): in Lecture 11 the compound-interest exponent is spoken as 'raised to 5' where the slide (f0033) has 0.5; v is spoken as 'equal to 1 plus i' (about 1326 s) where the handwriting on the Example 1 slide (contact sheet s03, frames f0045-f0047, not viewed at full size) has v(1+i) = 1, v = 1/(1+i); in the Lecture 10 summary the approximation is spoken as 'I is equal to i prime minus r' (about 1948 s) where the slide (f0067) has i approximately i' + r.",
+    "Lecture 10 unit-check slide (f0057) lists delta as 'per instant'. The chapter states that delta is a rate per year applied continuously (delta t dimensionless with t in years), consistent with (4.4).",
+    "Lecture 10 slide f0042 and speech (about 1193-1202 s) say that the approximation overestimates the return; the speech adds that it may underestimate when the numbers are large, and the summary (about 1965-1971 s) that it may over- or underestimate depending on r. The chapter derives the exact error r i' (4.8) and its sign rule (overstates the size of the real rate when r > 0; underestimates the return when the real rate is negative, as in the slide's own 2%/6% example), and attributes the speaker's version.",
+    "Lecture 11 drop-payment slide (f0058): loan 1,000 repaid by 300 a year, last payment a drop payment, no rate given; the speech (about 1691-1712 s) notes that the number of full payments depends on the rate. The chapter supplies the condition (4.15) and the range from zero to, but excluding, the exact boundary rate for three full payments and a smaller fourth; that rate rounds to 7.7138% (original construction).",
+    "Lecture 11 calculator-memory slide (f0066) shows STO and RCL keys and does not name a calculator model; the chapter names none.",
+    "Speaker's judgments and remarks, attributed in the text and not used as findings: financial newspapers report the real rate as i - r (Lecture 10, about 902-912 s); bank deposits in India have recently paid about 2.5% while inflation was 5 to 6% (Lecture 10, about 1247-1265 s; no source or data, not used); accuracy matters in Exam FM (Lecture 11, about 2042 s).",
+    "Lecture 11 speech (about 341-361 s) counts the balance in the account among the outflows in the 100-rupee illustration; the chapter reports this as the lecture's illustration and states the general point that inflows and outflows depend on the point of view.",
+    "No real inflation series is used. The rates of the running case (8% and 6%) and of the exercises are invented and labelled as invented. An attempt to download a FRED CPI series (2026-10-08) timed out; no value from it is used."
+  ],
+  "sections": [
+    {
+      "section": "The running case and the tools from earlier in the course",
+      "video_id": "fOwVbMKW1_0",
+      "start": 11.92,
+      "end": 162.72,
+      "lecture_material": "Roadmap of Lecture 10: inflation, the real rate i', the Fisher equation, a week 2 review integrating all rate concepts.",
+      "research_extension": "None.",
+      "teaching_construction": "Restatement, taken as given from earlier in the course, of i, compound interest (4.1), v and d (4.2), simple interest (4.3), nominal rates (by reference to Chapter 2) and the constant force delta = ln(1 + i) (4.4); rounding rule; the running case (two fees of 20,000 in today's prices at t = 5 and 6, rising 6% a year; deposits X at t = 0 and 3 at 8% effective; rates invented); the formal model (timeline, payments measured in money or real terms, one rate per measure, one focal date).",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Money growth and purchasing power: the inflation problem",
+      "video_id": "fOwVbMKW1_0",
+      "start": 162.72,
+      "end": 326.72,
+      "lecture_material": "100 invested at 10% becomes 110; if bread rises 10%, purchasing power has not changed (f0008); the eroding power of inflation; three rates: nominal rate i (growth of money), inflation rate r (rate at which prices rise, decay of value), real rate i' (growth of purchasing power); notation for the real rate varies, the slide uses i' (f0011).",
+      "research_extension": "TreasuryDirect TIPS page: TIPS principal adjusted with a version of the CPI from the Bureau of Labor Statistics (a price index as the basket in practice).",
+      "teaching_construction": "The two meanings of 'nominal' and the term 'money rate'; the basket as the reference of every real rate; the fees as their own basket.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "The real rate from a basket of goods",
+      "video_id": "fOwVbMKW1_0",
+      "start": 326.72,
+      "end": 775.68,
+      "lecture_material": "Basket price P today and P(1 + r) next year; money M and M(1 + i); real growth factor 1 + i' = (1 + i)/(1 + r) as the ratio of future money to future price with P = M = 1 (f0015); bread example: 10 loaves at 10 rupees, 110 rupees, bread at 11 gives i' = 0, bread at 10.50 gives 110/10.50 = 10.47 loaves and 1.1/1.05 = 1.047, i' = 4.7% (f0026).",
+      "research_extension": "None.",
+      "teaching_construction": "Derivation (4.5) as a ratio of quantities of goods with M and P cancelling; condition 1 + r > 0; exact bread values 10.4762 loaves and 4.7619%; the multi-year form (1 + i')^t.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The Fisher equation and its additive approximation",
+      "video_id": "fOwVbMKW1_0",
+      "start": 775.68,
+      "end": 958.56,
+      "lecture_material": "Fisher equation (1 + i')(1 + r) = 1 + i; expansion i = i' + r + i'r, the exact formula to use in exams; for small rates i'r negligible, i approximately i' + r, 'Nominal Rate = Real Rate + Inflation', i' approximately i - r (f0032); newspapers use the approximation (speech).",
+      "research_extension": "None.",
+      "teaching_construction": "i' = (i - r)/(1 + r) (4.7); exact error (i - r) - i' = r i' (4.8) with numerical sizes; sign rule (overstates the size of a nonzero real rate when r > 0, understates it under deflation, exact at zero inflation or zero real rate); i - i' = r(1 + i') (4.9) and i > i' iff r > 0; exact additive form ln(1 + i') = ln(1 + i) - ln(1 + r) (4.10) with the real force delta' (symbol from L30 f0061) and the check at 8% and 5%.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Two worked examples: a positive and a negative real rate",
+      "video_id": "fOwVbMKW1_0",
+      "start": 958.56,
+      "end": 1328.08,
+      "lecture_material": "Bank offers 8%, inflation expected 5%: exact 1.08/1.05 = 1.02857, i' = 2.86%; approximate 3.00%; 'the approximation overestimates the return' (f0042); trap alert: can the real rate be negative? Yes if r > i; bank 2%, inflation 6%: 1.02/1.06 = 0.962, i' = -3.8% (f0045); remark on Indian deposit and inflation rates (speech, no data).",
+      "research_extension": "None.",
+      "teaching_construction": "Expected against realized real rate; exact -3.7736% and the approximation's -4% as an underestimate; Table 4.1 with exact values, subtraction and error for the four lecture cases.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Week 2 review: the rate map, the inequalities and the units of a rate",
+      "video_id": "fOwVbMKW1_0",
+      "start": 1328.08,
+      "end": 2055.84,
+      "lecture_material": "Rate map: delta = ln(1 + i), d = i/(1 + i), 1 + i = (1 + i(m)/m)^m, handwritten i(infinity) = delta (f0049); summary of inequalities for i > 0: i > i(2) > i(4) > i(12) > delta, delta > d(12) > d(4) > d(2) > d, i > i' assuming r > 0 (f0054); unit check: i per year, i(m)/m per period, delta per instant, n must match the rate unit, trap: with i(12), n in months (f0057); week 2 challenge: delta = 10% to d(4): 1 + i = e^0.10 = 1.10517, 1.10517^-0.25 = 0.9753, d(4) = 9.88% (f0063); summary (f0067); preview of week 3 (f0068).",
+      "research_extension": "None.",
+      "teaching_construction": "References to Chapter 2 for the chain (2.13) and Table 2.2; i > i' linked to (4.9); delta as a rate per year applied continuously; the unit check applied to inflation; exact d(4) = 4(1 - e^-0.025) = 9.8760% and the shortcut 1 - d(4)/4 = e^(-delta/4).",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Valuing real and money amounts consistently: the running case, first part",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Real amount R_t and money amount N_t = R_t (1 + r)^t; proof (4.11) that money amounts at i and real amounts at i' give the same present value; running case: fees 26,764.51 and 28,370.38, PV 36,093.63 by both routes, mixtures 26,215.06 and 49,736.92, shortcut 35,874.04; boundary (constant rates, same index).",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Money at different times and the equation of value",
+      "video_id": "M9N7Jj4zfvw",
+      "start": 171.36,
+      "end": 366.48,
+      "lecture_material": "Golden rule of finance: you cannot add money at different times; 100 today + 100 next year is not 200; 100 rupees in 1990 and in 2020; move both to a common point, the focal date (f0009); definition: at the focal date, sum of values of inflows = sum of values of outflows (f0010); illustration with income of 100 and spending of 50 rupees a month.",
+      "research_extension": "None.",
+      "teaching_construction": "Equation (4.12) under compound interest with focal date T; inflows and outflows depend on the point of view; the equation as one equation for one unknown.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Does the focal date matter? Compound against simple interest",
+      "video_id": "M9N7Jj4zfvw",
+      "start": 366.48,
+      "end": 1071.76,
+      "lecture_material": "100 due at t = 1 replaced by X at t = 0.5 at 10%; compound: X = 100/1.1^0.5 = 95.35 at focal dates 1 and 0, multiplicative accumulation a(t + h) = a(t)a(h); simple: focal date 1 gives 100/1.05 = 95.238, focal date 0 gives 90.909 x 1.05 = 95.455 (f0033); answer: under compound interest no, multiplying both sides by (1 + i)^k; trap: under simple interest the focal date does matter (f0035).",
+      "research_extension": "None.",
+      "teaching_construction": "Proof that a change of focal date multiplies every term by one factor; the identity (1 + is)(1 + ih) = a(s + h) + i^2 s h as the cause of focal-date dependence; the focal-date-0 answer divided by the focal-date-1 answer is a(1/2)^2/a(1) = 1 + i^2/[4(1 + i)]; exact difference (4.13) = 100 (i/2)^2/((1 + i)(1 + i/2)), 0.2165 at 10% and 0.0581 at 5%; the rule that a simple-interest problem must name its focal date.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "The three-step strategy and an unknown payment",
+      "video_id": "M9N7Jj4zfvw",
+      "start": 1071.76,
+      "end": 1623.36,
+      "lecture_material": "Three-step strategy: draw the timeline, pick a focal date (usually t = 0 or the time of the unknown payment), move and equate (f0040); example: borrow 1,000 at 6%, repay X at t = 2 and 2X at t = 5: 1000 = X(v^2 + 2v^5) = X(0.8900 + 2(0.7473)) = 2.3846X, X = 419.36 (f0050); check with focal date 5: 1000(1.06)^5 = X(1.06)^3 + 2X, 1338.23 = 3.1910X, X = 419.36 (f0054).",
+      "research_extension": "None.",
+      "teaching_construction": "Linear solution (4.14) with exact factors and X = 419.37; running case second part: X = 36,093.63/1.7938322 = 20,120.96 at focal dates 0, 3, 6; the equality of money-route and real-route numerical fee values is explicitly a present value at t = 0; the real amount X/1.06^3 of the money deposit at t = 3, discounted at the exact real factor 1 + i' = 1.08/1.06, has present value X/1.08^3; Figure 4.1; the shortcut deposit 19,998.55 and shortfall 348.46 at t = 6; the mixture deposit 14,614.00 (27.4% too small).",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "A drop payment",
+      "video_id": "M9N7Jj4zfvw",
+      "start": 1623.36,
+      "end": 1927.2,
+      "lecture_material": "Drop (partial) payment: loan 1,000, pay 300 every year until the debt is cleared, last payment less than 300; how to solve: find the number of full payments, then the equation of value for the last small piece (f0058); the problem is incomplete without a rate (speech); example: 1,000 at 10%, 500 at t = 1 and 2, focal date 3: 1331 = 605 + 550 + X, X = 176 (f0064).",
+      "research_extension": "None.",
+      "teaching_construction": "Balance B_k after k payments and the condition (4.15) for k full payments and a final payment at k + 1 no greater than a full payment; three full payments and a smaller fourth for nonnegative rates strictly below the exact boundary rate of the 300-dollar loan (7.7138% to four decimals, bisection); at the exact root a fourth full payment clears the debt; drop 222.47 at 5%; at 10%, four full payments and a drop of 78.98 at t = 5; reference to Chapter 7 for the annuity symbol and the balloon convention.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Calculator memory, and a rate of discount in the equation",
+      "video_id": "M9N7Jj4zfvw",
+      "start": 1927.2,
+      "end": 2274.0,
+      "lecture_material": "Calculator tip: v = 1.06^-1 = 0.9434 in memory 1, v^2 in memory 2, 2v^5 in memory 3, add RCL 2 + RCL 3 (f0066); using d: v = 1 - d, PV = sum CF_t (1 - d)^t, often faster than finding i (f0069); summary (f0075).",
+      "research_extension": "None.",
+      "teaching_construction": "Memory holds unrounded values (2.384513 against 2.3846); keystrokes as evaluation, not derivation; example with d = 6%: X = 425.28, equivalent i = 6.3830%; exact check of (1 - d)^t = (1 + d/(1 - d))^-t.",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "The running case resolved",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Table 4.2 (correct money and real routes, shortcut rate, inflation ignored, inflation counted twice, with present values and deposits); deposits 40,241.92 against fees 55,134.89; shortfall 348.46 (about 1.2% of the second fee) from the product term 0.1132 points; mixture errors 27.4% and 37.8%; what generalizes and what is case-specific.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Executable check of the relations and the running case",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "None.",
+      "teaching_construction": "Standard-library program: exact Fraction checks of the Fisher equation and of (4.8) for the four lecture cases, the log form (4.10) in floating point, the running case with exact rates (4.11) and focal dates 0, 3, 6, the shortcut and mixture deposits, the unknown payment at focal dates 0 and 5, the half-year replacement under both models with the exact difference (4.13), the drop payment 176, the boundary rate found by bisection and displayed as the rounded percentage 7.7138% (the exact inequality uses the unrounded boundary), the week 2 challenge and v = 1 - d; ValueError for i <= -1, r <= -1 or an unknown model; two fault injections described.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What these results establish and what they do not",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "None.",
+      "research_extension": "TreasuryDirect TIPS page: principal can go up or down, the larger of adjusted and original principal at maturity, negative real yield bids; SOA Exam FM syllabus p. 2, outcomes 1a and 1d.",
+      "teaching_construction": "Classification of assumptions (basket definition, constant-rate model, conventions); expected against realized inflation; year-to-year rates; payments indexed to a different basket; the approximation's error; simple-interest focal date; scope exclusions (taxes, default).",
+      "evidence_class": "model"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "Exercise 1(d) follows the concept-check format of Lecture 30 Q1; Exercise 3 applies the Lecture 10 unit check; Exercise 4 extends the Lecture 11 focal-date comparison; Exercise 5 completes the Lecture 11 300-dollar drop-payment setting.",
+      "research_extension": "Exercise 6 mentions the TIPS inflation adjustment and deflation floor (TreasuryDirect).",
+      "teaching_construction": "Six original exercises with full solutions: derive (forms of the Fisher equation, the error, the log form, values at 12% and 9%, a concept check), exam-style closest-of-five (present value of a real promise, each distractor tied to an error), check an assumption (a nominal i(12) in the Fisher equation, monthly real rate), counterexample (simple-interest focal dates 0, 1, 2, 3 against compound), drop payment (range of rates, drops at 0%, 5% and 10%), design and judgment (fixed against indexed deposit, break-even inflation 5.4187% against 5.5%, money and real values, inflation risk).",
+      "evidence_class": "numerical check"
+    }
+  ],
+  "sections_note": "The closing h2 'Primary sources' is a reference list with no lecture material, research claim or construction of its own; as in the pilot chapter, it has no entry in 'sections'. Every other h2 has exactly one entry, with the same title text. The original section 'Valuing real and money amounts consistently: the running case, first part' is placed between the Lecture 10 and Lecture 11 material because it uses (4.5) and is used by the unknown-payment section.",
+  "references": [
+    {
+      "title": "Lecture 10 recording, Inflation (Real vs. Nominal Rates) and Review",
+      "url": "https://www.youtube.com/watch?v=fOwVbMKW1_0",
+      "supports": "Inflation problem, three rates and the notation i', basket derivation, bread example, Fisher equation and approximation, bank and negative-rate examples, week 2 review (rate map, inequalities, unit check, delta to d(4)).",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 11 recording, The Equation of Value",
+      "url": "https://www.youtube.com/watch?v=M9N7Jj4zfvw",
+      "supports": "Golden rule, focal date, definition of the equation of value, compound against simple interest at two focal dates, three-step strategy, unknown payments X and 2X, drop payments and the 176 example, calculator memory, v = 1 - d.",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "Lecture 30 recording, Module 1 Review (Theory Quiz)",
+      "url": "https://www.youtube.com/watch?v=HSrxblFzIsE",
+      "supports": "Concept-check format of Q1 (Exercise 1(d)); the symbol delta' for a net force (Q5 solution).",
+      "page_checked": "slide frames listed in frames_viewed"
+    },
+    {
+      "title": "TreasuryDirect (U.S. Department of the Treasury), Treasury Inflation-Protected Securities (TIPS), web page",
+      "url": "https://www.treasurydirect.gov/marketable-securities/tips/",
+      "supports": "Principal of a TIPS adjusted using a version of the Consumer Price Index from the Bureau of Labor Statistics; fixed rate of interest paid every six months on the adjusted principal; principal can go up or down; at maturity the larger of the adjusted and the original principal; auction rules allow negative real yield bids.",
+      "page_checked": "web page, no page numbers; sections 'Treasury Inflation-Protected Securities (TIPS)' (intro), 'TIPS at a Glance' (Interest rate), 'How TIPS protects you against inflation', 'How and when we adjust TIPS for inflation' (saved page accessed 2026-10-08, HTML lines 261-263, 291-292, 348, 353; locators rechecked in fixer round 1)"
+    },
+    {
+      "title": "Society of Actuaries, Financial Mathematics Exam -- October 2026 syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "p. 2, topic 1 (time value of money, 5-15%): outcome 1a lists the terms 'inflation and real rate of interest' and 'equation of value'; outcome 1d: write the equation of value given a set of cash flows and an interest rate.",
+      "page_checked": "p. 2 (same as PDF page)"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "t, T",
+      "first_section": "model",
+      "definition": "Time in years; T a focal date (from the equation-of-value section on)."
+    },
+    {
+      "symbol": "i",
+      "first_section": "model",
+      "definition": "Effective annual rate of interest; from the inflation section on, the money rate (the slide's 'nominal rate'), effective annual unless a frequency is stated."
+    },
+    {
+      "symbol": "C, C_t",
+      "first_section": "model",
+      "definition": "An amount moved by (4.1); C_t the amount paid at time t in (4.12)."
+    },
+    {
+      "symbol": "a(t)",
+      "first_section": "model",
+      "definition": "Accumulation function: (1 + i)^t (compound) or 1 + it (simple, (4.3)); written with a parenthesis, never with an angle subscript."
+    },
+    {
+      "symbol": "v, d",
+      "first_section": "model",
+      "definition": "Discount factor 1/(1 + i) = 1 - d; effective rate of discount i/(1 + i) (4.2)."
+    },
+    {
+      "symbol": "i(m), d(m), m",
+      "first_section": "model",
+      "definition": "Nominal rates of interest and discount convertible m times a year, as defined in Chapter 2."
+    },
+    {
+      "symbol": "delta",
+      "first_section": "model",
+      "definition": "Constant force of interest, per year, delta = ln(1 + i) (4.4)."
+    },
+    {
+      "symbol": "r",
+      "first_section": "inflation-problem",
+      "definition": "Inflation rate per year (slide notation), the yearly growth of the price of a basket; r > -1."
+    },
+    {
+      "symbol": "i'",
+      "first_section": "inflation-problem",
+      "definition": "Real rate of interest (slide notation), the yearly growth of purchasing power, (1 + i)/(1 + r) - 1 (4.5)."
+    },
+    {
+      "symbol": "P, M",
+      "first_section": "real-rate",
+      "definition": "Price of the basket today and money held today; used only in the derivation of (4.5)."
+    },
+    {
+      "symbol": "delta'",
+      "first_section": "fisher",
+      "definition": "Real force of interest ln(1 + i') = delta - ln(1 + r) (4.10); symbol from the Lecture 30 slide for a net force."
+    },
+    {
+      "symbol": "R_t, N_t",
+      "first_section": "valuing-real",
+      "definition": "Real amount (today's prices) and money amount R_t (1 + r)^t of a payment at time t (4.11)."
+    },
+    {
+      "symbol": "X",
+      "first_section": "model",
+      "definition": "Each of the two deposits of the running case; from the focal-date section on, also the unknown payment of the lecture examples (slide notation)."
+    },
+    {
+      "symbol": "L, PMT, k, B_k",
+      "first_section": "drop-payment",
+      "definition": "Loan amount, level payment (book notation from Chapter 7), number of full payments, balance just after the k-th payment (4.15)."
+    },
+    {
+      "symbol": "u",
+      "first_section": "drop-payment",
+      "definition": "Integer summation index in the accumulated payment sum and the present-value sums of (4.15); avoids j, reserved for an effective rate per period."
+    },
+    {
+      "symbol": "a angle k",
+      "first_section": "drop-payment",
+      "definition": "Present value of k payments of 1 at the end of each year, named by reference to Chapter 7."
+    },
+    {
+      "symbol": "CF_t, PV",
+      "first_section": "calculator-and-d",
+      "definition": "Cash flow at time t and present value in (4.16) (slide notation)."
+    },
+    {
+      "symbol": "r*",
+      "first_section": "exercises",
+      "definition": "Break-even inflation rate in Exercise 6."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch04_verify_code.py (extracts the chapter listing, runs it with python -I in a fresh process from a temporary directory, Python 3.13, standard library only; exit 0, no stderr; 19 stdout lines, 1059 bytes, compared byte for byte with the printed block after converting CRLF to LF); fault injections: python -I _editorial/tmp/ch04_failtests.py",
+    "stdout_matches_printed": true
+  }
+}

@@ -1,12 +1,12 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-09T16:28:43.025809+00:00",
+  "checked_at_utc": "2026-10-09T16:49:32.449540+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
-    "html_files": 12,
-    "local_links_checked": 118,
-    "timestamps_checked": 83,
+    "html_files": 13,
+    "local_links_checked": 131,
+    "timestamps_checked": 98,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
     "warnings": []
@@ -66,6 +66,24 @@
         "controls": true,
         "emptyToc": false,
         "file": "chapter-03-force-of-interest-constant-and-variable.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 570,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-04-inflation-real-rates-and-the-equation-of-value.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 570,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-04-inflation-real-rates-and-the-equation-of-value.html",
         "viewport": 390
       },
       {

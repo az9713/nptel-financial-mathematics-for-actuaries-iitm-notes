@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="2601f31d3eda2728d83933f256e834ec466ed5e3b7f00a2f9960f599ed22a5ed"><title>Inflation, real rates, and the equation of value · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Inflation, real rates, and the equation of value</h1>
+<p class="lead">A parent will pay two years of university fees, due 5 and 6 years from now. Each year of fees costs 20,000 dollars at today's prices. The fees rise by 6% a year, and the parent's savings account pays 8% a year effective; both rates are invented for this example. The plan is to deposit an amount \(X\) now and the same amount \(X\) in 3 years. The results of this chapter give the fees as 26,764.51 and 28,370.38 dollars on their due dates and the deposit as \(X=20{,}120.96\) dollars. Two shortcuts change that number. Subtracting the rates to get a "real" rate of \(8\%-6\%=2\%\) gives a deposit of 19,998.55 dollars, and the account is 348.46 dollars short at the second fee. Discounting the fees at today's prices with the account's 8% gives 14,614.00 dollars, 27.4% too small. This chapter defines the inflation rate and the real rate of interest, derives the exact relation between them (the Fisher equation) and the size of the error of the subtraction, and then develops the equation of value, the tool that turns payments on different dates into one equation for an unknown amount.</p>
+<p class="source-note">Grounded in two recordings of the NPTEL course <em>Financial Mathematics for Actuaries</em> (Prof. Neelesh S. Upadhye, IIT Madras): <a href="https://www.youtube.com/watch?v=fOwVbMKW1_0">Lecture 10</a> (inflation, real against nominal rates, and a review of week 2) and <a href="https://www.youtube.com/watch?v=M9N7Jj4zfvw">Lecture 11</a> (the equation of value), with the theory quiz of <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30</a> (module 1 review) as the source of one exercise format and of the symbol \(\delta'\). <strong>Lecture material:</strong> the inflation problem (100 invested at 10% while the price of bread rises 10%); the three rates \(i\), \(r\) and \(i'\) and the slide's choice of \(i'\) for the real rate; the basket-of-goods derivation of \(1+i'=(1+i)/(1+r)\) and the bread example; the Fisher equation \(i=i'+r+i'r\) and the approximation \(i\approx i'+r\); the bank example at 8% and 5% inflation; the negative real rate at 2% and 6%; the week 2 review (the rate map, the inequalities, the unit check and the conversion of \(\delta=10\%\) to \(d^{(4)}\)); the rule that money at different times cannot be added; the focal date and the definition of the equation of value; the comparison of compound and simple interest for two focal dates; the three-step strategy; the unknown payments \(X\) and \(2X\); drop payments and the 1,000-dollar loan repaid by 500, 500 and a final payment; the calculator memory keys; the use of \(v=1-d\) in an equation of value. <strong>Research extensions:</strong> the TreasuryDirect description of Treasury Inflation-Protected Securities, a quoted rate whose payments are adjusted by a consumer price index; the Society of Actuaries Exam FM syllabus on the place of these topics in that examination. <strong>Original teaching constructions:</strong> the running case (two fees and two deposits, with invented rates); the restatement of the earlier tools; the exact error \(r\,i'\) of the approximation and its sign rule; the identity \(i-i'=r(1+i')\); the exact additive form for the logarithms of the growth factors; the proof that money amounts at the money rate and real amounts at the real rate give the same present value; the proof of focal-date independence for compound interest, the size of the focal-date effect under simple interest and its cause; the range of rates for which the lecture's 300-dollar loan has three full payments; Figure 4.1; Tables 4.1 and 4.2; the code and the six exercises.</p>
+
+<h2 id="model">The running case and the tools from earlier in the course <a class="timestamp" href="https://www.youtube.com/watch?v=fOwVbMKW1_0&amp;t=11s">L10 0:11</a></h2>
+<p>Earlier lectures of the course built the rates that measure the growth of money: the effective rate of interest, the effective rate of discount, the nominal rates and the force of interest. This chapter first asks what that growth buys when prices also grow, and then uses the rates to solve for unknown payments. This section restates the tools that the chapter uses. Each is taken as given from earlier in the course; none is derived again here.</p>
+<p><strong>Effective rate and compound interest.</strong> Time \(t\) is measured in years. The effective annual rate of interest \(i\) is the interest that one unit invested at the start of a year earns by its end, so one unit grows to \(1+i\) in one year. Under compound interest at a constant rate \(i\), an amount \(C\) at time \(t\) has the value</p>
+\[
+C(1+i)^{T-t}\quad\text{at time } T, \tag{4.1}
+\]
+<p>for any \(T\), later or earlier than \(t\), including fractional differences \(T-t\). For \(T\gt t\) this is accumulation; for \(T\lt t\) it is discounting. The accumulation function of compound interest, the value at time \(t\) of one unit invested at time 0, is \(a(t)=(1+i)^t\). All rates satisfy \(i\gt-1\), so that \(1+i\gt0\).</p>
+<p><strong>Discount factor and rate of discount.</strong> The discount factor \(v=1/(1+i)\) is the value at time 0 of one unit due at time 1. The effective annual rate of discount \(d\) is interest paid in advance, as a fraction of the amount at the end of the year. The identities</p>
+\[
+v=\frac1{1+i}=1-d,\qquad d=\frac{i}{1+i}=iv \tag{4.2}
+\]
+<p>follow by algebra. At 6%, \(v=0.943396\) and \(d=0.056604\).</p>
+<p><strong>Simple interest.</strong> Under simple interest at rate \(i\), one unit grows to</p>
+\[
+a(t)=1+it \tag{4.3}
+\]
+<p>at time \(t\): the interest of each year is \(i\) times the original unit, and interest earns no interest. The function grows linearly, not by a constant factor per year.</p>
+<p><strong>Nominal rates and the force of interest.</strong> The nominal rate of interest \(i^{(m)}\) and the nominal rate of discount \(d^{(m)}\), convertible \(m\) times a year, are defined and converted in Chapter 2, sections <a href="chapter-02-nominal-rates-of-interest-and-discount.html#bridge-interest">"The bridge equation for nominal interest"</a> and <a href="chapter-02-nominal-rates-of-interest-and-discount.html#bridge-discount">"The bridge equation for discount"</a>: \((1+i^{(m)}/m)^m=1+i=(1-d^{(m)}/m)^{-m}\). The constant force of interest \(\delta\) is the rate per year, compounded continuously, that gives the same growth: one unit grows to \(e^{\delta t}\) at time \(t\), and</p>
+\[
+e^{\delta}=1+i,\qquad \delta=\ln(1+i). \tag{4.4}
+\]
+<p>Chapter 2 shows that \(i^{(m)}\) and \(d^{(m)}\) both tend to \(\ln(1+i)\) as \(m\to\infty\) (section <a href="chapter-02-nominal-rates-of-interest-and-discount.html#hierarchy">"The hierarchy of rates"</a>).</p>
+<p><strong>Rounding.</strong> Every computation in this chapter carries its intermediate values unrounded. Final rates are displayed in percent to four decimals and final amounts to cents. Intermediate factors and differences are displayed to the precision needed to check the displayed arithmetic; the calculations retain their unrounded values. A displayed product of rounded numbers can therefore differ from the displayed result in its last digit. The program at the end of the chapter reproduces the running case and the lecture examples from unrounded values, most of them in exact rational arithmetic.</p>
+<p><strong>The running case.</strong> Two fees fall due at \(t=5\) and \(t=6\). Each costs 20,000 dollars at the prices of \(t=0\). The fees rise by 6% a year, compounded yearly, so the fee due at \(t\) costs \(20{,}000\times1.06^t\) dollars when it is paid. The parent deposits \(X\) at \(t=0\) and \(X\) at \(t=3\) in an account that pays 8% a year effective. Both rates are invented for this example. The question is the size of \(X\). Two rates enter the problem: the growth of money in the account (8%) and the growth of the fees (6%). The formal model of the chapter is a timeline, a set of payments placed on it, each measured in money or in today's prices, one rate per measure, and one date at which all payments are compared. The first half of the chapter settles the measure and the rate; the second half settles the date.</p>
+
+<h2 id="inflation-problem">Money growth and purchasing power: the inflation problem <a class="timestamp" href="https://www.youtube.com/watch?v=fOwVbMKW1_0&amp;t=162s">L10 2:42</a></h2>
+<p>The lecture's opening scenario: 100 rupees are invested at 10% a year and become 110 after one year. Is the investor 10% richer? Not necessarily. If the price of bread also rose by 10%, the 110 rupees buy exactly as much bread as the 100 rupees bought a year earlier. The money grew; the <em>purchasing power</em>, the quantity of goods the money can buy, did not change. The lecture calls this the eroding power of inflation: rising prices take back part or all of the interest.</p>
+<p>The slide separates three rates.</p>
+<ul>
+<li>The rate \(i\), which the slide calls the <em>nominal rate</em>: the rate quoted by the bank, which measures the growth of money. In this chapter \(i\) is an effective annual rate, as the lecture assumes in its examples.</li>
+<li>The <em>inflation rate</em> \(r\): the rate at which prices rise over a year, which measures the decay of the value of money.</li>
+<li>The <em>real rate</em> \(i'\): the rate at which purchasing power grows.</li>
+</ul>
+<p>The slide notes that actuarial notation for the real rate varies and uses \(i'\). This chapter follows the slide: \(r\) is the inflation rate and \(i'\) the real rate.</p>
+<p>The word <em>nominal</em> now has two meanings in the course. In Chapter 2, a nominal rate \(i^{(m)}\) is a rate quoted per year and credited \(m\) times a year, as opposed to the effective rate. In this lecture, a nominal rate is a rate measured in money, as opposed to a real rate measured in goods. The two meanings are independent: an effective annual rate such as 8% is "nominal" in the second sense. To keep them apart, this chapter calls \(i\) the <em>money rate</em> from here on, and every money rate in it is effective annual unless a frequency is stated.</p>
+<p>Purchasing power is measured against a fixed collection of goods, which the slide calls a basket of goods. Its price at a date is the cost of buying the whole basket at that date, and the inflation rate is the yearly growth of that price. One basket used in practice is a consumer price index. For example, TreasuryDirect states that the principal of a Treasury Inflation-Protected Security (TIPS) is adjusted with a version of the Consumer Price Index of the U.S. Bureau of Labor Statistics (<a href="https://www.treasurydirect.gov/marketable-securities/tips/">TreasuryDirect, TIPS</a>, section "How and when we adjust TIPS for inflation"). A real rate is always relative to one basket. The fees of the running case are their own basket: their 6% is the inflation of the fees, not of a general index.</p>
+
+<h2 id="real-rate">The real rate from a basket of goods <a class="timestamp" href="https://www.youtube.com/watch?v=fOwVbMKW1_0&amp;t=326s">L10 5:26</a></h2>
+<p><strong>Question.</strong> If money grows at \(i\) and prices at \(r\) over one year, at what rate does purchasing power grow?</p>
+<p><strong>Derivation.</strong> The slide's setting: the basket costs \(P\) today and \(P(1+r)\) next year; an investor holds money \(M\) today, which grows to \(M(1+i)\) next year. (\(P\) and \(M\) are used only in this section.) Today the money buys \(M/P\) baskets. Next year it buys \(M(1+i)/[P(1+r)]\) baskets. The real growth factor \(1+i'\) is the ratio of the two quantities of goods:</p>
+\[
+1+i'=\frac{M(1+i)/[P(1+r)]}{M/P}=\frac{1+i}{1+r}. \tag{4.5}
+\]
+<p>The amounts \(M\) and \(P\) cancel, so the real rate depends only on the two rates. The slide states the result as the ratio of future money to future price with \(M=P=1\), the convention of an accumulation function that starts at 1. The ratio needs \(1+r\gt0\), which holds for every inflation rate above \(-100\%\); a negative \(r\) is deflation.</p>
+<p><strong>The bread example.</strong> With 100 rupees and bread at 10 rupees, the investor can buy 10 loaves today. After a year the money is 110. If bread costs 11 rupees (\(r=10\%\)), the 110 rupees buy 10 loaves again, and (4.5) gives \(1+i'=1.1/1.1=1\): the real rate is 0. If bread costs 10.50 rupees (\(r=5\%\)), the 110 rupees buy \(110/10.50=10.4762\) loaves, and \(1+i'=1.1/1.05=1.047619\), so \(i'=4.7619\%\). The number of loaves grew by the same 4.7619%, from 10 to 10.4762. The slide writes 1.047 and 4.7%; the two figures are truncations of 1.047619 and 4.7619%.</p>
+<p><strong>Over several years.</strong> If \(i\) and \(r\) stay constant, money grows by \((1+i)^t\) and prices by \((1+r)^t\) in \(t\) years, so purchasing power grows by \((1+i)^t/(1+r)^t=(1+i')^t\). The real rate is then a constant effective annual rate, and (4.1) applies to amounts measured in goods with \(i'\) in place of \(i\). The section on valuation uses this.</p>
+
+<h2 id="fisher">The Fisher equation and its additive approximation <a class="timestamp" href="https://www.youtube.com/watch?v=fOwVbMKW1_0&amp;t=775s">L10 12:55</a></h2>
+<p><strong>The exact equation.</strong> Multiplying (4.5) by \(1+r\) gives \((1+i')(1+r)=1+i\), which the lecture calls the Fisher equation. Expanding the product,</p>
+\[
+1+i'+r+i'r=1+i\quad\Longrightarrow\quad i=i'+r+i'r. \tag{4.6}
+\]
+<p>The money rate is the real rate, plus the inflation rate, plus their product. The slide frames (4.6) as the exact form, and the lecture advises using it in an examination. Solved for the real rate, (4.6) gives</p>
+\[
+i'=\frac{i-r}{1+r}. \tag{4.7}
+\]
+<p><strong>The approximation.</strong> The slide drops the product \(i'r\): for small rates it is small, so \(i\approx i'+r\), or \(i'\approx i-r\): the money rate is approximately the real rate plus inflation. The lecture remarks, without a source, that financial newspapers give the real rate in this form. The size of the error follows from (4.6) without approximation. Subtracting \(i'\) from \(i-r=i'+i'r\),</p>
+\[
+(i-r)-i'=r\,i'=\frac{r(i-r)}{1+r}. \tag{4.8}
+\]
+<p>The error of the subtraction is the product of the inflation rate and the real rate. At \(i=8\%\) and \(r=5\%\) it is \(0.05\times2.8571\%=0.1429\) percentage points; at an inflation rate of 2% and a real rate of 3% it is \(0.02\times3\%=0.06\) points; at \(i=30\%\) and \(r=25\%\) it is \(0.25\times4\%=1\) point, a fifth of the approximate value 5%. The product \(i'r\) is small only when both rates are small.</p>
+<p><strong>The sign of the error.</strong> The lecture says that the approximation overestimates the return, and in the summary that it may overestimate or underestimate depending on \(r\). Formula (4.8) gives the rule. When inflation is positive, \(i-r\) exceeds \(i'\) when the real rate is positive, and falls below it when the real rate is negative; in both cases the subtraction exaggerates the size of the real rate, because \(|i-r|=(1+r)|i'|\gt|i'|\). When inflation is negative (deflation), \(-1\lt r\lt0\) gives \(|i-r|=(1+r)|i'|\lt|i'|\) for \(i'\ne0\): the subtraction then understates the size of the real rate, and the error \(r\,i'\) has the opposite sign to \(i'\). The approximation is exact when \(r=0\), and when \(i'=0\) (that is, when \(i=r\)).</p>
+<p><strong>The money rate exceeds the real rate.</strong> The review slide of the lecture states \(i\gt i'\) for \(r\gt0\). From (4.6), \(i-i'=r+i'r\), so</p>
+\[
+i-i'=r(1+i'). \tag{4.9}
+\]
+<p>Since \(1+i'=(1+i)/(1+r)\gt0\), the difference \(i-i'\) has the sign of \(r\): \(i\gt i'\) exactly when \(r\gt0\), whatever the sign of \(i\) or \(i'\).</p>
+<p><strong>An exact additive form.</strong> The subtraction is exact for the logarithms of the growth factors. Taking logarithms of (4.5),</p>
+\[
+\ln(1+i')=\ln(1+i)-\ln(1+r). \tag{4.10}
+\]
+<p>By (4.4), \(\ln(1+i)=\delta\) is the force of interest. Write \(\delta'=\ln(1+i')\) for the real force of interest, the symbol that the theory quiz of Lecture 30 uses for a force net of growth. Then (4.10) says that \(\delta'\) is exactly \(\delta\) minus the force of inflation \(\ln(1+r)\): with continuous rates, real equals money minus inflation, with no product term. At 8% and 5%, the two logarithms round to 0.076961 and 0.048790, and their unrounded difference rounds to 0.028171. The identity \(\ln(1+i')=\ln(1.08/1.05)\) gives the same result, with \(i'=2.8571\%\). The approximation \(i'\approx i-r\) is (4.10) with \(\ln(1+x)\) replaced by \(x\) in all three places, a replacement whose error is about \(x^2/2\) for small \(x\).</p>
+
+<h2 id="examples">Two worked examples: a positive and a negative real rate <a class="timestamp" href="https://www.youtube.com/watch?v=fOwVbMKW1_0&amp;t=958s">L10 15:58</a></h2>
+<p><strong>A bank deposit.</strong> A bank offers 8% (effective, as the lecture assumes), and inflation is expected to be 5%. By (4.5), \(1+i'=1.08/1.05=1.028571\) and \(i'=2.8571\%\). The slide prints 2.86%; the subtraction gives 3.00%, too large by the 0.1429 points of (4.8). The word "expected" matters: the inflation of the coming year is not known when the deposit is made. The real rate computed from an expected \(r\) is an expected real rate; the real rate earned is known only after the year's prices are observed.</p>
+<p><strong>A negative real rate.</strong> The slide's trap: can the real rate be negative? Yes, whenever inflation exceeds the money rate, since by (4.7) \(i'\) has the sign of \(i-r\). The slide's example: the bank pays 2% and inflation is 6%. Then \(1+i'=1.02/1.06=0.962264\) and \(i'=-3.7736\%\), which the slide rounds to \(-3.8\%\). The depositor earns interest in money and loses 3.7736% of purchasing power in a year. The subtraction gives \(-4\%\), which overstates the loss by 0.2264 points; this is the case where the approximation underestimates the return, by the sign rule of the previous section. The lecture motivates the trap with a remark that bank deposits in India have recently paid less than inflation; it gives no source or data, and the book uses only the slide's example.</p>
+<div class="table-wrap"><table>
+<caption>Table 4.1. Real rates of the lecture's examples by the exact relation (4.7) and by the subtraction \(i-r\), with the error \(r\,i'\) of (4.8). Rates in percent, rounded to four decimals at the end.</caption>
+<thead><tr><th scope="col">Example</th><th scope="col">\(i\)</th><th scope="col">\(r\)</th><th scope="col">\(i'\) exact</th><th scope="col">\(i-r\)</th><th scope="col">Error \(r\,i'\)</th></tr></thead>
+<tbody>
+<tr><td>Bread at 11 rupees</td><td>10</td><td>10</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr>
+<tr><td>Bread at 10.50 rupees</td><td>10</td><td>5</td><td>4.7619</td><td>5.0000</td><td>0.2381</td></tr>
+<tr><td>Bank deposit</td><td>8</td><td>5</td><td>2.8571</td><td>3.0000</td><td>0.1429</td></tr>
+<tr><td>Negative real rate</td><td>2</td><td>6</td><td>−3.7736</td><td>−4.0000</td><td>−0.2264</td></tr>
+</tbody></table></div>
+<p>In every row the error column equals the difference of the two preceding columns, as (4.8) requires; the program checks this identity exactly in rational arithmetic.</p>
+
+<h2 id="review">Week 2 review: the rate map, the inequalities and the units of a rate <a class="timestamp" href="https://www.youtube.com/watch?v=fOwVbMKW1_0&amp;t=1328s">L10 22:08</a></h2>
+<p>The second half of Lecture 10 reviews the rates of the previous week. Its content is the material of Chapter 2 and of the force of interest restated in (4.4); this section records the review's structure and its one new worked example.</p>
+<p><strong>The rate map.</strong> The slide draws the effective rate \(i\) at the centre, linked to the effective rate of discount by \(d=i/(1+i)\), to the nominal rate by \(1+i=(1+i^{(m)}/m)^m\), and to the force of interest by \(\delta=\ln(1+i)\). A handwritten note marks \(\delta\) as the limit \(i^{(\infty)}\) of the nominal rates. Every arrow is an equation for the same growth factor \(1+i\), so any one rate determines the others.</p>
+<p><strong>The inequalities.</strong> For \(i\gt0\), the slide lists \(i\gt i^{(2)}\gt i^{(4)}\gt i^{(12)}\gt\delta\) and \(\delta\gt d^{(12)}\gt d^{(4)}\gt d^{(2)}\gt d\), with \(\delta\) as the point where the rates of interest and of discount meet. Chapter 2 proves the full chain for every frequency (equation (2.13) of that chapter) and tabulates the values at 10% (its Table 2.2). The slide adds a third line, \(i\gt i'\) for \(r\gt0\), which is (4.9).</p>
+<p><strong>The unit check.</strong> The slide's exam trap concerns units of time: \(i\) is per year, \(i^{(m)}/m\) is per period of \(1/m\) year, and the number of periods \(n\) must be counted in the unit of the rate that is applied. If the rate per month \(i^{(12)}/12\) is used, \(n\) counts months; a quoted 12% convertible monthly is 1% per month for \(n\) months, not 12% for \(n\) months. The slide lists \(\delta\) as "per instant". In the sense of (4.4), \(\delta\) is a rate per year, applied continuously: \(\delta t\) is dimensionless when \(t\) is in years. The same check applies to inflation: an inflation rate per month and a money rate per year cannot enter (4.5) together until both are converted to the same period. Exercise 3 shows the error that follows otherwise.</p>
+<p><strong>The week 2 challenge.</strong> Convert a force of interest \(\delta=10\%\) to the equivalent nominal rate of discount convertible quarterly. Step 1, by (4.4): \(1+i=e^{0.1}=1.105171\). Step 2, the bridge equation for discount: \(1.105171=(1-d^{(4)}/4)^{-4}\). Step 3: raise both sides to the power \(-1/4\), so \(1-d^{(4)}/4=1.105171^{-0.25}=e^{-0.025}=0.975310\), and</p>
+\[
+d^{(4)}=4\bigl(1-e^{-0.025}\bigr)=9.8760\%.
+\]
+<p>The slide rounds the intermediate value to 0.9753 and prints \(d^{(4)}=4(1-0.9753)=9.88\%\). The exact form shows a shortcut: \(1-d^{(4)}/4=e^{-\delta/4}\), the discount factor for a quarter of a year. As the chain of Chapter 2 requires, \(d^{(4)}=9.8760\%\) lies below \(\delta=10\%\).</p>
+
+<h2 id="valuing-real">Valuing real and money amounts consistently: the running case, first part</h2>
+<p><strong>Question.</strong> A future payment can be stated in two ways: as a money amount, the number of dollars paid on the date, or as a real amount, its value in today's prices. Which rate discounts which amount?</p>
+<p><strong>Definitions.</strong> Let prices grow at a constant inflation rate \(r\). A payment of real amount \(R_t\) at time \(t\) costs the money amount \(N_t=R_t(1+r)^t\) on that date. With the money rate \(i\) and the real rate \(i'\) of (4.5), both constant:</p>
+\[
+\sum_t N_t(1+i)^{-t}=\sum_t R_t\Bigl(\frac{1+r}{1+i}\Bigr)^{t}=\sum_t R_t(1+i')^{-t}. \tag{4.11}
+\]
+<p><strong>Derivation.</strong> By (4.5),</p>
+\[
+(1+r)^t(1+i)^{-t}=[(1+i)/(1+r)]^{-t}=(1+i')^{-t}.
+\]
+<p>Applying this identity term by term gives (4.11). The rule is: discount money amounts at the money rate, or real amounts at the real rate. The two routes give the same present value; mixing the measure of one route with the rate of the other does not.</p>
+<p><strong>The running case.</strong> In money, the fees are \(20{,}000\times1.06^5=26{,}764.51\) dollars at \(t=5\) and \(20{,}000\times1.06^6=28{,}370.38\) dollars at \(t=6\). The real rate is \(i'=1.08/1.06-1=1.8868\%\). The two routes of (4.11) give</p>
+\[
+\frac{26{,}764.51}{1.08^5}+\frac{28{,}370.38}{1.08^6}=36{,}093.63=\frac{20{,}000}{1.018868^5}+\frac{20{,}000}{1.018868^6}.
+\]
+<p>The program confirms the equality exactly with \(i=2/25\) and \(r=3/50\) held as fractions. The two mixtures fail in opposite directions. Discounting the real amounts (20,000 each) at the money rate 8% gives 26,215.06 dollars, which ignores the rise in the fees. Discounting the money amounts at the real rate gives 49,736.92 dollars, which counts the rise twice. The approximate real rate of 2% gives 35,874.04 dollars, 219.59 below the correct value.</p>
+<p><strong>Boundary.</strong> Formula (4.11) assumes one constant \(r\) and one constant \(i\) over the whole term. If either changes from year to year, \((1+i')^t\) is replaced by the product of the yearly factors \((1+i_k)/(1+r_k)\), and the real rate of one year does not discount a payment of another year. It also assumes that the payment's real amount grows with the same index that defines \(r\).</p>
+
+<h2 id="equation-of-value">Money at different times and the equation of value <a class="timestamp" href="https://www.youtube.com/watch?v=M9N7Jj4zfvw&amp;t=171s">L11 2:51</a></h2>
+<p>The present value of 36,093.63 dollars fixes what the deposits must be worth, but the deposits are made on two dates. Lecture 11 states the principle that connects payments on different dates, which the slide calls the golden rule of finance: money at different times cannot be added. One hundred dollars today plus one hundred dollars next year is not two hundred dollars; 100 rupees in 1990 and 100 rupees in 2020 cannot be added either. To add them, both amounts must first be moved to one common date. The slide calls that date the <em>focal date</em>.</p>
+<p><strong>Definition.</strong> The slide divides the payments of a problem into inflows and outflows and defines the equation of value: at the focal date, the sum of the values of all inflows equals the sum of the values of all outflows. Under compound interest at the constant rate \(i\), each value is computed by (4.1). With \(T\) the focal date and \(C_t\) the amount paid at time \(t\),</p>
+\[
+\sum_{\text{inflows}}C_t(1+i)^{T-t}=\sum_{\text{outflows}}C_t(1+i)^{T-t}. \tag{4.12}
+\]
+<p>Which payments are inflows is a matter of point of view: for a borrower, the loan is an inflow and the repayments are outflows; for the lender, the reverse. The equation is the same either way, because both sides swap. The lecture's illustration: income of 100 rupees a month and spending of 50 rupees a month are matched at a focal date, with the balance left in the account counted among the outflows. An equation of value is a statement that two sets of payments have equal value at one rate. It is useful when one payment is unknown: then (4.12) is one equation for that unknown.</p>
+
+<h2 id="focal-date">Does the focal date matter? Compound against simple interest <a class="timestamp" href="https://www.youtube.com/watch?v=M9N7Jj4zfvw&amp;t=366s">L11 6:06</a></h2>
+<p><strong>The lecture's example.</strong> A payment of 100 dollars is due at \(t=1\). It is to be replaced by a single payment \(X\) at \(t=0.5\), at a rate of 10%. The lecture solves it with two focal dates under each of two growth models.</p>
+<p><em>Compound interest.</em> At focal date \(t=1\): \(X\times1.1^{0.5}=100\), so \(X=100/1.1^{0.5}=95.3463\) (slide: 95.35). At focal date \(t=0\): \(100/1.1=X/1.1^{0.5}\), and multiplying both sides by \(1.1\) gives \(100=X\times1.1^{0.5}\) again. The same factor appears on both sides and cancels; \(X=95.3463\) at either date.</p>
+<p><em>Simple interest.</em> The slide moves an amount forward by the factor \(1+i\,h\) for \(h\) years and back by dividing by that factor. At focal date \(t=1\): \(X(1+0.1\times0.5)=100\), so \(X=100/1.05=95.2381\). At focal date \(t=0\): the 100 is worth \(100/1.1=90.9091\) and \(X\) is worth \(X/1.05\), so \(X=90.9091\times1.05=95.4545\). The two answers differ by 0.2165 dollars. Under simple interest, the focal date changes the answer.</p>
+<p><strong>Why compound interest is independent of the focal date.</strong> The slide's argument: if \(A=B\) holds at \(t=0\), then multiplying both sides by \((1+i)^k\) gives \(A(1+i)^k=B(1+i)^k\), so the equality holds at any time \(k\). In terms of (4.12): moving the focal date from \(T\) to \(T'\) multiplies every term \(C_t(1+i)^{T-t}\) by the same factor \((1+i)^{T'-T}\), which does not depend on \(t\). Both sides are multiplied by one positive number, so an \(X\) that solves (4.12) at \(T\) solves it at every \(T'\). The property that makes this work is \(a(s+h)=a(s)\,a(h)\) for \(a(t)=(1+i)^t\): growing for \(s\) years and then for \(h\) more is the same as growing for \(s+h\) years at once. The lecture writes this on the slide as the multiplicative property of the accumulation function.</p>
+<p><strong>Why simple interest is not.</strong> For \(a(t)=1+it\),</p>
+\[
+a(s)\,a(h)=(1+is)(1+ih)=1+i(s+h)+i^2sh=a(s+h)+i^2sh .
+\]
+<p>Growing in two steps gives more than growing in one, by \(i^2sh\): the first step's interest earns interest in the second step, which (4.3) does not allow. At focal date 1 the answer is \(100/a(1/2)\); at focal date 0 it is \(100\,a(1/2)/a(1)\). The focal-date-0 answer divided by the focal-date-1 answer is \(a(1/2)^2/a(1)\), which equals \(1+i^2/[4(1+i)]\) by the identity above with \(s=h=1/2\). The discrepancy is the extra interest produced by splitting one year into two half-year growth steps. In the lecture's example under simple interest, at any rate \(i\gt0\), the difference between the two answers is</p>
+\[
+X_{T=0}-X_{T=1}=\frac{100(1+i/2)}{1+i}-\frac{100}{1+i/2}=\frac{100\,(i/2)^2}{(1+i)(1+i/2)}, \tag{4.13}
+\]
+<p>where the numerator comes from \((1+i/2)^2-(1+i)=i^2/4\). At 10%, \(100\times0.0025/(1.1\times1.05)=0.2165\), the difference above. The effect is of second order in \(i\): it is 0.2165 dollars on 100 at 10%, and 0.0581 dollars at 5%, about a quarter as much. The program checks (4.13) exactly.</p>
+<p><strong>The rule.</strong> Under compound interest at one constant rate, the focal date is a matter of convenience, as the slide's summary puts it. Under simple interest, the focal date is part of the problem statement and must be given; a problem that uses simple interest without naming a focal date does not have a unique answer. Exercise 4 measures the effect on a two-payment problem.</p>
+
+<h2 id="unknown-payment">The three-step strategy and an unknown payment <a class="timestamp" href="https://www.youtube.com/watch?v=M9N7Jj4zfvw&amp;t=1071s">L11 17:51</a></h2>
+<p>The lecture's strategy for any problem with cash flows has three steps:</p>
+<ol>
+<li>Draw the timeline, and place every cash flow at its time.</li>
+<li>Pick a focal date: usually \(t=0\), or the time of the unknown payment.</li>
+<li>Move every cash flow to that date and set the value of the inflows equal to the value of the outflows; then solve.</li>
+</ol>
+<p><strong>The lecture's example.</strong> A borrower takes 1,000 dollars at 6% effective and repays \(X\) at \(t=2\) and \(2X\) at \(t=5\). With focal date \(t=0\), (4.12) reads</p>
+\[
+1000=Xv^2+2Xv^5=X\bigl(v^2+2v^5\bigr),\qquad v=1/1.06 .
+\]
+<p>The unknown appears in every outflow term multiplied by a known number, so the equation is linear in \(X\):</p>
+\[
+X=\frac{\text{value of the known payments}}{\text{value of the payments per unit of }X}=\frac{1000}{0.889996+2\times0.747258}=\frac{1000}{2.384513}=419.37. \tag{4.14}
+\]
+<p>The slide rounds the factors to \(0.8900\) and \(0.7473\), gets 2.3846 and prints \(X=419.36\); the unrounded value is 419.37. The lecture then checks the answer with focal date \(t=5\): \(1000\times1.06^5=X\times1.06^3+2X\), that is \(1338.23=3.191016\,X\), and \(X=419.37\) again (the slide prints 3.1910 and 419.36). The second focal date multiplies both sides of the first equation by \(1.06^5\), as the previous section proved.</p>
+<p><strong>The running case, second part.</strong> The deposits are inflows to the account and the fees are outflows. Figure 4.1 places them on one timeline. With focal date \(t=0\) and the money amounts of the fees,</p>
+\[
+X+Xv^3=36{,}093.63,\qquad X=\frac{36{,}093.63}{1+1.08^{-3}}=\frac{36{,}093.63}{1.7938322}=20{,}120.96 .
+\]
+<p>With focal date \(t=6\), the date of the last fee, the equation is</p>
+\[
+X(1.08^6+1.08^3)=26{,}764.51\times1.08+28{,}370.38,
+\]
+<p>and it gives the same \(X\); so does focal date 3. The program checks all three exactly. The present value of the fees at \(t=0\) can equally be computed from their real amounts discounted at \(i'\), by (4.11).</p>
+<p>The deposits are fixed in money, so their money amounts are \(X\) on both dates whatever the inflation, while the fees are fixed in today's prices, so their money amounts carry the factor \(1.06^t\). Either side can be valued by the money route or, through its real amount \(N_t(1+r)^{-t}\), by the real route of (4.11). In real measure the deposit at \(t=3\) is \(X/1.06^3\). Discounting it to \(t=0\) at the exact real rate \(1+i'=1.08/1.06\) gives</p>
+\[
+\frac{X/1.06^3}{(1+i')^3}=\frac{X}{1.06^3(1+i')^3}=\frac{X}{1.08^3},
+\]
+<p>the same term as the money route. The money route is used here because the deposits then need no conversion.</p>
+<figure>
+<svg viewBox="0 0 640 210" role="img" aria-labelledby="fig-case-title fig-case-desc" font-family="Georgia, serif" font-size="13" fill="currentColor">
+<title id="fig-case-title">The running case on one timeline</title>
+<desc id="fig-case-desc">A timeline from t equals 0 to t equals 6 years. Deposits of X are made at t equals 0 and t equals 3, drawn above the line as inflows to the account. Fees are paid at t equals 5 and t equals 6, drawn below the line as outflows: 26,764.51 dollars and 28,370.38 dollars in money, each 20,000 dollars in today's prices. The account earns 8 percent and the fees rise 6 percent a year.</desc>
+<text x="40" y="22">inflows to the account (deposits), 8% effective</text>
+<g fill="none" stroke="currentColor"><rect x="66" y="40" width="28" height="22"/><rect x="306" y="40" width="28" height="22"/></g>
+<g text-anchor="middle"><text x="80" y="56">X</text><text x="320" y="56">X</text></g>
+<g stroke="currentColor"><line x1="80" y1="62" x2="80" y2="95"/><line x1="320" y1="62" x2="320" y2="95"/></g>
+<line x1="40" y1="100" x2="600" y2="100" stroke="currentColor" stroke-width="1.5"/>
+<polygon points="600,96 610,100 600,104" fill="currentColor"/>
+<g stroke="currentColor"><line x1="80" y1="95" x2="80" y2="105"/><line x1="160" y1="95" x2="160" y2="105"/><line x1="240" y1="95" x2="240" y2="105"/><line x1="320" y1="95" x2="320" y2="105"/><line x1="400" y1="95" x2="400" y2="105"/><line x1="480" y1="95" x2="480" y2="105"/><line x1="560" y1="95" x2="560" y2="105"/></g>
+<g text-anchor="middle"><text x="80" y="120">0</text><text x="160" y="120">1</text><text x="240" y="120">2</text><text x="320" y="120">3</text><text x="400" y="120">4</text><text x="480" y="120">5</text><text x="560" y="120">6</text></g>
+<g stroke="currentColor"><line x1="480" y1="126" x2="480" y2="138"/><line x1="560" y1="126" x2="560" y2="138"/></g>
+<g fill="none" stroke="currentColor"><rect x="443" y="138" width="74" height="22"/><rect x="523" y="138" width="74" height="22"/></g>
+<g text-anchor="middle"><text x="480" y="154">26,764.51</text><text x="560" y="154">28,370.38</text>
+</g>
+<text x="610" y="180" text-anchor="end">money amounts; each is 20,000 in today's prices</text>
+<text x="40" y="202">outflows (fees), rising 6% a year; t in years</text>
+</svg>
+<figcaption>Figure 4.1. The running case. Deposits of \(X\) at \(t=0\) and \(t=3\) earn the money rate 8%. The fees at \(t=5\) and \(t=6\) are shown as money amounts; each is 20,000 dollars in today's prices. Any focal date gives the same \(X=20{,}120.96\) under compound interest.</figcaption>
+</figure>
+<p><strong>The cost of the shortcut.</strong> A planner who uses the subtraction \(8\%-6\%=2\%\) as the real rate computes the present value of the fees as 35,874.04 dollars and the deposit as \(35{,}874.04/1.7938322=19{,}998.55\), 122.41 dollars less than \(X\) at each date. At \(t=6\) the two missing amounts are worth \(122.4118\times(1.08^6+1.08^3)\), that is \(122.4118\times2.846586=348.46\) dollars, and that is the shortfall in the account when the second fee falls due. A planner who discounts the fees at today's prices with the account's 8% computes \(26{,}215.06/1.793832=14{,}614.00\), 27.4% less than \(X\).</p>
+
+<h2 id="drop-payment">A drop payment <a class="timestamp" href="https://www.youtube.com/watch?v=M9N7Jj4zfvw&amp;t=1623s">L11 27:03</a></h2>
+<p>A loan can be repaid by a fixed payment each year until the debt is cleared. The last payment is then in general smaller than the others, because the remaining debt is less than one full payment. The slide calls this final, smaller payment a <em>drop payment</em> (also a partial payment, or in the summary the final cleanup payment that balances the equation). The slide's setting: a loan of 1,000 dollars is repaid by 300 dollars a year until the debt is cleared, and the last payment is less than 300. The lecture points out that this problem is not complete, because no rate is given. Its method has two steps: find the number of full payments, then set up the equation of value for the last small piece.</p>
+<p><strong>The lecture's example.</strong> A loan of 1,000 dollars at 10% is repaid by 500 dollars at \(t=1\), 500 at \(t=2\), and a final payment \(X\) at \(t=3\) that clears the debt. With focal date \(t=3\), the debt is worth \(1000\times1.1^3=1331\), and the payments are worth \(500\times1.1^2+500\times1.1+X=605+550+X\). The equation of value gives</p>
+\[
+1331=1155+X,\qquad X=176 .
+\]
+<p>The focal date \(t=3\) makes every known term an accumulation, with no division; with focal date 0 the equation is the same one multiplied by \(1.1^{-3}\).</p>
+<p><strong>How many full payments?</strong> The lecture states that the number of full payments in the 300-dollar setting cannot be fixed until the rate is known. The condition can be made exact. Let \(L\) be the loan, \(\mathrm{PMT}\) the level payment and \(k\) the number of full payments, at the end of years \(1,\dots,k\). The outstanding balance just after the \(k\)th payment is the equation of value at focal date \(k\), solved for what is left, with \(u\) an integer summation index:</p>
+\[
+B_k=L(1+i)^k-\mathrm{PMT}\sum_{u=0}^{k-1}(1+i)^u .
+\]
+<p>A drop payment \(B_k(1+i)\) at \(t=k+1\) that is positive and not more than a full payment requires \(B_k\gt0\) and \(B_k(1+i)\le\mathrm{PMT}\). Multiplying each condition by \(v^k\) or \(v^{k+1}\) turns it into a comparison of present values:</p>
+\[
+\mathrm{PMT}\sum_{u=1}^{k}v^u\lt L\le\mathrm{PMT}\sum_{u=1}^{k+1}v^u. \tag{4.15}
+\]
+<p>The sums are the present values of \(k\) and \(k+1\) payments of 1 at the end of each year, the annuity values \(a_{\overline{k}|}\) and \(a_{\overline{k+1}|}\) of Chapter 7 (section <a href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html#pv-immediate">"Present value of an annuity-immediate"</a>). For the slide's loan, \(L=1000\), \(\mathrm{PMT}=300\) and \(k=3\). The left inequality holds for every \(i\ge0\), since three payments of 300 are worth at most 900. The right inequality says that four payments of 300 are worth at least 1,000. Their value decreases as \(i\) increases, from 1,200 at \(i=0\), and equals 1,000 at the boundary rate (7.7138% to four decimals, found by bisection in the program). So the slide's description, three payments of 300 and a smaller fourth, is correct for rates from 0 up to, but excluding, that boundary rate. At 5% the drop payment at \(t=4\) is 222.47. At 10% the balance after three payments is 338.00, the payment needed at \(t=4\) would be 371.80, more than 300, and the loan takes four full payments and a drop payment of 78.98 at \(t=5\). Chapter 7 compares this convention with the balloon payment, in which the remaining balance is added to the last full payment instead (section <a href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html#unknowns">"Solving for an unknown term or an unknown rate"</a>).</p>
+
+<h2 id="calculator-and-d">Calculator memory, and a rate of discount in the equation <a class="timestamp" href="https://www.youtube.com/watch?v=M9N7Jj4zfvw&amp;t=1927s">L11 32:07</a></h2>
+<p><strong>Calculator memory.</strong> Typing powers such as \(1.06^{-2}\) and \(1.06^{-5}\) by hand invites keying errors, and copying a rounded intermediate value loses digits. The slide's tip for the factor \(v^2+2v^5\) of (4.14) uses the memory keys of a calculator: compute \(v=1.06^{-1}\) and store it in memory 1; recall memory 1, square it and store the result in memory 2; recall memory 1, raise it to the power 5, multiply by 2 and store the result in memory 3; then add the recalls of memories 2 and 3. The slide displays \(v=0.9434\), but the memory holds the full value, so the sum is 2.384513 rather than the 2.3846 obtained from the rounded factors, and the answer is 419.37. The keystrokes are a way to evaluate (4.14); the equation of value comes first. The slide does not name a calculator model.</p>
+<p><strong>A rate of discount.</strong> A problem may give the effective rate of discount \(d\) instead of \(i\). By (4.2), \(v=1-d\), so the slide writes the present value of cash flows \(\mathrm{CF}_t\) at times \(t\) as</p>
+\[
+\mathrm{PV}=\sum_t\mathrm{CF}_t\,(1-d)^t. \tag{4.16}
+\]
+<p>No conversion to \(i\) is needed; the slide notes that this is often faster than finding \(i\). For example, if the lecture's loan of 1,000 dollars repaid by \(X\) at \(t=2\) and \(2X\) at \(t=5\) carried an effective rate of discount of 6% instead of a rate of interest of 6%, then \(1000=X(0.94^2+2\times0.94^5)\). The two terms are 0.8836 and 1.467808 to the displayed precision, and the factor rounds to 2.351408. Using the unrounded factor gives \(X=425.28\). The payment is larger than 419.37 because a rate of discount of 6% is the rate of interest \(0.06/0.94=6.3830\%\) by (4.2). The program checks \((1-d)^t=(1+d/(1-d))^{-t}\) exactly for \(t=1,\dots,10\) at \(d=5\%\).</p>
+
+<h2 id="running-case">The running case resolved</h2>
+<p>The running case asked for the deposit \(X\), made at \(t=0\) and again at \(t=3\), that pays two fees of 20,000 dollars in today's prices at \(t=5\) and \(t=6\), with fees rising 6% a year and the account paying 8%. Table 4.2 collects the versions computed above.</p>
+<div class="table-wrap"><table>
+<caption>Table 4.2. The running case under the correct valuation and three errors. Present values at \(t=0\) and deposits in dollars, rounded to cents at the end; intermediate values unrounded.</caption>
+<thead><tr><th scope="col">Valuation</th><th scope="col">Amounts and rate</th><th scope="col">Present value of the fees</th><th scope="col">Deposit \(X\)</th></tr></thead>
+<tbody>
+<tr><td>Correct (money)</td><td>money amounts at \(i=8\%\)</td><td>36,093.63</td><td>20,120.96</td></tr>
+<tr><td>Correct (real)</td><td>real amounts at \(i'=1.8868\%\)</td><td>36,093.63</td><td>20,120.96</td></tr>
+<tr><td>Shortcut real rate</td><td>real amounts at \(i-r=2\%\)</td><td>35,874.04</td><td>19,998.55</td></tr>
+<tr><td>Inflation ignored</td><td>real amounts at \(i=8\%\)</td><td>26,215.06</td><td>14,614.00</td></tr>
+<tr><td>Inflation counted twice</td><td>money amounts at \(i'=1.8868\%\)</td><td>49,736.92</td><td>27,726.63</td></tr>
+</tbody></table></div>
+<p>The answer is \(X=20{,}120.96\) dollars at \(t=0\) and at \(t=3\), 40,241.92 dollars of deposits for fees of 55,134.89 dollars in money. The difference, 14,892.97 dollars, is the interest the deposits earn. The shortcut real rate leaves the account 348.46 dollars short at \(t=6\), about 1.2% of the second fee; its error is the product term \(r\,i'=0.06\times1.8868\%=0.1132\) points of (4.8). The two mixtures are larger errors, 27.4% too small and 37.8% too large, because each applies a rate to an amount measured in the other unit.</p>
+<p>What generalizes is the procedure: state every amount in one measure (money or real), use the rate that belongs to that measure, draw one timeline, and write one equation of value at a focal date, which under compound interest may be chosen for convenience. What is specific to the case is the pair of invented rates and the assumption that both stay constant for six years. With other rates, the money and real routes still agree by (4.11); the error of the shortcut changes with the product \(r\,i'\).</p>
+
+<h2 id="implementation">Executable check of the relations and the running case</h2>
+<p>The program below implements (4.5), the equation of value (4.12) under compound interest and under the simple-interest convention of the focal-date section, and the solution (4.14) for an unknown multiple \(X\) of known payments. Its inputs are set in the code: the rates and payments of the lecture examples and of the running case. It makes four groups of checks. (1) For the four examples of Table 4.1, held as exact fractions, it asserts the Fisher equation \((1+i')(1+r)=1+i\) and the error identity (4.8), and it compares \(\ln1.08-\ln1.05\) with \(\ln(1+i')\). (2) For the running case, with \(i=2/25\) and \(r=3/50\) exact, it asserts that money amounts at \(i\) and real amounts at \(i'\) give the same present value (4.11), and that focal dates 0, 3 and 6 give the same \(X\). (3) It solves the lecture's unknown payment at two focal dates, the half-year replacement under both growth models with the exact difference (4.13), the drop payment of 176, and the rate at which four payments of 300 are worth 1,000, by bisection with the stopping rule \(i_{\text{hi}}-i_{\text{lo}}\le10^{-12}\). (4) It recomputes the week 2 challenge and checks \(v=1-d\) exactly.</p>
+<p>The function <code>real_rate</code> raises <code>ValueError</code> if \(i\le-1\) or \(r\le-1\); <code>value_at</code> raises it if \(i\le-1\) or the model is neither compound nor simple. The program reads no files and writes only to standard output. It uses the standard library only. Exact checks use <code>fractions.Fraction</code>; fractional powers such as \(1.1^{0.5}\), the logarithms and the bisection use floating point. Printed amounts are rounded to cents, and rates to four decimals in percent, only at the end. The checks test algebra and arithmetic. They do not test whether an inflation rate is realized or expected, or whether the fees rise with the same index as the inflation rate; those are questions about the problem statement.</p>
+<pre><code class="language-python">from fractions import Fraction as Fr
+import math
+
+
+def real_rate(i, r):
+    """Exact real rate (4.5): (1 + i)/(1 + r) - 1."""
+    if i &lt;= -1 or r &lt;= -1:
+        raise ValueError(f"need i &gt; -1 and r &gt; -1: {i}, {r}")
+    return (1 + i)/(1 + r) - 1
+
+
+def value_at(flows, T, i, model="compound"):
+    """Value at focal date T of flows {t: amount}. Simple interest moves
+    an amount forward by 1 + i(T - t) and back by 1/(1 + i(t - T))."""
+    if i &lt;= -1:
+        raise ValueError(f"need i &gt; -1: {i}")
+    if model == "compound":
+        return sum(c*(1 + i)**(T - t) for t, c in flows.items())
+    if model == "simple":
+        return sum(c*(1 + i*(T - t)) if T &gt;= t else c/(1 + i*(t - T))
+                   for t, c in flows.items())
+    raise ValueError(f"unknown model: {model}")
+
+
+def solve_x(owed, units, T, i, model="compound"):
+    """X in the equation of value at T: X*value(units) = value(owed)."""
+    return value_at(owed, T, i, model)/value_at(units, T, i, model)
+
+
+pct = (lambda x: f"{100*float(x):.4f}%")
+# 1. Fisher equation (4.5)-(4.8), exact for rational rates.
+for i, r in ((Fr(10, 100), Fr(10, 100)), (Fr(10, 100), Fr(5, 100)),
+             (Fr(8, 100), Fr(5, 100)), (Fr(2, 100), Fr(6, 100))):
+    ip = real_rate(i, r)
+    assert (1 + ip)*(1 + r) == 1 + i and (i - r) - ip == r*ip
+    print(f"i {pct(i)} r {pct(r)}: real {pct(ip)}, i - r {pct(i - r)},"
+          f" error {pct(r*ip)}")
+d_real = math.log(1.08) - math.log(1.05)
+print(f"real force ln(1.08) - ln(1.05) = {d_real:.6f};"
+      f" ln(1 + i') = {math.log(1 + 1/35):.6f}")
+# 2. Running case: fees of 20,000 in today's prices at t = 5 and t = 6.
+i, r = Fr(8, 100), Fr(6, 100)
+ip = real_rate(i, r)
+real = {5: 20000, 6: 20000}
+money = {t: c*(1 + r)**t for t, c in real.items()}
+pv = value_at(money, 0, i)
+assert pv == value_at(real, 0, ip)
+print("fees in money:", ", ".join(f"t={t}: {float(c):,.2f}"
+                                  for t, c in money.items()))
+print(f"PV of fees: money at i {float(pv):,.2f}; real at i' "
+      f"{float(value_at(real, 0, ip)):,.2f}")
+print(f"mixed: real at i {float(value_at(real, 0, i)):,.2f};"
+      f" money at i' {float(value_at(money, 0, ip)):,.2f}")
+units = {0: 1, 3: 1}
+xs = [solve_x(money, units, T, i) for T in (0, 3, 6)]
+assert xs[0] == xs[1] == xs[2]
+X = xs[0]
+pv2 = value_at(real, 0, Fr(2, 100))
+X2 = pv2/value_at(units, 0, i)
+Xm = solve_x(real, units, 0, i)
+print(f"deposit X (focal dates 0, 3, 6): {float(X):,.2f}")
+print(f"with i' = 2%: PV {float(pv2):,.2f}, X {float(X2):,.2f},"
+      f" short at t=6 {float((X - X2)*value_at(units, 6, i)):,.2f}")
+print(f"with fees in today's prices at 8%: X {float(Xm):,.2f}"
+      f" ({100*float(1 - Xm/X):.1f}% too small)")
+# 3. Lecture 11: unknown payment, focal dates, simple interest, drop.
+i = Fr(6, 100)
+for T in (0, 5):
+    x = solve_x({0: 1000}, {2: 1, 5: 2}, T, i)
+    print(f"X with 1000 = X v^2 + 2X v^5, focal date {T}: {float(x):.2f}")
+i = Fr(10, 100)
+for model in ("compound", "simple"):
+    x0, x1 = (solve_x({1: 100}, {Fr(1, 2): 1}, T, i, model)
+              for T in (0, 1))
+    print(f"{model:8s}: X at t=0.5, focal 0: {float(x0):.4f},"
+          f" focal 1: {float(x1):.4f}")
+assert x0 - x1 == 100*(i**2/4)/((1 + i)*(1 + i/2))
+drop = value_at({0: 1000}, 3, i) - value_at({1: 500, 2: 500}, 3, i)
+assert drop == 176
+print(f"drop at t=3 after 500 at t=1, 2 (10%): {float(drop):.2f}")
+lo, hi = 1e-9, 1.0
+f = (lambda x: 300*(1 - (1 + x)**-4)/x - 1000)
+while hi - lo &gt; 1e-12:
+    mid = (lo + hi)/2
+    lo, hi = (mid, hi) if f(mid) &gt; 0 else (lo, mid)
+print(f"4 payments of 300 are worth at least 1000 if i &lt;= {pct(lo)}")
+# 4. Review: delta = 10% to d(4); a rate of discount in the equation.
+print(f"d(4) from delta = 10%: {pct(4*(1 - math.exp(-0.1/4)))}")
+d = Fr(5, 100)
+assert all((1 - d)**t == (1 + d/(1 - d))**-t for t in range(1, 11))
+print("v = 1 - d with i = d/(1 - d): exact for t = 1, ..., 10: pass")
+</code></pre>
+<p>Run in a fresh interpreter (<code>python -I</code>, Python 3.13), the program prints:</p>
+<pre><code>i 10.0000% r 10.0000%: real 0.0000%, i - r 0.0000%, error 0.0000%
+i 10.0000% r 5.0000%: real 4.7619%, i - r 5.0000%, error 0.2381%
+i 8.0000% r 5.0000%: real 2.8571%, i - r 3.0000%, error 0.1429%
+i 2.0000% r 6.0000%: real -3.7736%, i - r -4.0000%, error -0.2264%
+real force ln(1.08) - ln(1.05) = 0.028171; ln(1 + i') = 0.028171
+fees in money: t=5: 26,764.51, t=6: 28,370.38
+PV of fees: money at i 36,093.63; real at i' 36,093.63
+mixed: real at i 26,215.06; money at i' 49,736.92
+deposit X (focal dates 0, 3, 6): 20,120.96
+with i' = 2%: PV 35,874.04, X 19,998.55, short at t=6 348.46
+with fees in today's prices at 8%: X 14,614.00 (27.4% too small)
+X with 1000 = X v^2 + 2X v^5, focal date 0: 419.37
+X with 1000 = X v^2 + 2X v^5, focal date 5: 419.37
+compound: X at t=0.5, focal 0: 95.3463, focal 1: 95.3463
+simple  : X at t=0.5, focal 0: 95.4545, focal 1: 95.2381
+drop at t=3 after 500 at t=1, 2 (10%): 176.00
+4 payments of 300 are worth at least 1000 if i &lt;= 7.7138%
+d(4) from delta = 10%: 9.8760%
+v = 1 - d with i = d/(1 - d): exact for t = 1, ..., 10: pass
+</code></pre>
+<p>The first five lines check the Fisher equation: the exact real rates of Table 4.1 with their errors, and the agreement of \(\ln1.08-\ln1.05\) with \(\ln(1+i')\) at \(i'=1/35\). The next six lines are the running case: the money amounts of the fees, the equal present values of the two correct routes, the two mixtures, the deposit at three focal dates, and the two shortcut deposits. The remaining lines reproduce the lecture examples. The boundary percentage in the output is rounded; the exact inequality uses the boundary rate defined in the drop-payment section. Two failure tests show what the checks detect. If <code>real_rate</code> returns the subtraction <code>i - r</code>, the first assertion fails at the second row (\(i=10\%\), \(r=5\%\)), because \((1+i-r)(1+r)\neq1+i\) whenever \(r\neq0\) and \(i\neq r\); the first row passes, because there \(i=r\) and the subtraction is exact. If the assertion of (4.11) compares the money present value with the money amounts discounted at the real rate, it fails, because that mixture counts inflation twice. A wrong input, such as an inflation rate per month entered as a rate per year, passes every assertion; only the problem statement can expose it.</p>
+
+<h2 id="limits">What these results establish and what they do not</h2>
+<p>Within their assumptions, (4.5)–(4.11) are exact identities: (4.5) is a ratio of two quantities of goods, (4.6)–(4.10) are algebra on it, and (4.11) is (4.5) applied term by term. The equation of value (4.12), its independence of the focal date under compound interest, the simple-interest difference (4.13), the linear solution (4.14) and the drop condition (4.15) are exact consequences of the growth model they assume. The program confirms (4.5)–(4.8), (4.11), (4.13) and (4.14) exactly and (4.10) and (4.15) in floating point. The assumptions are of three kinds. Definitions: purchasing power is measured against one basket, and the real rate belongs to that basket. A model: one constant money rate and one constant inflation rate, both compounded yearly, and for the equation of value one compound rate for every payment, the same for borrowing and lending. A convention: which payments are inflows; the focal date under simple interest; the timing of the final payment of a loan.</p>
+<p>The results stop applying in identifiable places. An inflation rate for the future is an expectation, so a real rate computed from it is an expected real rate, and the realized real rate can differ in either direction. A change in the money rate or the inflation rate from year to year replaces \((1+i')^t\) by a product of yearly factors. A payment whose amount rises with a different index from the one that defines \(r\) (the fees of the running case against a general price index) needs its own growth rate in (4.11). The subtraction \(i-r\) is an approximation with the error \(r\,i'\) of (4.8); it exaggerates the size of the real rate when inflation is positive. Under simple interest, an equation of value has no unique solution until the focal date is fixed. Taxes, fees and the risk that a payment is not made are outside this chapter. Inflation-protected securities are one practical instrument that quotes a real rate, but the TreasuryDirect page also states features that this chapter's model does not include: the principal can fall with deflation, and at maturity the holder receives the larger of the adjusted and the original principal (TreasuryDirect, TIPS, sections "TIPS at a Glance" and "How TIPS protects you against inflation").</p>
+<p>The topics of this chapter are named learning outcomes of the Society of Actuaries Exam FM: the syllabus lists "inflation and real rate of interest" and "equation of value" among the terms a candidate must define and recognize, and asks the candidate to write the equation of value given a set of cash flows and an interest rate (<a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA Exam FM syllabus, October 2026</a>, p. 2, outcomes 1a and 1d). The recordings mention Exam FM in their exam advice; they do not state which examination the course prepares for.</p>
+
+<h2 id="exercises">Exercises</h2>
+<p><strong>Exercise 1 (derive, and a concept check).</strong> (a) From the Fisher equation, derive \(i'=(i-r)/(1+r)\) and the error \((i-r)-i'=r\,i'\). (b) Show that \(\ln(1+i')=\ln(1+i)-\ln(1+r)\), and explain why the subtraction is exact for these logarithms but not for the rates. (c) Evaluate \(i'\), \(i-r\), the error and \(\ln(1+i)-\ln(1+r)\) at \(i=12\%\) and \(r=9\%\). Round rates to four decimals in percent and logarithms to six decimals. (d) Which of the following statements fails for some \(i\gt0\) and \(r\gt0\)? (A) \(i\gt i'\). (B) \(\ln(1+i')=\ln(1+i)-\ln(1+r)\). (C) \(i'\lt i-r\). (D) Real amounts discounted at \(i'\) have the same present value as the corresponding money amounts discounted at \(i\).</p>
+<details><summary>Solution</summary>
+<p>(a) The Fisher equation is \((1+i')(1+r)=1+i\). Divide by \(1+r\gt0\): \(1+i'=(1+i)/(1+r)\), so \(i'=(1+i-1-r)/(1+r)=(i-r)/(1+r)\). Expanding the product instead gives \(i=i'+r+i'r\), so \(i-r=i'+i'r\) and \((i-r)-i'=i'r\).</p>
+<p>(b) Take logarithms of \(1+i'=(1+i)/(1+r)\); the logarithm of a quotient is the difference of the logarithms. The rates themselves combine by multiplication of growth factors, not by addition, and the logarithm is the function that turns multiplication into addition. The subtraction of the rates replaces each \(\ln(1+x)\) by \(x\), which is accurate only when \(x\) is small.</p>
+<p>(c) \(i'=1.12/1.09-1=2.7523\%\); \(i-r=3.0000\%\); the error is \(0.09\times2.7523\%=0.2477\) points, and \(3.0000-2.7523=0.2477\). \(\ln1.12-\ln1.09=0.113329-0.086178=0.027151\), which equals \(\ln1.027523\).</p>
+<p>(d) (C) is false. By (4.8), \(i'\lt i-r\) holds when \(r\,i'\gt0\), that is (with \(r\gt0\)) when \(i\gt r\). For \(i=2\%\) and \(r=6\%\), \(i'=-3.7736\%\gt i-r=-4\%\). (A) is (4.9) with \(r\gt0\). (B) is (4.10). (D) is (4.11). The question copies the form of a concept check: each wrong choice must be eliminated by a principle, and the trap is to read the slide's "the approximation overestimates" as a rule for every case.</p>
+</details>
+<p><strong>Exercise 2 (exam-style computation).</strong> A pension fund promises a payment of 10,000 dollars in today's prices at \(t=10\). Prices are expected to rise 4% a year, and the fund earns 7% a year effective. Calculate the present value of the promise, rounded to the nearest cent, with no intermediate rounding. Choose the closest answer: (A) 5,083.49 (B) 7,440.94 (C) 7,524.81 (D) 11,138.56 (E) 14,802.44.</p>
+<details><summary>Solution</summary>
+<p>The money amount at \(t=10\) is \(10{,}000\times1.04^{10}=14{,}802.44\). Discounting at 7%: \(14{,}802.44/1.07^{10}=7{,}524.81\). By (4.11) the same value is \(10{,}000/(1+i')^{10}\) with \(i'=1.07/1.04-1=2.8846\%\), that is \(10{,}000(1.04/1.07)^{10}=7{,}524.81\): answer (C).</p>
+<p>Each wrong choice comes from a specific error. (A) discounts the real amount at the money rate, \(10{,}000/1.07^{10}\), and ignores inflation. (B) uses the shortcut real rate \(7\%-4\%=3\%\), \(10{,}000/1.03^{10}\). (D) discounts the money amount at the real rate, \(14{,}802.44/1.028846^{10}\), and counts inflation twice. (E) is the money amount itself, not discounted.</p>
+</details>
+<p><strong>Exercise 3 (check an assumption).</strong> A deposit pays 6% a year convertible monthly, and inflation is 3% a year effective. A student computes the real rate as \(1.06/1.03-1\). (a) What is wrong with the calculation? (b) Compute the correct effective annual real rate. (c) Compute the real rate per month, assuming prices rise at the constant monthly rate equivalent to 3% a year. Round rates to four decimals in percent.</p>
+<details><summary>Solution</summary>
+<p>(a) Formula (4.5) needs both rates for the same period and both effective. The 6% is a nominal rate \(i^{(12)}\), in the sense of Chapter 2: it credits 0.5% a month. It is not the effective annual growth of money. This is the unit check of the review section: both rates in (4.5) must be effective rates for the same period.</p>
+<p>(b) The effective annual money rate is \(1.005^{12}-1=6.1678\%\). Then \(1+i'=1.061678/1.03\), and \(i'=3.0755\%\). The student's figure, \(1.06/1.03-1=2.9126\%\), is 0.1629 points too low.</p>
+<p>(c) Per month, money grows by 1.005 and prices by \(1.03^{1/12}\), so the monthly real rate is \(1.005/1.03^{1/12}-1=0.2527\%\). Compounded over 12 months, with the unrounded monthly rate 0.252750%, it gives \(1.0025275^{12}-1=3.0755\%\), the answer of (b), as it must, because both are the same ratio of growth factors over one year.</p>
+</details>
+<p><strong>Exercise 4 (counterexample: the focal date under simple interest).</strong> A debt of 1,000 dollars due at \(t=2\) is to be replaced by two equal payments \(X\) at \(t=1\) and \(t=3\), at 10% a year. (a) Under compound interest, find \(X\) and show that it does not depend on the focal date. (b) Under simple interest, with the convention of the focal-date section (forward by \(1+ih\), back by dividing by \(1+ih\)), find \(X\) with focal dates 0, 1, 2 and 3. (c) Explain why focal date 2 gives the compound answer in (b). Round amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) With focal date 2: \(1000=X\times1.1+X/1.1\), so \(X=1000/(1.1+0.909091)=497.74\). Any other focal date \(T\) multiplies every term by \(1.1^{T-2}\), which cancels; \(X=497.74\).</p>
+<p>(b) Focal date 0: \(1000/1.2=X/1.1+X/1.3\), so \(X=833.33/1.678322=496.53\). Focal date 1: the debt is worth \(1000/1.1=909.09\), and \(909.09=X+X/1.2\), so \(X=495.87\). Focal date 2: \(1000=1.1X+X/1.1\), so \(X=497.74\). Focal date 3: \(1000\times1.1=1.2X+X\), so \(X=500.00\). Four focal dates give four different answers; they span 4.13 dollars, from 495.87 at focal date 1 to 500.00 at focal date 3. Only focal date 2 reproduces the compound answer, for the reason given in (c).</p>
+<p>(c) At focal date 2 every payment moves by exactly one year, and for one year \(1+i\) is the factor of both models. The two models differ only for moves longer or shorter than one year, where \((1+i)^h\neq1+ih\).</p>
+</details>
+<p><strong>Exercise 5 (drop payment, compute and check the slide).</strong> A loan of 1,000 dollars is repaid by 300 dollars at the end of each year until the debt is cleared, with a smaller final payment. (a) Use (4.15) to show that there are exactly three full payments and a drop payment at \(t=4\) when \(i\ge0\) is below the boundary rate (7.7138% to four decimals). (b) Find the drop payment at \(i=0\) and at \(i=5\%\). (c) At \(i=10\%\), find the number of full payments and the drop payment. Round amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) With \(k=3\), (4.15) requires \(300(v+v^2+v^3)\lt1000\le300(v+v^2+v^3+v^4)\). For \(i\ge0\) every \(v^u\le1\), so the left side is at most 900, and the left inequality holds. The right side decreases in \(i\), from 1,200 at \(i=0\), and equals 1,000 at the boundary rate (7.7138% to four decimals); so the right inequality holds at and below that rate. The inequality for a smaller final payment is strict: the rate must be below the boundary rate, which rounds to 7.7138%. At that exact boundary rate the payment at \(t=4\) is a full 300 and no smaller final payment remains.</p>
+<p>(b) At \(i=0\): \(B_3=1000-900=100\), and the drop payment is 100.00. At 5%: \(B_3=1000\times1.05^3-300(1+1.05+1.05^2)=1157.625-945.75=211.88\), and the drop payment at \(t=4\) is \(211.875\times1.05=222.47\).</p>
+<p>(c) At 10%: \(B_3=1331-300\times3.31=338.00\), and \(338.00\times1.1=371.80\gt300\), so a fourth full payment is made. \(B_4=1000\times1.1^4-300(1+1.1+1.21+1.331)=1464.10-1392.30=71.80\), and the drop payment at \(t=5\) is \(71.80\times1.1=78.98\). Four full payments and a drop payment; (4.15) holds with \(k=4\).</p>
+</details>
+<p><strong>Exercise 6 (design and judgment: a fixed against an indexed deposit).</strong> A saver chooses between two 5-year deposits of 10,000 dollars: a fixed deposit at 7% a year effective, and an indexed deposit whose yearly growth factor is \(1.015(1+r)\), where \(r\) is the inflation of the year (a real rate of 1.5% by construction; the structure resembles the inflation adjustment of TIPS, without its deflation floor). (a) Find the break-even inflation rate \(r^*\), assumed constant, at which the two deposits pay the same. (b) Compare \(r^*\) with the subtraction \(7\%-1.5\%\). For constant inflation of 5.45%, which deposit pays more, and which does a saver choose who uses the subtraction? (c) Give the money and real values of both deposits after 5 years at \(r=4\%\) and at \(r=6\%\). (d) What does the choice depend on that neither deposit's terms fix? Round rates to four decimals in percent and amounts to cents.</p>
+<details><summary>Solution</summary>
+<p>(a) The deposits pay the same when \(1.015(1+r^*)=1.07\), so \(r^*=1.07/1.015-1=5.4187\%\). This is (4.7) solved for the inflation rate.</p>
+<p>(b) The subtraction gives 5.5%, 0.0813 points too high, the error \(r^*\times1.5\%\) of (4.8). At \(r=5.45\%\), the indexed deposit grows by \(1.015\times1.0545=1.070318\) a year, more than 1.07: after 5 years it is worth 14,046.34 dollars against 14,025.52. A saver who uses the subtraction sees \(5.45\%\lt5.5\%\) and chooses the fixed deposit, the worse one. The error matters only for inflation between 5.4187% and 5.5%, but there it reverses the decision.</p>
+<p>(c) At \(r=4\%\): the fixed deposit is worth \(10{,}000\times1.07^5=14{,}025.52\) in money and \(14{,}025.52/1.04^5=11{,}527.95\) in today's prices; the indexed deposit grows by \(1.015\times1.04=1.0556\) a year, to 13,106.81 in money and \(10{,}000\times1.015^5=10{,}772.84\) in today's prices. At \(r=6\%\): fixed 14,025.52 in money and 10,480.68 real; indexed 14,416.49 in money and 10,772.84 real. The indexed deposit's real value is the same in both cases.</p>
+<p>(d) The decision depends on the inflation that will occur, which is unknown when the deposit is made. The fixed deposit fixes the money amount and leaves the real amount uncertain; the indexed deposit fixes the real amount and leaves the money amount uncertain. A saver whose future spending rises with prices (the fees of the running case) carries less risk with the indexed deposit; the expected-inflation comparison of (a) answers only which deposit pays more if inflation equals the forecast.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li>Recordings: <a href="https://www.youtube.com/watch?v=fOwVbMKW1_0">Lecture 10, Inflation (Real vs. Nominal Rates) and Review</a>; <a href="https://www.youtube.com/watch?v=M9N7Jj4zfvw">Lecture 11, The Equation of Value</a>; <a href="https://www.youtube.com/watch?v=HSrxblFzIsE">Lecture 30, Module 1 Review (Theory Quiz)</a>; NPTEL <em>Financial Mathematics for Actuaries</em>, IIT Madras.</li>
+<li>TreasuryDirect, U.S. Department of the Treasury, <a href="https://www.treasurydirect.gov/marketable-securities/tips/"><em>Treasury Inflation-Protected Securities (TIPS)</em></a> (web page, accessed 2026-10-08). Principal adjusted with a version of the Consumer Price Index from the Bureau of Labor Statistics; a fixed rate of interest paid every six months on the adjusted principal; principal can go up or down; at maturity the larger of the adjusted and the original principal.</li>
+<li>Society of Actuaries, <a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf"><em>Financial Mathematics Exam, October 2026</em> syllabus</a>, p. 2: outcome 1a (terms including inflation and real rate of interest, equation of value) and outcome 1d (write the equation of value given a set of cash flows and an interest rate).</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-03-force-of-interest-constant-and-variable.html">Previous available chapter</a><a href="index.html">Lecture index</a><a rel="next" href="chapter-05-unknown-time-and-unknown-rate.html">Next available chapter</a></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>
