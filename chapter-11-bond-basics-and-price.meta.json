@@ -1,0 +1,435 @@
+{
+  "chapter": 11,
+  "title": "Bond basics and the price of a bond",
+  "status": "reviewed and locally validated; passes 1-9 complete; gate 6b passed round 2 (0 blocking)",
+  "transcript_provenance": "Publisher-uploaded English captions (NPTEL-NOC IITM YouTube channel, non-automatic track)",
+  "recordings": [
+    {
+      "video_id": "mneV22uOry0",
+      "lecture": "Lecture 36",
+      "media_sha256": "1dd0694063a6111ef58139b5c8ccbb5d0a6342b555efc424eab3e206da4509cb",
+      "duration_seconds": 1951,
+      "transcript_first_start_seconds": 15.12,
+      "transcript_last_end_seconds": 1947.6
+    },
+    {
+      "video_id": "UX1CYUtoo4c",
+      "lecture": "Lecture 37",
+      "media_sha256": "7dec3fb7d2545bd41bf7fd625d4d06e2ca3a6751f6da7673dcf4c6afeb5cd5cb",
+      "duration_seconds": 2619,
+      "transcript_first_start_seconds": 15.52,
+      "transcript_last_end_seconds": 2615.6
+    },
+    {
+      "video_id": "38UuErhSrHU",
+      "lecture": "Lecture 38",
+      "media_sha256": "b766e512ac519a5580cdaf5d6661b8a58b20124d2e5cf44909c51d52ef155b3a",
+      "duration_seconds": 1232,
+      "transcript_first_start_seconds": 15.2,
+      "transcript_last_end_seconds": 1228.08
+    }
+  ],
+  "practice_sources": [
+    {
+      "video_id": "hlhOvrZPX-M",
+      "lecture": "Lecture 56",
+      "media_sha256": "1e71e4784f95a0e079bb6ae8884e4d0ea63e122e8a4b77e9d3027b7fc96d77f7",
+      "duration_seconds": 1398,
+      "transcript_first_start_seconds": 11.242,
+      "transcript_last_end_seconds": 1388.72,
+      "kind": "review",
+      "used_for": "Review IV current-yield/YTM/pricing distinctions and the inverse price-yield relation; inspires original conceptual exercises."
+    }
+  ],
+  "frames_viewed": {
+    "mneV22uOry0": [
+      "f0001",
+      "f0015",
+      "f0027",
+      "f0052"
+    ],
+    "UX1CYUtoo4c": [
+      "f0004",
+      "f0009",
+      "f0017",
+      "f0020",
+      "f0026",
+      "f0028",
+      "f0042",
+      "f0044",
+      "f0047",
+      "f0051",
+      "f0059",
+      "f0063",
+      "f0067",
+      "f0072",
+      "f0075",
+      "f0079"
+    ],
+    "38UuErhSrHU": [
+      "f0003",
+      "f0012",
+      "f0013",
+      "f0019",
+      "f0027",
+      "f0032",
+      "f0039",
+      "f0041"
+    ],
+    "hlhOvrZPX-M": [
+      "f0027",
+      "f0029",
+      "f0031",
+      "f0033",
+      "f0037",
+      "f0039",
+      "f0040",
+      "f0042",
+      "f0045",
+      "f0046"
+    ]
+  },
+  "source_uncertainties": [
+    "Lecture 36 f0001 identifies Prof. Pramod Kumar Naik. No inference that all chapter recordings share one presenter is needed.",
+    "Lecture 36 f0027 gives the 100/800 current-income illustration without the remaining maturity needed for a finite-bond valuation; the chapter identifies that limitation.",
+    "Lecture 37 f0044/f0047 semiannual formula retains Fr instead of Fr/2 despite the annual coupon definition; the chapter derives and uses the required half-year coupon.",
+    "Lecture 38's displayed prices 946.1, 1194.5 and 848.5 differ from unrounded evaluations 945.737565, 1194.736753 and 847.538896. The first uses shown rounded factors; the other differences are preserved without guessing hidden factors.",
+    "Review IV f0042/f0045/f0046 states the correct inverse relation: a lower required yield raises present value and price, and a higher required yield lowers them. The chapter derives this relation for fixed positive payments.",
+    "The books named during the recordings were not consulted as open sources and are not cited as read.",
+    "No relied-on formula or example symbol remained unreadable in the full frames."
+  ],
+  "sections": [
+    {
+      "section": "Why an issuer borrows through bonds",
+      "video_id": "mneV22uOry0",
+      "start": 57,
+      "end": 312,
+      "lecture_material": "Debt financing and bondholder versus shareholder claims.",
+      "research_extension": "SEC debtor obligations and corporate creditor priority qualifications.",
+      "teaching_construction": "Distinguishes a contractual promise from the model assumption of payment.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Read the contract before choosing a rate",
+      "video_id": "UX1CYUtoo4c",
+      "start": 35,
+      "end": 276,
+      "lecture_material": "Face F, redemption M, annual coupon rate and remaining maturity.",
+      "research_extension": "",
+      "teaching_construction": "Fund case, distinct observed price, timing assumptions, original cash-flow SVG.",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "Bond classifications identify different payment promises",
+      "video_id": "mneV22uOry0",
+      "start": 1194,
+      "end": 1927,
+      "lecture_material": "Issuer, maturity, collateral, zero-coupon, callable and convertible classifications.",
+      "research_extension": "SEC collateral/conversion qualifications; FINRA call terms and sovereign credit risk.",
+      "teaching_construction": "Shows why the payment stream must reflect the selected contract.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Separate payment risk, sale-price risk, and reinvestment risk",
+      "video_id": "mneV22uOry0",
+      "start": 613,
+      "end": 1184,
+      "lecture_material": "Default, interest-rate, inflation, liquidity, reinvestment and call risk; broad versus issuer-specific influences.",
+      "research_extension": "SEC risk definitions and FINRA early-redemption consequences.",
+      "teaching_construction": "Maps each risk to a different failure of the fund's payment plan.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Price the complete dated payment stream",
+      "video_id": "38UuErhSrHU",
+      "start": 40,
+      "end": 361,
+      "lecture_material": "Annual fixed-payment present value and actuarial annuity notation.",
+      "research_extension": "",
+      "teaching_construction": "Derives the annuity factor, zero-rate and one-year checks, five-year case and zero-coupon rate.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Remaining maturity and rounding change the calculation",
+      "video_id": "38UuErhSrHU",
+      "start": 373,
+      "end": 1184,
+      "lecture_material": "Ten-year coupon pricing and a ten-year bond issued three years earlier; 13%, 10% and 18% inputs.",
+      "research_extension": "",
+      "teaching_construction": "Reports displayed lecture prices separately from unrounded-model computations and checks directions.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Why value falls with the required rate",
+      "video_id": "38UuErhSrHU",
+      "start": 606,
+      "end": 1184,
+      "lecture_material": "Inverse relation of required yield and price; premium/par/discount rules. Review IV repeats the inverse relation, which the chapter proves for a fixed payment schedule.",
+      "research_extension": "",
+      "teaching_construction": "Strict derivative proof, identities relative to M and F, unequal-redemption counterexample, perpetuity limit.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Current yield measures income relative to price",
+      "video_id": "UX1CYUtoo4c",
+      "start": 376,
+      "end": 715,
+      "lecture_material": "Annual coupon divided by market price and the 1000/12%/800 example. L36 718-900 current-income illustration is additionally qualified.",
+      "research_extension": "",
+      "teaching_construction": "Finite versus perpetual counterexample and fund's income ratio.",
+      "evidence_class": "definition"
+    },
+    {
+      "section": "Maturity yield is the rate implied by all promised payments",
+      "video_id": "UX1CYUtoo4c",
+      "start": 888,
+      "end": 1270,
+      "lecture_material": "Maturity yield as the discount rate balancing price with all promised payments.",
+      "research_extension": "FINRA mathematical YTM definition and gross-yield limitations.",
+      "teaching_construction": "Existence, uniqueness, sign, price/yield equivalence, yield ordering identity, fund yield.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Solve a yield with a bracket and a price check",
+      "video_id": "UX1CYUtoo4c",
+      "start": 1456,
+      "end": 2171,
+      "lecture_material": "Eight-year 9% coupon bond at price 800; trial rates and interpolation. Earlier L37 725-880 A/B comparison is additionally recomputed.",
+      "research_extension": "",
+      "teaching_construction": "Bisection bracket invariant and error bound, residual limitation, exact A/B yields and qualified ranking.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "What the approximate-yield formula leaves out",
+      "video_id": "UX1CYUtoo4c",
+      "start": 2192,
+      "end": 2447,
+      "lecture_material": "Weighted approximate yield formula and comparison with equal denominator weights.",
+      "research_extension": "",
+      "teaching_construction": "Units, timing limitation, independent counterexample to universal accuracy, threshold-reversal exercise.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Use one coupon-period convention throughout",
+      "video_id": "UX1CYUtoo4c",
+      "start": 1295,
+      "end": 1456,
+      "lecture_material": "Annual and semiannual pricing conventions and semiannual nominal-yield footnote.",
+      "research_extension": "FINRA annual coupon versus semiannual instalment convention.",
+      "teaching_construction": "Derives Fr/m and period-rate conversion; corrects missing half-coupon factor; original timing and numerical checks.",
+      "evidence_class": "convention"
+    },
+    {
+      "section": "A promised maturity yield does not fix terminal wealth",
+      "video_id": "UX1CYUtoo4c",
+      "start": 2447,
+      "end": 2615.6,
+      "lecture_material": "Gross maturity yield, taxes/fees excluded, and early-sale return distinction; L36 1068-1083 reinvestment risk additionally developed.",
+      "research_extension": "FINRA gross yield versus holding outcome.",
+      "teaching_construction": "Terminal wealth identity, distinct reinvestment scenarios, changed sale horizon and payment failure.",
+      "evidence_class": "derivation"
+    },
+    {
+      "section": "Resolve the fund's two decisions separately",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "",
+      "research_extension": "",
+      "teaching_construction": "Separates required-yield purchase criterion from terminal liability coverage, including the exact fee threshold.",
+      "evidence_class": "model"
+    },
+    {
+      "section": "A reproducible price and yield calculation",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "",
+      "research_extension": "",
+      "teaching_construction": "Stdlib pricing and bisection implementation, explicit numeric and failure contracts, independent rational/direct-sum checks, exact stdout.",
+      "evidence_class": "numerical check"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "",
+      "research_extension": "",
+      "teaching_construction": "Six original reasoned exercises: derivation/counterexample, period conversion, income ratio, shortcut judgment, hypothetical default, liability design.",
+      "evidence_class": "model"
+    }
+  ],
+  "references": [
+    {
+      "title": "SEC Investor.gov, Bonds FAQs",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds",
+      "supports": "Debt obligation, issuer uses, credit/interest-rate/inflation/liquidity/call risk definitions.",
+      "page_checked": "Web page, Bonds FAQs main text and What are the risks bullets; accessed 2026-10-09"
+    },
+    {
+      "title": "SEC Investor.gov, Corporate Bonds",
+      "url": "https://www.investor.gov/investing-basics/investment-products/corporate-bonds",
+      "supports": "Creditor versus owner, creditor priority relative to equity, secured collateral and unsecured debentures.",
+      "page_checked": "Web page, Corporate Bonds introductory paragraphs and Types of Bonds; accessed 2026-10-09"
+    },
+    {
+      "title": "SEC Investor.gov, Convertible Securities",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/glossary/convertible-securities",
+      "supports": "Conversion into other securities; holder generally chooses, but company-controlled terms also occur.",
+      "page_checked": "Web page, first explanatory paragraphs; accessed 2026-10-09"
+    },
+    {
+      "title": "FINRA, Bonds",
+      "url": "https://www.finra.org/investors/investing/investment-products/bonds",
+      "supports": "Annual coupon/periodic instalments, accrued interest, and sovereign credit qualification.",
+      "page_checked": "Web page, Bond Basics, Buying and Selling Bonds, Bond Risks, International Bonds; accessed 2026-10-09"
+    },
+    {
+      "title": "FINRA, Callable Bonds: Your Issuer May Come Calling (2024-04-19)",
+      "url": "https://www.finra.org/investors/insights/callable-bonds-your-issuer-may-come-calling",
+      "supports": "Issuer option, specified call dates/prices and protection periods, foregone coupons and reinvestment.",
+      "page_checked": "Web page, introductory call explanation and Do You Know If Your Bond Is Callable; accessed 2026-10-09"
+    },
+    {
+      "title": "FINRA, Understanding Bond Yield and Return (2022-08-11)",
+      "url": "https://www.finra.org/investors/insights/bond-yield-return",
+      "supports": "Mathematical maturity-yield definition, on-time promised payments, omitted tax/brokerage costs, holding outcome distinction.",
+      "page_checked": "Web page, Key Terms, YTM paragraphs; accessed 2026-10-09"
+    },
+    {
+      "title": "SOA, October 2026 Exam FM syllabus",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf",
+      "supports": "Bond terminology and reinvestment outcomes; exclusion of between-coupon-date calculations from that exam scope.",
+      "page_checked": "p. 4 (PDF p. 4), Bonds learning outcomes; accessed 2026-10-09"
+    }
+  ],
+  "symbol_ledger": [
+    {
+      "symbol": "F",
+      "first_section": "contract",
+      "definition": "Positive face/par reference amount for the coupon."
+    },
+    {
+      "symbol": "M",
+      "first_section": "contract",
+      "definition": "Positive redemption amount at scheduled maturity; not generally equal to F."
+    },
+    {
+      "symbol": "r",
+      "first_section": "contract",
+      "definition": "Annual coupon amount divided by F; local coupon-rate use differs from earlier inflation r."
+    },
+    {
+      "symbol": "c",
+      "first_section": "contract",
+      "definition": "Annual coupon amount Fr in the annual-payment model."
+    },
+    {
+      "symbol": "n",
+      "first_section": "contract",
+      "definition": "Positive integer remaining years; also annual coupon count until period conversion."
+    },
+    {
+      "symbol": "P_obs",
+      "first_section": "contract",
+      "definition": "Positive observed/offered purchase price."
+    },
+    {
+      "symbol": "i",
+      "first_section": "present-value",
+      "definition": "Constant effective annual valuation rate, greater than -1."
+    },
+    {
+      "symbol": "v",
+      "first_section": "present-value",
+      "definition": "Discount factor (1+i)^(-1), evaluated at the rate specified in context."
+    },
+    {
+      "symbol": "P(i)",
+      "first_section": "present-value",
+      "definition": "Conditional value of the fixed dated payment schedule."
+    },
+    {
+      "symbol": "a_overline_n",
+      "first_section": "present-value",
+      "definition": "Sum of one-unit year-end payment values at the stated rate; n at rate zero."
+    },
+    {
+      "symbol": "x,t",
+      "first_section": "present-value",
+      "definition": "A payment amount and its time measured in annual periods."
+    },
+    {
+      "symbol": "i_cur",
+      "first_section": "current-yield",
+      "definition": "Current yield c/P_obs, annual income-to-price ratio; q remains available for geometric ratios."
+    },
+    {
+      "symbol": "i_y",
+      "first_section": "maturity-yield",
+      "definition": "Unique effective annual promised maturity yield solving P(i_y)=P_obs."
+    },
+    {
+      "symbol": "P",
+      "first_section": "maturity-yield",
+      "definition": "Local shorthand for P_obs=P(i_y) in the yield-ordering identity."
+    },
+    {
+      "symbol": "ell,u,k",
+      "first_section": "solving-yield",
+      "definition": "Lower rate, upper rate and number of bisection updates."
+    },
+    {
+      "symbol": "i_y_hat",
+      "first_section": "yield-shortcuts",
+      "definition": "Heuristic approximation from annualized redemption gain and weighted capital."
+    },
+    {
+      "symbol": "m",
+      "first_section": "coupon-periods",
+      "definition": "Positive integer coupon instalments per year."
+    },
+    {
+      "symbol": "N",
+      "first_section": "coupon-periods",
+      "definition": "Number of remaining coupon periods, mn."
+    },
+    {
+      "symbol": "j",
+      "first_section": "coupon-periods",
+      "definition": "Effective rate per coupon period, greater than -1."
+    },
+    {
+      "symbol": "c_m",
+      "first_section": "coupon-periods",
+      "definition": "Coupon amount per period, Fr/m."
+    },
+    {
+      "symbol": "i^(m)",
+      "first_section": "coupon-periods",
+      "definition": "Nominal annual yield convertible m times, defined as mj."
+    },
+    {
+      "symbol": "i_eff",
+      "first_section": "coupon-periods",
+      "definition": "Effective annual yield (1+j)^m-1."
+    },
+    {
+      "symbol": "i_re",
+      "first_section": "realized-return",
+      "definition": "Constant effective annual reinvestment rate for coupons; avoids earlier g growth-factor notation."
+    },
+    {
+      "symbol": "W_n(i_re)",
+      "first_section": "realized-return",
+      "definition": "Wealth at maturity from redemption plus coupons accumulated under i_re."
+    }
+  ],
+  "exercises": 6,
+  "code_check": {
+    "command": "python -I _editorial/tmp/ch11_fixr1_embedded.py",
+    "stdout_matches_printed": true
+  },
+  "sections_note": "All h2 sections except Primary sources have one exact-title metadata entry. Lecture order is reorganized to define the contract before classifications, classifications before risk mechanisms, annual valuation before current yield/YTM, and the period convention after annual yield; coupon-periods revisits L37 21:35. Additional lecture intervals and Review IV are specified in the relevant lecture_material fields and practice_sources."
+}

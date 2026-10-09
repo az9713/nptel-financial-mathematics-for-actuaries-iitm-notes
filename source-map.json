@@ -1779,6 +1779,182 @@
       "teaching_construction": "Six complete solutions: derive prepayment and interest saving; exam-style seventh-payment interest and dated balances; nominal/effective monthly convention; missed-payment counterexample and arrears balloon; rate-reset design with whole-month drop; budget judgment and unique inverse fund-rate root.",
       "evidence_class": "numerical check",
       "chapter": "chapter-10-loan-amortization-outstanding-balance-and-sinking-funds.html"
+    },
+    {
+      "section": "Why an issuer borrows through bonds",
+      "video_id": "mneV22uOry0",
+      "start": 57,
+      "end": 312,
+      "lecture_material": "Debt financing and bondholder versus shareholder claims.",
+      "research_extension": "SEC debtor obligations and corporate creditor priority qualifications.",
+      "teaching_construction": "Distinguishes a contractual promise from the model assumption of payment.",
+      "evidence_class": "definition",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Read the contract before choosing a rate",
+      "video_id": "UX1CYUtoo4c",
+      "start": 35,
+      "end": 276,
+      "lecture_material": "Face F, redemption M, annual coupon rate and remaining maturity.",
+      "research_extension": "",
+      "teaching_construction": "Fund case, distinct observed price, timing assumptions, original cash-flow SVG.",
+      "evidence_class": "convention",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Bond classifications identify different payment promises",
+      "video_id": "mneV22uOry0",
+      "start": 1194,
+      "end": 1927,
+      "lecture_material": "Issuer, maturity, collateral, zero-coupon, callable and convertible classifications.",
+      "research_extension": "SEC collateral/conversion qualifications; FINRA call terms and sovereign credit risk.",
+      "teaching_construction": "Shows why the payment stream must reflect the selected contract.",
+      "evidence_class": "definition",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Separate payment risk, sale-price risk, and reinvestment risk",
+      "video_id": "mneV22uOry0",
+      "start": 613,
+      "end": 1184,
+      "lecture_material": "Default, interest-rate, inflation, liquidity, reinvestment and call risk; broad versus issuer-specific influences.",
+      "research_extension": "SEC risk definitions and FINRA early-redemption consequences.",
+      "teaching_construction": "Maps each risk to a different failure of the fund's payment plan.",
+      "evidence_class": "definition",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Price the complete dated payment stream",
+      "video_id": "38UuErhSrHU",
+      "start": 40,
+      "end": 361,
+      "lecture_material": "Annual fixed-payment present value and actuarial annuity notation.",
+      "research_extension": "",
+      "teaching_construction": "Derives the annuity factor, zero-rate and one-year checks, five-year case and zero-coupon rate.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Remaining maturity and rounding change the calculation",
+      "video_id": "38UuErhSrHU",
+      "start": 373,
+      "end": 1184,
+      "lecture_material": "Ten-year coupon pricing and a ten-year bond issued three years earlier; 13%, 10% and 18% inputs.",
+      "research_extension": "",
+      "teaching_construction": "Reports displayed lecture prices separately from unrounded-model computations and checks directions.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Why value falls with the required rate",
+      "video_id": "38UuErhSrHU",
+      "start": 606,
+      "end": 1184,
+      "lecture_material": "Inverse relation of required yield and price; premium/par/discount rules. Review IV repeats the inverse relation, which the chapter proves for a fixed payment schedule.",
+      "research_extension": "",
+      "teaching_construction": "Strict derivative proof, identities relative to M and F, unequal-redemption counterexample, perpetuity limit.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Current yield measures income relative to price",
+      "video_id": "UX1CYUtoo4c",
+      "start": 376,
+      "end": 715,
+      "lecture_material": "Annual coupon divided by market price and the 1000/12%/800 example. L36 718-900 current-income illustration is additionally qualified.",
+      "research_extension": "",
+      "teaching_construction": "Finite versus perpetual counterexample and fund's income ratio.",
+      "evidence_class": "definition",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Maturity yield is the rate implied by all promised payments",
+      "video_id": "UX1CYUtoo4c",
+      "start": 888,
+      "end": 1270,
+      "lecture_material": "Maturity yield as the discount rate balancing price with all promised payments.",
+      "research_extension": "FINRA mathematical YTM definition and gross-yield limitations.",
+      "teaching_construction": "Existence, uniqueness, sign, price/yield equivalence, yield ordering identity, fund yield.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Solve a yield with a bracket and a price check",
+      "video_id": "UX1CYUtoo4c",
+      "start": 1456,
+      "end": 2171,
+      "lecture_material": "Eight-year 9% coupon bond at price 800; trial rates and interpolation. Earlier L37 725-880 A/B comparison is additionally recomputed.",
+      "research_extension": "",
+      "teaching_construction": "Bisection bracket invariant and error bound, residual limitation, exact A/B yields and qualified ranking.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "What the approximate-yield formula leaves out",
+      "video_id": "UX1CYUtoo4c",
+      "start": 2192,
+      "end": 2447,
+      "lecture_material": "Weighted approximate yield formula and comparison with equal denominator weights.",
+      "research_extension": "",
+      "teaching_construction": "Units, timing limitation, independent counterexample to universal accuracy, threshold-reversal exercise.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Use one coupon-period convention throughout",
+      "video_id": "UX1CYUtoo4c",
+      "start": 1295,
+      "end": 1456,
+      "lecture_material": "Annual and semiannual pricing conventions and semiannual nominal-yield footnote.",
+      "research_extension": "FINRA annual coupon versus semiannual instalment convention.",
+      "teaching_construction": "Derives Fr/m and period-rate conversion; corrects missing half-coupon factor; original timing and numerical checks.",
+      "evidence_class": "convention",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "A promised maturity yield does not fix terminal wealth",
+      "video_id": "UX1CYUtoo4c",
+      "start": 2447,
+      "end": 2615.6,
+      "lecture_material": "Gross maturity yield, taxes/fees excluded, and early-sale return distinction; L36 1068-1083 reinvestment risk additionally developed.",
+      "research_extension": "FINRA gross yield versus holding outcome.",
+      "teaching_construction": "Terminal wealth identity, distinct reinvestment scenarios, changed sale horizon and payment failure.",
+      "evidence_class": "derivation",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Resolve the fund's two decisions separately",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "",
+      "research_extension": "",
+      "teaching_construction": "Separates required-yield purchase criterion from terminal liability coverage, including the exact fee threshold.",
+      "evidence_class": "model",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "A reproducible price and yield calculation",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "",
+      "research_extension": "",
+      "teaching_construction": "Stdlib pricing and bisection implementation, explicit numeric and failure contracts, independent rational/direct-sum checks, exact stdout.",
+      "evidence_class": "numerical check",
+      "chapter": "chapter-11-bond-basics-and-price.html"
+    },
+    {
+      "section": "Exercises",
+      "video_id": null,
+      "start": null,
+      "end": null,
+      "lecture_material": "",
+      "research_extension": "",
+      "teaching_construction": "Six original reasoned exercises: derivation/counterexample, period conversion, income ratio, shortcut judgment, hypothetical default, liability design.",
+      "evidence_class": "model",
+      "chapter": "chapter-11-bond-basics-and-price.html"
     }
   ]
 }

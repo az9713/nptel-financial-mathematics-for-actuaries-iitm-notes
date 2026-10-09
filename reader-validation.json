@@ -1,12 +1,12 @@
 {
   "course": "Financial Mathematics for Actuaries",
-  "checked_at_utc": "2026-10-09T21:10:51.603952+00:00",
+  "checked_at_utc": "2026-10-09T21:38:12.647177+00:00",
   "scope": "Reader mechanics only; does not certify chapter or course completion",
   "static": {
     "status": "passed",
-    "html_files": 17,
-    "local_links_checked": 198,
-    "timestamps_checked": 143,
+    "html_files": 18,
+    "local_links_checked": 214,
+    "timestamps_checked": 156,
     "chapter_pages_with_dollar_math": 0,
     "failures": [],
     "warnings": []
@@ -192,6 +192,24 @@
         "controls": true,
         "emptyToc": false,
         "file": "chapter-10-loan-amortization-outstanding-balance-and-sinking-funds.html",
+        "viewport": 390
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 205,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-11-bond-basics-and-price.html",
+        "viewport": 1280
+      },
+      {
+        "mathErrors": 0,
+        "mathNodes": 205,
+        "horizontalOverflow": false,
+        "controls": true,
+        "emptyToc": false,
+        "file": "chapter-11-bond-basics-and-price.html",
         "viewport": 390
       },
       {

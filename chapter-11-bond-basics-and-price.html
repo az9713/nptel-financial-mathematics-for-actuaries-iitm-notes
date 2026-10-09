@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light"><meta name="book-content-sha256" content="18fbe18ea9cf9c366e9ba697dbf0373734cb95e6113e4b0d47c4511a003c9609"><title>Chapter 11. Bond basics and the price of a bond · Financial Mathematics for Actuaries</title>
+<link rel="stylesheet" href="assets/book.css"><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true},svg:{fontCache:'local'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script><script defer src="assets/book.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><a class="brand" href="index.html">Financial Mathematics for Actuaries · NPTEL course 111106930 (YouTube upload 2026)</a><nav class="course-nav" aria-label="Book"><a href="index.html">Lectures</a><a href="source-map.html">Source map</a><a href="references.html">References</a><a href="numerical-lab.html">Numerical lab</a></nav></header>
+<div class="layout"><aside class="toc" id="chapter-toc" aria-label="On this page"><h2>On this page</h2></aside><main id="main">
+<div class="reading-tools" aria-label="Reading controls"><button id="theme-toggle" aria-pressed="false">Light theme</button><button id="text-toggle" aria-pressed="false">Larger text</button><button id="solutions-toggle" aria-pressed="false">Expand solutions</button><button id="print-page">Print with solutions</button></div>
+<article id="chapter-content"><!-- BOOK-CONTENT-START --><h1>Chapter 11. Bond basics and the price of a bond</h1>
+
+<p class="lead">A fund must pay 14,700 currency units five years from now. It can buy a bond for 9,600 that promises 800 at each year-end and another 10,000 at the final year-end. The fund requires a 9% effective annual return on those payments. The annual income divided by the purchase price is only 8.33%. Does that disqualify the purchase? And if the bond meets the return requirement, will it necessarily finance the liability? These are different questions: one concerns the value of dated payments, the other what happens to payments received before the liability falls due.</p>
+
+<p class="source-note"><strong>Lecture material:</strong> <a href="https://www.youtube.com/watch?v=mneV22uOry0">Lecture 36, Bond basics</a>, <a href="https://www.youtube.com/watch?v=UX1CYUtoo4c">Lecture 37, Bond basics continued</a>, and <a href="https://www.youtube.com/watch?v=38UuErhSrHU">Lecture 38, Bond basics continued</a>, with <a href="https://www.youtube.com/watch?v=hlhOvrZPX-M">Lecture 56, Review IV</a> for the distinction between coupon rate, current yield, maturity yield, and price. <strong>Research extensions:</strong> SEC and FINRA explanations of creditor status, bond provisions, credit risk, and yield conventions; the October 2026 SOA Exam FM syllabus for the scope of bond terminology. These sources are identified at the claims they support and in <a href="#primary-sources">Primary sources</a>. <strong>Original teaching constructions:</strong> the fund case, cash-flow diagram, proofs of price monotonicity and yield uniqueness, checks on the yield shortcuts, code, and six exercises. All monetary examples are in currency units; none is a current market quotation.</p>
+
+<h2 id="why-bonds">Why an issuer borrows through bonds <a class="timestamp" href="https://www.youtube.com/watch?v=mneV22uOry0&amp;t=57s">L36 00:57</a></h2>
+
+<p>A <strong>bond</strong> is a debt security: its terms specify payments that the issuer owes the investor. The <strong>issuer</strong> is the borrower; the <strong>bondholder</strong> is the creditor. Governments and companies can use bond proceeds to finance activities or refinance existing borrowing. A contractual promise is different from an assurance that the borrower can fulfil it. The SEC describes both the payment obligation and the possibility of default in its <a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds">Bonds FAQs</a>.</p>
+
+<p>Lecture 36 contrasts debt financing with issuing shares. A share represents ownership; an ordinary corporate bond gives its holder a creditor claim. Scheduled payments remain obligations even when the issuer's business performs poorly. In liquidation, assets are distributed to satisfy claims, and creditors precede equity holders. Other creditors can rank equally with or ahead of a particular bond. The SEC's <a href="https://www.investor.gov/investing-basics/investment-products/corporate-bonds">Corporate Bonds</a> page explains this distinction.</p>
+
+<p>This institutional distinction determines the mathematical starting point. For a fixed coupon bond, we begin with its promised amounts and dates. We then decide which valuation assumptions make it appropriate to discount those amounts as though they will be paid. A model of promised payments answers a conditional question. It does not establish the creditworthiness of the issuer by algebra.</p>
+
+<h2 id="contract">Read the contract before choosing a rate <a class="timestamp" href="https://www.youtube.com/watch?v=UX1CYUtoo4c&amp;t=35s">L37 00:35</a></h2>
+
+<p>The <strong>face value</strong>, also called <strong>par value</strong>, is the contractual reference amount \(F\) used to specify the coupon. The <strong>redemption value</strong> \(M\) is the principal amount payable at the scheduled final date. Lecture 37 distinguishes them explicitly. Often \(F=M\), but that equality is a contract feature, not the definition of a bond. The <strong>maturity date</strong> is the scheduled final payment date. A <strong>coupon</strong> is a scheduled interest payment; the <strong>coupon rate</strong> \(r\) in this chapter is the quoted annual coupon amount divided by face value. Thus an annual coupon bond pays \(c=Fr\) once per year. Here \(r\) denotes a coupon rate, rather than the inflation rate used in an earlier context.</p>
+
+<p>The <strong>remaining term</strong> is measured from the valuation date, not from the original issue date. For now, take \(n\) to be a positive integer number of remaining years, with one payment at each time \(1,2,\ldots,n\). The next coupon arrives exactly one year after valuation. The last payment contains both the last coupon \(c\) and redemption \(M\). We value immediately after any coupon just due has been paid, so it is excluded from the future schedule. This timing convention avoids mixing a full coupon period with a fractional first period.</p>
+
+<p>Figure 11.1 places the fund's contract on a timeline. Here \(F=M=10{,}000\), \(r=0.08\), \(c=800\), and \(n=5\). Its offered purchase price is \(P_{\mathrm{obs}}=9{,}600\), where the subscript distinguishes an observed or offered price from a value computed using an assumed rate. The contract fixes the five coupons and the redemption amount. It does not fix the price at which a holder can later sell.</p>
+
+<p>A price above face value is called a <strong>premium price</strong>, a price below face value a <strong>discount price</strong>, and equality a price <strong>at par</strong>. When we instead compare with redemption, that reference amount will be named explicitly.</p>
+
+<figure>
+<svg viewBox="0 0 900 250" role="img" aria-labelledby="ch11-timeline-title ch11-timeline-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ch11-timeline-title">Five-year bond payments from the fund's perspective</title>
+<desc id="ch11-timeline-desc">The fund pays 9600 at time zero, receives 800 at the ends of years one through four, and receives 10800 at the end of year five. The final amount contains an 800 coupon and 10000 redemption.</desc>
+<line x1="65" y1="125" x2="840" y2="125" stroke="currentColor" stroke-width="2"/>
+<path d="M840 125 L828 119 M840 125 L828 131" fill="none" stroke="currentColor" stroke-width="2"/>
+<g fill="none" stroke="currentColor" stroke-width="2">
+<path d="M80 117 V196 M80 196 L74 184 M80 196 L86 184"/>
+<path d="M225 133 V72 M225 72 L219 84 M225 72 L231 84"/>
+<path d="M370 133 V72 M370 72 L364 84 M370 72 L376 84"/>
+<path d="M515 133 V72 M515 72 L509 84 M515 72 L521 84"/>
+<path d="M660 133 V72 M660 72 L654 84 M660 72 L666 84"/>
+<path d="M805 133 V72 M805 72 L799 84 M805 72 L811 84"/>
+</g>
+<g fill="currentColor" font-size="18" text-anchor="middle">
+<text x="80" y="110">0</text><text x="225" y="157">1</text>
+<text x="370" y="157">2</text><text x="515" y="157">3</text>
+<text x="660" y="157">4</text><text x="805" y="157">5 years</text>
+<text x="80" y="223">−9,600</text><text x="225" y="53">800</text>
+<text x="370" y="53">800</text><text x="515" y="53">800</text>
+<text x="660" y="53">800</text><text x="805" y="32">10,800</text>
+<text x="805" y="53">800 + 10,000</text>
+</g>
+</svg>
+<figcaption>Figure 11.1. Contract payments are dated separately. Combining the final coupon with redemption is harmless; treating all five coupons as though they arrive at maturity changes the valuation.</figcaption>
+</figure>
+
+<p><strong>The basic valuation assumptions.</strong> In the calculations below, the specified payments occur in full and on time, the bond is held to the stated maturity unless a sale is explicitly considered, and taxes and transaction costs are omitted. There is no contractual option that changes the schedule. One constant effective interest rate is used for all payment dates. These assumptions produce the fixed-payment model; they are not definitions of every bond traded in a market.</p>
+
+<h2 id="forms">Bond classifications identify different payment promises <a class="timestamp" href="https://www.youtube.com/watch?v=mneV22uOry0&amp;t=1194s">L36 19:54</a></h2>
+
+<p>Lecture 36 classifies bonds along several independent dimensions. The issuer may be a government or a corporation. Maturity may be relatively short or long. The obligation may be secured or unsecured. Coupons may be fixed, variable, or absent, and the contract may contain call or conversion provisions. These are not competing definitions: one bond can be corporate, secured, long term, and callable simultaneously.</p>
+
+<p><strong>Security and creditor position.</strong> A secured obligation is backed by specified collateral. An unsecured corporate obligation, often called a debenture in the lecture's terminology, lacks that collateral pledge. Collateral and creditor priority affect possible recoveries; “secured” does not guarantee full repayment. The SEC <a href="https://www.investor.gov/investing-basics/investment-products/corporate-bonds">corporate-bond explanation</a> distinguishes these terms. Naming the issuer or the maturity alone does not specify the entire payment risk.</p>
+
+<p><strong>A zero-coupon bond</strong> promises no periodic coupon. Its scheduled payment is redemption at maturity. A discount to redemption can therefore produce a positive return even though its annual coupon income is zero. Lecture 36 uses a purchase at 800 and redemption of 1,000 after five years. We will obtain its rate from the dated-payment equation, rather than assigning it a zero return because it has no coupons.</p>
+
+<p><strong>A callable bond</strong> gives the issuer a contractual right to redeem before the scheduled maturity. A holder who expected later coupons may instead receive an earlier redemption payment. FINRA's April 19, 2024 <a href="https://www.finra.org/investors/insights/callable-bonds-your-issuer-may-come-calling">callable-bond explanation</a> emphasizes the specified dates and prices: some calls are restricted to dates after a protection period, and provisions vary. Thus the lecture's informal description of calling at any time must be read subject to the contract. Falling borrowing costs can make a call attractive to the issuer, but the option does not imply that every callable bond will be called.</p>
+
+<p><strong>A convertible security</strong> can be exchanged into another security, commonly shares. The SEC's <a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/convertible-securities">definition</a> says that the holder generally chooses whether to convert, while some terms give the company control. Conversion can replace the debt payment schedule with a different claim. A fixed-coupon present value is therefore only the value of the assumed payment stream; it is not a complete model for every option embedded in a bond.</p>
+
+<p>Nor does “government bond” alone prove default freedom. FINRA discusses <a href="https://www.finra.org/investors/investing/investment-products/bonds">sovereign credit risk</a> and the usual treatment of U.S. Treasury obligations separately. Treating an obligation as free of default is a stated modelling assumption for the chosen issuer and currency. Likewise, a longer maturity does not by itself prescribe a higher observed yield. Our constant-rate model compares dated cash flows at an input rate; it does not derive the shape of market rates across maturities.</p>
+
+<h2 id="risks">Separate payment risk, sale-price risk, and reinvestment risk <a class="timestamp" href="https://www.youtube.com/watch?v=mneV22uOry0&amp;t=613s">L36 10:13</a></h2>
+
+<p><strong>Credit or default risk</strong> concerns failure to make the promised payments. <strong>Interest-rate risk</strong> concerns changes in the value of remaining payments when the rate used by buyers changes. <strong>Inflation risk</strong> concerns the purchasing power of money received. <strong>Liquidity risk</strong> concerns difficulty selling on acceptable terms when a sale is needed. These distinctions follow the lecture and the SEC's <a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds">risk explanation</a>. They refer to different failures of a plan, so a guarantee of contractual payment would not eliminate every one of them.</p>
+
+<p><strong>Reinvestment risk</strong> concerns the terms available when an intermediate receipt must be invested again. <strong>Call risk</strong> concerns an issuer's exercise of its early-redemption right, which can change both the principal repayment date and the coupons that remain. FINRA's <a href="https://www.finra.org/investors/insights/callable-bonds-your-issuer-may-come-calling">call discussion</a> links an early payment to the holder's need to find another use for the proceeds. In the fund case, full payment of every coupon is compatible with a shortfall if the fund's terminal target requires those coupons to earn a return that is unavailable.</p>
+
+<p>Lecture 36 also distinguishes broad market influences from influences specific to an issuer. That is useful descriptive organization, but it is not a theorem that an issuer controls all of its credit risk or that every external influence affects all bonds identically. To analyse an actual contract, name the uncertain event and its consequence for the cash-flow plan. “Risky” without that mechanism is too vague to determine a discount rate or a liability strategy.</p>
+
+<p>Consider the fund's two possible objectives. If it wants an annual sequence of income, the 800 coupons are immediately useful. If it needs a single fund at year five, those same receipts introduce four intervening investment decisions. If it might sell at year two, a change in buyers' required rate alters the sale proceeds even when the issuer pays everything promised. Each objective uses the same bond but exposes a different part of the plan.</p>
+
+<h2 id="present-value">Price the complete dated payment stream <a class="timestamp" href="https://www.youtube.com/watch?v=38UuErhSrHU&amp;t=116s">L38 01:56</a></h2>
+
+<p>Let \(i\) be a constant <strong>effective annual valuation rate</strong>: one unit invested for one year grows to \(1+i\). Require \(i\gt-1\), so the accumulation factor is positive. Define the one-year discount factor \(v=(1+i)^{-1}\). A payment \(x\) at year \(t\) has value \(xv^t\) under this model, since that present amount accumulates to \(x\). Valuing all receipts at the same date and adding gives the bond value \(P(i)\):</p>
+
+\[
+P(i)=\sum_{t=1}^{n}c(1+i)^{-t}+M(1+i)^{-n}
+     =c\,a_{\overline{n}|}+Mv^n. \tag{11.1}
+\]
+
+<p>Here \(a_{\overline{n}|}=\sum_{t=1}^{n}v^t\) is the value of one unit paid at each of the \(n\) year-ends. This is the <a href="chapter-07-annuities-immediate-due-accumulated-and-monthly.html">annuity-immediate construction</a> from Chapter 7, restated to fix the rate and timing. For \(i\ne0\), multiplying the sum by \(1+i\) and subtracting the original sum leaves \(1-v^n\). Consequently,</p>
+
+\[
+i\,a_{\overline{n}|}=1-v^n,\qquad
+a_{\overline{n}|}=\frac{1-(1+i)^{-n}}{i};\qquad
+a_{\overline{n}|}=n\text{ when }i=0. \tag{11.2}
+\]
+
+<p>Equation (11.2) includes a separate value at zero, where the displayed quotient would be \(0/0\). The finite-sum definition makes the limit transparent: each of its \(n\) terms tends to one. Equation (11.1) therefore has the check \(P(0)=nc+M\). Another check is \(n=1\): the only payment is \(c+M\), so \(P(i)=(c+M)/(1+i)\). Counting the final coupon twice would fail this check.</p>
+
+<p>For the fund case, equation (11.1) gives \(P(0.09)=800a_{\overline{5}|}+10{,}000(1.09)^{-5}\approx9{,}611.03\). This monetary answer is rounded to two decimals after calculation with unrounded factors. Additional digits will be shown when checking lecture approximations. The offered 9,600 is below the value at the fund's required 9%. This conclusion is conditional on the five-year schedule and the valuation assumptions; current annual income alone did not establish it.</p>
+
+<p><strong>Zero coupons check the role of redemption.</strong> Setting \(c=0\) in equation (11.1) leaves \(P(i)=M(1+i)^{-n}\). Solving for the rate gives \(i=(M/P)^{1/n}-1\). For Lecture 36's 800-to-1,000 five-year bond, this is approximately \(4.563955\%\) effective annually, rounded to six decimal places. Its return comes entirely from the difference between its price and its dated redemption payment.</p>
+
+<p>The equation is sometimes described as an intrinsic price. The precise meaning here is value <em>under the specified rate and payments</em>. An investor can insert a required rate and compare the result with a quoted price. Equality between that value and the observed market price is an additional agreement about the appropriate rate and schedule, not an identity between every investor's valuation and the market.</p>
+
+<h2 id="price-examples">Remaining maturity and rounding change the calculation <a class="timestamp" href="https://www.youtube.com/watch?v=38UuErhSrHU&amp;t=373s">L38 06:13</a></h2>
+
+<p>Lecture 38 first prices a bond with face and redemption both 1,000, annual coupon rate 12%, ten remaining years, and a required effective annual rate of 13%. The annual coupon is 120. It then considers a ten-year bond issued three years earlier with annual coupon rate 14%. At the valuation date this second bond has seven remaining coupons, each 140, followed by redemption of 1,000. The original ten-year life is not the remaining exponent.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>Promised annual schedule</th><th>Required rate</th><th>Price shown in Lecture 38</th><th>Price using unrounded factors</th></tr></thead>
+<tbody>
+<tr><td>120 each year for 10 years; redemption 1,000</td><td>13%</td><td>946.1</td><td>945.74</td></tr>
+<tr><td>140 each year for 7 remaining years; redemption 1,000</td><td>10%</td><td>1,194.5</td><td>1,194.74</td></tr>
+<tr><td>Same 7-year schedule</td><td>18%</td><td>848.5</td><td>847.54</td></tr>
+</tbody>
+</table></div>
+
+<p>The first lecture calculation uses rounded present-value factors: \(a_{\overline{10}|}\approx5.426\) and \(v^{10}\approx0.295\), giving approximately \(120(5.426)+1{,}000(0.295)=946.12\), displayed as 946.1. Applying equation (11.1) without intermediate factor rounding gives approximately 945.737565. The other rows distinguish the displayed lecture amounts from direct computations without assuming which hidden approximations produced the differences. A solver should reproduce the exact dated-payment model, rather than change the number of remaining coupons to force agreement with a printed amount.</p>
+
+<p>Each row has a quick direction check. With equal face and redemption, an annual coupon rate of 12% should produce a discount to 1,000 at a required 13%; a 14% coupon should produce a premium at 10% and a discount at 18%. These checks are useful only under the equal-value and annual-rate conventions just stated. We now prove them and identify what changes when redemption differs from face.</p>
+
+<h2 id="price-yield">Why value falls with the required rate <a class="timestamp" href="https://www.youtube.com/watch?v=38UuErhSrHU&amp;t=606s">L38 10:06</a></h2>
+
+<p>Hold the payment schedule fixed, with \(c\ge0\), \(M\gt0\), and integer \(n\ge1\). Differentiate the finite sum in equation (11.1):</p>
+
+\[
+P'(i)=-\sum_{t=1}^{n}\frac{tc}{(1+i)^{t+1}}
+      -\frac{nM}{(1+i)^{n+1}}\lt0,\qquad i\gt-1. \tag{11.3}
+\]
+
+<p>Every nonzero future receipt loses present value as its discount rate increases, and the positive redemption payment makes the decrease strict. Equation (11.3) proves the inverse relation claimed in the lecture. It compares the same payments using different rates. It does not say that every observed price change is caused by a rate change: revised payments, default expectations, or options can change the schedule or the valuation model itself.</p>
+
+<p>The review recording states the same inverse relation: a lower required yield raises the present value of fixed positive payments, and a higher required yield lowers it. Equation (11.3) supplies the proof and states the conditions. For the fund, the relation matters if it sells before maturity, because the value of the remaining payments then depends on the buyer's required yield.</p>
+
+<p><strong>Premium and discount relative to redemption.</strong> Subtract \(M\) from equation (11.1), and use \(1-v^n=ia_{\overline{n}|}\) from equation (11.2). Then</p>
+
+\[
+P(i)-M=(c-iM)a_{\overline{n}|},\qquad
+P(i)-F=(c-iF)a_{\overline{n}|}+(M-F)v^n. \tag{11.4}
+\]
+
+<p>The annuity factor is positive for every \(i\gt-1\), including zero and negative rates. Equation (11.4) therefore says \(P(i)\gt M\) exactly when \(c/M\gt i\). If \(F=M\), then \(c/M=r\), and the familiar rules follow: coupon rate above the required yield gives a price above par; equality gives par; coupon rate below yield gives a discount. The remaining term changes the size of the premium or discount, but not its sign under these assumptions.</p>
+
+<p>If \(F\ne M\), compare with the correct reference amount. An original counterexample is \(F=1{,}000\), \(M=1{,}100\), \(c=100\), \(n=2\), and \(i=10\%\). The coupon rate equals the required annual yield, yet equation (11.4) gives \(P=1{,}000+100(1.10)^{-2}\approx1{,}082.64\), above face value. It is below redemption because \(c/M\lt10\%\). This is why substituting face value for redemption in equation (11.1) is a contract error, not a harmless notation choice.</p>
+
+<p><strong>A limit check.</strong> For a fixed positive \(i\), let \(n\) grow while \(c\) and \(M\) stay fixed. Then \(v^n\) tends to zero and \(a_{\overline{n}|}\) tends to \(1/i\), so \(P(i)\) tends to \(c/i\). That is the value of an indefinitely continuing fixed coupon stream. It is a limit of the finite model, and it will help explain why an income-only yield can appear to be a full valuation rate.</p>
+
+<h2 id="current-yield">Current yield measures income relative to price <a class="timestamp" href="https://www.youtube.com/watch?v=UX1CYUtoo4c&amp;t=376s">L37 06:16</a></h2>
+
+<p>The <strong>current yield</strong> \(i_{\mathrm{cur}}\) is the annual coupon amount divided by the purchase or market price:</p>
+
+\[
+i_{\mathrm{cur}}=\frac{c}{P_{\mathrm{obs}}}=\frac{Fr}{P_{\mathrm{obs}}}. \tag{11.5}
+\]
+
+<p>Equation (11.5) reports a dimensionless annual income-to-price ratio. Multiply by 100 to express it as a percentage. Lecture 37 uses face value 1,000, annual coupon rate 12%, and price 800: the coupon is 120 and current yield is 15%. The coupon rate is still 12% because its denominator is face value. Changing the price changes current yield without changing the contractual coupon.</p>
+
+<p>Current yield omits the maturity date and the difference between purchase price and redemption. The five-year zero-coupon example has current yield zero and a positive maturity return. Conversely, a sufficiently expensive positive-coupon bond can have positive current yield and negative maturity return. An income ratio cannot distinguish either effect because it contains neither \(M\) nor \(n\).</p>
+
+<p>Lecture 36 illustrates interest-rate risk with a 100 annual coupon, a price of 800, and an income ratio \(100/800=12.5\%\). That arithmetic is valid as current yield. It does not determine the price of a finite bond at a required 12.5% yield without its remaining term and redemption payment. With \(c=100\), \(M=1{,}000\), and one remaining year, equation (11.1) instead gives \(P(0.125)=1{,}100/1.125\approx977.78\). For indefinitely continuing 100 coupons, the limit is \(100/0.125=800\). The finite and perpetual questions have different cash flows.</p>
+
+<p>For the fund, \(i_{\mathrm{cur}}=800/9{,}600=8.333333\%\), to six decimal places. Comparing this with the 9% requirement would discard the benefit of receiving 10,000 after paying 9,600. To compare a rate with the whole payment stream, we must define a rate using that whole stream.</p>
+
+<h2 id="maturity-yield">Maturity yield is the rate implied by all promised payments <a class="timestamp" href="https://www.youtube.com/watch?v=UX1CYUtoo4c&amp;t=888s">L37 14:48</a></h2>
+
+<p>The <strong>yield to maturity</strong>, or <strong>maturity yield</strong>, is the rate \(i_y\) that makes the present value of all promised maturity payments equal the positive price paid. Under the annual schedule, it solves</p>
+
+\[
+P_{\mathrm{obs}}=c\sum_{t=1}^{n}(1+i_y)^{-t}
+                     +M(1+i_y)^{-n}=P(i_y). \tag{11.6}
+\]
+
+<p>An <strong>internal rate of return</strong> (IRR) equates the value of outflows and inflows at one common date. Equation (11.6) uses an initial outflow, nonnegative future receipts, and a positive final receipt. The subscript \(y\) distinguishes the inferred yield from the chosen required rate \(i\). FINRA's August 11, 2022 <a href="https://www.finra.org/investors/insights/bond-yield-return">yield explanation</a> gives the discount-rate definition and identifies on-time payment and omitted taxes and brokerage costs. This gross yield is conditional on promised payments, rather than an estimate of their probability.</p>
+
+<p><strong>Existence and uniqueness need the payment signs.</strong> The function \(P(i)\) is continuous on \(i\gt-1\), and equation (11.3) makes it strictly decreasing. As \(i\) approaches \(-1\) from above, the positive redemption term tends to infinity. As \(i\) tends to infinity, every dated-payment term tends to zero. Thus every \(P_{\mathrm{obs}}\gt0\) corresponds to exactly one \(i_y\gt-1\). This conclusion uses \(c\ge0\), \(M\gt0\), and the fixed finite schedule. It is not a claim that an arbitrary cash-flow pattern with several sign changes has a unique internal rate.</p>
+
+<p>The zero-rate check gives its sign without solving: \(i_y\gt0\) if \(P_{\mathrm{obs}}\lt nc+M\), \(i_y=0\) if they are equal, and \(-1\lt i_y\lt0\) if the price exceeds the undiscounted total receipts. Negative yields are mathematically possible. Excluding them from a numerical search is a restriction of that search, not a consequence of positive coupons.</p>
+
+<p><strong>Compare the required rate with the inferred rate.</strong> Strict decrease gives a useful equivalence: \(P_{\mathrm{obs}}\lt P(i)\) exactly when \(i_y\gt i\). The fund's price is below its 9% valuation, so its promised maturity yield must exceed 9%. Solving equation (11.6) gives approximately \(9.029148\%\) effective annually, to six decimals. Its current yield is lower than 9%, while its maturity yield is higher. Both calculations are correct; they answer different questions.</p>
+
+<p>The ordering can also be proved. Write \(P=P_{\mathrm{obs}}=P(i_y)\), with the annuity evaluated at \(i_y\). Equations (11.1) and (11.2) give \(i_yPa_{\overline{n}|}-ca_{\overline{n}|}=P(1-v^n)-ca_{\overline{n}|}=(M-P)v^n\). Dividing by the positive \(Pa_{\overline{n}|}\) gives</p>
+
+\[
+i_y-\frac{c}{P}=\frac{(M-P)v^n}{P a_{\overline{n}|}},
+\quad\text{with }v=(1+i_y)^{-1}. \tag{11.7}
+\]
+
+<p>For \(F=M\), \(c\gt0\), and a discount price \(P\lt F\), equation (11.7) and equation (11.4) imply \(r\lt i_{\mathrm{cur}}\lt i_y\). A premium price gives \(i_y\lt i_{\mathrm{cur}}\lt r\); at par all three coincide. Equation (11.7) explains the gap: redemption above the purchase price adds a dated gain that current yield omits. It also makes clear why the comparison with face requires \(F=M\).</p>
+
+<h2 id="solving-yield">Solve a yield with a bracket and a price check <a class="timestamp" href="https://www.youtube.com/watch?v=UX1CYUtoo4c&amp;t=1456s">L37 24:16</a></h2>
+
+<p>Lecture 37's principal yield example has \(F=M=1{,}000\), annual coupon rate 9%, eight remaining years, and price 800. Equation (11.6) becomes \(800=90a_{\overline{8}|}+1{,}000v^8\). Trial rates exploit monotonicity:</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>Trial effective annual rate</th><th>Lecture's price using rounded factors</th><th>Price using unrounded factors</th><th>Implication for the solution</th></tr></thead>
+<tbody>
+<tr><td>12%</td><td>851.0</td><td>850.970807</td><td>Yield must be higher</td></tr>
+<tr><td>13%</td><td>808</td><td>808.049188</td><td>Yield must be higher</td></tr>
+<tr><td>14%</td><td>768.1</td><td>768.056805</td><td>Yield must be lower</td></tr>
+</tbody>
+</table></div>
+
+<p>The root lies between 13% and 14%. The lecture linearly interpolates its rounded prices to get approximately 13.2%. Using unrounded trial prices in the same interpolation gives approximately 13.201268%. Direct solution gives approximately 13.195694%, so the interpolated value is a useful estimate rather than an equality. The last column is independent of the size of the interpolation error because its conclusion follows from strict decrease.</p>
+
+<p><strong>Bisection</strong> keeps a lower rate \(\ell\) and upper rate \(u\) such that \(P(\ell)\ge P_{\mathrm{obs}}\ge P(u)\). Evaluate the midpoint. If its price is too high, replace the lower rate with the midpoint; if too low, replace the upper rate. Each update preserves the root inside the bracket and halves its width. After \(k\) updates, an initial width \(u-\ell\) becomes \((u-\ell)/2^k\). A final midpoint differs from the exact root by at most half the final width in exact arithmetic. A price residual is a separate check that the cash-flow equation was actually solved.</p>
+
+<p>A deliberately wrong payment schedule can have a perfectly small residual against its own equation. The residual must therefore be accompanied by independent checks of the amounts, dates, rate convention, and redemption value. In particular, the final receipt is 1,090 in this example, not 1,000, and the next coupon is exactly one year away.</p>
+
+<p>Lecture 37 also contrasts bond A, with three remaining annual 80 coupons, redemption 1,000, and price 1,050, with bond B, with two remaining annual 60 coupons, redemption 1,000, and price 980. Equation (11.6) gives approximately 6.125119% and 7.107837%, respectively, to six decimals. B has the larger promised maturity yield under these schedules. Calling B the better investment additionally requires a decision criterion and assumptions about credit, liquidity, payment horizon, and the use of intermediate receipts. A yield ranking by itself supplies none of those.</p>
+
+<h2 id="yield-shortcuts">What the approximate-yield formula leaves out <a class="timestamp" href="https://www.youtube.com/watch?v=UX1CYUtoo4c&amp;t=2192s">L37 36:32</a></h2>
+
+<p>Lecture 37 offers an arithmetic shortcut. Add the annual coupon to a straight-line annual allocation of the difference between redemption and price, and divide by a weighted average of redemption and price:</p>
+
+\[
+\widehat{i}_y=\frac{c+(M-P_{\mathrm{obs}})/n}
+                        {0.4M+0.6P_{\mathrm{obs}}}. \tag{11.8}
+\]
+
+<p>The numerator in equation (11.8) treats the total redemption gain as though it were earned evenly across years. The denominator is a chosen proxy for capital employed. Neither operation discounts the individual receipts at their actual dates, so the formula is not an algebraic rearrangement of equation (11.6). Using \((M+P_{\mathrm{obs}})/2\) instead is another approximation. Both have sensible units, but dimensional consistency cannot prove numerical accuracy.</p>
+
+<p>For the eight-year lecture example, the numerator is \(90+200/8=115\). The weighted denominator is \(0.4(1{,}000)+0.6(800)=880\), giving approximately 13.068182%. Equal weights give \(115/900\approx12.777778\%\). Against the equation's 13.195694%, the weighted version is closer in this example. The example does not establish a uniform error bound or a universal preference between the two weights.</p>
+
+<p>An original counterexample uses a ten-year zero-coupon bond with redemption 1,000 and price 1,100. Its exact yield is \((1{,}000/1{,}100)^{1/10}-1\approx-0.948574\%\). The weighted shortcut gives approximately \(-0.943396\%\), and equal weights give approximately \(-0.952381\%\), all rounded to six decimal places. Equal weights are closer here: the absolute errors are about 0.003807 and 0.005178 percentage points, respectively. This valid negative-yield example suffices to defeat an unrestricted claim that the lecture's weighting is always more accurate.</p>
+
+<p>Use a shortcut to propose a trial rate, then evaluate the true price and bracket the root. If a question requires a decision near a yield threshold, approximation error can reverse the decision. The fund's maturity yield exceeds its 9% threshold by only about 0.029148 percentage points; an unqualified coarse shortcut would be inadequate evidence for that comparison.</p>
+
+<h2 id="coupon-periods">Use one coupon-period convention throughout <a class="timestamp" href="https://www.youtube.com/watch?v=UX1CYUtoo4c&amp;t=1295s">L37 21:35</a></h2>
+
+<p>Now suppose the annual coupon total \(Fr\) is paid in \(m\) equal instalments each year, with \(m\) a positive integer. Let \(n\) still denote remaining years, let \(N=mn\) be the total number of coupon periods, and let \(j\gt-1\) be the effective rate <em>per coupon period</em>. The next instalment arrives after one full period. Each instalment is \(c_m=Fr/m\), so the valuation is</p>
+
+\[
+P(j)=\frac{Fr}{m}\sum_{k=1}^{mn}(1+j)^{-k}
+                        +M(1+j)^{-mn},\qquad N=mn. \tag{11.9}
+\]
+
+<p>Equation (11.9) changes both the payment amount and its dates. For semiannual payments, the coupon is \(Fr/2\), there are \(2n\) instalments, and the exponent counts half-years. Lecture 37's semiannual display changes the number of periods but leaves \(Fr\) in the coupon summand. Under its annual coupon-rate definition, that would pay twice the specified annual interest. The factor \(1/2\) is required by the contract's annual total; it cannot be repaired by changing the yield convention.</p>
+
+<p>The annual rate supplied to a problem must also be identified. A <strong>nominal annual yield convertible \(m\) times</strong>, written \(i^{(m)}\), is defined as \(mj\). An <strong>effective annual yield</strong> \(i_{\mathrm{eff}}\) describes the growth over a full year. Thus</p>
+
+\[
+j=\frac{i^{(m)}}m,\qquad
+1+i_{\mathrm{eff}}=(1+j)^m,\qquad
+j=(1+i_{\mathrm{eff}})^{1/m}-1. \tag{11.10}
+\]
+
+<p>Equation (11.10) follows by accumulating through \(m\) coupon periods. Dividing an effective annual yield by \(m\) generally gives the wrong period rate. The coupon quote \(r\), meanwhile, specifies an annual amount; it is not an accumulation-rate conversion rule. FINRA's <a href="https://www.finra.org/investors/investing/investment-products/bonds">coupon explanation</a> likewise separates the annual coupon amount from its semiannual payments.</p>
+
+<p>For a semiannual version of the fund's contract, each coupon is 400 and \(N=10\). At 9% <em>effective</em> annually, \(j=\sqrt{1.09}-1\approx4.403065\%\) per half-year and equation (11.9) gives approximately 9,679.54. At 9% <em>nominal</em> convertible semiannually, \(j=4.5\%\) and the price is approximately 9,604.36. These differ from the annual-coupon value 9,611.03 because both timing and rate convention matter. Using 800 in every half-year at the first rate would produce approximately 12,859.77, pricing a different, much larger coupon stream.</p>
+
+<p>The comparison of 9,679.54 with 9,611.03 has its own direction check. Under the same effective annual rate, half of each year's coupon arrives half a year earlier in the semiannual version, while the other half and redemption have the original year-end dates. At a positive rate, moving a positive payment earlier raises value. This verifies the direction without relying on decimal calculations.</p>
+
+<h2 id="realized-return">A promised maturity yield does not fix terminal wealth <a class="timestamp" href="https://www.youtube.com/watch?v=UX1CYUtoo4c&amp;t=2447s">L37 40:47</a></h2>
+
+<p>The defining equation for maturity yield does not include an instruction to reinvest coupons. It balances the price with the dated promised receipts. A different question asks for the compound growth of a single initial fund into a single final fund. That question needs a rule for the intermediate receipts. FINRA's <a href="https://www.finra.org/investors/insights/bond-yield-return">yield and return discussion</a> distinguishes the gross yield calculation from taxes, costs, and the outcome of a holding strategy.</p>
+
+<p>Suppose each annual coupon is reinvested to maturity at one constant effective annual reinvestment rate \(i_{\mathrm{re}}\gt-1\). Define \(W_n(i_{\mathrm{re}})\) as total wealth at year \(n\), including redemption and accumulated coupons. A coupon paid at year \(t\) earns \(n-t\) further years of interest, so</p>
+
+\[
+W_n(i_{\mathrm{re}})=M+c\sum_{t=1}^{n}(1+i_{\mathrm{re}})^{n-t}.
+\quad\text{If }i_{\mathrm{re}}=i_y,\quad
+W_n(i_y)=P_{\mathrm{obs}}(1+i_y)^n. \tag{11.11}
+\]
+
+<p>The first equality in equation (11.11) follows from the investment rule. For the second, multiply equation (11.6) by \((1+i_y)^n\); each discounted receipt becomes exactly its accumulated value at maturity. This proves the often implicit reinvestment condition behind interpreting maturity yield as the compound growth of terminal wealth. The IRR of the dated bond receipts remains \(i_y\) even when coupons are consumed; what changes is the terminal-fund interpretation.</p>
+
+<p>For the fund case, storing the coupons at zero interest gives \(W_5(0)=10{,}000+5(800)=14{,}000\). Reinvesting each at its promised maturity yield gives approximately 14,790.55. Reinvesting at 9% gives approximately 14,787.77. These figures assume every coupon and redemption payment is received. A target of 14,700 would be met under either positive reinvestment rule just described and missed under zero reinvestment. The bond's own yield has not changed between these strategies.</p>
+
+<p><strong>An early sale changes the final receipt.</strong> If the fund sells immediately after receiving the second coupon, the buyer sees three remaining 800 coupons and redemption 10,000. At a 12% effective annual valuation rate, that remaining schedule has value approximately 9,039.27. The original holder's receipts are now 800 at year one and \(800+9{,}039.27\) at year two, with no further bond receipts. Any realized yield must use that new sale receipt and horizon. The original five-year promised yield does not price the future sale.</p>
+
+<p><strong>Payment failure changes the equation too.</strong> If redemption or coupons are reduced or delayed, realized cash flows differ from equation (11.6). Substituting the promised schedule into a yield solver does not correct that uncertainty. Similarly, calling at an earlier contract date replaces maturity with a call date and the applicable redemption amount. A rate computed for that specified alternative is a yield to that call scenario; whether that scenario occurs requires the contract and the issuer's decision. The fixed-maturity equation cannot decide it.</p>
+
+<h2 id="case-resolution">Resolve the fund's two decisions separately</h2>
+
+<p>The purchase clears the fund's stated promised-return threshold: the value at 9% is approximately 9,611.03, the offer is 9,600, and the implied maturity yield is approximately 9.029148%. The margin in value is about 11.03 currency units. That is a narrow conditional comparison, so changing fees, credit assumptions, timing, or the required rate can matter. For example, an immediate acquisition cost greater than the unrounded difference \(P(0.09)-9{,}600\) would make the all-in outflow exceed the 9% value of the same receipts. This conclusion follows directly from valuing the outflow at the purchase date.</p>
+
+<p>The liability decision needs more information. A five-year obligation of 14,700 cannot be guaranteed solely by purchasing the bond and observing its 9.029148% promised yield. The fixed bond pays only 10,800 at year five itself; the four earlier coupons must also be available and used according to a plan. With no interest on the stored coupons the total is 14,000. With reinvestment at 9% it is about 14,787.77. The crucial uncertainty is the use and accumulation of the earlier receipts, in addition to payment risk.</p>
+
+<p>To construct a mathematical match for a single maturity liability, a zero-coupon payment at that same date removes intermediate reinvestment decisions. Its payment must equal the liability and its contractual payment assumptions must still hold. This is a comparison of payment structures, not a claim that such a bond is available at a favourable price. The lesson is to state the obligation first, then test the dates and amounts of the proposed assets.</p>
+
+<h2 id="computation">A reproducible price and yield calculation</h2>
+
+<p>The following standard-library Python implements equations (11.1), (11.2), and (11.6). <code>bond_price</code> takes a per-period coupon, a positive redemption amount, a positive integer number of periods, and an effective rate per period greater than −1. Thus the same function prices annual or semiannual streams after the amounts and rate have been converted. <code>yield_rate</code> additionally takes a positive price and a supplied rate bracket. It returns a rate, never a percentage. Its default bracket is [−0.5, 1.0]; the mathematical uniqueness theorem has the wider domain \(i\gt-1\), so a valid yield outside that numerical bracket must be supplied a suitable bracket. Both functions return floats and leave their arguments unchanged. The demonstration reads no files, makes no network requests, and prints the output shown below.</p>
+
+<p>Cash amounts, rates, bracket endpoints, and tolerance accept built-in integers or floats that convert to finite float values; Boolean values and numeric strings are rejected. The number of periods must be a built-in integer, also excluding Boolean values. Invalid inputs or a bracket that does not enclose the yield raise <code>ValueError</code>. An unrepresentable intermediate computation or price, a bracket unable to shrink, or exhaustion of 200 iterations raises <code>ArithmeticError</code>. The width tolerance is in decimal-rate units, rather than price units. The midpoint error bound is an exact-arithmetic property; floating-point price evaluations introduce their own rounding, so the checks also evaluate the resulting price residual.</p>
+
+<p>The annuity expression uses <code>log1p</code> and <code>expm1</code> to avoid subtracting two nearly equal numbers near a zero rate, and handles zero separately. An independent sum with <code>Fraction</code> checks one rational-rate valuation and the premium identity exactly. The remaining checks cover zero and negative yields, a period conversion against the actual dated payments, the wrong doubled-coupon model, a redemption amount unequal to face, rejected inputs, and a rejected bracket. Calculations use floating point unless a <code>Fraction</code> is shown. Formatting alone rounds money to two decimals and percentage yields to six; no displayed factor is fed back into a calculation.</p>
+
+<pre><code class="language-python">from fractions import Fraction
+from math import expm1, isfinite, log1p
+
+
+def finite_number(value):
+    if type(value) not in (int, float):
+        raise ValueError(&quot;inputs must be finite int or float values&quot;)
+    try:
+        number = float(value)
+    except OverflowError as error:
+        raise ValueError(&quot;input is not representable&quot;) from error
+    if not isfinite(number):
+        raise ValueError(&quot;inputs must be finite&quot;)
+    return number
+
+
+def bond_price(coupon, redemption, periods, rate):
+    if type(periods) is not int or periods &lt; 1:
+        raise ValueError(&quot;periods must be a positive integer&quot;)
+    coupon, redemption, rate = map(
+        finite_number, (coupon, redemption, rate))
+    if coupon &lt; 0 or redemption &lt;= 0 or rate &lt;= -1:
+        raise ValueError(&quot;invalid cash flow or rate&quot;)
+    try:
+        annuity = (periods if rate == 0 else
+                   -expm1(-periods * log1p(rate)) / rate)
+        price = coupon * annuity + redemption / (1 + rate) ** periods
+    except (OverflowError, ZeroDivisionError) as error:
+        raise ArithmeticError(&quot;price is not representable&quot;) from error
+    if not isfinite(price) or price &lt;= 0:
+        raise ArithmeticError(&quot;price is not representable&quot;)
+    return price
+
+
+def yield_rate(price, coupon, redemption, periods,
+               lower=-0.5, upper=1.0, tolerance=1e-12):
+    price, lower, upper, tolerance = map(
+        finite_number, (price, lower, upper, tolerance))
+    if price &lt;= 0 or lower &lt;= -1 or upper &lt;= lower or tolerance &lt;= 0:
+        raise ValueError(&quot;invalid price, bracket, or tolerance&quot;)
+    low_price = bond_price(coupon, redemption, periods, lower)
+    high_price = bond_price(coupon, redemption, periods, upper)
+    if not high_price &lt;= price &lt;= low_price:
+        raise ValueError(&quot;yield is outside the supplied bracket&quot;)
+    if price == low_price:
+        return lower
+    if price == high_price:
+        return upper
+    for _ in range(200):
+        middle = lower + (upper - lower) / 2
+        if middle == lower or middle == upper:
+            raise ArithmeticError(&quot;bracket cannot shrink further&quot;)
+        middle_price = bond_price(coupon, redemption, periods, middle)
+        if middle_price == price:
+            return middle
+        if middle_price &gt; price:
+            lower = middle
+        else:
+            upper = middle
+        if upper - lower &lt;= tolerance:
+            return lower + (upper - lower) / 2
+    raise ArithmeticError(&quot;iteration limit exceeded&quot;)
+
+
+v = Fraction(10, 11)
+annuity = sum(v ** t for t in range(1, 6))
+direct = 80 * annuity + 1000 * v ** 5
+assert abs(bond_price(80, 1000, 5, 0.10) - float(direct)) &lt; 1e-9
+assert direct - 1000 == (80 - Fraction(1, 10) * 1000) * annuity
+assert bond_price(80, 1000, 5, 0) == 1400
+assert bond_price(80, 1000, 5, 0.12) &lt; bond_price(80, 1000, 5, 0.09)
+
+half_rate = 1.09 ** 0.5 - 1
+semi = bond_price(400, 10000, 10, half_rate)
+dated_sum = sum(400 / 1.09 ** (k / 2) for k in range(1, 11))
+dated_sum += 10000 / 1.09 ** 5
+assert abs(semi - dated_sum) &lt; 1e-8
+assert abs(bond_price(800, 10000, 10, half_rate) - dated_sum) &gt; 1000
+assert bond_price(100, 1100, 2, 0.10) &gt; 1000
+
+case_yield = yield_rate(9600, 800, 10000, 5)
+assert abs(bond_price(800, 10000, 5, case_yield) - 9600) &lt; 1e-7
+assert abs(yield_rate(1400, 80, 1000, 5)) &lt; 1e-12
+assert yield_rate(1500, 80, 1000, 5) &lt; 0
+for arguments in ((80, 1000, 0, 0.09), (80, 1000, 5.0, 0.09),
+                  (80, 1000, True, 0.09), (True, 1000, 5, 0.09),
+                  (80, 1000, 5, &quot;0.09&quot;), (80, 1000, 5, float(&quot;nan&quot;)),
+                  (80, 1000, 5, -1)):
+    try:
+        bond_price(*arguments)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError(&quot;invalid input was accepted&quot;)
+try:
+    yield_rate(9600, 800, 10000, 5, lower=0.20, upper=0.30)
+except ValueError:
+    pass
+else:
+    raise AssertionError(&quot;invalid bracket was accepted&quot;)
+
+large_yield = yield_rate(7.5e-309, 0, 1, 1, 1e308, 1.7e308)
+assert 1e308 &lt; large_yield &lt; 1.7e308
+large_price = bond_price(0, 1, 1, large_yield)
+assert abs((large_price - 7.5e-309) / 7.5e-309) &lt; 1e-12
+
+print(f&quot;Case value at 9%: {bond_price(800, 10000, 5, 0.09):.2f}&quot;)
+print(f&quot;Case current yield: {100 * 800 / 9600:.6f}%&quot;)
+print(f&quot;Case maturity yield: {100 * case_yield:.6f}%&quot;)
+print(f&quot;Lecture 37 maturity yield: {100 * yield_rate(800, 90, 1000, 8):.6f}%&quot;)
+print(f&quot;Semiannual, 9% effective: {semi:.2f}&quot;)
+print(f&quot;Semiannual, 9% nominal: {bond_price(400, 10000, 10, 0.045):.2f}&quot;)
+print(f&quot;Terminal fund at zero reinvestment: {10000 + 5 * 800:.2f}&quot;)
+print(f&quot;Terminal fund at maturity yield: {9600 * (1 + case_yield) ** 5:.2f}&quot;)
+print(&quot;All checks passed.&quot;)
+</code></pre>
+<p>Output:</p>
+<pre><code>Case value at 9%: 9611.03
+Case current yield: 8.333333%
+Case maturity yield: 9.029148%
+Lecture 37 maturity yield: 13.195694%
+Semiannual, 9% effective: 9679.54
+Semiannual, 9% nominal: 9604.36
+Terminal fund at zero reinvestment: 14000.00
+Terminal fund at maturity yield: 14790.55
+All checks passed.
+</code></pre>
+
+<h2 id="exercises">Exercises</h2>
+
+<p><strong>1. Derive the par rule and find its missing hypothesis.</strong> A bond has positive face \(F\), redemption \(M\), annual coupon \(c=Fr\ge0\), and \(n\ge1\) remaining annual payments. Derive the condition for its value at annual rate \(i\gt-1\) to equal \(M\). Then assess the statement “coupon rate equals valuation yield, so the bond is worth face value.” Use \(F=1{,}000\), \(M=1{,}100\), \(c=100\), \(n=2\), and \(i=10\%\) as a counterexample. Round money to two decimals after using unrounded factors.</p>
+<details><summary>Solution</summary>
+<p>From \(P=ca_{\overline{n}|}+Mv^n\) and \(1-v^n=ia_{\overline{n}|}\), \(P-M=(c-iM)a_{\overline{n}|}\). The factor is strictly positive, so \(P=M\) exactly when \(i=c/M\). Comparing with face instead gives \(P-F=(c-iF)a_{\overline{n}|}+(M-F)v^n\). If \(i=r=c/F\), the first term vanishes, but the second vanishes only when \(M=F\). In the proposed contract, \(P=1{,}000+100/(1.10)^2\approx1{,}082.64\). The value is above face and below redemption. The statement needs equal face and redemption under the annual timing convention.</p>
+</details>
+
+<p><strong>2. An exam-style period conversion.</strong> A bond has face and redemption 10,000, five years remaining, and an annual coupon quote of 8%, paid semiannually. The next coupon is in six months. Value it first at 9% effective annually and then at 9% nominal annually convertible semiannually. Explain why both 9,611.03 and 12,859.77 would be incorrect answers to the first question. Round money to two decimals, with unrounded period rates and discount factors.</p>
+<details><summary>Solution</summary>
+<p>Each half-year coupon is \(10{,}000(0.08)/2=400\), and there are ten payments. For the effective annual quote, \(j=\sqrt{1.09}-1\), so the value is \(400a_{\overline{10}|}+10{,}000(1+j)^{-10}\approx9{,}679.54\), with the annuity evaluated at \(j\). The nominal quote instead gives \(j=0.09/2=0.045\) and value approximately 9,604.36. The first distractor, 9,611.03, values annual 800 coupons at a 9% effective annual rate, so its dates differ. The second uses 800 every half-year, doubling the annual coupon total. Neither error is cured by rounding more accurately.</p>
+</details>
+
+<p><strong>3. Equal current yields, different maturity yields.</strong> Two annual bonds each cost 800, pay a 100 annual coupon, and redeem for 1,000. One has one remaining year; the other has five. Compute their current yields and maturity yields. Can current yield recover the maturity yield without the term? Round yields to six percentage decimal places.</p>
+<details><summary>Solution</summary>
+<p>Both current yields are \(100/800=12.500000\%\). For the one-year bond, \(800=1{,}100/(1+i_y)\), so \(i_y=37.500000\%\). For the five-year bond, solve \(800=100a_{\overline{5}|}+1{,}000v^5\); its unique yield is approximately 16.126176%. The same redemption gain is received much later in the second bond, and the earlier coupon pattern differs. The income ratio contains neither effect. The pair is a counterexample to recovering a finite maturity yield from current yield alone.</p>
+</details>
+
+<p><strong>4. Check an approximate yield against an exact answer.</strong> A zero-coupon bond costs 200 and pays 1,000 in twenty years. Find its exact effective annual maturity yield, the weighted shortcut from equation (11.8), and the equal-weight shortcut. An investor requires 8% annually. Judge the purchase under the fixed-payment model using the exact yield, and explain why the shortcut could produce the opposite judgment. Round yields to six percentage decimal places.</p>
+<details><summary>Solution</summary>
+<p>The exact rate is \(5^{1/20}-1\approx8.379839\%\). The shortcut numerator is \((1{,}000-200)/20=40\). The weighted denominator is \(400+120=520\), giving approximately 7.692308%; equal weights give \(40/600\approx6.666667\%\). The exact yield exceeds 8%, so the price is below the value at 8% by monotonicity. Both shortcuts fall below the threshold and would reject the purchase if treated as exact. Dividing a twenty-year redemption gain evenly across years loses the actual timing and compounding. A bracketed solution or the zero-coupon formula settles the question without that approximation.</p>
+</details>
+
+<p><strong>5. Promised yield and a hypothetical payment failure.</strong> A one-year zero-coupon obligation costs 900 and promises 1,000. In an explicitly hypothetical model, it pays 1,000 with probability 0.9 and 500 with probability 0.1. Find the promised yield, the return if the low payment occurs, and the expected one-year return. Does the promised yield by itself determine the expected return? Round percentages to six decimal places. No claim is made that these probabilities are market estimates.</p>
+<details><summary>Solution</summary>
+<p>The promised yield is \(1{,}000/900-1=11.111111\%\). If only 500 is received, the return is \(500/900-1=-44.444444\%\). The expected payment is \(0.9(1{,}000)+0.1(500)=950\), so the expected return is \(950/900-1=5.555556\%\). With a fixed positive denominator, this also equals the probability-weighted returns. The promised yield encodes the price and contractual payment; the expected return additionally needs the payment outcomes and probabilities. Discounting an expected payment at a chosen rate would be another stipulated model, not proof that 900 is the appropriate risk-adjusted market value.</p>
+</details>
+
+<p><strong>6. Design and audit a liability plan.</strong> The fund buys the five-year bond for 9,600 and must pay 14,700 at year five. Compare storing all coupons at zero interest with reinvesting every coupon at 9% effective annually, assuming full contractual payment. Assess the claim “the bond's maturity yield is above 9%, so the liability is covered.” Describe a payment structure that would remove intermediate coupon reinvestment decisions. Round money to two decimals after unrounded accumulation.</p>
+<details><summary>Solution</summary>
+<p>At zero interest, the available fund is \(10{,}000+5(800)=14{,}000.00\), a shortfall of 700.00. At 9%, it is \(10{,}000+800\sum_{k=0}^{4}(1.09)^k\approx14{,}787.77\), a surplus of 87.77. The promised maturity yield is the same for both strategies; the accumulation of intermediate receipts is different. The claim omits the reinvestment rule and payment assumptions. A zero-coupon obligation paying exactly 14,700 at year five would match the liability's amount and date without coupon reinvestment. Its availability, price, currency, and payment reliability would still have to be assessed; a structural match does not establish any of them.</p>
+</details>
+
+<h2 id="primary-sources">Primary sources</h2>
+
+<p>The institutional sources below were accessed on October 9, 2026. They support definitions and contract qualifications, not contemporary market yield estimates. The mathematical results and original examples above follow from the stated fixed-payment model.</p>
+<ul>
+<li><a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products/bonds">SEC Investor.gov, Bonds FAQs</a>: borrower obligations and the named credit, interest-rate, inflation, liquidity, and call risks.</li>
+<li><a href="https://www.investor.gov/investing-basics/investment-products/corporate-bonds">SEC Investor.gov, Corporate Bonds</a>: debt versus ownership, creditor position, and secured versus unsecured obligations.</li>
+<li><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/convertible-securities">SEC Investor.gov, Convertible Securities</a>: conversion rights and variations in who controls conversion.</li>
+<li><a href="https://www.finra.org/investors/investing/investment-products/bonds">FINRA, Bonds</a>: coupon payment timing, accrued interest, and sovereign credit qualifications. Between coupon dates, accrued interest can affect the amount paid; the present chapter fixes the next payment at one full period.</li>
+<li><a href="https://www.finra.org/investors/insights/callable-bonds-your-issuer-may-come-calling">FINRA, Callable Bonds: Your Issuer May Come Calling</a> (April 19, 2024): contractual early-redemption rights and their dates and prices.</li>
+<li><a href="https://www.finra.org/investors/insights/bond-yield-return">FINRA, Understanding Bond Yield and Return</a> (August 11, 2022): discount-rate definition of maturity yield and gross-yield limitations.</li>
+<li><a href="https://www.soa.org/globalassets/assets/files/edu/2026/syllabi/2026-10-exam-fm-syllabus.pdf">SOA, October 2026 Exam FM syllabus</a>, p. 4: face and redemption values, coupon and yield terminology, and reinvestment assumptions. It excludes calculations between coupon payment dates from that examination scope; that is a syllabus convention, not a statement that actual bonds trade only on coupon dates.</li>
+</ul>
+<!-- BOOK-CONTENT-END --></article><nav class="page-turn" aria-label="Chapter navigation"><a rel="prev" href="chapter-10-loan-amortization-outstanding-balance-and-sinking-funds.html">Previous available chapter</a><a href="index.html">Lecture index</a><span>Further chapters pending</span></nav></main></div>
+<footer class="site-footer">Independent study notes. NPTEL IIT Madras course recordings supply the topic sequence; added explanations and teaching constructions are separately attributed. Local edition in progress; a rendered page does not establish editorial completion.</footer></body></html>
