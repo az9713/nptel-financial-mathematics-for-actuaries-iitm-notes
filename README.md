@@ -10,8 +10,10 @@ recordings supply exercises. Around the spine, each chapter adds original explan
 derivations, runnable Python checks and worked problems. Source maps separate lecture
 material, research extensions and original teaching constructions.
 
-**Status: in progress.** The reader shell is published first. Each chapter is added after
-independent review and local validation. Open `index.html` to read; the reader works offline.
+**Status: in progress.** Chapters 1–7 are complete, with 42 worked exercises.
+Each chapter is added after independent mathematical review and local validation.
+Open `index.html` to read; the reader works offline. The numerical laboratory links
+to the reviewed Python checks and exercises.
 
 ```sh
 python build_book.py
